@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { QuoteServerSchema } from '@/lib/schemas';
 import { getPresignedUploadUrls } from '@/lib/storage';
 import { generateId } from '@/lib/utils';
+import { sendQuoteEmails } from '@/lib/email';
 
 // ─── POST /api/quote ────────────────────────────────────────────────────────────
 export async function POST(request: NextRequest) {
@@ -51,10 +52,24 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // 5. TODO: Aquí se integraría el envío de email (Resend/SendGrid/Nodemailer)
-    // await sendQuoteNotificationEmail({ quoteId, formData, uploadUrls });
+    // 5. Envío de correos de notificación (Administrador y Cliente)
+    // Envolvemos en try/catch para que un problema de conexión SMTP no detenga la respuesta de éxito al usuario
+    try {
+      const mappedFiles = fileMetadata?.map((file, idx) => ({
+        filename: file.name,
+        publicUrl: uploadUrls[idx]?.publicUrl || `https://storage.simulated.dev/files/${file.name}`,
+      })) || [];
 
-    // 6. TODO: Aquí se integraría la persistencia en DB (PostgreSQL/MongoDB)
+      await sendQuoteEmails({
+        quoteId,
+        formData,
+        uploadUrls: mappedFiles,
+      });
+    } catch (emailError) {
+      console.error('[Quote API] Error de integración de correo:', emailError);
+    }
+
+    // 6. TODO: Aquí se integraría la persistencia en DB si se requiere en el futuro
     // await db.quotes.create({ id: quoteId, ...formData, status: 'pending' });
 
     // Log de desarrollo (remover en producción o reemplazar con logger)
