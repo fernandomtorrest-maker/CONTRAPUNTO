@@ -1,0 +1,220 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Variables de Diseño ──────────────────────────────────────────────────── */
+:root {
+  /* Colores principales */
+  --color-carbon: #0f0e0c;
+  --color-stone-dark: #1a1916;
+  --color-stone: #242220;
+  --color-stone-light: #2e2c28;
+  --color-sand: #c4a882;
+  --color-sand-dark: #a8906a;
+  --color-sand-light: #d4bea0;
+  --color-sand-muted: #8a7a64;
+  --color-cream: #e8ddd0;
+  --color-cream-muted: #c4b8a8;
+  --color-muted: #6b6560;
+  --color-border: #2a2824;
+  --color-border-light: #3a3830;
+
+  /* Tipografía */
+  --font-heading: var(--font-barlow), 'Barlow Condensed', Impact, sans-serif;
+  --font-body: var(--font-inter), Inter, system-ui, sans-serif;
+
+  /* Espaciado */
+  --section-padding: clamp(4rem, 8vw, 7rem);
+  --container-max: 1400px;
+  --container-padding: clamp(1.5rem, 4vw, 4rem);
+}
+
+/* ─── Reset y Base ─────────────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--color-carbon);
+  color: var(--color-cream);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ─── Scrollbar Personalizado ───────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-carbon);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-border-light);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-sand-muted);
+}
+
+/* ─── Selección de Texto ────────────────────────────────────────────────────── */
+::selection {
+  background: var(--color-sand);
+  color: var(--color-carbon);
+}
+
+/* ─── Utilidades de Diseño ─────────────────────────────────────────────────── */
+@layer utilities {
+  .container-base {
+    width: 100%;
+    max-width: var(--container-max);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--container-padding);
+    padding-right: var(--container-padding);
+  }
+
+  .section-padding {
+    padding-top: var(--section-padding);
+    padding-bottom: var(--section-padding);
+  }
+
+  /* Tipografía de impacto */
+  .text-hero {
+    font-family: var(--font-heading);
+    font-size: clamp(3.5rem, 8vw, 7.5rem);
+    font-weight: 800;
+    line-height: 0.9;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+  }
+
+  .text-section-title {
+    font-family: var(--font-heading);
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+  }
+
+  .text-label {
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-sand);
+  }
+
+  /* Gradientes de overlay */
+  .overlay-hero {
+    background: linear-gradient(
+      to right,
+      rgba(15, 14, 12, 0.92) 35%,
+      rgba(15, 14, 12, 0.5) 65%,
+      rgba(15, 14, 12, 0.2) 100%
+    );
+  }
+
+  .overlay-card {
+    background: linear-gradient(
+      to top,
+      rgba(15, 14, 12, 0.95) 0%,
+      rgba(15, 14, 12, 0.5) 50%,
+      transparent 100%
+    );
+  }
+
+  /* Línea decorativa de acento */
+  .accent-line {
+    display: block;
+    width: 2.5rem;
+    height: 2px;
+    background: var(--color-sand);
+    margin-top: 0.75rem;
+  }
+
+  /* Focus visible accesible */
+  .focus-sand:focus-visible {
+    outline: 2px solid var(--color-sand);
+    outline-offset: 3px;
+  }
+}
+
+/* ─── Componentes Base ─────────────────────────────────────────────────────── */
+@layer components {
+  /* Input base */
+  .input-base {
+    @apply w-full bg-stone px-4 py-3 text-cream placeholder-cream/30 text-sm
+           border border-border rounded-none
+           focus:outline-none focus:border-sand
+           transition-colors duration-200;
+    font-family: var(--font-body);
+  }
+
+  .input-base.error {
+    @apply border-red-500;
+  }
+
+  /* Select base */
+  .select-base {
+    @apply input-base appearance-none cursor-pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%238a8074' stroke-width='2'%3E%3Cpolyline points='6,9 12,15 18,9'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    padding-right: 2.5rem;
+  }
+
+  .select-base option {
+    background-color: var(--color-stone);
+    color: var(--color-cream);
+  }
+
+  /* Label de formulario */
+  .label-form {
+    @apply block text-label text-sand-muted mb-2;
+  }
+  
+  /* Error message */
+  .error-msg {
+    @apply text-red-400 text-xs mt-1;
+  }
+}
+
+/* ─── Animaciones Globales ──────────────────────────────────────────────────── */
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--color-stone) 25%,
+    var(--color-stone-light) 50%,
+    var(--color-stone) 75%
+  );
+  background-size: 200% auto;
+  animation: shimmer 1.5s linear infinite;
+}
+
+/* ─── Transición de Página ──────────────────────────────────────────────────── */
+.page-transition {
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

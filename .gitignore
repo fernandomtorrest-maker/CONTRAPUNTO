@@ -1,0 +1,22 @@
+# Dependencies
+contrapunto-web/node_modules/
+contrapunto-web/.pnp
+contrapunto-web/.pnp.js
+
+# Next.js build and cache
+contrapunto-web/.next/
+contrapunto-web/out/
+contrapunto-web/build/
+
+# IDE / OS / Debug
+.DS_Store
+Thumbs.db
+*.log
+.vscode/
+.idea/
+
+# Local env files
+contrapunto-web/.env*.local
+
+# Vercel
+contrapunto-web/.vercel
