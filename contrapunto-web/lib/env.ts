@@ -9,7 +9,7 @@ const envSchema = z.object({
   SMTP_USER: z.string().optional().or(z.literal('')),
   SMTP_PASSWORD: z.string().optional().or(z.literal('')),
   SMTP_FROM: z.string().optional(),
-  SMTP_TO: z.string().email().default('fernando.m.torres.t@gmail.com'),
+  SMTP_TO: z.string().default('danorivera.vk@gmail.com'),
   
   // Storage Config
   STORAGE_PROVIDER: z.enum(['simulated', 'aws-s3', 'gcs', 'cloudflare-r2']).default('simulated'),
