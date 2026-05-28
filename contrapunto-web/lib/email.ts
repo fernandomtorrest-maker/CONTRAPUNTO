@@ -7,19 +7,18 @@
 
 import nodemailer from 'nodemailer';
 import type { QuoteServerPayload } from './schemas';
+import { env } from './env';
 
 // ─── Configuración de Variables de Entorno ────────────────────────────────────
-const SMTP_HOST = process.env.SMTP_HOST || 'smtp.hostinger.com';
-const SMTP_PORT = parseInt(process.env.SMTP_PORT || '465', 10); // 465 (SSL) o 587 (TLS)
-const SMTP_USER = process.env.SMTP_USER || ''; // Correo emisor (ej: contacto@constructoracontrapunto.cl)
-const SMTP_PASSWORD = process.env.SMTP_PASSWORD || ''; // Contraseña
-const SMTP_FROM = process.env.SMTP_FROM || `"Constructora Contrapunto" <${SMTP_USER}>`;
-
-// El destinatario por defecto sugerido para pruebas es danorivera.vk@gmail.com
-const SMTP_TO = process.env.SMTP_TO || 'danorivera.vk@gmail.com';
+const SMTP_HOST = env.SMTP_HOST;
+const SMTP_PORT = env.SMTP_PORT;
+const SMTP_USER = env.SMTP_USER;
+const SMTP_PASSWORD = env.SMTP_PASSWORD;
+const SMTP_FROM = env.SMTP_FROM || (SMTP_USER ? `"Constructora Contrapunto" <${SMTP_USER}>` : '');
+const SMTP_TO = env.SMTP_TO;
 
 // ─── Inicializar Transporter de Nodemailer ────────────────────────────────────
-const isSmtpConfigured = SMTP_USER !== '' && SMTP_PASSWORD !== '';
+const isSmtpConfigured = !!SMTP_USER && !!SMTP_PASSWORD;
 
 const transporter = isSmtpConfigured
   ? nodemailer.createTransport({
@@ -30,6 +29,10 @@ const transporter = isSmtpConfigured
         user: SMTP_USER,
         pass: SMTP_PASSWORD,
       },
+      // Timeout settings to avoid hanging connections
+      connectionTimeout: 10000, // 10s
+      greetingTimeout: 10000,
+      socketTimeout: 15000,
     })
   : null;
 
@@ -40,6 +43,36 @@ if (!isSmtpConfigured) {
     `Los correos se simularán y se enviarán de forma real una vez que agregues las variables de entorno en el panel de Hostinger.\n` +
     `Destinatario de cotizaciones por defecto: ${SMTP_TO}`
   );
+}
+
+/**
+ * Escapes special characters for HTML to prevent HTML Injection/XSS in email clients.
+ */
+function escapeHtml(text: string): string {
+  if (!text) return '';
+  return text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
+/**
+ * Verifica la conexión con el servidor SMTP.
+ * Útil para endpoints de health check.
+ */
+export async function verifyEmailConnection(): Promise<{ success: boolean; error?: string }> {
+  if (!transporter) {
+    return { success: false, error: 'SMTP no está configurado.' };
+  }
+  try {
+    await transporter.verify();
+    return { success: true };
+  } catch (error: unknown) {
+    const msg = error instanceof Error ? error.message : String(error);
+    return { success: false, error: msg };
+  }
 }
 
 interface SendEmailParams {
@@ -57,22 +90,38 @@ export async function sendQuoteEmails({
   uploadUrls,
 }: SendEmailParams): Promise<{ success: boolean; error?: string }> {
   try {
-    const adminHtml = getAdminEmailHtml(quoteId, formData, uploadUrls);
-    const clientHtml = getClientEmailHtml(formData);
+    // Escapar todos los campos antes de renderizar para prevenir HTML Injection
+    const safeData = {
+      fullName: escapeHtml(formData.fullName),
+      email: escapeHtml(formData.email),
+      phone: escapeHtml(formData.phone),
+      comuna: escapeHtml(formData.comuna),
+      projectType: escapeHtml(formData.projectType),
+      budget: escapeHtml(formData.budget),
+      description: escapeHtml(formData.description),
+    };
+
+    const safeUploadUrls = uploadUrls.map(u => ({
+      filename: escapeHtml(u.filename),
+      publicUrl: escapeHtml(u.publicUrl) // URLs should be clean, but let's make sure they are safe
+    }));
+
+    const adminHtml = getAdminEmailHtml(quoteId, safeData, safeUploadUrls);
+    const clientHtml = getClientEmailHtml(safeData);
 
     if (transporter) {
-      // 1. Enviar alerta al Administrador (danorivera.vk@gmail.com)
+      // 1. Enviar alerta al Administrador
       await transporter.sendMail({
         from: SMTP_FROM || SMTP_USER,
         to: SMTP_TO,
-        subject: `[Nueva Cotización] ID: ${quoteId} — ${formData.fullName}`,
+        subject: `[Nueva Cotización] ID: ${quoteId} — ${safeData.fullName}`,
         html: adminHtml,
       });
 
       // 2. Enviar confirmación al Cliente (Acuse de recibo)
       await transporter.sendMail({
         from: SMTP_FROM || SMTP_USER,
-        to: formData.email,
+        to: formData.email, // Use original email for destination header
         subject: `Recibimos tu solicitud de cotización — Constructora Contrapunto`,
         html: clientHtml,
       });
@@ -83,21 +132,21 @@ export async function sendQuoteEmails({
       console.log('=== [EMAIL SIMULADO - ADMINISTRADOR] ===');
       console.log(`De: ${SMTP_FROM || 'Simulated'}`);
       console.log(`Para: ${SMTP_TO}`);
-      console.log(`Asunto: [Nueva Cotización] ID: ${quoteId} — ${formData.fullName}`);
+      console.log(`Asunto: [Nueva Cotización] ID: ${quoteId} — ${safeData.fullName}`);
       console.log('----------------------------------------------------');
-      console.log(`Cliente: ${formData.fullName} (${formData.email})`);
-      console.log(`Teléfono: ${formData.phone}`);
-      console.log(`Comuna: ${formData.comuna}`);
-      console.log(`Proyecto: ${formData.projectType} — Presupuesto: ${formData.budget}`);
-      console.log(`Descripción: ${formData.description}`);
-      console.log(`Archivos (${uploadUrls.length}):`, uploadUrls);
+      console.log(`Cliente: ${safeData.fullName} (${safeData.email})`);
+      console.log(`Teléfono: ${safeData.phone}`);
+      console.log(`Comuna: ${safeData.comuna}`);
+      console.log(`Proyecto: ${safeData.projectType} — Presupuesto: ${safeData.budget}`);
+      console.log(`Descripción: ${safeData.description}`);
+      console.log(`Archivos (${safeUploadUrls.length}):`, safeUploadUrls);
       console.log('====================================================\n');
 
       console.log('=== [EMAIL SIMULADO - CLIENTE] ===');
       console.log(`De: ${SMTP_FROM || 'Simulated'}`);
-      console.log(`Para: ${formData.email}`);
+      console.log(`Para: ${safeData.email}`);
       console.log('Asunto: Recibimos tu solicitud de cotización — Constructora Contrapunto');
-      console.log(`Mensaje: Estimado/a ${formData.fullName}, hemos recibido tu solicitud.`);
+      console.log(`Mensaje: Estimado/a ${safeData.fullName}, hemos recibido tu solicitud.`);
       console.log('====================================================');
     }
 
@@ -109,7 +158,7 @@ export async function sendQuoteEmails({
   }
 }
 
-// ─── Plantilla HTML: Administrador (danorivera.vk@gmail.com) ───────────────────
+// ─── Plantilla HTML: Administrador ───────────────────
 function getAdminEmailHtml(
   quoteId: string,
   data: Omit<QuoteServerPayload, 'fileMetadata'>,
@@ -180,7 +229,7 @@ function getAdminEmailHtml(
                   </table>
                 </td>
               </tr>
-
+ 
               <!-- Detalles del Proyecto -->
               <tr>
                 <td style="padding: 20px 0 10px 0; border-top: 1px solid #2d2b27;">
@@ -197,7 +246,7 @@ function getAdminEmailHtml(
                   </table>
                 </td>
               </tr>
-
+ 
               <!-- Descripción -->
               <tr>
                 <td style="padding: 20px 0; border-top: 1px solid #2d2b27;">
@@ -205,7 +254,7 @@ function getAdminEmailHtml(
                   <div style="background-color: #0f0e0c; border: 1px solid #2d2b27; padding: 16px; border-radius: 4px; font-size: 13px; line-height: 1.6; color: #dfd5c6; white-space: pre-wrap;">${data.description}</div>
                 </td>
               </tr>
-
+ 
               <!-- Archivos Adjuntos -->
               <tr>
                 <td style="padding: 20px 0 10px 0; border-top: 1px solid #2d2b27;">
@@ -215,7 +264,7 @@ function getAdminEmailHtml(
                   </ul>
                 </td>
               </tr>
-
+ 
               <!-- Footer -->
               <tr>
                 <td align="center" style="border-top: 1px solid #2d2b27; padding-top: 24px; font-size: 10px; color: #888888; text-transform: uppercase; letter-spacing: 1px;">
@@ -255,7 +304,7 @@ function getClientEmailHtml(data: Omit<QuoteServerPayload, 'fileMetadata'>): str
                   </td>
                 </tr>
               </table>
-
+ 
               <!-- Mensaje Principal -->
               <tr>
                 <td>
@@ -276,11 +325,11 @@ function getClientEmailHtml(data: Omit<QuoteServerPayload, 'fileMetadata'>): str
                       Un especialista se pondrá en contacto contigo en un plazo <strong>menor a 24 horas hábiles</strong> a través de tu correo (${data.email}) o al teléfono <strong>${data.phone}</strong>.
                     </p>
                   </div>
-
+ 
                   <p style="font-size: 14px; line-height: 1.6; color: #dfd5c6;">
                     Si tienes alguna duda inmediata o quieres agregar más antecedentes a tu proyecto, puedes responder directamente a este correo o escribirnos vía WhatsApp en el siguiente botón:
                   </p>
-
+ 
                   <!-- Botón de Acción -->
                   <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin: 30px 0 10px 0; text-align: center;">
                     <tr>
@@ -293,7 +342,7 @@ function getClientEmailHtml(data: Omit<QuoteServerPayload, 'fileMetadata'>): str
                   </table>
                 </td>
               </tr>
-
+ 
               <!-- Firma y Cierre -->
               <tr>
                 <td style="border-top: 1px solid #2d2b27; margin-top: 40px; padding-top: 25px;">

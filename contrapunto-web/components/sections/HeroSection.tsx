@@ -3,12 +3,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/Button';
+import Link from 'next/link';
 
-interface HeroSectionProps {
-  onQuoteOpen: () => void;
-}
-
-export const HeroSection = ({ onQuoteOpen }: HeroSectionProps) => {
+export const HeroSection = () => {
   return (
     <section
       id="inicio"
@@ -27,7 +24,7 @@ export const HeroSection = ({ onQuoteOpen }: HeroSectionProps) => {
       <div className="absolute inset-0 bg-carbon/25 backdrop-blur-[1px] z-0" />
 
       {/* CONTENIDO PRINCIPAL */}
-      <div className="container-base relative z-10 w-full flex flex-col md:flex-row md:items-center md:justify-between">
+      <div className="container-base relative z-10 w-full flex flex-col md:flex-row md:items-center md:justify-between pt-44 md:pt-56">
         
         {/* TEXTOS Y BOTONES */}
         <div className="max-w-3xl space-y-8">
@@ -76,9 +73,11 @@ export const HeroSection = ({ onQuoteOpen }: HeroSectionProps) => {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="flex flex-col sm:flex-row gap-4 pt-2"
           >
-            <Button variant="primary" size="lg" onClick={onQuoteOpen}>
-              Cotizar Proyecto
-            </Button>
+            <Link href="/cotizar">
+              <Button variant="primary" size="lg">
+                Cotizar Proyecto
+              </Button>
+            </Link>
             <a href="#proyectos">
               <Button variant="outline" size="lg" className="w-full">
                 Ver Proyectos

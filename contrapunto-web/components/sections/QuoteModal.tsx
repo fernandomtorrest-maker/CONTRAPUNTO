@@ -295,7 +295,7 @@ export const QuoteModal = ({ isOpen, onClose }: QuoteModalProps) => {
               </div>
 
               {/* Garantía de privacidad */}
-              <p className="text-[9px] text-cream/40 uppercase tracking-widest text-center mt-3">
+              <p className="text-[9px] text-cream/60 uppercase tracking-widest text-center mt-3">
                 🔒 Tu información está protegida y no será compartida con terceros.
               </p>
             </form>
@@ -306,13 +306,12 @@ export const QuoteModal = ({ isOpen, onClose }: QuoteModalProps) => {
       {/* COLUMNA DERECHA: Imagen + Propuesta de valor */}
       <div className="hidden md:block w-2/5 relative h-full bg-stone-dark">
         {/* Imagen de fondo */}
-        <div 
+        <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-60 z-0"
           style={{
             backgroundImage: 'url("https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80")',
           }}
         />
-        <div className="absolute inset-0 bg-carbon/60 backdrop-blur-[2px] z-0" />
         
         {/* Capa de overlay negra que alberga el texto y los iconos */}
         <div className="absolute inset-y-0 right-0 w-[90%] bg-carbon/95 border-l border-border px-8 py-12 z-10 flex flex-col justify-between">
@@ -383,7 +382,7 @@ export const QuoteModal = ({ isOpen, onClose }: QuoteModalProps) => {
           {/* Botón WhatsApp */}
           <div className="pt-6 border-t border-border">
             <a
-              href="https://wa.me/56912345678"
+              href="https://wa.me/56966974560"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-block w-full"

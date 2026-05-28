@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import Navbar from '@/components/sections/Navbar';
 import HeroSection from '@/components/sections/HeroSection';
 import ServicesSection from '@/components/sections/ServicesSection';
@@ -10,24 +10,18 @@ import InvestSection from '@/components/sections/InvestSection';
 import TestimonialsSection from '@/components/sections/TestimonialsSection';
 import CtaBanner from '@/components/sections/CtaBanner';
 import Footer from '@/components/sections/Footer';
-import QuoteModal from '@/components/sections/QuoteModal';
 
 export default function Home() {
-  const [isQuoteOpen, setIsQuoteOpen] = useState(false);
-
-  const openQuoteModal = () => setIsQuoteOpen(true);
-  const closeQuoteModal = () => setIsQuoteOpen(false);
-
   return (
     <div className="relative min-h-screen bg-carbon overflow-hidden selection:bg-sand selection:text-carbon">
       
       {/* Barra de Navegación Sticky */}
-      <Navbar onQuoteOpen={openQuoteModal} />
+      <Navbar />
 
       {/* Orquestación de Secciones Principales */}
       <main className="relative z-10">
         {/* 1. Hero Section */}
-        <HeroSection onQuoteOpen={openQuoteModal} />
+        <HeroSection />
 
         {/* 2. Sección de Servicios */}
         <ServicesSection />
@@ -45,19 +39,16 @@ export default function Home() {
         <TestimonialsSection />
 
         {/* 7. Banner Final de Acción */}
-        <CtaBanner onQuoteOpen={openQuoteModal} />
+        <CtaBanner />
       </main>
 
       {/* Pie de Página */}
       <Footer />
 
-      {/* Modal Crítico "Hablemos de tu Proyecto" */}
-      <QuoteModal isOpen={isQuoteOpen} onClose={closeQuoteModal} />
-
       {/* Botón Flotante de WhatsApp para Conversaciones Rápidas */}
       <div className="fixed bottom-6 right-6 z-30 group">
         <a
-          href="https://wa.me/56912345678"
+          href="https://wa.me/56966974560"
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center justify-center w-14 h-14 bg-[#25D366] hover:bg-[#20ba5a] text-white rounded-full shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-110 relative"

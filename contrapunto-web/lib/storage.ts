@@ -14,10 +14,11 @@
 
 import { generateId } from './utils';
 import type { PresignedUploadUrl } from '@/types';
+import { env } from './env';
 
 // ─── Configuración del proveedor (leer de env) ─────────────────────────────────
-const STORAGE_PROVIDER = process.env.STORAGE_PROVIDER || 'simulated';
-// const BUCKET_NAME = process.env.S3_BUCKET_NAME || process.env.GCS_BUCKET_NAME || 'contrapunto-uploads';
+const STORAGE_PROVIDER = env.STORAGE_PROVIDER;
+// const BUCKET_NAME = env.S3_BUCKET_NAME || env.GCS_BUCKET_NAME || 'contrapunto-uploads';
 const PRESIGNED_URL_EXPIRY = 3600; // 1 hora en segundos
 
 // ─── Función principal: obtener URL pre-firmada ────────────────────────────────

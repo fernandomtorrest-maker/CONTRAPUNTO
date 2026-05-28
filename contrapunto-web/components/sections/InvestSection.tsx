@@ -68,9 +68,9 @@ export const InvestSection = () => {
             </div>
 
             <div className="pt-4 border-t border-border">
-              <span className="text-[10px] text-cream/40 hover:text-sand font-bold tracking-widest uppercase transition-colors flex items-center gap-2 cursor-pointer">
+              <button className="text-[10px] text-cream/60 hover:text-sand focus-visible:outline focus-visible:outline-2 focus-visible:outline-sand focus-visible:outline-offset-2 font-bold tracking-widest uppercase transition-colors flex items-center gap-2 cursor-pointer" aria-label="Ver proyectos de flipping inmobiliario">
                 Ver Proyectos <span>→</span>
-              </span>
+              </button>
             </div>
           </motion.div>
 
@@ -106,9 +106,9 @@ export const InvestSection = () => {
             </div>
 
             <div className="pt-4 border-t border-border">
-              <span className="text-[10px] text-cream/40 hover:text-sand font-bold tracking-widest uppercase transition-colors flex items-center gap-2 cursor-pointer">
+              <button className="text-[10px] text-cream/60 hover:text-sand focus-visible:outline focus-visible:outline-2 focus-visible:outline-sand focus-visible:outline-offset-2 font-bold tracking-widest uppercase transition-colors flex items-center gap-2 cursor-pointer" aria-label="Más información sobre crowdfunding inmobiliario">
                 Más Información <span>→</span>
-              </span>
+              </button>
             </div>
           </motion.div>
 

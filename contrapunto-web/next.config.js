@@ -46,7 +46,20 @@ const nextConfig = {
   // Optimización de imágenes
   images: {
     formats: ['image/avif', 'image/webp'],
-    domains: ['constructoracontrapunto.cl'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'constructoracontrapunto.cl',
+      },
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'i.ibb.co',
+      },
+    ],
   },
 
   // Cabeceras de seguridad HTTP aplicadas a todas las rutas

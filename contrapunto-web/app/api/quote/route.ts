@@ -3,22 +3,62 @@ import { QuoteServerSchema } from '@/lib/schemas';
 import { getPresignedUploadUrls } from '@/lib/storage';
 import { generateId } from '@/lib/utils';
 import { sendQuoteEmails } from '@/lib/email';
+import { rateLimit } from '@/lib/rate-limiter';
+import { env } from '@/lib/env';
 
 // ─── POST /api/quote ────────────────────────────────────────────────────────────
 export async function POST(request: NextRequest) {
+  // 1. Obtener la IP del cliente para aplicar Rate Limiting
+  const ip = request.ip || request.headers.get('x-forwarded-for') || '127.0.0.1';
+  
+  // Rate Limit: Máximo 5 solicitudes cada 15 minutos por IP
+  const limitResult = rateLimit(ip, { limit: 5, windowMs: 15 * 60 * 1000 });
+  
+  // Encabezados estándar de Rate Limiting
+  const rateLimitHeaders = {
+    'X-RateLimit-Limit': String(limitResult.limit),
+    'X-RateLimit-Remaining': String(limitResult.remaining),
+  };
+
+  if (limitResult.isLimited) {
+    return NextResponse.json(
+      { 
+        success: false, 
+        error: `Demasiadas solicitudes. Por favor, intenta de nuevo en ${limitResult.retryAfterSeconds} segundos.` 
+      },
+      { 
+        status: 429, 
+        headers: { 
+          ...rateLimitHeaders,
+          'Retry-After': String(limitResult.retryAfterSeconds)
+        } 
+      }
+    );
+  }
+
+  // 2. Control preliminar del tamaño del Payload (Mitigación DoS)
+  // Como solo enviamos metadatos de archivos y textos, el payload no debería exceder los 100KB.
+  const contentLength = request.headers.get('content-length');
+  if (contentLength && parseInt(contentLength, 10) > 100 * 1024) {
+    return NextResponse.json(
+      { success: false, error: 'Tamaño de solicitud excedido (máximo 100KB).' },
+      { status: 413, headers: rateLimitHeaders }
+    );
+  }
+
   try {
-    // 1. Parsear el body como JSON
+    // 3. Parsear el body como JSON de forma segura
     let body: unknown;
     try {
       body = await request.json();
     } catch {
       return NextResponse.json(
-        { success: false, error: 'Body inválido. Se esperaba JSON.' },
-        { status: 400 }
+        { success: false, error: 'Cuerpo de solicitud inválido. Se esperaba JSON.' },
+        { status: 400, headers: rateLimitHeaders }
       );
     }
 
-    // 2. Validación estricta con Zod en el servidor
+    // 4. Validación estricta con Zod en el servidor
     const validationResult = QuoteServerSchema.safeParse(body);
 
     if (!validationResult.success) {
@@ -30,16 +70,16 @@ export async function POST(request: NextRequest) {
           error: 'Datos del formulario inválidos.',
           errors: formattedErrors,
         },
-        { status: 400 }
+        { status: 400, headers: rateLimitHeaders }
       );
     }
 
     const { fileMetadata, ...formData } = validationResult.data;
 
-    // 3. Generar ID único para esta cotización
+    // 5. Generar ID único para esta cotización
     const quoteId = generateId();
 
-    // 4. Generar URLs pre-firmadas para los archivos (si existen)
+    // 6. Generar URLs pre-firmadas para los archivos (si existen)
     let uploadUrls: Awaited<ReturnType<typeof getPresignedUploadUrls>> = [];
     
     if (fileMetadata && fileMetadata.length > 0) {
@@ -52,7 +92,7 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // 5. Envío de correos de notificación (Administrador y Cliente)
+    // 7. Envío de correos de notificación (Administrador y Cliente)
     // Envolvemos en try/catch para que un problema de conexión SMTP no detenga la respuesta de éxito al usuario
     try {
       const mappedFiles = fileMetadata?.map((file, idx) => ({
@@ -69,11 +109,8 @@ export async function POST(request: NextRequest) {
       console.error('[Quote API] Error de integración de correo:', emailError);
     }
 
-    // 6. TODO: Aquí se integraría la persistencia en DB si se requiere en el futuro
-    // await db.quotes.create({ id: quoteId, ...formData, status: 'pending' });
-
-    // Log de desarrollo (remover en producción o reemplazar con logger)
-    if (process.env.NODE_ENV === 'development') {
+    // Log de desarrollo (solo en modo desarrollo)
+    if (env.NODE_ENV === 'development') {
       console.log('[Quote API] Nueva cotización recibida:', {
         quoteId,
         fullName: formData.fullName,
@@ -83,7 +120,7 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    // 7. Respuesta exitosa
+    // 8. Respuesta exitosa con headers de rate-limiting
     return NextResponse.json(
       {
         success: true,
@@ -91,7 +128,10 @@ export async function POST(request: NextRequest) {
         uploadUrls,
         message: `Tu solicitud fue recibida. Nos contactaremos a ${formData.email} en menos de 24 horas.`,
       },
-      { status: 200 }
+      { 
+        status: 200, 
+        headers: rateLimitHeaders 
+      }
     );
 
   } catch (error) {
@@ -102,7 +142,7 @@ export async function POST(request: NextRequest) {
         success: false,
         error: 'Error interno del servidor. Intenta nuevamente.',
       },
-      { status: 500 }
+      { status: 500, headers: rateLimitHeaders }
     );
   }
 }
@@ -113,7 +153,7 @@ export async function GET() {
     {
       endpoint: 'POST /api/quote',
       description: 'Endpoint para recibir solicitudes de cotización de proyectos',
-      version: '1.0.0',
+      version: '1.1.0',
       fields: [
         'fullName', 'email', 'phone', 'comuna',
         'projectType', 'budget', 'description', 'fileMetadata?',

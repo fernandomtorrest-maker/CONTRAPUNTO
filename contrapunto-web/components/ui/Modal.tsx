@@ -14,11 +14,16 @@ interface ModalProps {
 }
 
 export const Modal = ({ isOpen, onClose, children, className, position = 'center' }: ModalProps) => {
+  const modalRef = React.useRef<HTMLDivElement>(null);
   
   // Bloquear scroll del body al abrir el modal
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
+      // Mover el foco al modal para accesibilidad
+      setTimeout(() => {
+        modalRef.current?.focus();
+      }, 50);
     } else {
       document.body.style.overflow = '';
     }
@@ -66,12 +71,16 @@ export const Modal = ({ isOpen, onClose, children, className, position = 'center
 
           {/* Contenedor del Modal */}
           <motion.div
+            ref={modalRef}
+            tabIndex={-1}
+            role="dialog"
+            aria-modal="true"
             initial="hidden"
             animate="visible"
             exit="exit"
             variants={modalVariants[position]}
             className={cn(
-              'relative z-10 bg-carbon border border-border shadow-card overflow-y-auto outline-none focus:outline-none',
+              'relative z-10 bg-carbon border border-border shadow-card overflow-y-auto outline-none focus:outline-none focus-visible:ring-1 focus-visible:ring-sand/30',
               position === 'center'
                 ? 'w-[95%] max-w-5xl max-h-[90vh] md:w-[90%]'
                 : 'absolute right-0 top-0 h-full w-full max-w-xl md:border-l border-t-0 border-b-0 border-r-0',

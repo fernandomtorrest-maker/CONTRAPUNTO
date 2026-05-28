@@ -11,28 +11,14 @@ export const Footer = () => {
         {/* FILA SUPERIOR: Logo + Contacto + Redes */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 pb-8 border-b border-border">
           
-          {/* Logo SVG */}
+          {/* Logo Corporativo */}
           <div className="flex items-center gap-3">
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              className="text-sand"
-            >
-              <rect x="3" y="10" width="3" height="12" fill="currentColor" />
-              <rect x="9" y="4" width="3" height="18" fill="currentColor" />
-              <rect x="15" y="8" width="3" height="14" fill="currentColor" />
-              <rect x="21" y="12" width="3" height="10" fill="currentColor" />
-            </svg>
-            <div className="flex flex-col">
-              <span className="font-heading text-base font-extrabold text-cream tracking-widest leading-none">
-                CONSTRUCTORA
-              </span>
-              <span className="font-heading text-[10px] font-bold text-sand tracking-[0.27em] leading-none mt-0.5 uppercase">
-                Contrapunto
-              </span>
+            <div className="relative w-32 h-24">
+              <img
+                src="/logo.png"
+                alt="Constructora Contrapunto"
+                className="w-full h-full object-contain"
+              />
             </div>
           </div>
 
@@ -92,7 +78,7 @@ export const Footer = () => {
         </div>
 
         {/* FILA INFERIOR: Copyright */}
-        <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-[10px] uppercase tracking-widest text-cream/40">
+        <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-[10px] uppercase tracking-widest text-cream/60">
           <p>© {new Date().getFullYear()} Constructora Contrapunto. Todos los derechos reservados.</p>
           <div className="flex gap-6 font-semibold">
             <a href="#" className="hover:text-sand transition-colors">Políticas de Privacidad</a>

@@ -5,12 +5,9 @@ import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/Button';
+import Link from 'next/link';
 
-interface NavbarProps {
-  onQuoteOpen: () => void;
-}
-
-export const Navbar = ({ onQuoteOpen }: NavbarProps) => {
+export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -43,37 +40,20 @@ export const Navbar = ({ onQuoteOpen }: NavbarProps) => {
         className={cn(
           'fixed top-0 left-0 w-full z-40 transition-all duration-300 border-b',
           isScrolled
-            ? 'bg-carbon/90 backdrop-blur-md py-4 border-border'
-            : 'bg-transparent py-6 border-transparent'
+            ? 'bg-carbon/90 backdrop-blur-md py-3 border-border'
+            : 'bg-transparent py-5 border-transparent'
         )}
       >
         <div className="container-base flex items-center justify-between">
           
-          {/* LOGO VECTORIAL SVG */}
+          {/* LOGO CORPORATIVO */}
           <a href="#inicio" className="flex items-center gap-3 group focus-sand">
-            {/* Isotipo: Tres barras verticales de la referencia */}
-            <svg
-              width="28"
-              height="28"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              className="text-sand group-hover:text-cream transition-colors duration-300"
-            >
-              <rect x="3" y="10" width="3" height="12" fill="currentColor" />
-              <rect x="9" y="4" width="3" height="18" fill="currentColor" />
-              <rect x="15" y="8" width="3" height="14" fill="currentColor" />
-              <rect x="21" y="12" width="3" height="10" fill="currentColor" />
-            </svg>
-            
-            {/* Logotipo */}
-            <div className="flex flex-col">
-              <span className="font-heading text-lg font-extrabold text-cream tracking-widest leading-none">
-                CONSTRUCTORA
-              </span>
-              <span className="font-heading text-[11px] font-bold text-sand tracking-[0.27em] leading-none mt-0.5 uppercase">
-                Contrapunto
-              </span>
+            <div className="relative w-28 h-16 md:w-32 md:h-18 transition-transform duration-300 group-hover:scale-[1.02]">
+              <img
+                src="/logo.png"
+                alt="Constructora Contrapunto"
+                className="w-full h-full object-contain"
+              />
             </div>
           </a>
 
@@ -92,9 +72,11 @@ export const Navbar = ({ onQuoteOpen }: NavbarProps) => {
 
           {/* BOTÓN DE ACCIÓN DESKTOP */}
           <div className="hidden md:block">
-            <Button variant="outline" size="sm" onClick={onQuoteOpen}>
-              Cotizar Proyecto
-            </Button>
+            <Link href="/cotizar">
+              <Button variant="outline" size="sm">
+                Cotizar Proyecto
+              </Button>
+            </Link>
           </div>
 
           {/* BOTÓN MENÚ MÓVIL */}
@@ -132,17 +114,15 @@ export const Navbar = ({ onQuoteOpen }: NavbarProps) => {
             </nav>
 
             <div className="space-y-4">
-              <Button
-                variant="primary"
-                className="w-full text-center"
-                onClick={() => {
-                  setIsMobileMenuOpen(false);
-                  onQuoteOpen();
-                }}
-              >
-                Cotizar Proyecto
-              </Button>
-              <p className="text-[10px] text-cream/40 text-center uppercase tracking-widest">
+              <Link href="/cotizar" className="block w-full" onClick={() => setIsMobileMenuOpen(false)}>
+                <Button
+                  variant="primary"
+                  className="w-full text-center"
+                >
+                  Cotizar Proyecto
+                </Button>
+              </Link>
+              <p className="text-[10px] text-cream/60 text-center uppercase tracking-widest">
                 Constructora Contrapunto © 2026
               </p>
             </div>

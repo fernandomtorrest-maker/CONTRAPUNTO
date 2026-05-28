@@ -72,13 +72,12 @@ export const PortfolioSection = () => {
               transition={{ duration: 0.6, delay: idx * 0.1 }}
               className="group relative h-[380px] overflow-hidden border border-border cursor-pointer flex flex-col justify-end bg-stone-dark"
             >
+
               {/* Imagen del proyecto */}
               <div
                 className="absolute inset-0 bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-105"
                 style={{ backgroundImage: `url("${project.imageUrl}")` }}
               />
-              
-              {/* Capa de overlay negra que se aclara/oscurece */}
               <div className="absolute inset-0 bg-gradient-card opacity-80 group-hover:opacity-90 transition-opacity duration-300 z-10" />
 
               {/* Contenido de la tarjeta */}

@@ -84,7 +84,7 @@ export const ProcessSection = () => {
                 </div>
                 
                 {/* Número */}
-                <span className="font-heading text-xs font-bold text-cream/30 tracking-widest block uppercase">
+                <span className="font-heading text-xs font-bold text-cream/60 tracking-widest block uppercase">
                   {step.number}
                 </span>
               </div>
