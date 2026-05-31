@@ -72,18 +72,15 @@ const flujoBase: Paso[] = [
     opciones: [
       {
         valor: 'Casa nueva',
-        imagen:
-          'https://i.ibb.co/4g4YVc36/Casa-Nueva-formulario.jpg?q=80&w=1200&auto=format&fit=crop',
+        imagen: '/images/cotizador/casa-nueva.jpg',
       },
       {
         valor: 'Quincho / Terraza',
-        imagen:
-          'https://i.ibb.co/ZzW4MZBW/Foto-quincho.png?q=80&w=1200&auto=format&fit=crop',
+        imagen: '/images/cotizador/foto-quincho.png',
       },
       {
         valor: 'Tiny House',
-        imagen:
-          'https://i.ibb.co/KpD3k2k7/b8effec28acd483c8ea82e4200c7e8e5.webp?q=80&w=1200&auto=format&fit=crop',
+        imagen: '/images/cotizador/tiny-house.webp',
       },
     ],
   },
@@ -99,18 +96,15 @@ const flujos: Record<string, Paso[]> = {
       opciones: [
         {
           valor: '1 piso',
-          imagen:
-            'https://i.ibb.co/Qv22wmyt/Casa-1-piso.png?q=80&w=1200&auto=format&fit=crop',
+          imagen: '/images/cotizador/casa-1-piso.png',
         },
         {
           valor: '2 pisos',
-          imagen:
-            'https://i.ibb.co/Xk3BFY2H/Casa-de-2-pisos.jpg?q=80&w=1200&auto=format&fit=crop',
+          imagen: '/images/cotizador/casa-2-pisos.jpg',
         },
         {
           valor: '3 pisos o más',
-          imagen:
-            'https://i.ibb.co/Y75kLP3s/Casa-3-pisos.png?q=80&w=1200&auto=format&fit=crop',
+          imagen: '/images/cotizador/casa-3-pisos.png',
         },
       ],
     },
@@ -133,18 +127,15 @@ const flujos: Record<string, Paso[]> = {
       opciones: [
         {
           valor: 'Terraza abierta',
-          imagen:
-            'https://i.ibb.co/TxXy2tkB/Terraza-abierta.png?q=80&w=1200&auto=format&fit=crop',
+          imagen: '/images/cotizador/terraza-abierta.png',
         },
         {
           valor: 'Terraza techada',
-          imagen:
-            'https://i.ibb.co/Pz4S7BtT/Terraza-techada.jpg?q=80&w=1200&auto=format&fit=crop',
+          imagen: '/images/cotizador/terraza-techada.jpg',
         },
         {
           valor: 'Quincho completo',
-          imagen:
-            'https://i.ibb.co/WWmSSWvq/Quincho-completo.jpg?q=80&w=1200&auto=format&fit=crop',
+          imagen: '/images/cotizador/quincho-completo.jpg',
         },
       ],
     },
@@ -161,18 +152,15 @@ const flujos: Record<string, Paso[]> = {
       opciones: [
         {
           valor: 'Madera',
-          imagen:
-            'https://i.ibb.co/d0pL3y6H/Terraza-madera.webp?q=80&w=1200&auto=format&fit=crop',
+          imagen: '/images/cotizador/terraza-madera.webp',
         },
         {
           valor: 'Acero y madera',
-          imagen:
-            'https://i.ibb.co/Cy5XdKk/terraza-acero-y-madera.png?q=80&w=1200&auto=format&fit=crop',
+          imagen: '/images/cotizador/terraza-acero-y-madera.png',
         },
         {
           valor: 'Ladrillo y madera',
-          imagen:
-            'https://i.ibb.co/TMY0RD6T/terraza-ladrillo-madera.png?q=80&w=1200&auto=format&fit=crop',
+          imagen: '/images/cotizador/terraza-ladrillo-madera.png',
         },
       ],
     },
@@ -208,18 +196,15 @@ const flujos: Record<string, Paso[]> = {
       opciones: [
         {
           valor: 'Vivienda permanente',
-          imagen:
-            'https://i.ibb.co/pBStCHWC/Casa-1-piso.png?q=80&w=1200&auto=format&fit=crop',
+          imagen: '/images/cotizador/tiny-vivienda.png',
         },
         {
           valor: 'Turismo / Airbnb',
-          imagen:
-            'https://i.ibb.co/fYHjr8t3/airbnb.jpg?q=80&w=1200&auto=format&fit=crop',
+          imagen: '/images/cotizador/tiny-airbnb.jpg',
         },
         {
           valor: 'Oficina o estudio',
-          imagen:
-            'https://i.ibb.co/prXF1cXL/home-office.jpg?q=80&w=1200&auto=format&fit=crop',
+          imagen: '/images/cotizador/tiny-office.jpg',
         },
       ],
     },
@@ -230,18 +215,15 @@ const flujos: Record<string, Paso[]> = {
       opciones: [
         {
           valor: '15m² - 25m²',
-          imagen:
-            'https://i.ibb.co/HTrQWXxj/cbfa1458-aa53-4420-a4aa-6375277cf2a1.png?q=80&w=1200&auto=format&fit=crop',
+          imagen: '/images/cotizador/tiny-15-25.png',
         },
         {
           valor: '25m² - 35m²',
-          imagen:
-            'https://i.ibb.co/SDN0kCTF/tiny-house-25-35m2.png?q=80&w=1200&auto=format&fit=crop',
+          imagen: '/images/cotizador/tiny-25-35.png',
         },
         {
           valor: '35m² - 50m²',
-          imagen:
-            'https://i.ibb.co/qYWVKqrP/tiny-50m2.png?q=80&w=1200&auto=format&fit=crop',
+          imagen: '/images/cotizador/tiny-35-50.png',
         },
       ],
     },
