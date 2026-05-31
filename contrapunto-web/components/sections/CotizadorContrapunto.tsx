@@ -241,6 +241,8 @@ const flujos: Record<string, Paso[]> = {
 
 export default function CotizadorContrapunto() {
   const [pasoActual, setPasoActual] = useState(0)
+  const [enviando, setEnviando] = useState(false)
+  const [enviado, setEnviado] = useState(false)
 
   const [respuestas, setRespuestas] = useState({
     tipoProyecto: '',
@@ -369,6 +371,55 @@ export default function CotizadorContrapunto() {
         },
       }
     })
+  }
+
+  const enviarDatosContacto = async () => {
+    if (!respuestas.nombreContacto || !respuestas.telefonoContacto || !respuestas.emailContacto) {
+      alert('Por favor, ingresa Nombre, Teléfono y Email para poder enviarte la cotización.');
+      return;
+    }
+
+    setEnviando(true);
+
+    // Generar resumen estructurado y legible
+    let detallesCotizacion = '';
+    if (respuestas.tipoProyecto === 'Casa nueva') {
+      detallesCotizacion = `• Tipo de Obra: Casa nueva\n• Cantidad de pisos: ${respuestas.plantas}\n• Superficie estimada: ${metrosTotalesCasa}m²\n• Estándar Base: desde $${valorCasaBase.toLocaleString('es-CL')} ($600.000/m²)\n• Estándar Alto: desde $${valorCasaAlto.toLocaleString('es-CL')} ($850.000/m²)\n• Estándar Premium: desde $${valorCasaPremium.toLocaleString('es-CL')} ($1.200.000/m²)\n• Espacios:\n` + 
+        Object.entries(respuestas.espaciosCasa).map(([espacio, cantidad]) => `  - ${cantidad}x ${espacio} (${m2EspaciosCasa[espacio] * cantidad}m²)`).join('\n');
+    } else if (respuestas.tipoProyecto === 'Quincho / Terraza') {
+      detallesCotizacion = `• Tipo de Obra: Quincho / Terraza\n• Tipo de terraza: ${respuestas.tipoQuincho}\n• Superficie: ${metrosQuincho}m²\n• Materialidad: ${respuestas.materialidadQuincho}\n• Elementos extras: ${respuestas.extrasQuincho.join(', ') || 'Ninguno'}\n• TOTAL estimado: $${totalQuincho.toLocaleString('es-CL')} ($${valorM2FinalQuincho.toLocaleString('es-CL')}/m²)`;
+    } else if (respuestas.tipoProyecto === 'Tiny House') {
+      detallesCotizacion = `• Tipo de Obra: Tiny House\n• Uso de la Tiny: ${respuestas.usoTiny}\n• Rango de tamaño: ${respuestas.tamanoTiny}\n• Superficie exacta: ${metrosTiny}m²\n• Valor estimado: $${valorTiny.toLocaleString('es-CL')} ($600.000/m²)`;
+    }
+
+    try {
+      const response = await fetch('/api/send-lead', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          nombre: respuestas.nombreContacto,
+          telefono: respuestas.telefonoContacto,
+          email: respuestas.emailContacto,
+          proyecto: respuestas.tipoProyecto,
+          mensaje: respuestas.mensajeContacto,
+          detalles: detallesCotizacion,
+        }),
+      });
+
+      const data = await response.json();
+      if (data.success) {
+        setEnviado(true);
+      } else {
+        alert(`Error al procesar el envío: ${data.error || 'Por favor, intenta nuevamente.'}`);
+      }
+    } catch (err) {
+      console.error(err);
+      alert('Error de conexión con el servidor. Intenta de nuevo.');
+    } finally {
+      setEnviando(false);
+    }
   }
 
   /*
@@ -1313,16 +1364,20 @@ export default function CotizadorContrapunto() {
                   rows={4}
                   className="w-full resize-none rounded-xl border border-white/10 bg-[#1b1b1b] px-5 py-4 outline-none transition-all focus:border-[#8d775f]"
                 />
-                <button
-                  onClick={() => {
-                    const mensaje = `Nuevo contacto desde cotizador:\n\nNombre: ${respuestas.nombreContacto}\nTeléfono: ${respuestas.telefonoContacto}\nEmail: ${respuestas.emailContacto}\nProyecto: ${respuestas.tipoProyecto}\nMensaje: ${respuestas.mensajeContacto}`
-                    window.open(`https://wa.me/56966974560?text=${encodeURIComponent(mensaje)}`, '_blank')
-                  }}
-                  className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#8d775f] py-4 text-lg font-medium transition-all duration-300 hover:bg-[#a58a6b]"
-                >
-                  <Send className="h-5 w-5" />
-                  Enviar datos de contacto
-                </button>
+                {enviado ? (
+                  <div className="rounded-xl bg-[#25D366]/20 border border-[#25D366] p-5 text-center text-[#25D366] text-lg font-medium">
+                    ¡Gracias! Tus datos y cotización fueron enviados exitosamente. Nos contactaremos a la brevedad.
+                  </div>
+                ) : (
+                  <button
+                    onClick={enviarDatosContacto}
+                    disabled={enviando}
+                    className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#8d775f] py-4 text-lg font-medium transition-all duration-300 hover:bg-[#a58a6b] disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    <Send className="h-5 w-5" />
+                    {enviando ? 'Enviando cotización...' : 'Enviar datos de contacto'}
+                  </button>
+                )}
               </div>
             </div>
           </div>
