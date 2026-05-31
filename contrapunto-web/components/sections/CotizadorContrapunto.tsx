@@ -454,7 +454,7 @@ export default function CotizadorContrapunto() {
     if (respuestas.tipoProyecto === 'Casa nueva') {
       doc.setFontSize(12)
       doc.setTextColor(60)
-      doc.text(`Cantidad de plantas: ${respuestas.plantas}`, 20, y)
+      doc.text(`Cantidad de pisos: ${respuestas.plantas}`, 20, y)
       y += 10
       doc.text(`Superficie total: ${metrosTotalesCasa}m²`, 20, y)
       y += 15
@@ -481,19 +481,19 @@ export default function CotizadorContrapunto() {
 
       doc.setFontSize(12)
       doc.setTextColor(60)
-      doc.text(`Estándar Base ($600.000/m²):`, 25, y)
+      doc.text(`Estándar Base (desde $600.000/m²):`, 25, y)
       doc.setTextColor(40)
-      doc.text(`$${valorCasaBase.toLocaleString('es-CL')}`, pageWidth - 60, y)
+      doc.text(`desde $${valorCasaBase.toLocaleString('es-CL')}`, pageWidth - 60, y)
       y += 8
       doc.setTextColor(60)
-      doc.text(`Estándar Alto ($850.000/m²):`, 25, y)
+      doc.text(`Estándar Alto (desde $850.000/m²):`, 25, y)
       doc.setTextColor(40)
-      doc.text(`$${valorCasaAlto.toLocaleString('es-CL')}`, pageWidth - 60, y)
+      doc.text(`desde $${valorCasaAlto.toLocaleString('es-CL')}`, pageWidth - 60, y)
       y += 8
       doc.setTextColor(60)
-      doc.text(`Estándar Premium ($1.200.000/m²):`, 25, y)
+      doc.text(`Estándar Premium (desde $1.200.000/m²):`, 25, y)
       doc.setTextColor(40)
-      doc.text(`$${valorCasaPremium.toLocaleString('es-CL')}`, pageWidth - 60, y)
+      doc.text(`desde $${valorCasaPremium.toLocaleString('es-CL')}`, pageWidth - 60, y)
       y += 15
 
     } else if (respuestas.tipoProyecto === 'Quincho / Terraza') {
@@ -775,28 +775,28 @@ export default function CotizadorContrapunto() {
                   <div className="rounded-[2rem] bg-[#262626] p-8">
                     <div className="mb-3 text-neutral-400">Estándar Base</div>
                     <div className="text-3xl font-light">
-                      ${valorCasaBase.toLocaleString('es-CL')}
+                      desde ${valorCasaBase.toLocaleString('es-CL')}
                     </div>
                     <div className="mt-2 text-sm text-neutral-500">
-                      $600.000/m²
+                      desde $600.000/m²
                     </div>
                   </div>
                   <div className="rounded-[2rem] bg-[#8d775f] p-8">
                     <div className="mb-3 text-neutral-200">Estándar Alto</div>
                     <div className="text-3xl font-light">
-                      ${valorCasaAlto.toLocaleString('es-CL')}
+                      desde ${valorCasaAlto.toLocaleString('es-CL')}
                     </div>
                     <div className="mt-2 text-sm text-white/70">
-                      $850.000/m²
+                      desde $850.000/m²
                     </div>
                   </div>
                   <div className="rounded-[2rem] bg-[#262626] p-8">
                     <div className="mb-3 text-neutral-400">Estándar Premium</div>
                     <div className="text-3xl font-light">
-                      ${valorCasaPremium.toLocaleString('es-CL')}
+                      desde ${valorCasaPremium.toLocaleString('es-CL')}
                     </div>
                     <div className="mt-2 text-sm text-neutral-500">
-                      $1.200.000/m²
+                      desde $1.200.000/m²
                     </div>
                   </div>
                 </div>
