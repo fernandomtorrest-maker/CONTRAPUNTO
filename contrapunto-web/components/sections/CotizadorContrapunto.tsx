@@ -1,7 +1,261 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { ChevronLeft, Plus, Minus, MessageCircle, Send, Download } from 'lucide-react'
+import Image from 'next/image'
+
+/*
+========================================
+CONSTANTES ESTÁTICAS (Externalizadas)
+========================================
+*/
+
+const m2EspaciosCasa: Record<string, number> = {
+  'Dormitorio matrimonial en suite': 24,
+  'Dormitorio matrimonial simple': 18,
+  'Dormitorio simple': 12,
+  'Dormitorio visitas': 12,
+  'Walk-in closet': 6,
+  'Baño principal': 8,
+  'Baño secundario': 5,
+  'Living pequeño': 18,
+  'Living grande': 32,
+  'Cocina americana': 16,
+  'Cocina grande': 26,
+  Oficina: 12,
+  Terraza: 20,
+  Quincho: 22,
+  Pérgola: 16,
+  Bodega: 8,
+}
+
+const valorM2BaseQuincho: Record<string, number> = {
+  'Terraza abierta': 180000,
+  'Terraza techada': 320000,
+  'Quincho completo': 520000,
+}
+
+const multiplicadorMaterialidad: Record<string, number> = {
+  Madera: 1,
+  'Acero y madera': 1.12,
+  'Ladrillo y madera': 1.22,
+}
+
+const extrasQuinchoValores: Record<string, number> = {
+  'Parrilla integrada': 950000,
+  'Horno de barro': 1800000,
+  Lavaplatos: 180000,
+  'Mesón de hormigón': 650000,
+  'Mesón de madera': 420000,
+  'Barra exterior': 450000,
+  'Iluminación LED': 250000,
+  'Deck de madera': 1200000,
+  'Piso porcelanato': 1600000,
+  'Terraza cerrada': 2500000,
+  Pérgola: 950000,
+  'Hot tub / tinaja': 3200000,
+}
+
+type Paso = {
+  tipo: 'cards' | 'input' | 'multiselect' | 'quantity-select' | 'resultado'
+  campo?: string
+  titulo?: string
+  opciones?: Array<{ valor: string; imagen: string }> | string[]
+  placeholder?: string
+}
+
+const flujoBase: Paso[] = [
+  {
+    tipo: 'cards',
+    campo: 'tipoProyecto',
+    titulo: '¿Qué quieres construir?',
+    opciones: [
+      {
+        valor: 'Casa nueva',
+        imagen:
+          'https://i.ibb.co/4g4YVc36/Casa-Nueva-formulario.jpg?q=80&w=1200&auto=format&fit=crop',
+      },
+      {
+        valor: 'Quincho / Terraza',
+        imagen:
+          'https://i.ibb.co/ZzW4MZBW/Foto-quincho.png?q=80&w=1200&auto=format&fit=crop',
+      },
+      {
+        valor: 'Tiny House',
+        imagen:
+          'https://i.ibb.co/KpD3k2k7/b8effec28acd483c8ea82e4200c7e8e5.webp?q=80&w=1200&auto=format&fit=crop',
+      },
+    ],
+  },
+]
+
+const flujos: Record<string, Paso[]> = {
+  'Casa nueva': [
+    ...flujoBase,
+    {
+      tipo: 'cards',
+      campo: 'plantas',
+      titulo: '¿Cuántas plantas quieres?',
+      opciones: [
+        {
+          valor: '1 piso',
+          imagen:
+            'https://i.ibb.co/Qv22wmyt/Casa-1-piso.png?q=80&w=1200&auto=format&fit=crop',
+        },
+        {
+          valor: '2 pisos',
+          imagen:
+            'https://i.ibb.co/Xk3BFY2H/Casa-de-2-pisos.jpg?q=80&w=1200&auto=format&fit=crop',
+        },
+        {
+          valor: '3 pisos o más',
+          imagen:
+            'https://i.ibb.co/Y75kLP3s/Casa-3-pisos.png?q=80&w=1200&auto=format&fit=crop',
+        },
+      ],
+    },
+    {
+      tipo: 'quantity-select',
+      campo: 'espaciosCasa',
+      titulo: 'Selecciona los espacios de tu casa',
+      opciones: Object.keys(m2EspaciosCasa),
+    },
+    {
+      tipo: 'resultado',
+    },
+  ],
+  'Quincho / Terraza': [
+    ...flujoBase,
+    {
+      tipo: 'cards',
+      campo: 'tipoQuincho',
+      titulo: '¿Qué tipo de proyecto exterior quieres?',
+      opciones: [
+        {
+          valor: 'Terraza abierta',
+          imagen:
+            'https://i.ibb.co/TxXy2tkB/Terraza-abierta.png?q=80&w=1200&auto=format&fit=crop',
+        },
+        {
+          valor: 'Terraza techada',
+          imagen:
+            'https://i.ibb.co/Pz4S7BtT/Terraza-techada.jpg?q=80&w=1200&auto=format&fit=crop',
+        },
+        {
+          valor: 'Quincho completo',
+          imagen:
+            'https://i.ibb.co/WWmSSWvq/Quincho-completo.jpg?q=80&w=1200&auto=format&fit=crop',
+        },
+      ],
+    },
+    {
+      tipo: 'input',
+      campo: 'metrosQuincho',
+      titulo: '¿Cuántos m² aproximados tendrá el proyecto?',
+      placeholder: 'Ej: 35',
+    },
+    {
+      tipo: 'cards',
+      campo: 'materialidadQuincho',
+      titulo: '¿Qué materialidad prefieres?',
+      opciones: [
+        {
+          valor: 'Madera',
+          imagen:
+            'https://i.ibb.co/d0pL3y6H/Terraza-madera.webp?q=80&w=1200&auto=format&fit=crop',
+        },
+        {
+          valor: 'Acero y madera',
+          imagen:
+            'https://i.ibb.co/Cy5XdKk/terraza-acero-y-madera.png?q=80&w=1200&auto=format&fit=crop',
+        },
+        {
+          valor: 'Ladrillo y madera',
+          imagen:
+            'https://i.ibb.co/TMY0RD6T/terraza-ladrillo-madera.png?q=80&w=1200&auto=format&fit=crop',
+        },
+      ],
+    },
+    {
+      tipo: 'multiselect',
+      campo: 'extrasQuincho',
+      titulo: 'Selecciona los elementos que quieres incluir',
+      opciones: [
+        'Parrilla integrada',
+        'Horno de barro',
+        'Lavaplatos',
+        'Mesón de hormigón',
+        'Mesón de madera',
+        'Barra exterior',
+        'Iluminación LED',
+        'Deck de madera',
+        'Piso porcelanato',
+        'Terraza cerrada',
+        'Pérgola',
+        'Hot tub / tinaja',
+      ],
+    },
+    {
+      tipo: 'resultado',
+    },
+  ],
+  'Tiny House': [
+    ...flujoBase,
+    {
+      tipo: 'cards',
+      campo: 'usoTiny',
+      titulo: '¿Qué uso tendrá la Tiny House?',
+      opciones: [
+        {
+          valor: 'Vivienda permanente',
+          imagen:
+            'https://i.ibb.co/pBStCHWC/Casa-1-piso.png?q=80&w=1200&auto=format&fit=crop',
+        },
+        {
+          valor: 'Turismo / Airbnb',
+          imagen:
+            'https://i.ibb.co/fYHjr8t3/airbnb.jpg?q=80&w=1200&auto=format&fit=crop',
+        },
+        {
+          valor: 'Oficina o estudio',
+          imagen:
+            'https://i.ibb.co/prXF1cXL/home-office.jpg?q=80&w=1200&auto=format&fit=crop',
+        },
+      ],
+    },
+    {
+      tipo: 'cards',
+      campo: 'tamanoTiny',
+      titulo: '¿Qué tamaño aproximado deseas?',
+      opciones: [
+        {
+          valor: '15m² - 25m²',
+          imagen:
+            'https://i.ibb.co/HTrQWXxj/cbfa1458-aa53-4420-a4aa-6375277cf2a1.png?q=80&w=1200&auto=format&fit=crop',
+        },
+        {
+          valor: '25m² - 35m²',
+          imagen:
+            'https://i.ibb.co/SDN0kCTF/tiny-house-25-35m2.png?q=80&w=1200&auto=format&fit=crop',
+        },
+        {
+          valor: '35m² - 50m²',
+          imagen:
+            'https://i.ibb.co/qYWVKqrP/tiny-50m2.png?q=80&w=1200&auto=format&fit=crop',
+        },
+      ],
+    },
+    {
+      tipo: 'input',
+      campo: 'metrosTiny',
+      titulo: '¿Cuántos m² exactos tendrá tu Tiny House?',
+      placeholder: 'Ej: 28',
+    },
+    {
+      tipo: 'resultado',
+    },
+  ],
+}
 
 export default function CotizadorContrapunto() {
   const [pasoActual, setPasoActual] = useState(0)
@@ -27,9 +281,35 @@ export default function CotizadorContrapunto() {
     mensajeContacto: '',
   })
 
+  // Sincronizar dinámicamente los pasos basados en la selección actual
+  const pasos = useMemo(() => {
+    return flujos[respuestas.tipoProyecto] || flujoBase
+  }, [respuestas.tipoProyecto])
+
+  // Evitar desbordamiento de índice de pasos con un fallback seguro
+  const paso = useMemo(() => {
+    if (pasoActual >= pasos.length) {
+      return pasos[pasos.length - 1]
+    }
+    return pasos[pasoActual]
+  }, [pasos, pasoActual])
+
+  // Pre-carga proactiva de imágenes de los siguientes pasos del flujo activo en segundo plano
+  const todasLasImagenesDelFlujo = useMemo(() => {
+    const urls: string[] = []
+    pasos.forEach((p) => {
+      if (p.tipo === 'cards' && p.opciones) {
+        ;(p.opciones as Array<{ valor: string; imagen: string }>).forEach((op) => {
+          if (op.imagen) urls.push(op.imagen)
+        })
+      }
+    })
+    return urls
+  }, [pasos])
+
   /*
   ========================================
-  HELPERS
+  HELPERS / ACCIONES
   ========================================
   */
 
@@ -46,41 +326,39 @@ export default function CotizadorContrapunto() {
   }
 
   const seleccionarOpcion = (campo: string, valor: string) => {
-    // Actualizar estado visual de forma inmediata (sin delay)
-    setRespuestas((prev) => ({
-      ...prev,
-      [campo]: valor,
-    }))
-
-    // Calcular el flujo de pasos correspondiente para evitar desfase por closure en React
-    const proximoTipoProyecto = campo === 'tipoProyecto' ? valor : respuestas.tipoProyecto
-    const proximosPasos = flujos[proximoTipoProyecto] || flujoBase
-
-    // Avanzar al siguiente paso con un micro-delay para que React pueda pintar la selección
-    setTimeout(() => {
+    // Sincronización instantánea y atómica del estado de respuestas y del paso actual.
+    // Al realizar ambos cambios de estado juntos, React los agrupa en un único ciclo de renderizado,
+    // eliminando el doble render ineficiente y la necesidad del setTimeout artificial de 80ms.
+    setRespuestas((prev) => {
+      const nuevasRespuestas = { ...prev, [campo]: valor }
+      
+      const proximoTipoProyecto = campo === 'tipoProyecto' ? valor : prev.tipoProyecto
+      const proximosPasos = flujos[proximoTipoProyecto] || flujoBase
+      
       if (pasoActual < proximosPasos.length - 1) {
-        setPasoActual((prev) => prev + 1)
+        setPasoActual(pasoActual + 1)
       }
-    }, 80)
+      return nuevasRespuestas
+    })
   }
 
   const toggleArrayItem = (campo: string, valor: string) => {
-    const arr = respuestas[campo as keyof typeof respuestas]
-    const existe = Array.isArray(arr) && arr.includes(valor)
-
-    if (existe) {
-      setRespuestas((prev) => ({
-        ...prev,
-        [campo]: (prev[campo as keyof typeof prev] as string[]).filter(
-          (i) => i !== valor
-        ),
-      }))
-    } else {
-      setRespuestas((prev) => ({
-        ...prev,
-        [campo]: [...(prev[campo as keyof typeof prev] as string[]), valor],
-      }))
-    }
+    setRespuestas((prev) => {
+      const arr = prev[campo as keyof typeof prev]
+      const existe = Array.isArray(arr) && arr.includes(valor)
+      
+      if (existe) {
+        return {
+          ...prev,
+          [campo]: (arr as string[]).filter((i) => i !== valor),
+        }
+      } else {
+        return {
+          ...prev,
+          [campo]: [...(arr as string[]), valor],
+        }
+      }
+    })
   }
 
   const incrementarEspacio = (espacio: string) => {
@@ -113,98 +391,48 @@ export default function CotizadorContrapunto() {
 
   /*
   ========================================
-  CASA NUEVA
+  CÁLCULOS MEMOIZADOS (useMemo)
   ========================================
   */
 
-  const m2EspaciosCasa: Record<string, number> = {
-    'Dormitorio matrimonial en suite': 24,
-    'Dormitorio matrimonial simple': 18,
-    'Dormitorio simple': 12,
-    'Dormitorio visitas': 12,
-    'Walk-in closet': 6,
-    'Baño principal': 8,
-    'Baño secundario': 5,
-    'Living pequeño': 18,
-    'Living grande': 32,
-    'Cocina americana': 16,
-    'Cocina grande': 26,
-    Oficina: 12,
-    Terraza: 20,
-    Quincho: 22,
-    Pérgola: 16,
-    Bodega: 8,
-  }
-
-  const metrosTotalesCasa =
-    Object.entries(respuestas.espaciosCasa).reduce((acc, [espacio, cantidad]) => {
+  // 1. CASA NUEVA
+  const metrosTotalesCasa = useMemo(() => {
+    return Object.entries(respuestas.espaciosCasa).reduce((acc, [espacio, cantidad]) => {
       return acc + (m2EspaciosCasa[espacio] || 0) * cantidad
     }, 0)
+  }, [respuestas.espaciosCasa])
 
-  const valorCasaBase = metrosTotalesCasa * 600000
-  const valorCasaAlto = metrosTotalesCasa * 850000
-  const valorCasaPremium = metrosTotalesCasa * 1200000
+  const valorCasaBase = useMemo(() => metrosTotalesCasa * 600000, [metrosTotalesCasa])
+  const valorCasaAlto = useMemo(() => metrosTotalesCasa * 850000, [metrosTotalesCasa])
+  const valorCasaPremium = useMemo(() => metrosTotalesCasa * 1200000, [metrosTotalesCasa])
 
-  /*
-  ========================================
-  QUINCHO / TERRAZA
-  ========================================
-  */
-
-  const valorM2BaseQuincho: Record<string, number> = {
-    'Terraza abierta': 180000,
-    'Terraza techada': 320000,
-    'Quincho completo': 520000,
-  }
-
-  const multiplicadorMaterialidad: Record<string, number> = {
-    Madera: 1,
-    'Acero y madera': 1.12,
-    'Ladrillo y madera': 1.22,
-  }
-
-  const extrasQuinchoValores: Record<string, number> = {
-    'Parrilla integrada': 950000,
-    'Horno de barro': 1800000,
-    Lavaplatos: 180000,
-    'Mesón de hormigón': 650000,
-    'Mesón de madera': 420000,
-    'Barra exterior': 450000,
-    'Iluminación LED': 250000,
-    'Deck de madera': 1200000,
-    'Piso porcelanato': 1600000,
-    'Terraza cerrada': 2500000,
-    Pérgola: 950000,
-    'Hot tub / tinaja': 3200000,
-  }
-
+  // 2. QUINCHO / TERRAZA
   const metrosQuincho = Number(respuestas.metrosQuincho) || 0
-  const valorBaseM2 = valorM2BaseQuincho[respuestas.tipoQuincho] || 0
-  const multiplicador =
-    multiplicadorMaterialidad[respuestas.materialidadQuincho] || 1
-  const subtotalQuincho = metrosQuincho * valorBaseM2 * multiplicador
+  const valorBaseM2 = useMemo(() => valorM2BaseQuincho[respuestas.tipoQuincho] || 0, [respuestas.tipoQuincho])
+  const multiplicador = useMemo(() => multiplicadorMaterialidad[respuestas.materialidadQuincho] || 1, [respuestas.materialidadQuincho])
+  
+  const subtotalQuincho = useMemo(() => {
+    return metrosQuincho * valorBaseM2 * multiplicador
+  }, [metrosQuincho, valorBaseM2, multiplicador])
 
-  const totalExtrasQuincho =
-    respuestas.extrasQuincho?.reduce((acc, extra) => {
+  const totalExtrasQuincho = useMemo(() => {
+    return respuestas.extrasQuincho?.reduce((acc, extra) => {
       return acc + (extrasQuinchoValores[extra] || 0)
     }, 0) || 0
+  }, [respuestas.extrasQuincho])
 
-  const totalQuincho = subtotalQuincho + totalExtrasQuincho
-  const valorM2FinalQuincho =
-    metrosQuincho > 0 ? Math.round(totalQuincho / metrosQuincho) : 0
+  const totalQuincho = useMemo(() => subtotalQuincho + totalExtrasQuincho, [subtotalQuincho, totalExtrasQuincho])
+  const valorM2FinalQuincho = useMemo(() => {
+    return metrosQuincho > 0 ? Math.round(totalQuincho / metrosQuincho) : 0
+  }, [totalQuincho, metrosQuincho])
 
-  /*
-  ========================================
-  TINY HOUSE
-  ========================================
-  */
-
+  // 3. TINY HOUSE
   const metrosTiny = Number(respuestas.metrosTiny) || 0
-  const valorTiny = metrosTiny * 600000
+  const valorTiny = useMemo(() => metrosTiny * 600000, [metrosTiny])
 
   /*
   ========================================
-  GENERAR PDF
+  GENERAR PDF (jsPDF)
   ========================================
   */
 
@@ -242,7 +470,6 @@ export default function CotizadorContrapunto() {
     y += 15
 
     if (respuestas.tipoProyecto === 'Casa nueva') {
-      // Casa nueva
       doc.setFontSize(12)
       doc.setTextColor(60)
       doc.text(`Cantidad de plantas: ${respuestas.plantas}`, 20, y)
@@ -288,7 +515,6 @@ export default function CotizadorContrapunto() {
       y += 15
 
     } else if (respuestas.tipoProyecto === 'Quincho / Terraza') {
-      // Quincho / Terraza
       doc.setFontSize(12)
       doc.setTextColor(60)
       doc.text(`Tipo: ${respuestas.tipoQuincho}`, 20, y)
@@ -339,7 +565,6 @@ export default function CotizadorContrapunto() {
       y += 15
 
     } else if (respuestas.tipoProyecto === 'Tiny House') {
-      // Tiny House
       doc.setFontSize(12)
       doc.setTextColor(60)
       doc.text(`Uso: ${respuestas.usoTiny}`, 20, y)
@@ -385,222 +610,15 @@ export default function CotizadorContrapunto() {
     doc.save(`cotizacion-contrapunto-${respuestas.tipoProyecto.toLowerCase().replace(/\s/g, '-')}-${new Date().toISOString().split('T')[0]}.pdf`)
   }
 
-  /*
-  ========================================
-  FLUJOS
-  ========================================
-  */
-
-  type Paso = {
-    tipo: 'cards' | 'input' | 'multiselect' | 'quantity-select' | 'resultado'
-    campo?: string
-    titulo?: string
-    opciones?: Array<{ valor: string; imagen: string }> | string[]
-    placeholder?: string
-  }
-
-  const flujoBase: Paso[] = [
-    {
-      tipo: 'cards',
-      campo: 'tipoProyecto',
-      titulo: '¿Qué quieres construir?',
-      opciones: [
-        {
-          valor: 'Casa nueva',
-          imagen:
-            'https://i.ibb.co/4g4YVc36/Casa-Nueva-formulario.jpg?q=80&w=1200&auto=format&fit=crop',
-        },
-        {
-          valor: 'Quincho / Terraza',
-          imagen:
-            'https://i.ibb.co/ZzW4MZBW/Foto-quincho.png?q=80&w=1200&auto=format&fit=crop',
-        },
-        {
-          valor: 'Tiny House',
-          imagen:
-            'https://i.ibb.co/KpD3k2k7/b8effec28acd483c8ea82e4200c7e8e5.webp?q=80&w=1200&auto=format&fit=crop',
-        },
-      ],
-    },
-  ]
-
-  const flujos: Record<string, Paso[]> = {
-    'Casa nueva': [
-      ...flujoBase,
-      {
-        tipo: 'cards',
-        campo: 'plantas',
-        titulo: '¿Cuántas plantas quieres?',
-        opciones: [
-          {
-            valor: '1 piso',
-            imagen:
-              'https://i.ibb.co/Qv22wmyt/Casa-1-piso.png?q=80&w=1200&auto=format&fit=crop',
-          },
-          {
-            valor: '2 pisos',
-            imagen:
-              'https://i.ibb.co/Xk3BFY2H/Casa-de-2-pisos.jpg?q=80&w=1200&auto=format&fit=crop',
-          },
-          {
-            valor: '3 pisos o más',
-            imagen:
-              'https://i.ibb.co/Y75kLP3s/Casa-3-pisos.png?q=80&w=1200&auto=format&fit=crop',
-          },
-        ],
-      },
-      {
-        tipo: 'quantity-select',
-        campo: 'espaciosCasa',
-        titulo: 'Selecciona los espacios de tu casa',
-        opciones: Object.keys(m2EspaciosCasa),
-      },
-      {
-        tipo: 'resultado',
-      },
-    ],
-    'Quincho / Terraza': [
-      ...flujoBase,
-      {
-        tipo: 'cards',
-        campo: 'tipoQuincho',
-        titulo: '¿Qué tipo de proyecto exterior quieres?',
-        opciones: [
-          {
-            valor: 'Terraza abierta',
-            imagen:
-              'https://i.ibb.co/TxXy2tkB/Terraza-abierta.png?q=80&w=1200&auto=format&fit=crop',
-          },
-          {
-            valor: 'Terraza techada',
-            imagen:
-              'https://i.ibb.co/Pz4S7BtT/Terraza-techada.jpg?q=80&w=1200&auto=format&fit=crop',
-          },
-          {
-            valor: 'Quincho completo',
-            imagen:
-              'https://i.ibb.co/WWmSSWvq/Quincho-completo.jpg?q=80&w=1200&auto=format&fit=crop',
-          },
-        ],
-      },
-      {
-        tipo: 'input',
-        campo: 'metrosQuincho',
-        titulo: '¿Cuántos m² aproximados tendrá el proyecto?',
-        placeholder: 'Ej: 35',
-      },
-      {
-        tipo: 'cards',
-        campo: 'materialidadQuincho',
-        titulo: '¿Qué materialidad prefieres?',
-        opciones: [
-          {
-            valor: 'Madera',
-            imagen:
-              'https://i.ibb.co/d0pL3y6H/Terraza-madera.webp?q=80&w=1200&auto=format&fit=crop',
-          },
-          {
-            valor: 'Acero y madera',
-            imagen:
-              'https://i.ibb.co/Cy5XdKk/terraza-acero-y-madera.png?q=80&w=1200&auto=format&fit=crop',
-          },
-          {
-            valor: 'Ladrillo y madera',
-            imagen:
-              'https://i.ibb.co/TMY0RD6T/terraza-ladrillo-madera.png?q=80&w=1200&auto=format&fit=crop',
-          },
-        ],
-      },
-      {
-        tipo: 'multiselect',
-        campo: 'extrasQuincho',
-        titulo: 'Selecciona los elementos que quieres incluir',
-        opciones: [
-          'Parrilla integrada',
-          'Horno de barro',
-          'Lavaplatos',
-          'Mesón de hormigón',
-          'Mesón de madera',
-          'Barra exterior',
-          'Iluminación LED',
-          'Deck de madera',
-          'Piso porcelanato',
-          'Terraza cerrada',
-          'Pérgola',
-          'Hot tub / tinaja',
-        ],
-      },
-      {
-        tipo: 'resultado',
-      },
-    ],
-    'Tiny House': [
-      ...flujoBase,
-      {
-        tipo: 'cards',
-        campo: 'usoTiny',
-        titulo: '¿Qué uso tendrá la Tiny House?',
-        opciones: [
-          {
-            valor: 'Vivienda permanente',
-            imagen:
-              'https://i.ibb.co/pBStCHWC/Casa-1-piso.png?q=80&w=1200&auto=format&fit=crop',
-          },
-          {
-            valor: 'Turismo / Airbnb',
-            imagen:
-              'https://i.ibb.co/fYHjr8t3/airbnb.jpg?q=80&w=1200&auto=format&fit=crop',
-          },
-          {
-            valor: 'Oficina o estudio',
-            imagen:
-              'https://i.ibb.co/prXF1cXL/home-office.jpg?q=80&w=1200&auto=format&fit=crop',
-          },
-        ],
-      },
-      {
-        tipo: 'cards',
-        campo: 'tamanoTiny',
-        titulo: '¿Qué tamaño aproximado deseas?',
-        opciones: [
-          {
-            valor: '15m² - 25m²',
-            imagen:
-              'https://i.ibb.co/HTrQWXxj/cbfa1458-aa53-4420-a4aa-6375277cf2a1.png?q=80&w=1200&auto=format&fit=crop',
-          },
-          {
-            valor: '25m² - 35m²',
-            imagen:
-              'https://i.ibb.co/SDN0kCTF/tiny-house-25-35m2.png?q=80&w=1200&auto=format&fit=crop',
-          },
-          {
-            valor: '35m² - 50m²',
-            imagen:
-              'https://i.ibb.co/qYWVKqrP/tiny-50m2.png?q=80&w=1200&auto=format&fit=crop',
-          },
-        ],
-      },
-      {
-        tipo: 'input',
-        campo: 'metrosTiny',
-        titulo: '¿Cuántos m² exactos tendrá tu Tiny House?',
-        placeholder: 'Ej: 28',
-      },
-      {
-        tipo: 'resultado',
-      },
-    ],
-  }
-
-  const pasos = flujos[respuestas.tipoProyecto] || flujoBase
-  const paso = pasos[pasoActual]
-
-  // Scroll hacia arriba cuando se muestra el resultado
+  // Scroll suave hacia arriba al llegar al resultado
   useEffect(() => {
-    if (paso.tipo === 'resultado') {
+    if (paso?.tipo === 'resultado') {
       window.scrollTo({ top: 0, behavior: 'smooth' })
     }
-  }, [paso.tipo])
+  }, [paso?.tipo])
+
+  // Evitar renderizado nulo si el paso no existe
+  if (!paso) return null
 
   return (
     <div className="min-h-screen bg-[#1b1b1b] text-white">
@@ -639,13 +657,14 @@ export default function CotizadorContrapunto() {
                   }
                   className="group overflow-hidden rounded-[2rem] border border-white/10 bg-[#262626] text-left transition-all duration-300 hover:border-[#8d775f]"
                 >
-                  <div className="h-56 overflow-hidden">
-                    <img
+                  <div className="relative h-56 overflow-hidden">
+                    <Image
                       src={opcion.imagen}
                       alt={opcion.valor}
-                      className="h-full w-full object-cover transition-all duration-700 group-hover:scale-105"
-                      crossOrigin="anonymous"
-                      loading="lazy"
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      className="object-cover transition-all duration-700 group-hover:scale-105"
+                      priority={pasoActual === 0}
                     />
                   </div>
                   <div className="p-6">
@@ -1376,6 +1395,13 @@ export default function CotizadorContrapunto() {
               Nueva cotización
             </button>
           )}
+        </div>
+        
+        {/* Elemento invisible de precarga proactiva de todas las imágenes del flujo */}
+        <div className="sr-only hidden" aria-hidden="true">
+          {todasLasImagenesDelFlujo.map((url) => (
+            <img key={url} src={url} alt="preload" />
+          ))}
         </div>
       </div>
     </div>
