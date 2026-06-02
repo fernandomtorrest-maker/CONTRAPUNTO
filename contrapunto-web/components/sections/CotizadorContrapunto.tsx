@@ -618,14 +618,31 @@ export default function CotizadorContrapunto() {
       doc.text(`Superficie exacta: ${metrosTiny}m²`, 20, y)
       y += 15
 
+      // Precios de Estándares para Tiny House
       doc.setFontSize(14)
+      doc.setTextColor(141, 119, 95)
+      doc.text('Cotización por estándar:', 20, y)
+      y += 10
+
+      const valorTinyBase = metrosTiny * 600000
+      const valorTinyAlto = metrosTiny * 850000
+      const valorTinyPremium = metrosTiny * 1200000
+
+      doc.setFontSize(12)
+      doc.setTextColor(60)
+      doc.text(`Estándar Base (desde $600.000/m²):`, 25, y)
       doc.setTextColor(40)
-      doc.text(`Valor estimado:`, 20, y)
-      doc.text(`$${valorTiny.toLocaleString('es-CL')}`, pageWidth - 60, y)
+      doc.text(`desde $${valorTinyBase.toLocaleString('es-CL')}`, pageWidth - 60, y)
       y += 8
-      doc.setFontSize(10)
-      doc.setTextColor(100)
-      doc.text(`($600.000/m²)`, pageWidth - 60, y)
+      doc.setTextColor(60)
+      doc.text(`Estándar Alto (desde $850.000/m²):`, 25, y)
+      doc.setTextColor(40)
+      doc.text(`desde $${valorTinyAlto.toLocaleString('es-CL')}`, pageWidth - 60, y)
+      y += 8
+      doc.setTextColor(60)
+      doc.text(`Estándar Premium (desde $1.200.000/m²):`, 25, y)
+      doc.setTextColor(40)
+      doc.text(`desde $${valorTinyPremium.toLocaleString('es-CL')}`, pageWidth - 60, y)
       y += 15
     }
 
@@ -1092,20 +1109,36 @@ export default function CotizadorContrapunto() {
             {/* TINY */}
             {respuestas.tipoProyecto === 'Tiny House' && (
               <>
-                <div className="grid gap-6 md:grid-cols-2">
+                <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
                   <div className="rounded-[2rem] bg-[#262626] p-8">
-                    <div className="mb-3 text-neutral-400">
-                      Superficie estimada
-                    </div>
+                    <div className="mb-3 text-neutral-400">Superficie</div>
                     <div className="text-5xl font-light">{metrosTiny}m²</div>
                   </div>
+                  <div className="rounded-[2rem] bg-[#262626] p-8">
+                    <div className="mb-3 text-neutral-400">Estándar Base</div>
+                    <div className="text-3xl font-light">
+                      desde ${(metrosTiny * 600000).toLocaleString('es-CL')}
+                    </div>
+                    <div className="mt-2 text-sm text-neutral-500">
+                      desde $600.000/m²
+                    </div>
+                  </div>
                   <div className="rounded-[2rem] bg-[#8d775f] p-8">
-                    <div className="mb-3 text-neutral-200">Valor estimado</div>
-                    <div className="text-4xl font-light">
-                      ${valorTiny.toLocaleString('es-CL')}
+                    <div className="mb-3 text-neutral-200">Estándar Alto</div>
+                    <div className="text-3xl font-light">
+                      desde ${(metrosTiny * 850000).toLocaleString('es-CL')}
                     </div>
                     <div className="mt-2 text-sm text-white/70">
-                      desde $600.000/m²
+                      desde $850.000/m²
+                    </div>
+                  </div>
+                  <div className="rounded-[2rem] bg-[#262626] p-8">
+                    <div className="mb-3 text-neutral-400">Estándar Premium</div>
+                    <div className="text-3xl font-light">
+                      desde ${(metrosTiny * 1200000).toLocaleString('es-CL')}
+                    </div>
+                    <div className="mt-2 text-sm text-neutral-500">
+                      desde $1.200.000/m²
                     </div>
                   </div>
                 </div>
