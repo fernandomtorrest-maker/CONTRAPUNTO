@@ -278,18 +278,29 @@ export default function CotizadorContrapunto() {
     return pasos[pasoActual]
   }, [pasos, pasoActual])
 
-  // Pre-carga proactiva de imágenes de los siguientes pasos del flujo activo en segundo plano
+  // Pre-carga proactiva de todas las imágenes de todos los flujos de la aplicación al iniciar la página
   const todasLasImagenesDelFlujo = useMemo(() => {
     const urls: string[] = []
-    pasos.forEach((p) => {
+    // Agregar imágenes del flujo base
+    flujoBase.forEach((p) => {
       if (p.tipo === 'cards' && p.opciones) {
         ;(p.opciones as Array<{ valor: string; imagen: string }>).forEach((op) => {
-          if (op.imagen) urls.push(op.imagen)
+          if (op.imagen && !urls.includes(op.imagen)) urls.push(op.imagen)
         })
       }
     })
+    // Agregar imágenes de todos los flujos específicos (Casa, Quincho, Tiny House)
+    Object.values(flujos).forEach((pasosFlujo) => {
+      pasosFlujo.forEach((p) => {
+        if (p.tipo === 'cards' && p.opciones) {
+          ;(p.opciones as Array<{ valor: string; imagen: string }>).forEach((op) => {
+            if (op.imagen && !urls.includes(op.imagen)) urls.push(op.imagen)
+          })
+        }
+      })
+    })
     return urls
-  }, [pasos])
+  }, [])
 
   /*
   ========================================
