@@ -51,7 +51,7 @@ const projects: Project[] = [
     title: 'Remodelacion Pedro Fontova',
     category: 'FLIPPING INMOBILIARIO',
     location: 'Santiago, Chile',
-    description: 'Diseño y remodelación completa de espacios residenciales con finas terminaciones en madera y piedra.',
+    description: 'Diseño y remodelación completa de espacios residenciales con instalación de piso vinilico, revestimiento de escalera, pintura y detalles arquitectonicos.',
     mainImage: '/images/testimonios/pedro_fontova_opt/pedro_opt_10.webp',
     images: [
       '/images/testimonios/pedro_fontova_opt/pedro_opt_1.webp',
@@ -70,13 +70,21 @@ const projects: Project[] = [
     ]
   },
   {
-    id: 'proyecto-nativo',
-    title: 'Proyecto Nativo',
-    category: 'OBRA NUEVA',
-    location: 'Valdivia, Chile',
-    description: 'Vivienda modular sustentable construida con materiales térmicos de alta eficiencia y diseño contemporáneo.',
-    mainImage: '/images/cotizador/casa-2-pisos.jpg',
-    images: ['/images/cotizador/casa-2-pisos.jpg']
+    id: 'cabanis-pirque',
+    title: 'Remodelacion cabañas Pirque',
+    category: 'REMODELACION',
+    location: 'Pirque, Chile',
+    description: 'Renovación completa y ampliación de cabañas rústicas integradas en el entorno campestre de Pirque.',
+    mainImage: '/images/testimonios/pirque_opt/pirque_opt_1.webp',
+    images: [
+      '/images/testimonios/pirque_opt/pirque_opt_1.webp',
+      '/images/testimonios/pirque_opt/pirque_opt_2.webp',
+      '/images/testimonios/pirque_opt/pirque_opt_3.webp',
+      '/images/testimonios/pirque_opt/pirque_opt_4.webp',
+      '/images/testimonios/pirque_opt/pirque_opt_5.webp',
+      '/images/testimonios/pirque_opt/pirque_opt_6.webp',
+      '/images/testimonios/pirque_opt/pirque_opt_7.webp',
+    ]
   }
 ];
 
