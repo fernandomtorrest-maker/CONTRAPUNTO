@@ -8,7 +8,7 @@ import Link from 'next/link';
 
 export const CtaBanner = () => {
   return (
-    <section className="relative bg-carbon text-cream py-20 md:py-24 border-t border-border overflow-hidden">
+    <section id="contacto" className="relative bg-carbon text-cream py-20 md:py-24 border-t border-border overflow-hidden">
       {/* Imagen de fondo arquitectónica de lujo con opacidad baja */}
       <div className="absolute inset-0 opacity-30 z-0 scale-105 select-none pointer-events-none">
         <Image

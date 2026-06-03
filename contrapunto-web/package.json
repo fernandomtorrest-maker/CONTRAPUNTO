@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@behold/react": "^0.1.11",
     "@hookform/resolvers": "^5.2.2",
     "clsx": "^2.1.1",
     "framer-motion": "^12.38.0",

@@ -5,6 +5,7 @@ import Navbar from '@/components/sections/Navbar';
 import HeroSection from '@/components/sections/HeroSection';
 import ServicesSection from '@/components/sections/ServicesSection';
 import PortfolioSection from '@/components/sections/PortfolioSection';
+import ConceptSection from '@/components/sections/ConceptSection';
 import ProcessSection from '@/components/sections/ProcessSection';
 import InvestSection from '@/components/sections/InvestSection';
 import TestimonialsSection from '@/components/sections/TestimonialsSection';
@@ -34,6 +35,9 @@ export default function Home() {
 
         {/* 5. Sección de Inversiones */}
         <InvestSection />
+
+        {/* 5.5. Sección Concepto Arquitectónico (Partituras para Habitar / Filosofía) */}
+        <ConceptSection />
 
         {/* 6. Sección de Testimonios */}
         <TestimonialsSection />

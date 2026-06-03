@@ -26,12 +26,12 @@ export const Navbar = () => {
   }, []);
 
   const navLinks = [
-    { label: 'Inicio', href: '#inicio' },
-    { label: 'Servicios', href: '#servicios' },
-    { label: 'Proyectos', href: '#proyectos' },
-    { label: 'Proceso', href: '#proceso' },
-    { label: 'Inversiones', href: '#inversiones' },
-    { label: 'Testimonios', href: '#testimonios' },
+    { label: 'Inicio', href: '/' },
+    { label: 'Servicios', href: '/#servicios' },
+    { label: 'Proyectos', href: '/proyectos' },
+    { label: 'Catálogo', href: '/cotizar' },
+    { label: 'Nosotros', href: '/#testimonios' },
+    { label: 'Contacto', href: '/#contacto' },
   ];
 
   return (
@@ -47,7 +47,7 @@ export const Navbar = () => {
         <div className="container-base flex items-center justify-between">
           
           {/* LOGO CORPORATIVO */}
-          <a href="#inicio" className="flex items-center gap-3 group focus-sand">
+          <Link href="/" className="flex items-center gap-3 group focus-sand">
             <div className="relative w-28 h-16 md:w-32 md:h-18 transition-transform duration-300 group-hover:scale-[1.02]">
               <img
                 src="/logo.png"
@@ -55,18 +55,18 @@ export const Navbar = () => {
                 className="w-full h-full object-contain"
               />
             </div>
-          </a>
+          </Link>
 
           {/* MENÚ DESKTOP */}
           <nav className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
-              <a
+              <Link
                 key={link.label}
                 href={link.href}
                 className="text-xs font-semibold text-cream/70 hover:text-sand tracking-widest uppercase transition-colors focus-sand"
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
           </nav>
 
@@ -102,14 +102,14 @@ export const Navbar = () => {
           >
             <nav className="flex flex-col gap-6">
               {navLinks.map((link) => (
-                <a
+                <Link
                   key={link.label}
                   href={link.href}
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="font-heading text-3xl font-bold text-cream hover:text-sand uppercase tracking-wider py-2 border-b border-border transition-colors"
                 >
                   {link.label}
-                </a>
+                </Link>
               ))}
             </nav>
 

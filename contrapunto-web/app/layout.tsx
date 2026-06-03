@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   },
 
   description:
-    'Proyectos a medida construidos con precisión, materiales nobles y atención en cada detalle. Construcción, remodelaciones, quinchos, tiny houses y mobiliario en Santiago, Chile.',
+    'Proyectos a medida construidos con precisión, materiales nobles y atención en cada detalle. Construcción, es, quinchos, tiny houses y mobiliario en Santiago, Chile.',
 
   keywords: [
     'constructora Santiago',

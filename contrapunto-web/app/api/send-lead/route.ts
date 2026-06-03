@@ -103,10 +103,11 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ success: true, message: 'Lead enviado correctamente.' }, { status: 200 });
 
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('[Lead API Error]', error);
+    const errorMessage = error instanceof Error ? error.message : 'Error interno del servidor al procesar el lead.';
     return NextResponse.json(
-      { success: false, error: error.message || 'Error interno del servidor al procesar el lead.' },
+      { success: false, error: errorMessage },
       { status: 500 }
     );
   }

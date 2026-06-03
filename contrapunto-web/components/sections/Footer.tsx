@@ -1,16 +1,16 @@
 'use client';
 
 import React from 'react';
-import { Phone, Mail, MapPin, Link } from 'lucide-react';
+import { Phone, Mail, MapPin } from 'lucide-react';
 
 export const Footer = () => {
   return (
     <footer className="bg-carbon text-cream/70 border-t border-border py-12 md:py-16">
       <div className="container-base space-y-12">
-        
+
         {/* FILA SUPERIOR: Logo + Contacto + Redes */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 pb-8 border-b border-border">
-          
+
           {/* Logo Corporativo */}
           <div className="flex items-center gap-3">
             <div className="relative w-32 h-24">
@@ -29,14 +29,14 @@ export const Footer = () => {
               className="flex items-center gap-2.5 hover:text-sand transition-colors"
             >
               <Phone size={14} className="text-sand shrink-0" />
-              <span>+56 9 1234 5678</span>
+              <span>+56 9 6697 4560</span>
             </a>
             <a
-              href="mailto:hola@constructoracontrapunto.cl"
+              href="mailto:contacto@contrapuntoconstructora.com"
               className="flex items-center gap-2.5 hover:text-sand transition-colors"
             >
               <Mail size={14} className="text-sand shrink-0" />
-              <span className="lowercase">hola@constructoracontrapunto.cl</span>
+              <span className="lowercase">contacto@contrapuntoconstructora.com</span>
             </a>
             <div className="flex items-center gap-2.5">
               <MapPin size={14} className="text-sand shrink-0" />
@@ -47,7 +47,9 @@ export const Footer = () => {
           {/* Redes Sociales */}
           <div className="flex gap-4">
             <a
-              href="#"
+              href="https://www.instagram.com/contrapuntoconstructora/"
+              target="_blank"
+              rel="noopener noreferrer"
               className="w-9 h-9 border border-border flex items-center justify-center text-cream/60 hover:text-sand hover:border-sand transition-all"
               aria-label="Instagram"
             >
@@ -58,7 +60,7 @@ export const Footer = () => {
               </svg>
             </a>
             <a
-              href="#"
+              href="https://www.facebook.com/contrapunto.constructora"
               className="w-9 h-9 border border-border flex items-center justify-center text-cream/60 hover:text-sand hover:border-sand transition-all"
               aria-label="Facebook"
             >
@@ -67,11 +69,15 @@ export const Footer = () => {
               </svg>
             </a>
             <a
-              href="#"
+              href="https://www.tiktok.com/@contrapuntoconstructora"
+              target="_blank"
+              rel="noopener noreferrer"
               className="w-9 h-9 border border-border flex items-center justify-center text-cream/60 hover:text-sand hover:border-sand transition-all"
-              aria-label="Sitio Web"
+              aria-label="TikTok"
             >
-              <Link size={16} strokeWidth={1.5} />
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" />
+              </svg>
             </a>
           </div>
 

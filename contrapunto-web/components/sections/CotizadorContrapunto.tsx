@@ -3,6 +3,7 @@
 import { useState, useEffect, useMemo } from 'react'
 import { ChevronLeft, Plus, Minus, MessageCircle, Send, Download } from 'lucide-react'
 import Image from 'next/image'
+import Link from 'next/link'
 
 /*
 ========================================
@@ -685,11 +686,18 @@ export default function CotizadorContrapunto() {
     <div className="min-h-screen bg-[#1b1b1b] text-white">
       <div className="mx-auto max-w-7xl px-6 py-10">
         {/* Header */}
-        <div className="mb-16">
-          <div className="mb-3 text-xs uppercase tracking-[0.35em] text-[#8d775f]">
-            Contrapunto
+        <div className="mb-16 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 border-b border-white/5 pb-8">
+          <div>
+            <div className="mb-3 text-xs uppercase tracking-[0.35em] text-[#8d775f]">
+              Contrapunto
+            </div>
+            <h1 className="text-5xl font-light">Cotizador de Proyectos</h1>
           </div>
-          <h1 className="text-5xl font-light">Cotizador de Proyectos</h1>
+          <Link href="/">
+            <button className="inline-flex items-center gap-2 text-xs text-[#8d775f] hover:text-[#a58a6b] uppercase tracking-wider font-bold border border-[#8d775f]/30 hover:border-[#8d775f] bg-[#8d775f]/10 px-5 py-3.5 rounded-lg transition-all">
+              Volver al Inicio
+            </button>
+          </Link>
         </div>
 
         {/* Progress indicator */}
