@@ -19,7 +19,7 @@ interface Project {
 const projects: Project[] = [
   {
     id: 'welemu',
-    title: 'Welemu Tiny Cabins',
+    title: 'Welemu Tiny Houses',
     category: 'ECOLODGE / TINY HOUSE',
     location: 'Valdivia, Chile',
     description: 'Complejo de cabinas modulares integradas de manera sostenible en el bosque nativo valdiviano.',
@@ -47,13 +47,27 @@ const projects: Project[] = [
     ]
   },
   {
-    id: 'los-robles',
-    title: 'Proyecto Los Robles',
+    id: 'pedro-fontova',
+    title: 'Remodelacion Pedro Fontova',
     category: 'FLIPPING INMOBILIARIO',
     location: 'Santiago, Chile',
-    description: 'Revalorización arquitectónica y renovación interior completa de residencia unifamiliar.',
-    mainImage: '/images/cotizador/casa-nueva.jpg',
-    images: ['/images/cotizador/casa-nueva.jpg']
+    description: 'Diseño y remodelación completa de espacios residenciales con finas terminaciones en madera y piedra.',
+    mainImage: '/images/testimonios/pedro_fontova_opt/pedro_opt_10.webp',
+    images: [
+      '/images/testimonios/pedro_fontova_opt/pedro_opt_1.webp',
+      '/images/testimonios/pedro_fontova_opt/pedro_opt_2.webp',
+      '/images/testimonios/pedro_fontova_opt/pedro_opt_3.webp',
+      '/images/testimonios/pedro_fontova_opt/pedro_opt_4.webp',
+      '/images/testimonios/pedro_fontova_opt/pedro_opt_5.webp',
+      '/images/testimonios/pedro_fontova_opt/pedro_opt_6.webp',
+      '/images/testimonios/pedro_fontova_opt/pedro_opt_7.webp',
+      '/images/testimonios/pedro_fontova_opt/pedro_opt_8.webp',
+      '/images/testimonios/pedro_fontova_opt/pedro_opt_9.webp',
+      '/images/testimonios/pedro_fontova_opt/pedro_opt_10.webp',
+      '/images/testimonios/pedro_fontova_opt/pedro_opt_11.webp',
+      '/images/testimonios/pedro_fontova_opt/pedro_opt_12.webp',
+      '/images/testimonios/pedro_fontova_opt/pedro_opt_13.webp',
+    ]
   },
   {
     id: 'proyecto-nativo',
@@ -97,7 +111,7 @@ export const PortfolioSection = () => {
       className="bg-[#0f0e0c] text-cream section-padding border-t border-border"
     >
       <div className="container-base flex flex-col xl:flex-row gap-12 xl:gap-16">
-        
+
         {/* TITULO Y DESCRIPCION LATERAL */}
         <div className="w-full xl:w-1/4 shrink-0 flex flex-col justify-between items-start space-y-8">
           <div className="space-y-4">
@@ -142,7 +156,7 @@ export const PortfolioSection = () => {
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 25vw"
                     className="object-cover transition-transform duration-700 group-hover:scale-105"
                   />
-                  
+
                   {/* Tag de Categoría */}
                   <span className="absolute top-4 left-4 bg-sand/90 text-carbon font-extrabold tracking-widest text-[9px] uppercase px-3 py-1 rounded">
                     {project.category}
@@ -177,7 +191,7 @@ export const PortfolioSection = () => {
                       {project.description}
                     </p>
                   </div>
-                  
+
                   <div className="pt-4 border-t border-border/30 mt-4 flex justify-between items-center text-[10px] text-sand font-bold tracking-widest uppercase group-hover:text-sand-light transition-colors">
                     <span>Explorar detalles</span>
                     <span>→</span>
@@ -219,7 +233,7 @@ export const PortfolioSection = () => {
                   {activeProject.title}
                 </h4>
               </div>
-              
+
               <button
                 onClick={closeLightbox}
                 className="w-10 h-10 border border-white/10 rounded-full flex items-center justify-center text-cream/70 hover:text-white hover:bg-white/10 transition-all cursor-pointer"
@@ -231,7 +245,7 @@ export const PortfolioSection = () => {
 
             {/* Visualizador Principal de Imagen */}
             <div className="relative w-full max-w-4xl mx-auto aspect-[4/3] sm:aspect-[16/10] max-h-[70vh] flex items-center justify-center my-auto">
-              <div 
+              <div
                 className="relative w-full h-full overflow-hidden rounded-xl border border-white/5 bg-[#0a0a09]"
                 onClick={(e) => e.stopPropagation()}
               >
@@ -283,7 +297,7 @@ export const PortfolioSection = () => {
 
             {/* Miniaturas de navegación (solo si hay más de 1 imagen) */}
             {activeProject.images.length > 1 && (
-              <div 
+              <div
                 className="w-full max-w-4xl mx-auto flex justify-center gap-2 overflow-x-auto py-4 z-10"
                 onClick={(e) => e.stopPropagation()}
               >
@@ -291,9 +305,8 @@ export const PortfolioSection = () => {
                   <button
                     key={idx}
                     onClick={() => setCurrentImgIdx(idx)}
-                    className={`relative w-16 h-12 rounded-md overflow-hidden border-2 transition-all shrink-0 cursor-pointer ${
-                      currentImgIdx === idx ? 'border-sand scale-105' : 'border-transparent opacity-60 hover:opacity-100'
-                    }`}
+                    className={`relative w-16 h-12 rounded-md overflow-hidden border-2 transition-all shrink-0 cursor-pointer ${currentImgIdx === idx ? 'border-sand scale-105' : 'border-transparent opacity-60 hover:opacity-100'
+                      }`}
                   >
                     {img.endsWith('.mp4') ? (
                       <div className="w-full h-full bg-[#161512] flex flex-col items-center justify-center text-sand text-[9px] font-bold uppercase gap-1">
