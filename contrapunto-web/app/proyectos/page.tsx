@@ -197,14 +197,17 @@ export default function ProyectosGalleryPage() {
               </div>
             </div>
 
-            {/* Right Image Column */}
+            {/* Right Video Column */}
             <div className="lg:col-span-7 relative h-[320px] sm:h-[450px] lg:h-[500px] w-full overflow-hidden rounded-lg shadow-2xl border border-white/10 group">
-              <img 
-                src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=1200&auto=format&fit=crop" 
-                alt="Constructora Contrapunto Interior" 
-                className="w-full h-full object-cover transition-transform duration-[1200ms] group-hover:scale-105"
+              <video 
+                src="/images/video-semilla-austral.mp4" 
+                autoPlay 
+                loop 
+                muted 
+                playsInline 
+                className="w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0f0e0c]/80 via-transparent to-transparent"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0f0e0c]/80 via-transparent to-transparent pointer-events-none"></div>
             </div>
 
           </div>
