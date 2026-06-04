@@ -86,27 +86,6 @@ export const HeroSection = () => {
           </motion.div>
         </div>
 
-        {/* INDICADOR DE SLIDES / DECORATIVO A LA DERECHA */}
-        <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-          className="hidden md:flex flex-col gap-6 items-end shrink-0 border-r border-cream/10 pr-6 py-4"
-        >
-          <div className="group cursor-pointer text-right">
-            <span className="font-heading text-xs font-bold text-sand tracking-widest block transition-colors group-hover:text-cream">01</span>
-            <span className="w-8 h-[1px] bg-sand inline-block mt-1" />
-          </div>
-          <div className="group cursor-pointer text-right opacity-40 hover:opacity-100 transition-opacity">
-            <span className="font-heading text-xs font-bold text-cream tracking-widest block">02</span>
-            <span className="w-4 h-[1px] bg-cream inline-block mt-1 transition-all group-hover:w-8" />
-          </div>
-          <div className="group cursor-pointer text-right opacity-40 hover:opacity-100 transition-opacity">
-            <span className="font-heading text-xs font-bold text-cream tracking-widest block">03</span>
-            <span className="w-4 h-[1px] bg-cream inline-block mt-1 transition-all group-hover:w-8" />
-          </div>
-        </motion.div>
-
       </div>
 
       {/* Flecha hacia abajo decorativa */}
