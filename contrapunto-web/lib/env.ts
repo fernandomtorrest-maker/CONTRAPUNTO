@@ -28,6 +28,9 @@ const envSchema = z.object({
   // GCP credentials
   GCP_PROJECT_ID: z.string().optional(),
   GOOGLE_APPLICATION_CREDENTIALS: z.string().optional(),
+
+  // Gemini API Key
+  GEMINI_API_KEY: z.string().optional().or(z.literal('')),
 });
 
 // Parse variables
@@ -51,6 +54,7 @@ const processEnv = {
   R2_PUBLIC_URL: process.env.R2_PUBLIC_URL,
   GCP_PROJECT_ID: process.env.GCP_PROJECT_ID,
   GOOGLE_APPLICATION_CREDENTIALS: process.env.GOOGLE_APPLICATION_CREDENTIALS,
+  GEMINI_API_KEY: process.env.GEMINI_API_KEY,
 };
 
 const parsed = envSchema.safeParse(processEnv);
