@@ -77,7 +77,7 @@ const initialProjects = [
     title: 'Proyecto Parque Sur',
     category: 'FLIPPING INMOBILIARIO',
     likes: 92,
-    image: '/images/cotizador/casa-3-pisos.jpg',
+    image: '/images/cotizador/casa-3-pisos.webp',
     status: 'terminado'
   },
   {
@@ -85,7 +85,7 @@ const initialProjects = [
     title: 'Proyecto Interiorismo M.',
     category: 'COMERCIAL',
     likes: 51,
-    image: '/images/cotizador/foto-quincho.png',
+    image: '/images/cotizador/foto-quincho.webp',
     status: 'terminado'
   },
   {
@@ -93,7 +93,7 @@ const initialProjects = [
     title: 'Proyecto Andino',
     category: 'CROWDFUNDING INMOBILIARIO',
     likes: 73,
-    image: '/images/cotizador/tiny-vivienda.png',
+    image: '/images/cotizador/tiny-vivienda.webp',
     status: 'terminado'
   },
   {
@@ -101,7 +101,7 @@ const initialProjects = [
     title: 'Proyecto Vista Norte',
     category: 'FLIPPING INMOBILIARIO',
     likes: 65,
-    image: '/images/cotizador/terraza-ladrillo-madera.png',
+    image: '/images/cotizador/terraza-ladrillo-madera.webp',
     status: 'terminado'
   },
   {
@@ -109,7 +109,7 @@ const initialProjects = [
     title: 'Proyecto Taller 51',
     category: 'COMERCIAL',
     likes: 48,
-    image: '/images/cotizador/terraza-techada.jpg',
+    image: '/images/cotizador/terraza-techada.webp',
     status: 'terminado'
   },
   {
@@ -117,7 +117,7 @@ const initialProjects = [
     title: 'Proyecto La Dehesa',
     category: 'CROWDFUNDING INMOBILIARIO',
     likes: 80,
-    image: '/images/cotizador/tiny-35-50.png',
+    image: '/images/cotizador/tiny-35-50.webp',
     status: 'en desarrollo'
   },
   {
@@ -125,7 +125,7 @@ const initialProjects = [
     title: 'Proyecto Patagonia',
     category: 'FLIPPING INMOBILIARIO',
     likes: 70,
-    image: '/images/cotizador/terraza-acero-y-madera.png',
+    image: '/images/cotizador/terraza-acero-y-madera.webp',
     status: 'terminado'
   },
   {
@@ -133,7 +133,7 @@ const initialProjects = [
     title: 'Proyecto Costanera',
     category: 'CROWDFUNDING INMOBILIARIO',
     likes: 58,
-    image: '/images/cotizador/tiny-office.jpg',
+    image: '/images/cotizador/tiny-office.webp',
     status: 'en desarrollo'
   },
   {
@@ -156,7 +156,7 @@ const initialProjects = [
     title: 'Proyecto Estudio 27',
     category: 'COMERCIAL',
     likes: 45,
-    image: '/images/cotizador/casa-1-piso.png',
+    image: '/images/cotizador/casa-1-piso.webp',
     status: 'terminado'
   }
 ];

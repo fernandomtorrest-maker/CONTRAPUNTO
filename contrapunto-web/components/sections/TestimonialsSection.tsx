@@ -134,9 +134,9 @@ export const TestimonialsSection = () => {
       initials: 'WE',
       rating: 5,
       images: [
-        '/images/testimonios/welemu_1.jpg',
-        '/images/testimonios/welemu_2.jpg',
-        '/images/testimonios/welemu_3.jpg',
+        '/images/testimonios/welemu_1.webp',
+        '/images/testimonios/welemu_2.webp',
+        '/images/testimonios/welemu_3.webp',
       ],
     },
     {
@@ -146,7 +146,7 @@ export const TestimonialsSection = () => {
       initials: 'MP',
       rating: 5,
       images: [
-        '/images/testimonios/mariapaz_1.jpg',
+        '/images/testimonios/mariapaz_1.webp',
       ],
     },
     {
@@ -156,7 +156,7 @@ export const TestimonialsSection = () => {
       initials: 'BP',
       rating: 5,
       images: [
-        '/images/testimonios/betsy_1.jpg',
+        '/images/testimonios/betsy_1.webp',
       ],
     },
   ];

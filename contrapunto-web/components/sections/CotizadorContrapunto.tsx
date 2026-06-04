@@ -73,11 +73,11 @@ const flujoBase: Paso[] = [
     opciones: [
       {
         valor: 'Casa nueva',
-        imagen: '/images/cotizador/casa-nueva.jpg',
+        imagen: '/images/cotizador/casa-nueva.webp',
       },
       {
         valor: 'Quincho / Terraza',
-        imagen: '/images/cotizador/foto-quincho.png',
+        imagen: '/images/cotizador/foto-quincho.webp',
       },
       {
         valor: 'Tiny House',
@@ -97,15 +97,15 @@ const flujos: Record<string, Paso[]> = {
       opciones: [
         {
           valor: '1 piso',
-          imagen: '/images/cotizador/casa-1-piso.png',
+          imagen: '/images/cotizador/casa-1-piso.webp',
         },
         {
           valor: '2 pisos',
-          imagen: '/images/cotizador/casa-2-pisos.jpg',
+          imagen: '/images/cotizador/casa-2-pisos.webp',
         },
         {
           valor: '3 pisos o más',
-          imagen: '/images/cotizador/casa-3-pisos.png',
+          imagen: '/images/cotizador/casa-3-pisos.webp',
         },
       ],
     },
@@ -128,15 +128,15 @@ const flujos: Record<string, Paso[]> = {
       opciones: [
         {
           valor: 'Terraza abierta',
-          imagen: '/images/cotizador/terraza-abierta.png',
+          imagen: '/images/cotizador/terraza-abierta.webp',
         },
         {
           valor: 'Terraza techada',
-          imagen: '/images/cotizador/terraza-techada.jpg',
+          imagen: '/images/cotizador/terraza-techada.webp',
         },
         {
           valor: 'Quincho completo',
-          imagen: '/images/cotizador/quincho-completo.jpg',
+          imagen: '/images/cotizador/quincho-completo.webp',
         },
       ],
     },
@@ -157,11 +157,11 @@ const flujos: Record<string, Paso[]> = {
         },
         {
           valor: 'Acero y madera',
-          imagen: '/images/cotizador/terraza-acero-y-madera.png',
+          imagen: '/images/cotizador/terraza-acero-y-madera.webp',
         },
         {
           valor: 'Ladrillo y madera',
-          imagen: '/images/cotizador/terraza-ladrillo-madera.png',
+          imagen: '/images/cotizador/terraza-ladrillo-madera.webp',
         },
       ],
     },
@@ -197,15 +197,15 @@ const flujos: Record<string, Paso[]> = {
       opciones: [
         {
           valor: 'Vivienda permanente',
-          imagen: '/images/cotizador/tiny-vivienda.png',
+          imagen: '/images/cotizador/tiny-vivienda.webp',
         },
         {
           valor: 'Turismo / Airbnb',
-          imagen: '/images/cotizador/tiny-airbnb.jpg',
+          imagen: '/images/cotizador/tiny-airbnb.webp',
         },
         {
           valor: 'Oficina o estudio',
-          imagen: '/images/cotizador/tiny-office.jpg',
+          imagen: '/images/cotizador/tiny-office.webp',
         },
       ],
     },
@@ -216,15 +216,15 @@ const flujos: Record<string, Paso[]> = {
       opciones: [
         {
           valor: '15m² - 25m²',
-          imagen: '/images/cotizador/tiny-15-25.png',
+          imagen: '/images/cotizador/tiny-15-25.webp',
         },
         {
           valor: '25m² - 35m²',
-          imagen: '/images/cotizador/tiny-25-35.png',
+          imagen: '/images/cotizador/tiny-25-35.webp',
         },
         {
           valor: '35m² - 50m²',
-          imagen: '/images/cotizador/tiny-35-50.png',
+          imagen: '/images/cotizador/tiny-35-50.webp',
         },
       ],
     },
