@@ -36,18 +36,40 @@ const InstagramIcon = ({ className = 'h-4 w-4' }: { className?: string }) => (
 const initialProjects = [
   {
     id: 1,
-    title: 'Proyecto Los Robles',
+    title: 'Remodelacion Pedro Fontova',
     category: 'FLIPPING INMOBILIARIO',
     likes: 84,
-    image: '/images/cotizador/casa-nueva.jpg',
+    image: '/images/testimonios/pedro_fontova_opt/pedro_opt_10.webp',
+    images: [
+      '/images/testimonios/pedro_fontova_opt/pedro_opt_1.webp',
+      '/images/testimonios/pedro_fontova_opt/pedro_opt_2.webp',
+      '/images/testimonios/pedro_fontova_opt/pedro_opt_3.webp',
+      '/images/testimonios/pedro_fontova_opt/pedro_opt_4.webp',
+      '/images/testimonios/pedro_fontova_opt/pedro_opt_5.webp',
+      '/images/testimonios/pedro_fontova_opt/pedro_opt_6.webp',
+      '/images/testimonios/pedro_fontova_opt/pedro_opt_7.webp',
+      '/images/testimonios/pedro_fontova_opt/pedro_opt_8.webp',
+      '/images/testimonios/pedro_fontova_opt/pedro_opt_9.webp',
+      '/images/testimonios/pedro_fontova_opt/pedro_opt_10.webp',
+      '/images/testimonios/pedro_fontova_opt/pedro_opt_11.webp',
+      '/images/testimonios/pedro_fontova_opt/pedro_opt_12.webp',
+      '/images/testimonios/pedro_fontova_opt/pedro_opt_13.webp'
+    ],
     status: 'terminado'
   },
   {
     id: 2,
-    title: 'Proyecto Nativo',
-    category: 'CROWDFUNDING INMOBILIARIO',
+    title: 'Remodelacion cabañas Pirque',
+    category: 'REMODELACION',
     likes: 67,
-    image: '/images/cotizador/casa-2-pisos.jpg',
+    image: '/images/testimonios/pirque_opt/pirque_opt_1.webp',
+    images: [
+      '/images/testimonios/pirque_opt/pirque_opt_1.webp',
+      '/images/testimonios/pirque_opt/pirque_opt_3.webp',
+      '/images/testimonios/pirque_opt/pirque_opt_4.webp',
+      '/images/testimonios/pirque_opt/pirque_opt_6.webp',
+      '/images/testimonios/pirque_opt/pirque_opt_7.webp'
+    ],
     status: 'terminado'
   },
   {

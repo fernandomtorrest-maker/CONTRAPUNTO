@@ -78,10 +78,8 @@ const projects: Project[] = [
     mainImage: '/images/testimonios/pirque_opt/pirque_opt_1.webp',
     images: [
       '/images/testimonios/pirque_opt/pirque_opt_1.webp',
-      '/images/testimonios/pirque_opt/pirque_opt_2.webp',
       '/images/testimonios/pirque_opt/pirque_opt_3.webp',
       '/images/testimonios/pirque_opt/pirque_opt_4.webp',
-      '/images/testimonios/pirque_opt/pirque_opt_5.webp',
       '/images/testimonios/pirque_opt/pirque_opt_6.webp',
       '/images/testimonios/pirque_opt/pirque_opt_7.webp',
     ]
