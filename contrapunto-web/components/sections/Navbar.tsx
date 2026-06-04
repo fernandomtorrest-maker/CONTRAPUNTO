@@ -28,7 +28,7 @@ export const Navbar = () => {
   const navLinks = [
     { label: 'Inicio', href: '/' },
     { label: 'Servicios', href: '/#servicios' },
-    { label: 'Proyectos', href: '/proyectos' },
+    { label: 'Proyectos', href: '/#proyectos' },
     { label: 'Catálogo', href: '/catalogo' },
     { label: 'Nosotros', href: '/nosotros' },
     { label: 'Contacto', href: '/#contacto' },
