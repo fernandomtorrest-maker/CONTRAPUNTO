@@ -4,8 +4,13 @@ import React, { useState } from 'react';
 import { 
   ArrowRight,
   Heart,
-  ChevronDown
+  ChevronDown,
+  X,
+  ChevronLeft,
+  ChevronRight,
+  Eye
 } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import Navbar from '@/components/sections/Navbar';
 import Footer from '@/components/sections/Footer';
@@ -114,7 +119,14 @@ const initialProjects = [
     title: 'Proyecto El Arrayán',
     category: 'FLIPPING INMOBILIARIO',
     likes: 63,
-    image: '/images/cotizador/terraza-abierta.png',
+    image: '/images/proyectos/pergola/5_Pergola_Completada.webp',
+    images: [
+      '/images/proyectos/pergola/1_Trazado_y_Fundaciones.webp',
+      '/images/proyectos/pergola/2_Montaje_de_Estructura.webp',
+      '/images/proyectos/pergola/3_Instalacion_de_Cielo_y_Toldo.webp',
+      '/images/proyectos/pergola/4_Acabados_y_Paisajismo.webp',
+      '/images/proyectos/pergola/5_Pergola_Completada.webp'
+    ],
     status: 'en desarrollo'
   },
   {
@@ -133,6 +145,31 @@ export default function ProyectosGalleryPage() {
   const [likedProjects, setLikedProjects] = useState<number[]>([]);
   const [sortBy, setSortBy] = useState('recientes');
   const [visibleCount, setVisibleCount] = useState(12);
+  const [activeProject, setActiveProject] = useState<any | null>(null);
+  const [currentImgIdx, setCurrentImgIdx] = useState(0);
+
+  const openLightbox = (project: any) => {
+    setActiveProject(project);
+    setCurrentImgIdx(0);
+  };
+
+  const closeLightbox = () => {
+    setActiveProject(null);
+  };
+
+  const nextImage = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (!activeProject) return;
+    const projectImages = activeProject.images || [activeProject.image];
+    setCurrentImgIdx((prev) => (prev + 1) % projectImages.length);
+  };
+
+  const prevImage = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (!activeProject) return;
+    const projectImages = activeProject.images || [activeProject.image];
+    setCurrentImgIdx((prev) => (prev - 1 + projectImages.length) % projectImages.length);
+  };
 
   // Client-side filtering logic
   const filteredProjects = projects.filter(project => {
@@ -265,7 +302,8 @@ export default function ProyectosGalleryPage() {
             {sortedProjects.slice(0, visibleCount).map((project) => (
               <div 
                 key={project.id}
-                className="group flex flex-col bg-white border border-carbon/5 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 rounded-sm"
+                onClick={() => openLightbox(project)}
+                className="group flex flex-col bg-white border border-carbon/5 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 rounded-sm cursor-pointer"
               >
                 {/* Image */}
                 <div className="relative aspect-[4/3] w-full overflow-hidden bg-carbon/10">
@@ -279,6 +317,16 @@ export default function ProyectosGalleryPage() {
                       En Desarrollo
                     </span>
                   )}
+                  {project.images && project.images.length > 1 && (
+                    <span className="absolute top-3 right-3 bg-carbon/80 backdrop-blur-sm text-white text-[9px] font-bold uppercase px-2.5 py-1 rounded-sm shadow-md">
+                      {project.images.length} fotos
+                    </span>
+                  )}
+                  <div className="absolute inset-0 bg-carbon/60 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                    <span className="bg-sand text-carbon font-bold text-xs uppercase tracking-widest px-4 py-2 rounded shadow-xl flex items-center gap-2 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+                      <Eye size={14} /> Ver Galería
+                    </span>
+                  </div>
                 </div>
 
                 {/* Content */}
@@ -295,7 +343,7 @@ export default function ProyectosGalleryPage() {
                     </span>
                     
                     <button 
-                      onClick={() => toggleLike(project.id)}
+                      onClick={(e) => { e.stopPropagation(); toggleLike(project.id); }}
                       className={`flex items-center gap-1 text-[11px] font-bold transition-colors ${
                         likedProjects.includes(project.id) 
                           ? 'text-red-500' 
@@ -362,6 +410,146 @@ export default function ProyectosGalleryPage() {
           </div>
         </div>
       </section>
+
+      {/* LIGHTBOX MODAL */}
+      <AnimatePresence>
+        {activeProject && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={closeLightbox}
+            className="fixed inset-0 z-50 bg-black/95 flex flex-col justify-between p-4 sm:p-6 backdrop-blur-md cursor-zoom-out"
+          >
+            {/* Cabecera del Lightbox */}
+            <div className="flex justify-between items-center w-full max-w-6xl mx-auto py-2 z-10">
+              <div>
+                <span className="text-[9px] font-extrabold text-sand uppercase tracking-[0.2em]">
+                  {activeProject.category}
+                </span>
+                <h4 className="font-heading text-lg sm:text-xl font-extrabold text-cream uppercase tracking-wide">
+                  {activeProject.title}
+                </h4>
+              </div>
+
+              <button
+                onClick={closeLightbox}
+                className="w-10 h-10 border border-white/10 rounded-full flex items-center justify-center text-cream/70 hover:text-white hover:bg-white/10 transition-all cursor-pointer"
+                aria-label="Cerrar galería"
+              >
+                <X size={20} />
+              </button>
+            </div>
+
+            {/* Visualizador Principal de Imagen */}
+            <div className="relative w-full max-w-4xl mx-auto aspect-[4/3] sm:aspect-[16/10] max-h-[70vh] flex items-center justify-center my-auto">
+              <div
+                className="relative w-full h-full overflow-hidden rounded-xl border border-white/5 bg-[#0a0a09]"
+                onClick={(e) => e.stopPropagation()}
+              >
+                {(() => {
+                  const projectImages = activeProject.images || [activeProject.image];
+                  const currentImg = projectImages[currentImgIdx];
+                  if (currentImg.endsWith('.mp4')) {
+                    return (
+                      <video
+                        src={currentImg}
+                        controls
+                        autoPlay
+                        className="w-full h-full object-contain"
+                      />
+                    );
+                  } else {
+                    return (
+                      <img
+                        src={currentImg}
+                        alt={`${activeProject.title} - Imagen ${currentImgIdx + 1}`}
+                        className="w-full h-full object-contain"
+                      />
+                    );
+                  }
+                })()}
+
+                {/* Controles de navegación de imagen */}
+                {(() => {
+                  const projectImages = activeProject.images || [activeProject.image];
+                  if (projectImages.length > 1) {
+                    return (
+                      <>
+                        <button
+                          onClick={prevImage}
+                          className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/50 hover:bg-black/80 border border-white/10 text-white flex items-center justify-center transition-all cursor-pointer"
+                          aria-label="Imagen anterior"
+                        >
+                          <ChevronLeft size={24} />
+                        </button>
+                        <button
+                          onClick={nextImage}
+                          className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/50 hover:bg-black/80 border border-white/10 text-white flex items-center justify-center transition-all cursor-pointer"
+                          aria-label="Siguiente imagen"
+                        >
+                          <ChevronRight size={24} />
+                        </button>
+                      </>
+                    );
+                  }
+                  return null;
+                })()}
+
+                {/* Contador de fotos */}
+                {(() => {
+                  const projectImages = activeProject.images || [activeProject.image];
+                  if (projectImages.length > 1) {
+                    return (
+                      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/70 backdrop-blur-sm px-4 py-1.5 rounded-full border border-white/10 text-[10px] font-bold tracking-widest text-cream/90 uppercase">
+                        {currentImgIdx + 1} / {projectImages.length}
+                      </div>
+                    );
+                  }
+                  return null;
+                })()}
+              </div>
+            </div>
+
+            {/* Miniaturas de navegación */}
+            {(() => {
+              const projectImages = activeProject.images || [activeProject.image];
+              if (projectImages.length > 1) {
+                return (
+                  <div
+                    className="w-full max-w-4xl mx-auto flex justify-center gap-2 overflow-x-auto py-4 z-10"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    {projectImages.map((img: string, idx: number) => (
+                      <button
+                        key={idx}
+                        onClick={() => setCurrentImgIdx(idx)}
+                        className={`relative w-16 h-12 rounded-md overflow-hidden border-2 transition-all shrink-0 cursor-pointer ${
+                          currentImgIdx === idx ? 'border-sand scale-105' : 'border-transparent opacity-60 hover:opacity-100'
+                        }`}
+                      >
+                        {img.endsWith('.mp4') ? (
+                          <div className="w-full h-full bg-[#161512] flex flex-col items-center justify-center text-sand text-[9px] font-bold uppercase gap-1">
+                            <span className="text-[12px]">▶</span>
+                            <span>Video</span>
+                          </div>
+                        ) : (
+                          <img
+                            src={img}
+                            alt={`Miniatura ${idx + 1}`}
+                            className="w-full h-full object-cover"
+                          />
+                        )}
+                      </button>
+                    ))}
+                  </div>
+                );
+              }
+              return null;
+            })()}
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Footer */}
       <Footer />
