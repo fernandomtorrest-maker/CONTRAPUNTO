@@ -53,7 +53,7 @@ export default function CatalogoPage() {
                 CATÁLOGO<br />DE DISEÑOS.
               </h1>
               <p className="text-sm text-cream/70 leading-relaxed max-w-lg">
-                Explora el catálogo "Partituras para Habitar" con nuestra filosofía de diseño,
+                Explora el catálogo &quot;Partituras para Habitar&quot; con nuestra filosofía de diseño,
                 nuestras obras y composiciones arquitectónicas.
               </p>
             </div>

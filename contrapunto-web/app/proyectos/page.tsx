@@ -32,8 +32,18 @@ const InstagramIcon = ({ className = 'h-4 w-4' }: { className?: string }) => (
   </svg>
 );
 
+interface Project {
+  id: number;
+  title: string;
+  category: string;
+  likes: number;
+  image: string;
+  images?: string[];
+  status: string;
+}
+
 // All 12 projects matching the layout and naming in the reference image
-const initialProjects = [
+const initialProjects: Project[] = [
   {
     id: 1,
     title: 'Remodelacion Pedro Fontova',
@@ -167,10 +177,10 @@ export default function ProyectosGalleryPage() {
   const [likedProjects, setLikedProjects] = useState<number[]>([]);
   const [sortBy, setSortBy] = useState('recientes');
   const [visibleCount, setVisibleCount] = useState(12);
-  const [activeProject, setActiveProject] = useState<any | null>(null);
+  const [activeProject, setActiveProject] = useState<Project | null>(null);
   const [currentImgIdx, setCurrentImgIdx] = useState(0);
 
-  const openLightbox = (project: any) => {
+  const openLightbox = (project: Project) => {
     setActiveProject(project);
     setCurrentImgIdx(0);
   };
