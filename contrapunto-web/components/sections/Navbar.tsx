@@ -71,7 +71,12 @@ export const Navbar = () => {
           </nav>
 
           {/* BOTÓN DE ACCIÓN DESKTOP */}
-          <div className="hidden md:block">
+          <div className="hidden md:flex items-center gap-3">
+            <Link href="/chat">
+              <Button variant="primary" size="sm" className="bg-sand text-carbon hover:bg-[#a38b72] border-transparent font-bold">
+                Chatea con nuestro agente experto
+              </Button>
+            </Link>
             <Link href="/cotizar">
               <Button variant="outline" size="sm">
                 Cotizar Proyecto
@@ -114,9 +119,17 @@ export const Navbar = () => {
             </nav>
 
             <div className="space-y-4">
-              <Link href="/cotizar" className="block w-full" onClick={() => setIsMobileMenuOpen(false)}>
+              <Link href="/chat" className="block w-full" onClick={() => setIsMobileMenuOpen(false)}>
                 <Button
                   variant="primary"
+                  className="w-full text-center bg-sand text-carbon hover:bg-[#a38b72] border-transparent font-bold"
+                >
+                  Chatea con nuestro agente experto
+                </Button>
+              </Link>
+              <Link href="/cotizar" className="block w-full" onClick={() => setIsMobileMenuOpen(false)}>
+                <Button
+                  variant="outline"
                   className="w-full text-center"
                 >
                   Cotizar Proyecto

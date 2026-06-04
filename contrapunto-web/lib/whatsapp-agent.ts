@@ -47,8 +47,31 @@ export interface ChatMessage {
 export async function askAgent(history: ChatMessage[], nextMessage: string): Promise<string> {
   const apiKey = env.GEMINI_API_KEY || process.env.GEMINI_API_KEY;
   if (!apiKey) {
-    console.warn('[Agent API] GEMINI_API_KEY is not defined. Returning demo simulation mode.');
-    return "Error de Configuración: GEMINI_API_KEY no configurado en el archivo de variables .env del servidor.";
+    console.warn('[Agent API] GEMINI_API_KEY is not defined. Returning simulator mode.');
+    
+    const query = nextMessage.toLowerCase();
+    
+    if (query.includes('fuego') || query.includes('incendio') || query.includes('cortafuego') || query.includes('4.3.3')) {
+      return "[MODO SIMULADOR TÉCNICO - SIN API KEY]\n\nDe acuerdo al artículo 4.3.3 de la Ordenanza General de Urbanismo y Construcciones (OGUC) de Chile, las exigencias de resistencia al fuego para muros divisorios cortafuegos entre viviendas pareadas varían entre F-60 y F-120. Esto depende de la clasificación de la edificación (clase y altura). Las estructuras soportantes verticales deben ser continuas desde el cimiento hasta el techo y poseer el mismo índice de resistencia para evitar propagaciones laterales y verticales en caso de siniestro.";
+    }
+    
+    if (query.includes('acorde') || query.includes('regla') || query.includes('filosofía') || query.includes('filosofia') || query.includes('composición')) {
+      return "[MODO SIMULADOR TÉCNICO - SIN API KEY]\n\nEl diseño y composición espacial de Contrapunto Constructora se rige por las '3 Reglas del Acorde':\n\n1. **Independencia Funcional:** Organización que permite la coexistencia de diferentes actividades (público, privado, teletrabajo) sin interferencia en la circulación principal.\n2. **Diferencia Formal:** Articulación volumétrica que distingue claramente las zonas espaciales del proyecto.\n3. **Encuentros Conscientes:** Valoración de los puntos de unión de materiales distintos (como vigas metálicas oscuras conectándose con columnas de pino oregón y transiciones a hormigón visto), transformando los detalles estructurales en hitos estéticos.";
+    }
+    
+    if (query.includes('precio') || query.includes('valor') || query.includes('uf') || query.includes('costo') || query.includes('m2') || query.includes('m²')) {
+      return "[MODO SIMULADOR TÉCNICO - SIN API KEY]\n\nEn Contrapunto Constructora operamos con los siguientes costos y tarifas paramétricas de referencia:\n\n* **Tiny Houses y Tiny Offices (Llave en mano):** El rango estimado fluctúa entre las 35 y 45 UF por metro cuadrado (m²), dependiendo de las especificaciones y el grado de autosustentabilidad.\n* **Quinchos y Terrazas de Alta Gama:** Rango aproximado entre 15 y 25 UF por metro cuadrado (m²), considerando estructura de madera noble o acero con cubiertas ventiladas.\n* **Remodelaciones Completas:** Desde 10 UF por metro cuadrado (m²), sujeto a estudio de factibilidad técnica y estructural.";
+    }
+    
+    if (query.includes('térmico') || query.includes('termico') || query.includes('aislamiento') || query.includes('4.1.10') || query.includes('santiago') || query.includes('zona 3')) {
+      return "[MODO SIMULADOR TÉCNICO - SIN API KEY]\n\nEl artículo 4.1.10 de la OGUC establece la obligatoriedad de acondicionamiento térmico para viviendas nuevas en Chile. Para la Zona 3 (Santiago/Región Metropolitana), se exige una transmitancia térmica (U) máxima de:\n* Techumbre: U <= 0.47 W/m²K (resistencia térmica mínima equivalente R100 de 188).\n* Muros perimetrales: U <= 1.90 W/m²K (R100 de 37).\n* Pisos ventilados: U <= 0.60 W/m²K (R100 de 147).\n\nEn Contrapunto superamos esta norma utilizando lana mineral o poliuretano proyectado de alta densidad en tabiquerías wood-frame para optimizar la inercia térmica.";
+    }
+    
+    if (query.includes('permiso') || query.includes('recepción') || query.includes('recepcion') || query.includes('dom') || query.includes('municipal')) {
+      return "[MODO SIMULADOR TÉCNICO - SIN API KEY]\n\nToda alteración estructural, ampliación o edificación nueva en territorio chileno requiere un Permiso de Edificación previo otorgado por la Dirección de Obras Municipales (DOM) respectiva. Una vez finalizada la obra con apego a los planos aprobados y las normas sísmicas y de fuego, se debe tramitar la Recepción Final (o Recepción Definitiva). Ejecutar obras sin estos permisos expone al propietario a multas del juzgado de policía local y órdenes de demolición.";
+    }
+    
+    return "[MODO SIMULADOR TÉCNICO - SIN API KEY]\n\nPara procesar consultas libres y dinámicas en tiempo real con inteligencia artificial (Gemini 1.5), es indispensable que configures tu clave en el archivo local 'contrapunto-web/.env.local' en la variable 'GEMINI_API_KEY'.\n\nMientras tanto, puedes consultar al simulador técnico sobre los siguientes temas:\n* Exigencias de fuego de la OGUC\n* Criterios y las 3 reglas del acorde de Contrapunto\n* Valores y tarifas de m² (Tiny Houses y Quinchos)\n* Acondicionamiento térmico en Chile (Art. 4.1.10)\n* Permisos municipales y Recepción Final de la DOM";
   }
 
   const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
