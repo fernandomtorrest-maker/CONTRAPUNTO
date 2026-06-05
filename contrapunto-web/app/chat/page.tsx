@@ -44,7 +44,12 @@ export default function ChatAgentPage() {
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Auto-scroll to the bottom of the chat list on new messages
   const scrollToBottom = () => {
@@ -203,7 +208,7 @@ export default function ChatAgentPage() {
                       {msg.content}
                     </div>
                     <p className={`text-[9px] text-cream/30 ${msg.role === 'user' ? 'text-right' : ''}`}>
-                      {msg.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                      {mounted ? msg.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : ''}
                     </p>
                   </div>
                 </motion.div>

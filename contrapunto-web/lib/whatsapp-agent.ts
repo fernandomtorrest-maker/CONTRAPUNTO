@@ -74,12 +74,20 @@ export async function askAgent(history: ChatMessage[], nextMessage: string): Pro
     return "[MODO SIMULADOR TÉCNICO - SIN API KEY]\n\nPara procesar consultas libres y dinámicas en tiempo real con inteligencia artificial (Gemini 1.5), es indispensable que configures tu clave en el archivo local 'contrapunto-web/.env.local' en la variable 'GEMINI_API_KEY'.\n\nMientras tanto, puedes consultar al simulador técnico sobre los siguientes temas:\n* Exigencias de fuego de la OGUC\n* Criterios y las 3 reglas del acorde de Contrapunto\n* Valores y tarifas de m² (Tiny Houses y Quinchos)\n* Acondicionamiento térmico en Chile (Art. 4.1.10)\n* Permisos municipales y Recepción Final de la DOM";
   }
 
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+  const url = `https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=${apiKey}`;
 
   // Format history and the new message for Gemini contents
   const contents = [
+    {
+      role: 'user',
+      parts: [{ text: `INSTRUCCIÓN DEL SISTEMA (Asume este rol técnico de forma permanente):\n${GEMINI_SYSTEM_INSTRUCTION}` }]
+    },
+    {
+      role: 'model',
+      parts: [{ text: 'Entendido. Asumo el rol de Ingeniero de Obras y Consultor Técnico de Contrapunto. Responderé de manera estrictamente técnica, objetiva, directa y sin condescendencia.' }]
+    },
     ...history.map((msg) => ({
-      role: msg.role,
+      role: msg.role === 'model' ? 'model' : 'user',
       parts: [{ text: msg.content }],
     })),
     {
@@ -96,9 +104,6 @@ export async function askAgent(history: ChatMessage[], nextMessage: string): Pro
       },
       body: JSON.stringify({
         contents,
-        systemInstruction: {
-          parts: [{ text: GEMINI_SYSTEM_INSTRUCTION }],
-        },
         generationConfig: {
           temperature: 0.15,
           maxOutputTokens: 1000,
@@ -109,6 +114,12 @@ export async function askAgent(history: ChatMessage[], nextMessage: string): Pro
     if (!response.ok) {
       const errText = await response.text();
       console.error('[Gemini API Error]', errText);
+      if (response.status === 401) {
+        if (apiKey && apiKey.startsWith('AQ.')) {
+          return "[MÉTODO DE AUTENTICACIÓN - API KEY AQ.]\n\nEl motor de Gemini ha denegado el acceso con código 401.\n\nEsto se debe a un problema conocido de compatibilidad en los servidores de Google: las nuevas claves API creadas en Google AI Studio que comienzan con el prefijo 'AQ.' presentan fallos al ser usadas mediante llamadas API directas y requieren autenticación OAuth. Por favor, genera una clave API clásica (que comience con el prefijo 'AIzaSy') desde Google AI Studio utilizando una cuenta de Gmail personal para habilitar las consultas en tiempo real.";
+        }
+        return "[ERROR DE AUTENTICACIÓN - 401]\n\nLa clave API de Gemini configurada en '.env.local' fue rechazada por los servidores de Google (401 Unauthorized). Verifique que esté correctamente copiada sin espacios ni caracteres adicionales.";
+      }
       throw new Error(`Gemini API returned status ${response.status}`);
     }
 

@@ -34,3 +34,17 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Python virtual environment & compiler cache
+venv/
+.venv/
+__pycache__/
+*.pyc
+
+# Large zip archives
+*.zip
+
+# Raw unoptimized image directories
+/public/images/Nueva carpeta/
+/public/images/Remodelacion Cabaña Pirque/
+/public/images/Remodelacion Pedro Fontova/

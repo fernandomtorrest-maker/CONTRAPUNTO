@@ -45,7 +45,7 @@ export const Navbar = () => {
         )}
       >
         <div className="container-base flex items-center justify-between">
-          
+
           {/* LOGO CORPORATIVO */}
           <Link href="/" className="flex items-center gap-3 group focus-sand">
             <div className="relative w-28 h-16 md:w-32 md:h-18 transition-transform duration-300 group-hover:scale-[1.02]">
@@ -74,7 +74,7 @@ export const Navbar = () => {
           <div className="hidden md:flex items-center gap-3">
             <Link href="/chat">
               <Button variant="primary" size="sm" className="bg-sand text-carbon hover:bg-[#a38b72] border-transparent font-bold">
-                Chatea con nuestro agente experto
+                Chatea con nuestro ciber Maestro
               </Button>
             </Link>
             <Link href="/cotizar">
@@ -124,7 +124,7 @@ export const Navbar = () => {
                   variant="primary"
                   className="w-full text-center bg-sand text-carbon hover:bg-[#a38b72] border-transparent font-bold"
                 >
-                  Chatea con nuestro agente experto
+                  Chatea con nuestro ciber Maestro
                 </Button>
               </Link>
               <Link href="/cotizar" className="block w-full" onClick={() => setIsMobileMenuOpen(false)}>

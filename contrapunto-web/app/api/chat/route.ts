@@ -41,8 +41,34 @@ export async function POST(request: NextRequest) {
 
     const validatedHistory = Array.isArray(history) ? history : [];
 
-    // Call the Gemini Agent Helper
-    const response = await askAgent(validatedHistory, message);
+    let response = '';
+
+    // Intentamos conectar con el servidor local de Antigravity (puerto 8000)
+    try {
+      const localRes = await fetch('http://localhost:8000/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message, conversation_id: 'default' }),
+        // Abortamos si tarda más de 15s en responder para no colgar el cliente
+        signal: AbortSignal.timeout(15000),
+      });
+
+      if (localRes.ok) {
+        const localData = await localRes.json();
+        if (localData && localData.response) {
+          response = localData.response;
+          console.log('[Chat API] Respondido por SDK local de Antigravity');
+        }
+      }
+    } catch (localErr) {
+      // El servidor local no está activo o dio timeout. Continuamos con el motor secundario.
+      console.log('[Chat API] Servidor local de Antigravity desconectado. Usando motor secundario...', localErr);
+    }
+
+    // Si el servidor local no respondió, usamos la conexión directa a la API de Gemini (o su simulador)
+    if (!response) {
+      response = await askAgent(validatedHistory, message);
+    }
 
     return NextResponse.json(
       {

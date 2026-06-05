@@ -20,3 +20,12 @@ contrapunto-web/.env*.local
 
 # Vercel
 contrapunto-web/.vercel
+
+# Python virtual environment & compiler cache
+**/venv/
+**/.venv/
+**/__pycache__/
+**/*.pyc
+
+# Large zip archives
+**/*.zip
