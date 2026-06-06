@@ -486,8 +486,9 @@ export default function CotizadorContrapunto() {
     const doc = new jsPDF()
     const pageWidth = doc.internal.pageSize.getWidth()
 
-    // Cargar imagen de logo
+    // Cargar imagen de logo y convertir a silueta negra para el PDF
     let logoImg: HTMLImageElement | null = null
+    let logoBlackUrl: string | null = null
     try {
       const loadImage = (url: string): Promise<HTMLImageElement> => {
         return new Promise((resolve, reject) => {
@@ -498,12 +499,36 @@ export default function CotizadorContrapunto() {
         })
       }
       logoImg = await loadImage('/logo.png')
+
+      if (logoImg) {
+        const canvas = document.createElement('canvas')
+        canvas.width = logoImg.naturalWidth || logoImg.width
+        canvas.height = logoImg.naturalHeight || logoImg.height
+        const ctx = canvas.getContext('2d')
+        if (ctx) {
+          ctx.drawImage(logoImg, 0, 0)
+          const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height)
+          const data = imgData.data
+          for (let i = 0; i < data.length; i += 4) {
+            const alpha = data[i + 3]
+            if (alpha > 0) {
+              data[i] = 0     // R
+              data[i + 1] = 0 // G
+              data[i + 2] = 0 // B
+            }
+          }
+          ctx.putImageData(imgData, 0, 0)
+          logoBlackUrl = canvas.toDataURL('image/png')
+        }
+      }
     } catch (err) {
-      console.error('Error al cargar el logo para el PDF:', err)
+      console.error('Error al cargar y procesar el logo para el PDF:', err)
     }
 
+    const pdfLogo = logoBlackUrl || logoImg
+
     // Marca de agua translúcida al centro
-    if (logoImg) {
+    if (pdfLogo) {
       const docAny = doc as unknown as { GState: new (options: { opacity: number }) => unknown }
       const GStateClass = docAny.GState || (jsPDF as unknown as { GState: new (options: { opacity: number }) => unknown }).GState
       if (GStateClass) {
@@ -513,14 +538,14 @@ export default function CotizadorContrapunto() {
         const wHeight = 75
         const wX = (pageWidth - wWidth) / 2
         const wY = (doc.internal.pageSize.getHeight() - wHeight) / 2
-        doc.addImage(logoImg, 'PNG', wX, wY, wWidth, wHeight)
+        doc.addImage(pdfLogo, 'PNG', wX, wY, wWidth, wHeight)
         doc.restoreGraphicsState()
       }
     }
 
     // Logo arriba a la izquierda
-    if (logoImg) {
-      doc.addImage(logoImg, 'PNG', 20, 10, 24, 15)
+    if (pdfLogo) {
+      doc.addImage(pdfLogo, 'PNG', 20, 10, 24, 15)
     }
 
     let y = 20
