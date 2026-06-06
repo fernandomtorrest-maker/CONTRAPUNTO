@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Phone, Mail, MapPin } from 'lucide-react';
+import Image from 'next/image';
 
 export const Footer = () => {
   return (
@@ -14,10 +15,11 @@ export const Footer = () => {
           {/* Logo Corporativo */}
           <div className="flex items-center gap-3">
             <div className="relative w-32 h-24">
-              <img
+              <Image
                 src="/logo.png"
                 alt="Constructora Contrapunto"
-                className="w-full h-full object-contain"
+                fill
+                className="object-contain"
               />
             </div>
           </div>

@@ -1552,6 +1552,7 @@ export default function CotizadorContrapunto() {
         {/* Elemento invisible de precarga proactiva de todas las imágenes del flujo */}
         <div className="sr-only hidden" aria-hidden="true">
           {todasLasImagenesDelFlujo.map((url) => (
+            // eslint-disable-next-line @next/next/no-img-element
             <img key={url} src={url} alt="preload" />
           ))}
         </div>

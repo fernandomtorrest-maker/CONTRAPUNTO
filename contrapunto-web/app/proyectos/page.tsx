@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
+import Image from 'next/image';
 import Navbar from '@/components/sections/Navbar';
 import Footer from '@/components/sections/Footer';
 
@@ -339,10 +340,12 @@ export default function ProyectosGalleryPage() {
               >
                 {/* Image */}
                 <div className="relative aspect-[4/3] w-full overflow-hidden bg-carbon/10">
-                  <img 
+                  <Image 
                     src={project.image} 
                     alt={project.title} 
-                    className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                    className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
                   />
                   {project.status === 'en desarrollo' && (
                     <span className="absolute top-3 left-3 bg-sand text-carbon text-[9px] font-extrabold uppercase px-2 py-0.5 tracking-widest rounded-sm">
@@ -493,10 +496,12 @@ export default function ProyectosGalleryPage() {
                     );
                   } else {
                     return (
-                      <img
+                      <Image
                         src={currentImg}
                         alt={`${activeProject.title} - Imagen ${currentImgIdx + 1}`}
-                        className="w-full h-full object-contain"
+                        fill
+                        sizes="100vw"
+                        className="object-contain"
                       />
                     );
                   }
@@ -566,10 +571,12 @@ export default function ProyectosGalleryPage() {
                             <span>Video</span>
                           </div>
                         ) : (
-                          <img
+                          <Image
                             src={img}
                             alt={`Miniatura ${idx + 1}`}
-                            className="w-full h-full object-cover"
+                            fill
+                            sizes="64px"
+                            className="object-cover"
                           />
                         )}
                       </button>

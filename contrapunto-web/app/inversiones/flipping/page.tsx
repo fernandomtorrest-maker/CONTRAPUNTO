@@ -18,6 +18,7 @@ import {
 import Navbar from '@/components/sections/Navbar';
 import Footer from '@/components/sections/Footer';
 import { Button } from '@/components/ui/Button';
+import Image from 'next/image';
 
 export default function FlippingPage() {
   // Form states
@@ -174,10 +175,12 @@ export default function FlippingPage() {
           <div className="lg:col-span-5 relative group">
             <div className="absolute -inset-1.5 bg-sand/10 rounded-2xl blur opacity-25 group-hover:opacity-40 transition duration-1000" />
             <div className="relative overflow-hidden rounded-xl border border-border aspect-[4/5] bg-stone-dark">
-              <img
+              <Image
                 src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1000&auto=format&fit=crop"
                 alt="Proyecto Flipping"
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                fill
+                sizes="(max-width: 1024px) 100vw, 40vw"
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
               />
             </div>
           </div>

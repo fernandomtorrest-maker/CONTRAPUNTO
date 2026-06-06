@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/Button';
 import Link from 'next/link';
+import Image from 'next/image';
 // import { useChat } from '@/components/ChatContext';
 
 export const Navbar = () => {
@@ -51,10 +52,12 @@ export const Navbar = () => {
           {/* LOGO CORPORATIVO */}
           <Link href="/" className="flex items-center gap-3 group focus-sand">
             <div className="relative w-28 h-16 md:w-32 md:h-18 transition-transform duration-300 group-hover:scale-[1.02]">
-              <img
+              <Image
                 src="/logo.png"
                 alt="Constructora Contrapunto"
-                className="w-full h-full object-contain"
+                fill
+                className="object-contain"
+                priority
               />
             </div>
           </Link>
