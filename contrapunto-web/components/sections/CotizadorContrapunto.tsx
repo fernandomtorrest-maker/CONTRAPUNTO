@@ -485,17 +485,55 @@ export default function CotizadorContrapunto() {
     const { jsPDF } = await import('jspdf')
     const doc = new jsPDF()
     const pageWidth = doc.internal.pageSize.getWidth()
+
+    // Cargar imagen de logo
+    let logoImg: HTMLImageElement | null = null
+    try {
+      const loadImage = (url: string): Promise<HTMLImageElement> => {
+        return new Promise((resolve, reject) => {
+          const img = new window.Image()
+          img.src = url
+          img.onload = () => resolve(img)
+          img.onerror = (err) => reject(err)
+        })
+      }
+      logoImg = await loadImage('/logo.png')
+    } catch (err) {
+      console.error('Error al cargar el logo para el PDF:', err)
+    }
+
+    // Marca de agua translúcida al centro
+    if (logoImg) {
+      const docAny = doc as unknown as { GState: new (options: { opacity: number }) => unknown }
+      const GStateClass = docAny.GState || (jsPDF as unknown as { GState: new (options: { opacity: number }) => unknown }).GState
+      if (GStateClass) {
+        doc.saveGraphicsState()
+        doc.setGState(new GStateClass({ opacity: 0.05 })) // 5% de opacidad para que no tape el texto
+        const wWidth = 120
+        const wHeight = 75
+        const wX = (pageWidth - wWidth) / 2
+        const wY = (doc.internal.pageSize.getHeight() - wHeight) / 2
+        doc.addImage(logoImg, 'PNG', wX, wY, wWidth, wHeight)
+        doc.restoreGraphicsState()
+      }
+    }
+
+    // Logo arriba a la izquierda
+    if (logoImg) {
+      doc.addImage(logoImg, 'PNG', 20, 10, 24, 15)
+    }
+
     let y = 20
 
     // Header
     doc.setFontSize(24)
     doc.setTextColor(141, 119, 95) // #8d775f
     doc.text('CONTRAPUNTO', pageWidth / 2, y, { align: 'center' })
-    y += 10
-    doc.setFontSize(12)
+    y += 8
+    doc.setFontSize(11)
     doc.setTextColor(100)
     doc.text('Cotización de Proyecto', pageWidth / 2, y, { align: 'center' })
-    y += 15
+    y += 17
 
     // Fecha
     doc.setFontSize(10)
