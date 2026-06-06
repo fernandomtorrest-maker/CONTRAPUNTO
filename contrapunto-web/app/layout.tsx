@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { Inter, Barlow_Condensed } from 'next/font/google';
 import './globals.css';
+import { ChatProvider } from '@/components/ChatContext';
+import ChatWidget from '@/components/ChatWidget';
 
 // ─── Fuentes Google Fonts ──────────────────────────────────────────────────────
 const inter = Inter({
@@ -96,7 +98,10 @@ export default function RootLayout({
   return (
     <html lang="es" className={`${inter.variable} ${barlowCondensed.variable}`}>
       <body className="bg-carbon text-cream font-body antialiased">
-        {children}
+        <ChatProvider>
+          {children}
+          <ChatWidget />
+        </ChatProvider>
       </body>
     </html>
   );

@@ -49,7 +49,7 @@ export const ConceptSection = () => {
             <span className="text-label text-sand font-bold block uppercase tracking-widest">
               Filosofía Constructora
             </span>
-            <h2 className="font-heading text-4xl lg:text-5xl font-extrabold tracking-wide uppercase leading-none">
+            <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-wide uppercase leading-none">
               Partituras para Habitar
             </h2>
             <span className="accent-line !bg-sand" />
@@ -91,31 +91,33 @@ export const ConceptSection = () => {
           
           {/* LADO IZQUIERDO: TABS DE VOCES */}
           <div className="lg:col-span-5 space-y-4">
-            <h3 className="text-xs font-bold uppercase tracking-widest text-cream/50 mb-6">
+            <h3 className="text-xs font-bold uppercase tracking-widest text-center lg:text-left text-cream/50 mb-4 lg:mb-6">
               Las 3 Líneas Melódicas del Hogar
             </h3>
-            {(Object.keys(voices) as Array<keyof typeof voices>).map((key) => (
-              <button
-                key={key}
-                onClick={() => setActiveVoice(key)}
-                className={`w-full text-left p-6 rounded-xl border transition-all duration-300 flex flex-col gap-2 ${
-                  activeVoice === key
-                    ? `${voices[key].bg} shadow-md scale-[1.02]`
-                    : 'border-white/5 hover:border-white/20 bg-white/[0.02]'
-                }`}
-              >
-                <span className={`text-[10px] font-bold uppercase tracking-widest ${voices[key].textColor}`}>
-                  {key === 'social' ? 'Línea A' : key === 'privada' ? 'Línea B' : 'Línea C'}
-                </span>
-                <h4 className="font-heading text-lg font-bold tracking-wide uppercase">
-                  {key === 'social' ? 'Vida Social' : key === 'privada' ? 'Vida Privada' : 'Articulación'}
-                </h4>
-              </button>
-            ))}
+            <div className="grid grid-cols-3 lg:flex lg:flex-col gap-3 lg:space-y-4">
+              {(Object.keys(voices) as Array<keyof typeof voices>).map((key) => (
+                <button
+                  key={key}
+                  onClick={() => setActiveVoice(key)}
+                  className={`w-full text-center lg:text-left p-3 lg:p-6 rounded-xl border transition-all duration-300 flex flex-col items-center lg:items-start gap-1 lg:gap-2 ${
+                    activeVoice === key
+                      ? `${voices[key].bg} shadow-md scale-[1.02]`
+                      : 'border-white/5 hover:border-white/20 bg-white/[0.02]'
+                  }`}
+                >
+                  <span className={`text-[8px] sm:text-[9px] lg:text-[10px] font-bold uppercase tracking-widest ${voices[key].textColor}`}>
+                    {key === 'social' ? 'Línea A' : key === 'privada' ? 'Línea B' : 'Línea C'}
+                  </span>
+                  <h4 className="font-heading text-[10px] sm:text-sm lg:text-lg font-bold tracking-wide uppercase leading-none">
+                    {key === 'social' ? 'Vida Social' : key === 'privada' ? 'Vida Privada' : 'Articulación'}
+                  </h4>
+                </button>
+              ))}
+            </div>
           </div>
 
           {/* LADO DERECHO: DETALLE DE VOZ SELECCIONADA */}
-          <div className="lg:col-span-7 bg-white/[0.02] border border-white/5 p-8 lg:p-10 rounded-2xl min-h-[320px] flex flex-col justify-between">
+          <div className="lg:col-span-7 bg-white/[0.02] border border-white/5 p-6 lg:p-10 rounded-2xl min-h-[260px] lg:min-h-[320px] flex flex-col justify-between">
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeVoice}
@@ -126,45 +128,45 @@ export const ConceptSection = () => {
                 className="space-y-6"
               >
                 <div className="space-y-2">
-                  <span className={`text-[10px] font-bold uppercase tracking-widest ${voices[activeVoice].textColor}`}>
+                  <span className={`text-[9px] lg:text-[10px] font-bold uppercase tracking-widest ${voices[activeVoice].textColor}`}>
                     {voices[activeVoice].title}
                   </span>
-                  <h3 className="font-heading text-2xl lg:text-3xl font-extrabold uppercase tracking-wide">
+                  <h3 className="font-heading text-xl lg:text-3xl font-extrabold uppercase tracking-wide">
                     {activeVoice === 'social' ? 'Voz A' : activeVoice === 'privada' ? 'Voz B' : 'Voz C'}
                   </h3>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-white/5">
+                <div className="grid grid-cols-2 gap-4 lg:gap-6 pt-4 border-t border-white/5">
                   <div className="space-y-1">
-                    <span className="text-[10px] text-cream/40 font-bold uppercase tracking-wider block">
+                    <span className="text-[9px] lg:text-[10px] text-cream/40 font-bold uppercase tracking-wider block">
                       Carácter / Ritmo
                     </span>
-                    <p className="text-sm font-semibold text-cream uppercase tracking-wide">
+                    <p className="text-xs lg:text-sm font-semibold text-cream uppercase tracking-wide">
                       {voices[activeVoice].character}
                     </p>
                   </div>
                   <div className="space-y-1">
-                    <span className="text-[10px] text-cream/40 font-bold uppercase tracking-wider block">
+                    <span className="text-[9px] lg:text-[10px] text-cream/40 font-bold uppercase tracking-wider block">
                       Espacios Integrados
                     </span>
-                    <p className="text-sm font-semibold text-cream uppercase tracking-wide">
+                    <p className="text-xs lg:text-sm font-semibold text-cream uppercase tracking-wide">
                       {voices[activeVoice].spaces}
                     </p>
                   </div>
                 </div>
 
                 <div className="space-y-2 pt-4">
-                  <span className="text-[10px] text-cream/40 font-bold uppercase tracking-wider block">
+                  <span className="text-[9px] lg:text-[10px] text-cream/40 font-bold uppercase tracking-wider block">
                     Regla Musical → Espacial
                   </span>
-                  <p className="text-xs text-cream/80 leading-relaxed uppercase tracking-wider font-semibold">
+                  <p className="text-[10px] lg:text-xs text-cream/80 leading-relaxed uppercase tracking-wider font-semibold">
                     {voices[activeVoice].rule}
                   </p>
                 </div>
               </motion.div>
             </AnimatePresence>
 
-            <p className="text-[9px] text-[#8d775f] font-bold uppercase tracking-widest mt-8">
+            <p className="text-[9px] text-[#8d775f] font-bold uppercase tracking-widest mt-6 lg:mt-8">
               * El sentido de la vivienda emerge del diálogo armonioso entre ellas.
             </p>
           </div>
@@ -178,7 +180,7 @@ export const ConceptSection = () => {
           </h3>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-white/[0.01] border border-white/5 p-8 rounded-xl space-y-3">
+            <div className="bg-white/[0.01] border border-white/5 p-6 lg:p-8 rounded-xl space-y-3">
               <span className="text-3xl font-serif text-sand block">01</span>
               <h4 className="font-heading text-base font-extrabold uppercase tracking-wider">
                 Independencia Funcional
@@ -189,7 +191,7 @@ export const ConceptSection = () => {
               </p>
             </div>
 
-            <div className="bg-white/[0.01] border border-white/5 p-8 rounded-xl space-y-3">
+            <div className="bg-white/[0.01] border border-white/5 p-6 lg:p-8 rounded-xl space-y-3">
               <span className="text-3xl font-serif text-[#8d775f] block">02</span>
               <h4 className="font-heading text-base font-extrabold uppercase tracking-wider">
                 Diferencia Formal
@@ -200,7 +202,7 @@ export const ConceptSection = () => {
               </p>
             </div>
 
-            <div className="bg-white/[0.01] border border-white/5 p-8 rounded-xl space-y-3">
+            <div className="bg-white/[0.01] border border-white/5 p-6 lg:p-8 rounded-xl space-y-3">
               <span className="text-3xl font-serif text-amber-500 block">03</span>
               <h4 className="font-heading text-base font-extrabold uppercase tracking-wider">
                 Encuentros Conscientes
@@ -215,7 +217,7 @@ export const ConceptSection = () => {
 
         {/* SLOGAN FINAL */}
         <div className="text-center space-y-3 pt-6">
-          <p className="font-heading text-2xl lg:text-3xl font-extrabold uppercase tracking-widest text-[#8d775f]">
+          <p className="font-heading text-lg sm:text-2xl lg:text-3xl font-extrabold uppercase tracking-widest text-[#8d775f]">
             &ldquo;De la partitura al plano, del plano a tu hogar&rdquo;
           </p>
           <p className="text-[10px] text-cream/50 uppercase tracking-widest font-semibold">

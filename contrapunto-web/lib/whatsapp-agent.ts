@@ -44,16 +44,168 @@ export interface ChatMessage {
   content: string;
 }
 
+interface SearchResult {
+  title: string;
+  href: string;
+  body: string;
+}
+
+async function searchWikipedia(query: string): Promise<SearchResult[]> {
+  const stopWords = new Set([
+    "el", "la", "los", "las", "un", "una", "unos", "unas", "de", "del", "en", "para", 
+    "con", "por", "que", "cual", "cuales", "como", "y", "o", "es", "son",
+    "se", "lo", "los", "su", "sus", "al", "mi", "tu", "yo", "me", "te", "le", "nos", 
+    "les", "este", "esta", "estos", "estas", "ese", "esa", "esos", "esas", 
+    "aquel", "aquella", "aquellos", "aquellas", "quien", "quienes",
+    "requisito", "requisitos", "exigencia", "exigencias", "norma", "normas", "normativa",
+    "saber", "conocer", "buscar", "respuesta", "informacion", "sobre", "chile"
+  ]);
+  
+  const cleaned = query
+    .toLowerCase()
+    .replace(/[^\w\s]/g, '')
+    .split(/\s+/)
+    .filter(word => !stopWords.has(word))
+    .join(' ');
+    
+  const searchQuery = cleaned || query;
+  
+  try {
+    const url = `https://es.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(searchQuery)}&format=json`;
+    const res = await fetch(url, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+      }
+    });
+    
+    if (res.ok) {
+      const data = await res.json();
+      const items = data.query?.search || [];
+      const results: SearchResult[] = [];
+      for (let i = 0; i < Math.min(items.length, 3); i++) {
+        const item = items[i];
+        const cleanSnippet = item.snippet.replace(/<\/?[^>]+(>|$)/g, ""); // Remove HTML tags
+        results.push({
+          title: `${item.title} (Wikipedia)`,
+          href: `https://es.wikipedia.org/?curid=${item.pageid}`,
+          body: cleanSnippet
+        });
+      }
+      return results;
+    }
+  } catch (err) {
+    console.error('Error fetching Wikipedia in Next.js:', err);
+  }
+  return [];
+}
+
+async function searchLeyChile(query: string): Promise<SearchResult[]> {
+  const stopWords = new Set([
+    "el", "la", "los", "las", "un", "una", "unos", "unas", "de", "del", "en", "para", 
+    "con", "por", "que", "cual", "cuales", "como", "y", "o", "es", "son",
+    "se", "lo", "los", "su", "sus", "al", "mi", "tu", "yo", "me", "te", "le", "nos", 
+    "les", "este", "esta", "estos", "estas", "ese", "esa", "esos", "esas", 
+    "aquel", "aquella", "aquellos", "aquellas", "quien", "quienes",
+    "requisito", "requisitos", "exigencia", "exigencias", "norma", "normas", "normativa",
+    "saber", "conocer", "buscar", "respuesta", "informacion", "sobre", "chile"
+  ]);
+  
+  const cleaned = query
+    .toLowerCase()
+    .replace(/[^\w\s]/g, '')
+    .split(/\s+/)
+    .filter(word => !stopWords.has(word))
+    .join(' ');
+    
+  const searchQuery = cleaned || query;
+  if (!searchQuery || searchQuery.length < 3) return [];
+
+  try {
+    const url = `https://www.leychile.cl/Consulta/obtxml?opt=61&cadena=${encodeURIComponent(searchQuery)}`;
+    const res = await fetch(url, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+      }
+    });
+    
+    if (res.ok) {
+      const xml = await res.text();
+      // XML regex extraction for <Norma> tags
+      const normaMatches = xml.match(/<Norma>([\s\S]*?)<\/Norma>/g) || [];
+      const results: SearchResult[] = [];
+      
+      for (const normaXml of normaMatches) {
+        const titleMatch = normaXml.match(/<TituloNorma>([\s\S]*?)<\/TituloNorma>/);
+        const urlMatch = normaXml.match(/<Url>([\s\S]*?)<\/Url>/);
+        const idMatch = normaXml.match(/<IdNorma>([\s\S]*?)<\/IdNorma>/);
+        const fechaMatch = normaXml.match(/<FechaPublicacion>([\s\S]*?)<\/FechaPublicacion>/);
+        
+        if (titleMatch) {
+          const title = titleMatch[1].trim()
+            .replace(/&amp;/g, '&')
+            .replace(/&lt;/g, '<')
+            .replace(/&gt;/g, '>')
+            .replace(/\s+/g, ' ');
+          
+          let href = '';
+          if (urlMatch) {
+            href = urlMatch[1].trim().replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+          } else if (idMatch) {
+            href = `https://www.leychile.cl/Navegar?idNorma=${idMatch[1].trim()}`;
+          }
+          
+          const fecha = fechaMatch ? fechaMatch[1].trim() : 'N/A';
+          if (title && href) {
+            results.push({
+              title: `${title} (Ley Chile)`,
+              href: href,
+              body: `Publicada el ${fecha}. Norma oficial en la Biblioteca del Congreso Nacional.`
+            });
+          }
+        }
+      }
+      return results;
+    }
+  } catch (err) {
+    console.error('Error fetching Ley Chile in Next.js:', err);
+  }
+  return [];
+}
+
 export async function askAgent(history: ChatMessage[], nextMessage: string): Promise<string> {
   const apiKey = env.GEMINI_API_KEY || process.env.GEMINI_API_KEY;
-  if (!apiKey) {
-    console.warn('[Agent API] GEMINI_API_KEY is not defined. Returning simulator mode.');
+  
+  // Si no hay API Key o es una clave AQ. inválida para llamadas REST directas, intentamos búsqueda
+  if (!apiKey || apiKey.startsWith('AQ.')) {
+    console.warn('[Agent API] GEMINI_API_KEY is missing or starts with AQ. Trying search fallback...');
     
+    // Ejecutar búsquedas en paralelo
+    const [leyes, wiki] = await Promise.all([
+      searchLeyChile(nextMessage),
+      searchWikipedia(nextMessage)
+    ]);
+    
+    const combined = [...leyes.slice(0, 3), ...wiki.slice(0, 3)].slice(0, 5);
+    
+    if (combined.length > 0) {
+      let text = `[BÚSQUEDA WEB EN SEGUNDO PLANO - MODO SIN API KEY]\n\n`;
+      text += `Actualmente el motor principal de IA está en mantenimiento o sin credenciales, pero hemos recuperado la siguiente información en tiempo real para tu consulta:\n\n`;
+      
+      combined.forEach((res, idx) => {
+        text += `${idx + 1}. **${res.title}**\n   ${res.body}\n   *Fuente: ${res.href}*\n\n`;
+      });
+      
+      text += `Para cotizaciones precisas o detalles sobre tu obra, puedes contactarnos en contacto@contrapuntoconstructora.com.`;
+      return text;
+    }
+    
+    // Fallback secundario al simulador si no hay resultados de búsqueda
     const query = nextMessage.toLowerCase();
     
     if (query.includes('fuego') || query.includes('incendio') || query.includes('cortafuego') || query.includes('4.3.3')) {
       return "[MODO SIMULADOR TÉCNICO - SIN API KEY]\n\nDe acuerdo al artículo 4.3.3 de la Ordenanza General de Urbanismo y Construcciones (OGUC) de Chile, las exigencias de resistencia al fuego para muros divisorios cortafuegos entre viviendas pareadas varían entre F-60 y F-120. Esto depende de la clasificación de la edificación (clase y altura). Las estructuras soportantes verticales deben ser continuas desde el cimiento hasta el techo y poseer el mismo índice de resistencia para evitar propagaciones laterales y verticales en caso de siniestro.";
     }
+
     
     if (query.includes('acorde') || query.includes('regla') || query.includes('filosofía') || query.includes('filosofia') || query.includes('composición')) {
       return "[MODO SIMULADOR TÉCNICO - SIN API KEY]\n\nEl diseño y composición espacial de Contrapunto Constructora se rige por las '3 Reglas del Acorde':\n\n1. **Independencia Funcional:** Organización que permite la coexistencia de diferentes actividades (público, privado, teletrabajo) sin interferencia en la circulación principal.\n2. **Diferencia Formal:** Articulación volumétrica que distingue claramente las zonas espaciales del proyecto.\n3. **Encuentros Conscientes:** Valoración de los puntos de unión de materiales distintos (como vigas metálicas oscuras conectándose con columnas de pino oregón y transiciones a hormigón visto), transformando los detalles estructurales en hitos estéticos.";

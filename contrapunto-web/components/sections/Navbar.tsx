@@ -6,10 +6,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/Button';
 import Link from 'next/link';
+// import { useChat } from '@/components/ChatContext';
 
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  // const { openChat } = useChat();
 
   // Controlar el cambio de fondo de la barra de navegación al hacer scroll
   useEffect(() => {
@@ -72,11 +74,16 @@ export const Navbar = () => {
 
           {/* BOTÓN DE ACCIÓN DESKTOP */}
           <div className="hidden md:flex items-center gap-3">
-            <Link href="/chat">
-              <Button variant="primary" size="sm" className="bg-sand text-carbon hover:bg-[#a38b72] border-transparent font-bold">
-                Chatea con nuestro ciber Maestro
-              </Button>
-            </Link>
+            {/* 
+            <Button
+              variant="primary"
+              size="sm"
+              onClick={openChat}
+              className="bg-sand text-carbon hover:bg-[#a38b72] border-transparent font-bold"
+            >
+              Chatea con nuestro ciber Maestro
+            </Button>
+            */}
             <Link href="/cotizar">
               <Button variant="outline" size="sm">
                 Cotizar Proyecto
@@ -119,14 +126,18 @@ export const Navbar = () => {
             </nav>
 
             <div className="space-y-4">
-              <Link href="/chat" className="block w-full" onClick={() => setIsMobileMenuOpen(false)}>
-                <Button
-                  variant="primary"
-                  className="w-full text-center bg-sand text-carbon hover:bg-[#a38b72] border-transparent font-bold"
-                >
-                  Chatea con nuestro ciber Maestro
-                </Button>
-              </Link>
+              {/* 
+              <Button
+                variant="primary"
+                onClick={() => {
+                  setIsMobileMenuOpen(false);
+                  openChat();
+                }}
+                className="w-full text-center bg-sand text-carbon hover:bg-[#a38b72] border-transparent font-bold"
+              >
+                Chatea con nuestro ciber Maestro
+              </Button>
+              */}
               <Link href="/cotizar" className="block w-full" onClick={() => setIsMobileMenuOpen(false)}>
                 <Button
                   variant="outline"
