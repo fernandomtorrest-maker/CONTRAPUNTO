@@ -195,14 +195,21 @@ export const PortfolioSection = () => {
                 {/* Contenedor de Imagen */}
                 <div className="relative aspect-[4/3] w-full overflow-hidden bg-stone-dark">
                   {project.mainImage.endsWith('.mp4') ? (
-                    <video
-                      src={project.mainImage}
-                      autoPlay
-                      loop
-                      muted
-                      playsInline
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
+                    <>
+                      <video
+                        src={project.mainImage}
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        preload="none"
+                        className="hidden md:block w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      />
+                      <div className="md:hidden w-full h-full flex flex-col items-center justify-center bg-[#1b1b1b] text-sand/60">
+                        <span className="text-3xl mb-2">▶</span>
+                        <span className="text-[10px] uppercase tracking-widest font-bold">Ver Video</span>
+                      </div>
+                    </>
                   ) : (
                     <Image
                       src={project.mainImage}
@@ -310,6 +317,8 @@ export const PortfolioSection = () => {
                     src={activeProject.images[currentImgIdx]}
                     controls
                     autoPlay
+                    playsInline
+                    preload="metadata"
                     className="w-full h-full object-contain"
                   />
                 ) : (
