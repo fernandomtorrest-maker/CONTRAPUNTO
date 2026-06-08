@@ -11,6 +11,7 @@ import InvestSection from '@/components/sections/InvestSection';
 import TestimonialsSection from '@/components/sections/TestimonialsSection';
 import CtaBanner from '@/components/sections/CtaBanner';
 import Footer from '@/components/sections/Footer';
+import NosotrosSection from '@/components/sections/NosotrosSection';
 
 export default function Home() {
   return (
@@ -27,20 +28,23 @@ export default function Home() {
         {/* 2. Sección de Servicios */}
         <ServicesSection />
 
+        {/* 2.5. Sección "Nuestro Proceso" */}
+        <ProcessSection />
+
         {/* 3. Sección de Portafolio */}
         <PortfolioSection />
 
-        {/* 4. Sección "Nuestro Proceso" */}
-        <ProcessSection />
+        {/* 3.1. Sección de Testimonios */}
+        <TestimonialsSection />
+
+        {/* 3.5. Sección de Nosotros (Presentación) */}
+        <NosotrosSection />
 
         {/* 5. Sección de Inversiones */}
         <InvestSection />
 
         {/* 5.5. Sección Concepto Arquitectónico (Partituras para Habitar / Filosofía) */}
         <ConceptSection />
-
-        {/* 6. Sección de Testimonios */}
-        <TestimonialsSection />
 
         {/* 7. Banner Final de Acción */}
         <CtaBanner />

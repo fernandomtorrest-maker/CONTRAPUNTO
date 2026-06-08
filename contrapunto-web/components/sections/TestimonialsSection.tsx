@@ -159,6 +159,62 @@ export const TestimonialsSection = () => {
         '/images/testimonios/betsy_1.webp',
       ],
     },
+    {
+      quote: '100% recomendable una empresa seria, responsable cumplieron con el proyecto en los plazos indicados, las terminaciones increíbles y lejos la mejor asesoría al momento de diseñar mi Hotel en el Sur de Chile.',
+      author: 'Felipe Bustamante',
+      location: 'Sur de Chile',
+      initials: 'FB',
+      rating: 5,
+    },
+    {
+      quote: 'La mejor experiencia que he tenido en construcción!! Muy profesionales y dedicados en cuanto a construcción, presupuesto y cumplimiento de plazos. Recomiendo 100%.',
+      author: 'Paola HV',
+      location: 'Santiago',
+      initials: 'PH',
+      rating: 5,
+    },
+    {
+      quote: 'Excelente servicio, muy comprometidos con sus proyectos',
+      author: 'Carolina Alarcon',
+      location: 'Santiago',
+      initials: 'CA',
+      rating: 5,
+    },
+    {
+      quote: 'Excelente equipo, muy comprometidos y excelente trabajo',
+      author: 'Angie Andrea Marchant Torres',
+      location: 'Santiago',
+      initials: 'AM',
+      rating: 5,
+    },
+    {
+      quote: 'Excelente servicio, muy profesional el equipo',
+      author: 'rorro barz',
+      location: 'Santiago',
+      initials: 'RB',
+      rating: 5,
+    },
+    {
+      quote: 'Muy buenos equipos de trabajo especializados en distintas áreas',
+      author: 'mc Idem Hip Hop Chileno',
+      location: 'Santiago',
+      initials: 'MI',
+      rating: 5,
+    },
+    {
+      quote: 'Excelente servicio ,Profecional en todo servicio',
+      author: 'la fammily',
+      location: 'Santiago',
+      initials: 'LF',
+      rating: 5,
+    },
+    {
+      quote: 'Excelente servicio',
+      author: 'Hanan Mussa',
+      location: 'Santiago',
+      initials: 'HM',
+      rating: 5,
+    },
   ];
 
   return (
@@ -175,12 +231,42 @@ export const TestimonialsSection = () => {
             LO QUE DICEN NUESTROS CLIENTES.
           </h2>
           <span className="accent-line !bg-carbon/40" />
+          <div className="pt-4 flex gap-2">
+            <button
+              onClick={() => {
+                const carousel = document.getElementById('testimonials-carousel');
+                if (carousel) carousel.scrollBy({ left: -carousel.clientWidth, behavior: 'smooth' });
+              }}
+              className="w-10 h-10 rounded-full border border-carbon/20 flex items-center justify-center hover:bg-carbon hover:text-[#dfd5c6] transition-colors"
+              aria-label="Anterior"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+            </button>
+            <button
+              onClick={() => {
+                const carousel = document.getElementById('testimonials-carousel');
+                if (carousel) carousel.scrollBy({ left: carousel.clientWidth, behavior: 'smooth' });
+              }}
+              className="w-10 h-10 rounded-full border border-carbon/20 flex items-center justify-center hover:bg-carbon hover:text-[#dfd5c6] transition-colors"
+              aria-label="Siguiente"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+            </button>
+          </div>
         </div>
 
-        {/* GRID DE TESTIMONIOS */}
-        <div className="w-full xl:w-3/4 grid grid-cols-1 md:grid-cols-3 gap-6">
-          {testimonials.map((t, idx) => (
-            <TestimonialCard key={t.author} testimonial={t} delay={idx * 0.1} />
+        {/* CARRUSEL DE TESTIMONIOS */}
+        <div 
+          id="testimonials-carousel"
+          className="w-full xl:w-3/4 flex overflow-x-auto gap-6 pb-8 snap-x snap-mandatory scroll-smooth"
+          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        >
+          {Array.from({ length: Math.ceil(testimonials.length / 3) }).map((_, pageIdx) => (
+            <div key={pageIdx} className="w-full shrink-0 snap-center grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
+              {testimonials.slice(pageIdx * 3, pageIdx * 3 + 3).map((t, idx) => (
+                <TestimonialCard key={t.author} testimonial={t} delay={idx * 0.1} />
+              ))}
+            </div>
           ))}
         </div>
 

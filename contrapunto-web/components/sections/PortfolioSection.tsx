@@ -18,6 +18,39 @@ interface Project {
 
 const projects: Project[] = [
   {
+    id: 'cuarto-luz',
+    title: 'Cuarto de Luz',
+    category: 'CONSTRUCCIÓN',
+    location: 'Niebla, Valdivia',
+    description: 'Estructura "Cuarto de Luz" construida en la costa valdiviana, destacando por su diseño luminoso y una hermosa vista panorámica a la bahía de Corral.',
+    mainImage: '/images/proyectos/cuarto_luz/cuarto_luz.mp4',
+    images: [
+      '/images/proyectos/cuarto_luz/cuarto_luz.mp4'
+    ]
+  },
+  {
+    id: 'corta-vista',
+    title: 'Corta Vista San Miguel',
+    category: 'EXTERIORES',
+    location: 'San Miguel',
+    description: 'Estructura corta vista construida a medida para mejorar la privacidad y delimitar espacios exteriores de forma estética y funcional.',
+    mainImage: '/images/proyectos/corta_vista/corta_vista.mp4',
+    images: [
+      '/images/proyectos/corta_vista/corta_vista.mp4'
+    ]
+  },
+  {
+    id: 'casa-semillas',
+    title: 'Casa de Semillas',
+    category: 'OBRA GRUESA',
+    location: 'Sur de Chile',
+    description: 'Construcción hasta etapa de obra gruesa de la Casa de Semillas para la cooperativa Semilla Austral, proyecto ejecutado gracias al financiamiento de SERCOTEC.',
+    mainImage: '/images/proyectos/semilla_austral/1-2-scaled.jpg',
+    images: [
+      '/images/proyectos/semilla_austral/video_ig.mp4'
+    ]
+  },
+  {
     id: 'welemu',
     title: 'Welemu Tiny Houses',
     category: 'ECOLODGE / TINY HOUSE',
@@ -155,13 +188,24 @@ export const PortfolioSection = () => {
               >
                 {/* Contenedor de Imagen */}
                 <div className="relative aspect-[4/3] w-full overflow-hidden bg-stone-dark">
-                  <Image
-                    src={project.mainImage}
-                    alt={project.title}
-                    fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 25vw"
-                    className="object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
+                  {project.mainImage.endsWith('.mp4') ? (
+                    <video
+                      src={project.mainImage}
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                  ) : (
+                    <Image
+                      src={project.mainImage}
+                      alt={project.title}
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 25vw"
+                      className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                  )}
 
                   {/* Tag de Categoría */}
                   <span className="absolute top-4 left-4 bg-sand/90 text-carbon font-extrabold tracking-widest text-[9px] uppercase px-3 py-1 rounded">

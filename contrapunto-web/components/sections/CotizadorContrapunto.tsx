@@ -250,6 +250,8 @@ export default function CotizadorContrapunto() {
     // CASA
     plantas: '',
     espaciosCasa: {} as Record<string, number>,
+    metrosOtrosCasa: 0,
+    nombreOtrosCasa: '',
     // QUINCHO
     tipoQuincho: '',
     materialidadQuincho: '',
@@ -397,7 +399,8 @@ export default function CotizadorContrapunto() {
     let detallesCotizacion = '';
     if (respuestas.tipoProyecto === 'Casa nueva') {
       detallesCotizacion = `• Tipo de Obra: Casa nueva\n• Cantidad de pisos: ${respuestas.plantas}\n• Superficie estimada: ${metrosTotalesCasa}m²\n• Estándar Base: desde $${valorCasaBase.toLocaleString('es-CL')} ($600.000/m²)\n• Estándar Alto: desde $${valorCasaAlto.toLocaleString('es-CL')} ($850.000/m²)\n• Estándar Premium: desde $${valorCasaPremium.toLocaleString('es-CL')} ($1.200.000/m²)\n• Espacios:\n` + 
-        Object.entries(respuestas.espaciosCasa).map(([espacio, cantidad]) => `  - ${cantidad}x ${espacio} (${m2EspaciosCasa[espacio] * cantidad}m²)`).join('\n');
+        Object.entries(respuestas.espaciosCasa).map(([espacio, cantidad]) => `  - ${cantidad}x ${espacio} (${m2EspaciosCasa[espacio] * cantidad}m²)`).join('\n') +
+        (respuestas.metrosOtrosCasa > 0 ? `\n  - ${respuestas.nombreOtrosCasa || 'Otros espacios'} (${respuestas.metrosOtrosCasa}m²)` : '');
     } else if (respuestas.tipoProyecto === 'Quincho / Terraza') {
       detallesCotizacion = `• Tipo de Obra: Quincho / Terraza\n• Tipo de terraza: ${respuestas.tipoQuincho}\n• Superficie: ${metrosQuincho}m²\n• Materialidad: ${respuestas.materialidadQuincho}\n• Elementos extras: ${respuestas.extrasQuincho.join(', ') || 'Ninguno'}\n• TOTAL estimado: $${totalQuincho.toLocaleString('es-CL')} ($${valorM2FinalQuincho.toLocaleString('es-CL')}/m²)`;
     } else if (respuestas.tipoProyecto === 'Tiny House') {
@@ -442,10 +445,11 @@ export default function CotizadorContrapunto() {
 
   // 1. CASA NUEVA
   const metrosTotalesCasa = useMemo(() => {
-    return Object.entries(respuestas.espaciosCasa).reduce((acc, [espacio, cantidad]) => {
+    const sum = Object.entries(respuestas.espaciosCasa).reduce((acc, [espacio, cantidad]) => {
       return acc + (m2EspaciosCasa[espacio] || 0) * cantidad
     }, 0)
-  }, [respuestas.espaciosCasa])
+    return sum + (Number(respuestas.metrosOtrosCasa) || 0)
+  }, [respuestas.espaciosCasa, respuestas.metrosOtrosCasa])
 
   const valorCasaBase = useMemo(() => metrosTotalesCasa * 600000, [metrosTotalesCasa])
   const valorCasaAlto = useMemo(() => metrosTotalesCasa * 850000, [metrosTotalesCasa])
@@ -597,6 +601,10 @@ export default function CotizadorContrapunto() {
         doc.text(`• ${cantidad}x ${espacio} (${m2EspaciosCasa[espacio] * cantidad}m²)`, 25, y)
         y += 7
       })
+      if (respuestas.metrosOtrosCasa > 0) {
+        doc.text(`• ${respuestas.nombreOtrosCasa || 'Otros espacios'} (${respuestas.metrosOtrosCasa}m²)`, 25, y)
+        y += 7
+      }
       y += 10
 
       // Precios
@@ -906,6 +914,55 @@ export default function CotizadorContrapunto() {
                 </div>
               )
             })}
+
+            {/* OPCION OTROS ESPACIOS */}
+            <div
+              className={`rounded-[2rem] border p-6 transition-all duration-300 ${
+                respuestas.metrosOtrosCasa > 0 || respuestas.nombreOtrosCasa
+                  ? 'border-[#8d775f] bg-[#8d775f]/20'
+                  : 'border-white/10 bg-[#262626]'
+              }`}
+            >
+              <div className="flex flex-col gap-3">
+                <div>
+                  <div className="text-xl font-light">Espacio Personalizado</div>
+                  <div className="mt-1 text-sm text-white/60">
+                    Ingresa el nombre y los m²
+                  </div>
+                </div>
+                <div className="flex flex-col gap-3 mt-2">
+                  <input
+                    type="text"
+                    placeholder="Ej: Gimnasio, Sala de cine..."
+                    value={respuestas.nombreOtrosCasa || ''}
+                    onChange={(e) =>
+                      setRespuestas((prev) => ({
+                        ...prev,
+                        nombreOtrosCasa: e.target.value,
+                      }))
+                    }
+                    className="w-full rounded-lg border border-white/20 bg-black/30 px-4 py-2 text-sm font-light outline-none transition-all focus:border-[#8d775f] text-white"
+                  />
+                  <div className="flex items-center gap-3">
+                    <input
+                      type="number"
+                      min="0"
+                      placeholder="0"
+                      value={respuestas.metrosOtrosCasa || ''}
+                      onChange={(e) =>
+                        setRespuestas((prev) => ({
+                          ...prev,
+                          metrosOtrosCasa: parseInt(e.target.value) || 0,
+                        }))
+                      }
+                      className="w-24 rounded-lg border border-white/20 bg-black/30 px-4 py-2 text-xl font-light outline-none transition-all focus:border-[#8d775f] text-white"
+                    />
+                    <span className="text-neutral-500 font-light text-xl">m²</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </div>
         )}
 
@@ -965,6 +1022,11 @@ export default function CotizadorContrapunto() {
                         {cantidad}x {espacio} ({m2EspaciosCasa[espacio] * cantidad}m²)
                       </div>
                     ))}
+                    {respuestas.metrosOtrosCasa > 0 && (
+                      <div className="rounded-full bg-[#8d775f]/20 border border-[#8d775f]/30 px-4 py-2 text-sm text-[#8d775f]">
+                        {respuestas.nombreOtrosCasa || 'Otros espacios'} ({respuestas.metrosOtrosCasa}m²)
+                      </div>
+                    )}
                   </div>
                 </div>
 

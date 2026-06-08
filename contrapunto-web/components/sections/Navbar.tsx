@@ -34,7 +34,7 @@ export const Navbar = () => {
     { label: 'Proyectos', href: '/#proyectos' },
     { label: 'Filosofía', href: '/#concepto-arquitectonico' },
     { label: 'Catálogo', href: '/catalogo' },
-    { label: 'Nosotros', href: '/nosotros' },
+    { label: 'Nosotros', href: '/#nosotros' },
     { label: 'Contacto', href: '/#contacto' },
   ];
 
@@ -78,16 +78,15 @@ export const Navbar = () => {
 
           {/* BOTÓN DE ACCIÓN DESKTOP */}
           <div className="hidden md:flex items-center gap-3">
-            {/* 
-            <Button
-              variant="primary"
-              size="sm"
-              onClick={openChat}
-              className="bg-sand text-carbon hover:bg-[#a38b72] border-transparent font-bold"
-            >
-              Chatea con nuestro ciber Maestro
-            </Button>
-            */}
+            <Link href="/#inversiones">
+              <Button
+                variant="default"
+                size="sm"
+                className="bg-sand text-carbon hover:bg-[#a38b72] font-bold tracking-widest uppercase text-[10px]"
+              >
+                Invierte con Contrapunto
+              </Button>
+            </Link>
             <Link href="/cotizar">
               <Button variant="outline" size="sm">
                 Cotizar Proyecto
@@ -130,18 +129,14 @@ export const Navbar = () => {
             </nav>
 
             <div className="space-y-4">
-              {/* 
-              <Button
-                variant="primary"
-                onClick={() => {
-                  setIsMobileMenuOpen(false);
-                  openChat();
-                }}
-                className="w-full text-center bg-sand text-carbon hover:bg-[#a38b72] border-transparent font-bold"
-              >
-                Chatea con nuestro ciber Maestro
-              </Button>
-              */}
+              <Link href="/#inversiones" className="block w-full" onClick={() => setIsMobileMenuOpen(false)}>
+                <Button
+                  variant="default"
+                  className="w-full text-center bg-sand text-carbon hover:bg-[#a38b72] font-bold tracking-widest uppercase text-[10px]"
+                >
+                  Invierte con Contrapunto
+                </Button>
+              </Link>
               <Link href="/cotizar" className="block w-full" onClick={() => setIsMobileMenuOpen(false)}>
                 <Button
                   variant="outline"
