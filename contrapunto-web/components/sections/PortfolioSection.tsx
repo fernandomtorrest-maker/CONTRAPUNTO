@@ -34,9 +34,9 @@ const projects: Project[] = [
     category: 'EXTERIORES',
     location: 'San Miguel',
     description: 'Estructura corta vista construida a medida para mejorar la privacidad y delimitar espacios exteriores de forma estética y funcional.',
-    mainImage: '/images/proyectos/corta_vista/corta_vista.mp4',
+    mainImage: '/images/cotizador/foto-quincho.webp',
     images: [
-      '/images/proyectos/corta_vista/corta_vista.mp4'
+      '/images/cotizador/foto-quincho.webp'
     ]
   },
   {
@@ -47,7 +47,13 @@ const projects: Project[] = [
     description: 'Construcción hasta etapa de obra gruesa de la Casa de Semillas para la cooperativa Semilla Austral, proyecto ejecutado gracias al financiamiento de SERCOTEC.',
     mainImage: '/images/proyectos/semilla_austral/1-2-scaled.jpg',
     images: [
-      '/images/proyectos/semilla_austral/video_ig.mp4'
+      '/images/proyectos/semilla_austral/1-2-scaled.jpg',
+      '/images/proyectos/semilla_austral/2-1-scaled.jpg',
+      '/images/proyectos/semilla_austral/3-1-scaled.jpg',
+      '/images/proyectos/semilla_austral/4-1-scaled.jpg',
+      '/images/proyectos/semilla_austral/5-1-scaled.jpg',
+      '/images/proyectos/semilla_austral/6-1-scaled.jpg',
+      '/images/proyectos/semilla_austral/7-1-scaled.jpg'
     ]
   },
   {
