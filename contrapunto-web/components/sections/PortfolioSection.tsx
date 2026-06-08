@@ -47,13 +47,7 @@ const projects: Project[] = [
     description: 'Construcción hasta etapa de obra gruesa de la Casa de Semillas para la cooperativa Semilla Austral, proyecto ejecutado gracias al financiamiento de SERCOTEC.',
     mainImage: '/images/proyectos/semilla_austral/1-2-scaled.jpg',
     images: [
-      '/images/proyectos/semilla_austral/1-2-scaled.jpg',
-      '/images/proyectos/semilla_austral/2-1-scaled.jpg',
-      '/images/proyectos/semilla_austral/3-1-scaled.jpg',
-      '/images/proyectos/semilla_austral/4-1-scaled.jpg',
-      '/images/proyectos/semilla_austral/5-1-scaled.jpg',
-      '/images/proyectos/semilla_austral/6-1-scaled.jpg',
-      '/images/proyectos/semilla_austral/7-1-scaled.jpg'
+      '/images/proyectos/semilla_austral/video_ig.mp4'
     ]
   },
   {
