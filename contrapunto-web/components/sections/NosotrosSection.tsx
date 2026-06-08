@@ -35,6 +35,12 @@ const team: TeamMember[] = [
     name: 'Matias Torres',
     role: 'Psicologo Organizacional',
     image: '/images/equipo/matias_torres.png',
+  },
+  {
+    id: 'simon-plaza',
+    name: 'Simon Plaza Manzo',
+    role: 'Diseñador de Sistemas de Audio Residencial',
+    image: '/images/equipo/simon_plaza.png',
   }
 ];
 
@@ -79,7 +85,9 @@ export const NosotrosSection = () => {
                   alt={member.name}
                   fill
                   sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 25vw"
-                  className="object-cover transition-transform duration-700 group-hover:scale-105 grayscale group-hover:grayscale-0"
+                  className={`object-cover transition-transform duration-700 group-hover:scale-105 grayscale ${
+                    member.id !== 'simon-plaza' ? 'group-hover:grayscale-0' : ''
+                  }`}
                 />
                 {/* Degradado inferior sutil */}
                 <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-carbon/80 to-transparent pointer-events-none" />
