@@ -31,12 +31,12 @@ const projects: Project[] = [
   {
     id: 'corta-vista',
     title: 'Corta Vista San Miguel',
-    category: 'EXTERIORES',
+    category: 'INTERIORES',
     location: 'San Miguel',
     description: 'Estructura corta vista construida a medida para mejorar la privacidad y delimitar espacios exteriores de forma estética y funcional.',
-    mainImage: '/images/cotizador/foto-quincho.webp',
+    mainImage: '/images/proyectos/corta_vista/corta_vista.mp4',
     images: [
-      '/images/cotizador/foto-quincho.webp'
+      '/images/proyectos/corta_vista/corta_vista.mp4'
     ]
   },
   {
