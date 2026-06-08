@@ -114,13 +114,13 @@ export const Navbar = () => {
             transition={{ duration: 0.3 }}
             className="fixed inset-0 z-30 bg-carbon pt-24 px-6 md:hidden flex flex-col justify-between pb-12"
           >
-            <nav className="flex flex-col gap-6">
+            <nav className="flex flex-col gap-4">
               {navLinks.map((link) => (
                 <Link
                   key={link.label}
                   href={link.href}
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="font-heading text-3xl font-bold text-cream hover:text-sand uppercase tracking-wider py-2 border-b border-border transition-colors"
+                  className="font-heading text-xl font-bold text-cream hover:text-sand uppercase tracking-wider py-3 border-b border-border transition-colors"
                 >
                   {link.label}
                 </Link>
