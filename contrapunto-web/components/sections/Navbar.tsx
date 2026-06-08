@@ -64,12 +64,12 @@ export const Navbar = () => {
           </Link>
 
           {/* MENÚ DESKTOP */}
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden md:flex items-center gap-4 lg:gap-6">
             {navLinks.map((link) => (
               <Link
                 key={link.label}
                 href={link.href}
-                className="text-xs font-semibold text-cream/70 hover:text-sand tracking-widest uppercase transition-colors focus-sand"
+                className="text-[10px] lg:text-xs font-bold text-cream/80 hover:text-sand tracking-widest uppercase transition-colors whitespace-nowrap focus-sand"
               >
                 {link.label}
               </Link>
@@ -77,17 +77,17 @@ export const Navbar = () => {
           </nav>
 
           {/* BOTÓN DE ACCIÓN DESKTOP */}
-          <div className="hidden md:flex items-center gap-3">
+          <div className="hidden lg:flex items-center gap-3">
             <Link href="/#inversiones">
               <Button
                 size="sm"
-                className="bg-sand text-carbon hover:bg-[#a38b72] font-bold tracking-widest uppercase text-[10px]"
+                className="bg-sand text-carbon hover:bg-[#a38b72] font-bold tracking-widest uppercase text-[10px] whitespace-nowrap"
               >
                 Invierte con Contrapunto
               </Button>
             </Link>
             <Link href="/cotizar">
-              <Button variant="outline" size="sm">
+              <Button variant="outline" size="sm" className="whitespace-nowrap font-bold tracking-widest uppercase text-[10px]">
                 Cotizar Proyecto
               </Button>
             </Link>
