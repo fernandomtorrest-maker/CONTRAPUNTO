@@ -952,7 +952,7 @@ export default function CotizadorContrapunto() {
                       onChange={(e) =>
                         setRespuestas((prev) => ({
                           ...prev,
-                          metrosOtrosCasa: parseInt(e.target.value) || 0,
+                          metrosOtrosCasa: Math.max(0, parseInt(e.target.value) || 0),
                         }))
                       }
                       className="w-24 rounded-lg border border-white/20 bg-black/30 px-4 py-2 text-xl font-light outline-none transition-all focus:border-[#8d775f] text-white"
@@ -1591,6 +1591,8 @@ export default function CotizadorContrapunto() {
                   tipoProyecto: '',
                   plantas: '',
                   espaciosCasa: {},
+                  metrosOtrosCasa: 0,
+                  nombreOtrosCasa: '',
                   tipoQuincho: '',
                   materialidadQuincho: '',
                   extrasQuincho: [],

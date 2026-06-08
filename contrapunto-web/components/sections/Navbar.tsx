@@ -80,7 +80,6 @@ export const Navbar = () => {
           <div className="hidden md:flex items-center gap-3">
             <Link href="/#inversiones">
               <Button
-                variant="default"
                 size="sm"
                 className="bg-sand text-carbon hover:bg-[#a38b72] font-bold tracking-widest uppercase text-[10px]"
               >
@@ -131,7 +130,6 @@ export const Navbar = () => {
             <div className="space-y-4">
               <Link href="/#inversiones" className="block w-full" onClick={() => setIsMobileMenuOpen(false)}>
                 <Button
-                  variant="default"
                   className="w-full text-center bg-sand text-carbon hover:bg-[#a38b72] font-bold tracking-widest uppercase text-[10px]"
                 >
                   Invierte con Contrapunto
