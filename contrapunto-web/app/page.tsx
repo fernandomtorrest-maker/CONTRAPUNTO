@@ -3,15 +3,17 @@
 import React from 'react';
 import Navbar from '@/components/sections/Navbar';
 import HeroSection from '@/components/sections/HeroSection';
-import ServicesSection from '@/components/sections/ServicesSection';
-import PortfolioSection from '@/components/sections/PortfolioSection';
-import ConceptSection from '@/components/sections/ConceptSection';
-import ProcessSection from '@/components/sections/ProcessSection';
-import InvestSection from '@/components/sections/InvestSection';
-import TestimonialsSection from '@/components/sections/TestimonialsSection';
-import CtaBanner from '@/components/sections/CtaBanner';
-import Footer from '@/components/sections/Footer';
-import NosotrosSection from '@/components/sections/NosotrosSection';
+import dynamic from 'next/dynamic';
+
+const ServicesSection = dynamic(() => import('@/components/sections/ServicesSection'));
+const PortfolioSection = dynamic(() => import('@/components/sections/PortfolioSection'));
+const ConceptSection = dynamic(() => import('@/components/sections/ConceptSection'));
+const ProcessSection = dynamic(() => import('@/components/sections/ProcessSection'));
+const InvestSection = dynamic(() => import('@/components/sections/InvestSection'));
+const TestimonialsSection = dynamic(() => import('@/components/sections/TestimonialsSection'));
+const CtaBanner = dynamic(() => import('@/components/sections/CtaBanner'));
+const Footer = dynamic(() => import('@/components/sections/Footer'));
+const NosotrosSection = dynamic(() => import('@/components/sections/NosotrosSection'));
 
 export default function Home() {
   return (
