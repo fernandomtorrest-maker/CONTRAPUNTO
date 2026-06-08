@@ -4,7 +4,6 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/Button';
 import Link from 'next/link';
-import Image from 'next/image';
 
 export const HeroSection = () => {
   return (
@@ -13,16 +12,12 @@ export const HeroSection = () => {
       className="relative w-full h-screen min-h-[600px] flex items-center overflow-hidden bg-carbon"
     >
       {/* IMAGEN DE FONDO ULTRA HD CON TRATAMIENTO OSCURO */}
-      <div className="absolute inset-0 z-0">
-        <Image
-          src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1920&q=80"
-          alt="Constructora Contrapunto"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover object-center"
-        />
-      </div>
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat z-0"
+        style={{
+          backgroundImage: 'url("https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1920&q=80")',
+        }}
+      />
       
       {/* OVERLAY DE GRADIENTE OSCURO MÁS TEXTURA SUAVE */}
       <div className="absolute inset-0 bg-gradient-hero z-0 opacity-95" />
