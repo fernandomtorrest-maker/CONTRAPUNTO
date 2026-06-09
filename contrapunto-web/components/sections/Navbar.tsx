@@ -32,9 +32,9 @@ export const Navbar = () => {
     { label: 'Inicio', href: '/' },
     { label: 'Servicios', href: '/#servicios' },
     { label: 'Proyectos', href: '/#proyectos' },
-    { label: 'Concepto de diseño', href: '/#concepto-arquitectonico' },
     { label: 'Catálogo', href: '/catalogo' },
     { label: 'Nosotros', href: '/#nosotros' },
+    { label: 'Concepto de diseño', href: '/#concepto-arquitectonico' },
     { label: 'Contacto', href: '/#contacto' },
   ];
 
