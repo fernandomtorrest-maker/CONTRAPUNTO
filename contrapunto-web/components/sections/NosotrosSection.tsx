@@ -1,8 +1,9 @@
 'use client';
 
-import React from 'react';
+import React, { useRef } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface TeamMember {
   id: string;
@@ -45,12 +46,26 @@ const team: TeamMember[] = [
 ];
 
 export const NosotrosSection = () => {
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  const scrollPrev = () => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollBy({ left: -320, behavior: 'smooth' });
+    }
+  };
+
+  const scrollNext = () => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollBy({ left: 320, behavior: 'smooth' });
+    }
+  };
+
   return (
     <section id="nosotros" className="bg-carbon text-cream section-padding border-t border-white/5 relative overflow-hidden">
       {/* Elemento gráfico de fondo */}
       <div className="absolute left-0 top-1/4 w-96 h-96 bg-sand/5 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="container-base space-y-16 relative z-10">
+      <div className="container-base space-y-12 relative z-10">
         
         {/* CABECERA */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
@@ -66,10 +81,31 @@ export const NosotrosSection = () => {
               Conoce a los profesionales detrás de Constructora Contrapunto, comprometidos con la excelencia y la ejecución de cada proyecto.
             </p>
           </div>
+
+          {/* BOTONES DE NAVEGACIÓN DEL CARRUSEL */}
+          <div className="flex gap-3 shrink-0 self-end md:self-auto">
+            <button
+              onClick={scrollPrev}
+              className="p-3 border border-white/10 hover:border-sand/50 bg-white/[0.02] hover:bg-sand/10 rounded-full transition-all text-cream hover:text-sand cursor-pointer focus-sand"
+              aria-label="Anterior"
+            >
+              <ChevronLeft size={20} />
+            </button>
+            <button
+              onClick={scrollNext}
+              className="p-3 border border-white/10 hover:border-sand/50 bg-white/[0.02] hover:bg-sand/10 rounded-full transition-all text-cream hover:text-sand cursor-pointer focus-sand"
+              aria-label="Siguiente"
+            >
+              <ChevronRight size={20} />
+            </button>
+          </div>
         </div>
 
-        {/* GRID DE EQUIPO */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+        {/* CARRUSEL DE EQUIPO */}
+        <div 
+          ref={scrollRef}
+          className="flex gap-8 overflow-x-auto snap-x snap-mandatory pb-8 scrollbar-hide -mx-6 px-6 md:-mx-12 md:px-12 scroll-smooth"
+        >
           {team.map((member, idx) => (
             <motion.div
               key={member.id}
@@ -77,7 +113,7 @@ export const NosotrosSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: idx * 0.1 }}
-              className="group flex flex-col items-center text-center space-y-4"
+              className="group snap-start shrink-0 w-[260px] sm:w-[280px] md:w-[300px] flex flex-col items-center text-center space-y-4"
             >
               <div className="relative w-full aspect-[3/4] rounded-lg overflow-hidden bg-white/5 border border-white/10 group-hover:border-sand/40 transition-colors duration-300 shadow-lg">
                 <Image
