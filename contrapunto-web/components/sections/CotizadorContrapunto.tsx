@@ -76,6 +76,10 @@ const flujoBase: Paso[] = [
         imagen: '/images/cotizador/casa-nueva.webp',
       },
       {
+        valor: 'Ampliación',
+        imagen: '/images/cotizador/ampliacion.webp',
+      },
+      {
         valor: 'Quincho / Terraza',
         imagen: '/images/cotizador/foto-quincho.webp',
       },
@@ -89,6 +93,37 @@ const flujoBase: Paso[] = [
 
 const flujos: Record<string, Paso[]> = {
   'Casa nueva': [
+    ...flujoBase,
+    {
+      tipo: 'cards',
+      campo: 'plantas',
+      titulo: '¿Cuántas plantas quieres?',
+      opciones: [
+        {
+          valor: '1 piso',
+          imagen: '/images/cotizador/casa-1-piso.webp',
+        },
+        {
+          valor: '2 pisos',
+          imagen: '/images/cotizador/casa-2-pisos.webp',
+        },
+        {
+          valor: '3 pisos o más',
+          imagen: '/images/cotizador/casa-3-pisos.webp',
+        },
+      ],
+    },
+    {
+      tipo: 'quantity-select',
+      campo: 'espaciosCasa',
+      titulo: 'Selecciona los espacios de tu casa',
+      opciones: Object.keys(m2EspaciosCasa),
+    },
+    {
+      tipo: 'resultado',
+    },
+  ],
+  'Ampliación': [
     ...flujoBase,
     {
       tipo: 'cards',
@@ -397,8 +432,8 @@ export default function CotizadorContrapunto() {
 
     // Generar resumen estructurado y legible
     let detallesCotizacion = '';
-    if (respuestas.tipoProyecto === 'Casa nueva') {
-      detallesCotizacion = `• Tipo de Obra: Casa nueva\n• Cantidad de pisos: ${respuestas.plantas}\n• Superficie estimada: ${metrosTotalesCasa}m²\n• Estándar Base: desde $${valorCasaBase.toLocaleString('es-CL')} ($600.000/m²)\n• Estándar Alto: desde $${valorCasaAlto.toLocaleString('es-CL')} ($850.000/m²)\n• Estándar Premium: desde $${valorCasaPremium.toLocaleString('es-CL')} ($1.200.000/m²)\n• Espacios:\n` + 
+    if (respuestas.tipoProyecto === 'Casa nueva' || respuestas.tipoProyecto === 'Ampliación') {
+      detallesCotizacion = `• Tipo de Obra: ${respuestas.tipoProyecto}\n• Cantidad de pisos: ${respuestas.plantas}\n• Superficie estimada: ${metrosTotalesCasa}m²\n• Estándar Base: desde $${valorCasaBase.toLocaleString('es-CL')} ($600.000/m²)\n• Estándar Alto: desde $${valorCasaAlto.toLocaleString('es-CL')} ($850.000/m²)\n• Estándar Premium: desde $${valorCasaPremium.toLocaleString('es-CL')} ($1.200.000/m²)\n• Espacios:\n` + 
         Object.entries(respuestas.espaciosCasa).map(([espacio, cantidad]) => `  - ${cantidad}x ${espacio} (${m2EspaciosCasa[espacio] * cantidad}m²)`).join('\n') +
         (respuestas.metrosOtrosCasa > 0 ? `\n  - ${respuestas.nombreOtrosCasa || 'Otros espacios'} (${respuestas.metrosOtrosCasa}m²)` : '');
     } else if (respuestas.tipoProyecto === 'Quincho / Terraza') {
@@ -581,7 +616,7 @@ export default function CotizadorContrapunto() {
     doc.text(`Proyecto: ${respuestas.tipoProyecto}`, 20, y)
     y += 15
 
-    if (respuestas.tipoProyecto === 'Casa nueva') {
+    if (respuestas.tipoProyecto === 'Casa nueva' || respuestas.tipoProyecto === 'Ampliación') {
       doc.setFontSize(12)
       doc.setTextColor(60)
       doc.text(`Cantidad de pisos: ${respuestas.plantas}`, 20, y)
@@ -970,7 +1005,7 @@ export default function CotizadorContrapunto() {
         {paso.tipo === 'resultado' && (
           <div className="space-y-8">
             {/* CASA */}
-            {respuestas.tipoProyecto === 'Casa nueva' && (
+            {(respuestas.tipoProyecto === 'Casa nueva' || respuestas.tipoProyecto === 'Ampliación') && (
               <>
                 <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
                   <div className="rounded-[2rem] bg-[#262626] p-8">
@@ -1486,7 +1521,7 @@ export default function CotizadorContrapunto() {
               <a
                 href={`https://wa.me/56966974560?text=${encodeURIComponent(
                   `Hola Contrapunto! Me interesa cotizar un proyecto de ${respuestas.tipoProyecto}.\n\n` +
-                  (respuestas.tipoProyecto === 'Casa nueva' 
+                  (respuestas.tipoProyecto === 'Casa nueva' || respuestas.tipoProyecto === 'Ampliación'
                     ? `Superficie: ${metrosTotalesCasa}m²\nEspacios: ${Object.entries(respuestas.espaciosCasa).map(([e, c]) => `${c}x ${e}`).join(', ')}`
                     : respuestas.tipoProyecto === 'Quincho / Terraza'
                     ? `Tipo: ${respuestas.tipoQuincho}\nSuperficie: ${metrosQuincho}m²\nMaterialidad: ${respuestas.materialidadQuincho}\nExtras: ${respuestas.extrasQuincho.join(', ')}`
