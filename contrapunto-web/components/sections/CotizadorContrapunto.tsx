@@ -433,7 +433,7 @@ export default function CotizadorContrapunto() {
     // Generar resumen estructurado y legible
     let detallesCotizacion = '';
     if (respuestas.tipoProyecto === 'Casa nueva' || respuestas.tipoProyecto === 'Ampliación') {
-      detallesCotizacion = `• Tipo de Obra: ${respuestas.tipoProyecto}\n• Cantidad de pisos: ${respuestas.plantas}\n• Superficie estimada: ${metrosTotalesCasa}m²\n• Estándar Base: desde $${valorCasaBase.toLocaleString('es-CL')} ($600.000/m²)\n• Estándar Alto: desde $${valorCasaAlto.toLocaleString('es-CL')} ($850.000/m²)\n• Estándar Premium: desde $${valorCasaPremium.toLocaleString('es-CL')} ($1.200.000/m²)\n• Espacios:\n` + 
+      detallesCotizacion = `• Tipo de Obra: ${respuestas.tipoProyecto}\n• Cantidad de pisos: ${respuestas.plantas}\n• Superficie estimada: ${metrosTotalesCasa}m²\n• Estándar Base: desde $${valorCasaBase.toLocaleString('es-CL')} ($600.000/m²)\n• Estándar Alto: desde $${valorCasaAlto.toLocaleString('es-CL')} ($850.000/m²)\n• Estándar Superior: desde $${valorCasaSuperior.toLocaleString('es-CL')} ($1.200.000/m²)\n• Espacios:\n` + 
         Object.entries(respuestas.espaciosCasa).map(([espacio, cantidad]) => `  - ${cantidad}x ${espacio} (${m2EspaciosCasa[espacio] * cantidad}m²)`).join('\n') +
         (respuestas.metrosOtrosCasa > 0 ? `\n  - ${respuestas.nombreOtrosCasa || 'Otros espacios'} (${respuestas.metrosOtrosCasa}m²)` : '');
     } else if (respuestas.tipoProyecto === 'Quincho / Terraza') {
@@ -488,7 +488,7 @@ export default function CotizadorContrapunto() {
 
   const valorCasaBase = useMemo(() => metrosTotalesCasa * 600000, [metrosTotalesCasa])
   const valorCasaAlto = useMemo(() => metrosTotalesCasa * 850000, [metrosTotalesCasa])
-  const valorCasaPremium = useMemo(() => metrosTotalesCasa * 1200000, [metrosTotalesCasa])
+  const valorCasaSuperior = useMemo(() => metrosTotalesCasa * 1200000, [metrosTotalesCasa])
 
   // 2. QUINCHO / TERRAZA
   const metrosQuincho = Number(respuestas.metrosQuincho) || 0
@@ -660,9 +660,9 @@ export default function CotizadorContrapunto() {
       doc.text(`desde $${valorCasaAlto.toLocaleString('es-CL')}`, pageWidth - 60, y)
       y += 8
       doc.setTextColor(60)
-      doc.text(`Estándar Premium (desde $1.200.000/m²):`, 25, y)
+      doc.text(`Estándar Superior (desde $1.200.000/m²):`, 25, y)
       doc.setTextColor(40)
-      doc.text(`desde $${valorCasaPremium.toLocaleString('es-CL')}`, pageWidth - 60, y)
+      doc.text(`desde $${valorCasaSuperior.toLocaleString('es-CL')}`, pageWidth - 60, y)
       y += 15
 
     } else if (respuestas.tipoProyecto === 'Quincho / Terraza') {
@@ -733,7 +733,7 @@ export default function CotizadorContrapunto() {
 
       const valorTinyBase = metrosTiny * 600000
       const valorTinyAlto = metrosTiny * 850000
-      const valorTinyPremium = metrosTiny * 1200000
+      const valorTinySuperior = metrosTiny * 1200000
 
       doc.setFontSize(12)
       doc.setTextColor(60)
@@ -747,9 +747,9 @@ export default function CotizadorContrapunto() {
       doc.text(`desde $${valorTinyAlto.toLocaleString('es-CL')}`, pageWidth - 60, y)
       y += 8
       doc.setTextColor(60)
-      doc.text(`Estándar Premium (desde $1.200.000/m²):`, 25, y)
+      doc.text(`Estándar Superior (desde $1.200.000/m²):`, 25, y)
       doc.setTextColor(40)
-      doc.text(`desde $${valorTinyPremium.toLocaleString('es-CL')}`, pageWidth - 60, y)
+      doc.text(`desde $${valorTinySuperior.toLocaleString('es-CL')}`, pageWidth - 60, y)
       y += 15
     }
 
@@ -1033,9 +1033,9 @@ export default function CotizadorContrapunto() {
                     </div>
                   </div>
                   <div className="rounded-[2rem] bg-[#262626] p-8">
-                    <div className="mb-3 text-neutral-400">Estándar Premium</div>
+                    <div className="mb-3 text-neutral-400">Estándar Superior</div>
                     <div className="text-3xl font-light">
-                      desde ${valorCasaPremium.toLocaleString('es-CL')}
+                      desde ${valorCasaSuperior.toLocaleString('es-CL')}
                     </div>
                     <div className="mt-2 text-sm text-neutral-500">
                       desde $1.200.000/m²
@@ -1147,9 +1147,9 @@ export default function CotizadorContrapunto() {
                       </ul>
                     </div>
 
-                    {/* Estándar Premium */}
+                    {/* Estándar Superior */}
                     <div className="rounded-2xl border border-white/10 p-6">
-                      <h4 className="mb-4 text-xl font-light">Estándar Premium</h4>
+                      <h4 className="mb-4 text-xl font-light">Estándar Superior</h4>
                       <p className="mb-4 text-sm text-neutral-400">$1.200.000/m²</p>
                       <ul className="space-y-2 text-sm text-neutral-300">
                         <li className="flex items-start gap-2">
@@ -1301,7 +1301,7 @@ export default function CotizadorContrapunto() {
                     </div>
                   </div>
                   <div className="rounded-[2rem] bg-[#262626] p-8">
-                    <div className="mb-3 text-neutral-400">Estándar Premium</div>
+                    <div className="mb-3 text-neutral-400">Estándar Superior</div>
                     <div className="text-3xl font-light">
                       desde ${(metrosTiny * 1200000).toLocaleString('es-CL')}
                     </div>
