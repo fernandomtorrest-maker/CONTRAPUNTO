@@ -1191,6 +1191,13 @@ export default function CotizadorContrapunto() {
                       </ul>
                     </div>
                   </div>
+                  
+                  {/* Disclaimer elegante */}
+                  <div className="mt-8 border-t border-white/5 pt-6 text-center">
+                    <p className="text-sm italic text-neutral-400 font-light">
+                      Los valores presentados son estimativos. El presupuesto real y definitivo está sujeto al estudio del proyecto y las especificaciones técnicas correspondientes.
+                    </p>
+                  </div>
                 </div>
               </>
             )}
