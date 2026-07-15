@@ -10,6 +10,7 @@ interface TeamMember {
   name: string;
   role: string;
   image: string;
+  link?: string;
 }
 
 const team: TeamMember[] = [
@@ -42,6 +43,13 @@ const team: TeamMember[] = [
     name: 'Simon Plaza Manzo',
     role: 'Diseñador de Sistemas de Audio Residencial',
     image: '/images/equipo/simon_plaza.png',
+  },
+  {
+    id: 'gonzalo-galvez',
+    name: 'Gonzalo Galvez',
+    role: 'Asesoria estetica',
+    image: '/images/equipo/gonzalo_galvez.png',
+    link: 'https://www.instagram.com/ojitosnegros.arte/',
   }
 ];
 
@@ -115,19 +123,40 @@ export const NosotrosSection = () => {
               transition={{ duration: 0.5, delay: idx * 0.1 }}
               className="group snap-start shrink-0 w-[260px] sm:w-[280px] md:w-[300px] flex flex-col items-center text-center space-y-4"
             >
-              <div className="relative w-full aspect-[3/4] rounded-lg overflow-hidden bg-white/5 border border-white/10 group-hover:border-sand/40 transition-colors duration-300 shadow-lg">
-                <Image
-                  src={member.image}
-                  alt={member.name}
-                  fill
-                  sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 25vw"
-                  className={`object-cover transition-transform duration-700 group-hover:scale-105 grayscale ${
-                    member.id !== 'simon-plaza' ? 'group-hover:grayscale-0' : ''
-                  }`}
-                />
-                {/* Degradado inferior sutil */}
-                <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-carbon/80 to-transparent pointer-events-none" />
-              </div>
+              {member.link ? (
+                <a
+                  href={member.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="relative w-full aspect-[3/4] rounded-lg overflow-hidden bg-white/5 border border-white/10 group-hover:border-sand/40 transition-colors duration-300 shadow-lg block cursor-pointer"
+                >
+                  <Image
+                    src={member.image}
+                    alt={member.name}
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 25vw"
+                    className={`object-cover transition-transform duration-700 group-hover:scale-105 grayscale ${
+                      member.id !== 'simon-plaza' && member.id !== 'gonzalo-galvez' ? 'group-hover:grayscale-0' : ''
+                    }`}
+                  />
+                  {/* Degradado inferior sutil */}
+                  <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-carbon/80 to-transparent pointer-events-none" />
+                </a>
+              ) : (
+                <div className="relative w-full aspect-[3/4] rounded-lg overflow-hidden bg-white/5 border border-white/10 group-hover:border-sand/40 transition-colors duration-300 shadow-lg">
+                  <Image
+                    src={member.image}
+                    alt={member.name}
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 25vw"
+                    className={`object-cover transition-transform duration-700 group-hover:scale-105 grayscale ${
+                      member.id !== 'simon-plaza' ? 'group-hover:grayscale-0' : ''
+                    }`}
+                  />
+                  {/* Degradado inferior sutil */}
+                  <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-carbon/80 to-transparent pointer-events-none" />
+                </div>
+              )}
               <div>
                 <h3 className="font-heading text-xl font-extrabold text-cream uppercase tracking-wider transition-colors group-hover:text-sand">
                   {member.name}
