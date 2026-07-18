@@ -12,6 +12,7 @@ import TestimonialsSection from '@/components/sections/TestimonialsSection';
 import CtaBanner from '@/components/sections/CtaBanner';
 import Footer from '@/components/sections/Footer';
 import NosotrosSection from '@/components/sections/NosotrosSection';
+import AudioResidencialSection from '@/components/sections/AudioResidencialSection';
 
 export default function Home() {
   return (
@@ -27,6 +28,9 @@ export default function Home() {
 
         {/* 2. Sección de Servicios */}
         <ServicesSection />
+
+        {/* 2.2. Sistemas de Audio Residencial */}
+        <AudioResidencialSection />
 
         {/* 2.5. Sección "Nuestro Proceso" */}
         <ProcessSection />
