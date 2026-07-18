@@ -171,6 +171,76 @@ export const AudioResidencialSection = () => {
         </div>
 
       </div>
+
+      {/* SECCIÓN DE GALERÍA DE PROYECTOS / SIMON EN ACCIÓN */}
+      <div className="container-base mt-24 pt-16 border-t border-white/10 relative z-10">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-12">
+          <div className="space-y-3">
+            <span className="text-label text-sand font-bold block uppercase tracking-widest">
+              Simon Plaza en Acción
+            </span>
+            <h3 className="font-heading text-3xl md:text-4xl font-extrabold uppercase text-cream tracking-wider">
+              Nuestras Instalaciones en Terreno
+            </h3>
+            <span className="accent-line !bg-sand" />
+          </div>
+          <p className="text-xs text-neutral-400 max-w-md font-light leading-relaxed uppercase tracking-wider">
+            Fotografías de Simon Plaza Manzo ejecutando e integrando soluciones acústicas de alta fidelidad, conexionado estructurado y montaje de parlantes en terreno.
+          </p>
+        </div>
+
+        {/* GRID DE GALERÍA */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {[
+            {
+              src: '/images/audio/simon_trabajando_1.webp',
+              alt: 'Conexionado de racks y amplificadores Hi-Fi',
+              title: 'Conexionado & Racks',
+              desc: 'Instalación y peinado estructurado de cableado en rack de sonido de alta fidelidad.'
+            },
+            {
+              src: '/images/audio/simon_trabajando_2.webp',
+              alt: 'Ajuste de amplificación valvular y sonido estéreo',
+              title: 'Calibración Hi-Fi',
+              desc: 'Sintonización de etapas de potencia valvulares integradas a columnas estéreo.'
+            },
+            {
+              src: '/images/audio/simon_trabajando_3.webp',
+              alt: 'Instalación de parlante empotrado de cielo',
+              title: 'Montaje de Cielo',
+              desc: 'Instalación y anclaje de altavoces de cielo con acoplamiento acústico empotrado.'
+            }
+          ].map((item, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-50px' }}
+              transition={{ duration: 0.5, delay: idx * 0.15 }}
+              className="group flex flex-col bg-stone-dark/30 border border-white/5 rounded-xl overflow-hidden shadow-lg hover:border-sand/20 transition-all duration-300"
+            >
+              <div className="relative aspect-[3/2] overflow-hidden bg-carbon/40">
+                <Image
+                  src={item.src}
+                  alt={item.alt}
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 33vw, 25vw"
+                  className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                />
+                <div className="absolute inset-0 bg-carbon/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center pointer-events-none" />
+              </div>
+              <div className="p-5 space-y-2">
+                <h4 className="font-heading text-lg font-bold text-cream uppercase tracking-wider group-hover:text-sand transition-colors">
+                  {item.title}
+                </h4>
+                <p className="text-xs text-neutral-400 leading-relaxed font-light">
+                  {item.desc}
+                </p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
     </section>
   );
 };
