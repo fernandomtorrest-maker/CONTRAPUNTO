@@ -2,12 +2,14 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 
 interface ServiceItem {
   number: string;
   title: string;
   description: string;
   iconSvg: React.ReactNode;
+  href?: string;
 }
 
 export const ServicesSection = () => {
@@ -77,6 +79,22 @@ export const ServicesSection = () => {
         </svg>
       ),
     },
+    {
+      number: '06',
+      title: 'AUDIO RESIDENCIAL',
+      description: 'Sistemas de sonido de alta fidelidad integrados con la arquitectura y diseño de tu hogar.',
+      iconSvg: (
+        <svg className="w-12 h-12 text-carbon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2">
+          {/* Sketchy speaker/audio design */}
+          <rect x="5" y="3" width="14" height="18" rx="2" />
+          <circle cx="12" cy="8" r="2.5" />
+          <circle cx="12" cy="15" r="4" />
+          <line x1="12" y1="8" x2="12" y2="8.01" strokeWidth="2" />
+          <line x1="12" y1="15" x2="12" y2="15.01" strokeWidth="2" />
+        </svg>
+      ),
+      href: '/audio-residencial'
+    }
   ];
 
   return (
@@ -96,34 +114,65 @@ export const ServicesSection = () => {
         </div>
 
         {/* GRID DE SERVICIOS */}
-        <div className="w-full lg:w-3/4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-6">
-          {services.map((service, idx) => (
-            <motion.div
-              key={service.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-100px' }}
-              transition={{ duration: 0.5, delay: idx * 0.1 }}
-              className="flex flex-col items-start space-y-6 group"
-            >
-              {/* Icono + Acento */}
-              <div className="relative">
-                <div className="p-1 group-hover:scale-105 transition-transform duration-300">
-                  {service.iconSvg}
-                </div>
-              </div>
+        <div className="w-full lg:w-3/4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-8">
+          {services.map((service, idx) => {
+            const isClickable = !!service.href;
+            
+            return (
+              <motion.div
+                key={service.title}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-100px' }}
+                transition={{ duration: 0.5, delay: idx * 0.1 }}
+                className="flex flex-col items-start space-y-6 group"
+              >
+                {isClickable ? (
+                  <Link
+                    href={service.href!}
+                    className="flex flex-col items-start space-y-6 w-full cursor-pointer focus-sand outline-none"
+                  >
+                    {/* Icono + Acento */}
+                    <div className="relative">
+                      <div className="p-1 group-hover:scale-105 transition-transform duration-300">
+                        {service.iconSvg}
+                      </div>
+                    </div>
 
-              {/* Contenido */}
-              <div className="space-y-2">
-                <h3 className="font-heading text-lg font-extrabold text-carbon tracking-wider uppercase">
-                  {service.title}
-                </h3>
-                <p className="text-[11px] text-carbon/70 font-medium leading-relaxed uppercase tracking-wider">
-                  {service.description}
-                </p>
-              </div>
-            </motion.div>
-          ))}
+                    {/* Contenido */}
+                    <div className="space-y-2">
+                      <h3 className="font-heading text-lg font-extrabold text-carbon tracking-wider uppercase group-hover:text-[#8d775f] transition-colors flex items-center gap-1.5">
+                        {service.title}
+                        <span className="text-sm font-light text-carbon/60 group-hover:translate-x-1 transition-transform duration-300">→</span>
+                      </h3>
+                      <p className="text-[11px] text-carbon/70 font-medium leading-relaxed uppercase tracking-wider">
+                        {service.description}
+                      </p>
+                    </div>
+                  </Link>
+                ) : (
+                  <div className="flex flex-col items-start space-y-6 w-full">
+                    {/* Icono + Acento */}
+                    <div className="relative">
+                      <div className="p-1">
+                        {service.iconSvg}
+                      </div>
+                    </div>
+
+                    {/* Contenido */}
+                    <div className="space-y-2">
+                      <h3 className="font-heading text-lg font-extrabold text-carbon tracking-wider uppercase">
+                        {service.title}
+                      </h3>
+                      <p className="text-[11px] text-carbon/70 font-medium leading-relaxed uppercase tracking-wider">
+                        {service.description}
+                      </p>
+                    </div>
+                  </div>
+                )}
+              </motion.div>
+            );
+          })}
         </div>
 
       </div>
