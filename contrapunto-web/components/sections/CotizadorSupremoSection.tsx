@@ -364,9 +364,12 @@ export default function CotizadorSupremoSection() {
                         {item.description}
                       </div>
                     </div>
-                    <div className="shrink-0 flex items-center gap-2">
-                      <span className="text-xs font-mono text-cream/60">{item.priceUf.toFixed(4)} UF</span>
-                      <Plus className="w-3.5 h-3.5 text-sand opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <div className="shrink-0 flex items-center gap-3">
+                      <div className="text-right">
+                        <span className="block text-xs font-mono text-cream/60">{item.priceUf.toFixed(4)} UF</span>
+                        <span className="block text-[10px] font-mono text-cream/45 mt-0.5">${Math.round(item.priceUf * ufValue).toLocaleString('es-CL')}</span>
+                      </div>
+                      <Plus className="w-3.5 h-3.5 text-sand opacity-0 group-hover:opacity-100 transition-opacity self-center" />
                     </div>
                   </div>
                 ))}
@@ -469,7 +472,7 @@ export default function CotizadorSupremoSection() {
                       <th className="p-4 font-normal">CÓDIGO</th>
                       <th className="p-4 font-normal">DESCRIPCIÓN</th>
                       <th className="p-4 font-normal text-center">CANT.</th>
-                      <th className="p-4 font-normal text-right">P.U. (UF)</th>
+                      <th className="p-4 font-normal text-right">P.U.</th>
                       <th className="p-4 font-normal text-right">TOTAL (CLP)</th>
                       <th className="p-4 text-center font-normal">ACCIONES</th>
                     </tr>
@@ -519,8 +522,9 @@ export default function CotizadorSupremoSection() {
                             <span className="block text-[10px] text-cream/40 mt-0.5 font-mono">{item.unit}</span>
                           </td>
                           
-                          <td className="p-4 text-right font-mono text-xs text-cream/80 shrink-0">
-                            {item.priceUf.toFixed(4)}
+                          <td className="p-4 text-right shrink-0">
+                            <div className="font-mono text-xs text-cream/80">{item.priceUf.toFixed(4)} UF</div>
+                            <div className="font-mono text-[10px] text-cream/45 mt-0.5">${Math.round(item.priceUf * ufValue).toLocaleString('es-CL')}</div>
                           </td>
                           
                           <td className="p-4 text-right font-mono text-xs text-cream shrink-0">
