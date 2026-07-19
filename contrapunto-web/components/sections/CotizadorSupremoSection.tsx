@@ -503,7 +503,7 @@ export default function CotizadorSupremoSection() {
                                   <option value="" disabled>Alternativas...</option>
                                   {item.alternatives.map((alt) => (
                                     <option key={alt.id} value={alt.id}>
-                                      {alt.description} ({alt.priceUf.toFixed(2)} UF)
+                                      {alt.description} ({alt.priceUf.toFixed(4)} UF / ${Math.round(alt.priceUf * ufValue).toLocaleString('es-CL')})
                                     </option>
                                   ))}
                                 </select>
