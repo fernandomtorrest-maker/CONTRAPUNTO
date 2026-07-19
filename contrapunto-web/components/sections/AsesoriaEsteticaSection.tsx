@@ -5,7 +5,6 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { Paintbrush, Sun, LayoutGrid, MessageSquare, Compass } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
-import Link from 'next/link';
 
 interface AestheticService {
   id: string;
@@ -94,11 +93,11 @@ export const AsesoriaEsteticaSection = () => {
           </div>
 
           <div className="pt-4 flex flex-col sm:flex-row xl:flex-col gap-4 w-full">
-            <Link href="/cotizar" className="w-full sm:w-auto xl:w-full">
-              <Button className="w-full bg-sand text-carbon hover:bg-[#a38b72] font-bold tracking-widest uppercase text-xs py-4">
+            <div className="w-full sm:w-auto xl:w-full">
+              <Button className="w-full bg-sand text-carbon hover:bg-[#a38b72] font-bold tracking-widest uppercase text-xs py-4 cursor-default">
                 Cotizar Asesoría Estética
               </Button>
-            </Link>
+            </div>
             <a
               href="https://wa.me/56966974560?text=Hola%20Contrapunto!%20Me%20interesa%20recibir%20asesor%C3%ADa%20est%C3%A9tica%20para%20mi%20proyecto."
               target="_blank"
