@@ -198,5 +198,61 @@
     "unit": "m2",
     "type": "Partida",
     "priceUf": 16.0
+  },
+  {
+    "id": 25,
+    "code": "4.1",
+    "description": "Revestimiento Exterior - Siding de Fibrocemento (Efecto Madera)",
+    "unit": "m2",
+    "type": "Partida",
+    "priceUf": 1.0
+  },
+  {
+    "id": 26,
+    "code": "4.2",
+    "description": "Revestimiento Exterior - Fachaleta o Piedra Pizarra",
+    "unit": "m2",
+    "type": "Partida",
+    "priceUf": 1.4
+  },
+  {
+    "id": 27,
+    "code": "4.3",
+    "description": "Revestimiento Exterior - Siding de PVC",
+    "unit": "m2",
+    "type": "Partida",
+    "priceUf": 0.8
+  },
+  {
+    "id": 28,
+    "code": "4.4",
+    "description": "Revestimiento Interior - Porcelanato en Muros (Baño / Cocina)",
+    "unit": "m2",
+    "type": "Partida",
+    "priceUf": 1.0
+  },
+  {
+    "id": 29,
+    "code": "4.5",
+    "description": "Revestimiento Interior - Cerámica en Muros",
+    "unit": "m2",
+    "type": "Partida",
+    "priceUf": 0.7
+  },
+  {
+    "id": 30,
+    "code": "4.6",
+    "description": "Revestimiento Interior - Revestimiento de Madera (Pino Machihembrado)",
+    "unit": "m2",
+    "type": "Partida",
+    "priceUf": 0.9
+  },
+  {
+    "id": 31,
+    "code": "4.7",
+    "description": "Revestimiento Interior - Papel Mural Vinílico",
+    "unit": "m2",
+    "type": "Partida",
+    "priceUf": 0.5
   }
 ]
