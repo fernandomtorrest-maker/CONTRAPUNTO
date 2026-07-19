@@ -412,5 +412,50 @@
     "type": "Partida",
     "priceUf": 8.0,
     "inclusions": "Incluye: fabricación e instalación de clóset a medida en melamina de 18mm, barra de colgar cromada, cajoneras con correderas telescópicas, tiradores metálicos, repisas interiores y puertas de abatir o correderas."
+  },
+  {
+    "id": 46,
+    "code": "9.1",
+    "description": "Pintura - Muros Interiores Látex (Estándar)",
+    "unit": "m2",
+    "type": "Partida",
+    "priceUf": 0.15,
+    "inclusions": "Incluye: lijado suave de muros, limpieza de polvo, 1 mano de sellador acrílico y 2 manos de pintura látex de buena cobertura para zonas secas (dormitorios, living, comedor)."
+  },
+  {
+    "id": 47,
+    "code": "9.2",
+    "description": "Pintura - Muros Interiores Esmalte al Agua (Lavable)",
+    "unit": "m2",
+    "type": "Partida",
+    "priceUf": 0.2,
+    "inclusions": "Incluye: preparación de superficie, lijado, sellador acrílico y 2 manos de esmalte al agua satinado de alta lavabilidad y antihongos para zonas húmedas o de alto tráfico (baños, cocinas, pasillos)."
+  },
+  {
+    "id": 48,
+    "code": "9.3",
+    "description": "Pintura - Muros Exteriores (Fachadas)",
+    "unit": "m2",
+    "type": "Partida",
+    "priceUf": 0.25,
+    "inclusions": "Incluye: limpieza de fachada, reparación de fisuras menores con sellador elastomérico, imprimante fijador y 2 manos de esmalte al agua de exterior de alta resistencia climática."
+  },
+  {
+    "id": 49,
+    "code": "9.4",
+    "description": "Pintura - Empaste Completo de Muros (Preparación Premium)",
+    "unit": "m2",
+    "type": "Partida",
+    "priceUf": 0.3,
+    "inclusions": "Incluye: lijado inicial de muros, aplicación de 2 a 3 manos cruzadas de pasta muro para nivelación de imperfecciones y lijado al detalle con luz de control para terminación lisa."
+  },
+  {
+    "id": 50,
+    "code": "9.5",
+    "description": "Pintura - Barniz o Protector de Maderas (Estructuras o Decks)",
+    "unit": "m2",
+    "type": "Partida",
+    "priceUf": 0.2,
+    "inclusions": "Incluye: lijado de madera en sentido de la fibra, limpieza de resinas, impregnante protector Stain y 2 manos de barniz marino o protector Stain de terminación."
   }
 ]
