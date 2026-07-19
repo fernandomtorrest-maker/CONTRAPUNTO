@@ -42,7 +42,7 @@
     "unit": "m2",
     "type": "Partida",
     "priceUf": 0.933333,
-    "inclusions": "Incluye: colocación de piso vinílico SPC, espuma acústica de nivelación, perfiles de transición, guardapolvos de MDF/PVC y junquillos perimetrales."
+    "inclusions": "Incluye: colocación de piso vinílico SPC, perfiles de transición, guardapolvos de MDF/PVC y junquillos perimetrales."
   },
   {
     "id": 5,
@@ -335,7 +335,7 @@
   {
     "id": 37,
     "code": "5.6",
-    "description": "Pavimento - Preparación Autonivelante de Piso",
+    "description": "Pavimento - Nivelación Autonivelante de Piso",
     "unit": "m2",
     "type": "Partida",
     "priceUf": 0.3,

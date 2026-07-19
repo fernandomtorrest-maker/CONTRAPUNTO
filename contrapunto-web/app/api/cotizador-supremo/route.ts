@@ -93,7 +93,7 @@ REGLAS DE EXTRACCIÓN E HOMOLOGACIÓN:
 2. Si el usuario menciona una partida compleja que involucre más de un trabajo (ej: "pintura latex y luego esmalte al agua"), sepáralo en partidas individuales si corresponden a ítems diferentes (ej: una partida para "latex" y otra para "esmalte al agua"), usando la misma cantidad y unidad asignadas a ese grupo.
 3. Extrae la cantidad numérica exacta. Si no se especifica, asume 1.
 4. Normaliza la unidad de medida a abreviaciones comunes: "m2", "m3", "ml", "mes", "un", "gl", "kg".
-5. Traduce términos informales a términos técnicos de construcción para facilitar el match en la base de datos (ej: usa "pavimento vinilico" en lugar de "piso vinilico", "latex" o "esmalte al agua" en lugar de "pintura", "retiro de escombros" en lugar de "sacar basura").
+5. Traduce términos informales a términos técnicos de construcción para facilitar el match en la base de datos (ej: usa "pavimento vinilico" en lugar de "piso vinilico", "latex" o "esmalte al agua" en lugar de "pintura", "retiro de escombros" en lugar de "sacar basura"). Especialmente, si el usuario menciona "nivelación", "nivelar" o "autonivelante", tradúcelo siempre a "nivelacion autonivelante" para que coincida con esa partida.
 
 Ejemplo de entrada:
 "necesito cotizar 50m2 de instalacion de piso vinilico y 200m2 de pintura (latex y luego esmalte al agua), retiro de escombros 2m3"
