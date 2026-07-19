@@ -11886,5 +11886,21 @@
     "unit": "un",
     "type": "Partida",
     "priceUf": 0.4156509019990249
+  },
+  {
+    "id": 1486,
+    "code": "1.10.4.4",
+    "description": "Radier de 10 cm con malla acma",
+    "unit": "m2",
+    "type": "Partida",
+    "priceUf": 0.666667
+  },
+  {
+    "id": 1487,
+    "code": "8.9.1",
+    "description": "Instalacion de piso vinilico spc, marca Holztek",
+    "unit": "m2",
+    "type": "Partida",
+    "priceUf": 0.933333
   }
 ]
