@@ -329,7 +329,7 @@ export default function CotizadorSupremoSection() {
               ) : (
                 <>
                   <Sparkles className="w-4 h-4" />
-                  Procesar con Inteligencia Artificial
+                  Procesar Solicitud
                 </>
               )}
             </button>

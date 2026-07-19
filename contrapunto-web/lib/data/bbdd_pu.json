@@ -56,11 +56,11 @@
   {
     "id": 6,
     "code": "1.7",
-    "description": "Techumbre con cerchas de pino, zinc acanalado, lana de vidrio membrana hidrofuga, listones escurridores, hojalateria",
+    "description": "Techumbre - Estructura de Pino y Cubierta de Zinc (Estándar)",
     "unit": "m2",
     "type": "Partida",
     "priceUf": 1.6,
-    "inclusions": "Incluye: cerchas estructurales de pino, costaneras, planchas de zinc acanalado, aislación lana de vidrio, membrana hidrófuga, caballetes y hojalatería."
+    "inclusions": "Incluye: cerchas estructurales de pino, costaneras, planchas de zinc acanalado, aislación lana de vidrio, membrana hidrófuga, listones escurridores, caballetes y hojalatería."
   },
   {
     "id": 7,
@@ -340,5 +340,41 @@
     "type": "Partida",
     "priceUf": 0.3,
     "inclusions": "Incluye: limpieza y raspado del radier existente, aplicación de puente de adherencia acrílico (imprimación), suministro y vertido de mortero autonivelante (espesor promedio de 3 a 5 mm) y lijado suave superficial final."
+  },
+  {
+    "id": 38,
+    "code": "6.1",
+    "description": "Techumbre - Estructura de Pino y Cubierta de Teja Asfáltica",
+    "unit": "m2",
+    "type": "Partida",
+    "priceUf": 2.1,
+    "inclusions": "Incluye: cerchas de pino, placa estructurante de OSB de 11.1 mm en toda la cubierta, fieltro asfáltico impermeable, tejas asfálticas de fibra de vidrio en diseño estándar, cumbreras, hojalatería de bordes y sellado térmico."
+  },
+  {
+    "id": 39,
+    "code": "6.2",
+    "description": "Techumbre - Estructura de Metalcon y Cubierta de Zinc",
+    "unit": "m2",
+    "type": "Partida",
+    "priceUf": 1.8,
+    "inclusions": "Incluye: cerchas estructuradas con perfiles de acero galvanizado (Metalcon estructural 90 mm), costaneras omega de acero, planchas de zinc acanalado, barrera de vapor, lana de vidrio de 50 mm y remates de hojalatería."
+  },
+  {
+    "id": 40,
+    "code": "6.3",
+    "description": "Techumbre - Estructura de Pino y Cubierta de Teja de Arcilla (Colonial)",
+    "unit": "m2",
+    "type": "Partida",
+    "priceUf": 3.0,
+    "inclusions": "Incluye: cerchas y vigas de soporte reforzadas de pino, placa de OSB, membrana impermeable, colocación de tejas de arcilla cocida tipo colonial con mortero/fijaciones y cumbreras tradicionales."
+  },
+  {
+    "id": 41,
+    "code": "6.4",
+    "description": "Techumbre - Cambio de Cubierta (Solo Suministro e Instalación de Zinc Nuevo)",
+    "unit": "m2",
+    "type": "Partida",
+    "priceUf": 0.8,
+    "inclusions": "Incluye: desmantelado y retiro de planchas de zinc antiguas a botadero, revisión y nivelación menor de la costanera existente, suministro e instalación de planchas de zinc nuevas de 0.4 mm, tornillos autoperforantes con golilla de neopreno y caballetes nuevos."
   }
 ]
