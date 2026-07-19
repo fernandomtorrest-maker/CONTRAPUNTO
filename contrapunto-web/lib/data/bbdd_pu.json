@@ -65,14 +65,6 @@
   },
   {
     "id": 8,
-    "code": "1.9",
-    "description": "Tabiqueria 120mm metalcon, lana de vidrio, modulacion a 40cm",
-    "unit": "m2",
-    "type": "Partida",
-    "priceUf": 1.066667
-  },
-  {
-    "id": 9,
     "code": "1.10",
     "description": "Entramado de piso 2x10 , 2x6, 2x4 pino impregnado",
     "unit": "m2",
@@ -80,7 +72,7 @@
     "priceUf": 1.066667
   },
   {
-    "id": 10,
+    "id": 9,
     "code": "2.1",
     "description": "Obra Gruesa",
     "unit": "m2",
@@ -88,7 +80,7 @@
     "priceUf": 2.81736
   },
   {
-    "id": 11,
+    "id": 10,
     "code": "2.2",
     "description": "Terminaciones",
     "unit": "m2",
@@ -96,7 +88,7 @@
     "priceUf": 4.267354
   },
   {
-    "id": 12,
+    "id": 11,
     "code": "2.3",
     "description": "Esp. Eléctrica",
     "unit": "m2",
@@ -104,7 +96,7 @@
     "priceUf": 4.693678
   },
   {
-    "id": 13,
+    "id": 12,
     "code": "2.4",
     "description": "Esp. Sanitaria",
     "unit": "m2",
@@ -112,7 +104,7 @@
     "priceUf": 0.228355
   },
   {
-    "id": 14,
+    "id": 13,
     "code": "2.5",
     "description": "Climatización",
     "unit": "m2",
@@ -120,7 +112,7 @@
     "priceUf": 4.082114
   },
   {
-    "id": 15,
+    "id": 14,
     "code": "2.6",
     "description": "Impermeabilización",
     "unit": "m2",
@@ -128,7 +120,7 @@
     "priceUf": 0.039904
   },
   {
-    "id": 16,
+    "id": 15,
     "code": "2.7",
     "description": "Iluminación",
     "unit": "m2",
@@ -136,7 +128,7 @@
     "priceUf": 2.07878
   },
   {
-    "id": 17,
+    "id": 16,
     "code": "2.8",
     "description": "Extinción y Detección",
     "unit": "m2",
@@ -144,7 +136,7 @@
     "priceUf": 2.152321
   },
   {
-    "id": 18,
+    "id": 17,
     "code": "2.9",
     "description": "Basuras",
     "unit": "m2",
@@ -152,7 +144,7 @@
     "priceUf": 0.067894
   },
   {
-    "id": 19,
+    "id": 18,
     "code": "2.10",
     "description": "Instalacion de Faena",
     "unit": "m2",
@@ -160,7 +152,7 @@
     "priceUf": 0.097273
   },
   {
-    "id": 20,
+    "id": 19,
     "code": "2.11",
     "description": "Mobiliario",
     "unit": "m2",
@@ -168,7 +160,7 @@
     "priceUf": 0.983113
   },
   {
-    "id": 21,
+    "id": 20,
     "code": "3.1",
     "description": "Obra Gruesa - Tabiquería en Madera (Zona Centro)",
     "unit": "m2",
@@ -176,7 +168,7 @@
     "priceUf": 8.0
   },
   {
-    "id": 22,
+    "id": 21,
     "code": "3.2",
     "description": "Obra Gruesa - Metalcon (Acero Galvanizado)",
     "unit": "m2",
@@ -184,7 +176,7 @@
     "priceUf": 10.0
   },
   {
-    "id": 23,
+    "id": 22,
     "code": "3.3",
     "description": "Obra Gruesa - Panel SIP (Estructura Panel)",
     "unit": "m2",
@@ -192,7 +184,7 @@
     "priceUf": 11.0
   },
   {
-    "id": 24,
+    "id": 23,
     "code": "3.4",
     "description": "Obra Gruesa - Albañilería Confinada",
     "unit": "m2",
@@ -200,7 +192,7 @@
     "priceUf": 13.0
   },
   {
-    "id": 25,
+    "id": 24,
     "code": "3.5",
     "description": "Obra Gruesa - Hormigón Armado",
     "unit": "m2",

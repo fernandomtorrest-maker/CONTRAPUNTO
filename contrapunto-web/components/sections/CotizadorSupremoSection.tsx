@@ -486,6 +486,26 @@ export default function CotizadorSupremoSection() {
                           
                           <td className="p-4 min-w-[200px]">
                             <div className="text-xs text-cream font-medium line-clamp-2">{item.description}</div>
+                            {/* Inclusions Detail Sub-text for Obra Gruesa */}
+                            {item.description.toLowerCase().includes('obra gruesa') && (
+                              <div className="mt-1 text-[10px] text-cream/40 leading-relaxed max-w-sm italic">
+                                {item.description.includes('Madera') && (
+                                  <span>Incluye: cimientos, sobrecimientos, radier, estructura pino 2x4&quot;, OSB 9.5mm, membrana hidrófuga y aislación según norma Zona Centro.</span>
+                                )}
+                                {item.description.includes('Metalcon') && (
+                                  <span>Incluye: cimientos, sobrecimientos, radier, estructura Metalcon 90mm, OSB 9.5mm, aislación térmica y membrana hidrófuga exterior.</span>
+                                )}
+                                {item.description.includes('SIP') && (
+                                  <span>Incluye: cimientos, sobrecimientos, radier, paneles SIP 90/120mm, pie derecho calibrado, pernos de anclaje y adhesivo estructural.</span>
+                                )}
+                                {item.description.includes('Albañilería') && (
+                                  <span>Incluye: cimientos, sobrecimientos, radier, ladrillo princesa/fiscal, pilares/cadenas de hormigón H20/H25 y enfierradura.</span>
+                                )}
+                                {item.description.includes('Hormigón') && (
+                                  <span>Incluye: cimientos, sobrecimientos, radier, muros/losas de hormigón H25/H30, doble malla fierro y moldajes estruct.</span>
+                                )}
+                              </div>
+                            )}
                             {/* Alternative matching notification & switcher dropdown */}
                             {item.alternatives.length > 0 && (
                               <div className="mt-1 flex items-center gap-1.5">
