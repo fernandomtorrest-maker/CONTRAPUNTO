@@ -141,7 +141,7 @@ export async function POST(request: NextRequest) {
         contents,
         generationConfig: {
           temperature: 0.1,
-          maxOutputTokens: 1000,
+          maxOutputTokens: 4000,
           responseMimeType: "application/json"
         }
       })
