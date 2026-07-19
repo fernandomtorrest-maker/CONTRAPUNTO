@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Sparkles, Trash2, Search, Plus, Copy, Check, RefreshCw, AlertCircle, HelpCircle } from 'lucide-react';
+import { Sparkles, Trash2, Search, Plus, Copy, Check, RefreshCw, AlertCircle, HelpCircle, Download } from 'lucide-react';
 import bbddPuData from '@/lib/data/bbdd_pu.json';
 
 interface DbItem {
@@ -66,6 +66,16 @@ export default function CotizadorSupremoSection() {
   // Feedback states
   const [copySuccess, setCopySuccess] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
+
+  // Client details for PDF quotes
+  const [clientInfo, setClientInfo] = useState({
+    nombre: 'Matias Donoso',
+    rut: 'Modelo Personalizado',
+    ubicacion: 'Talca',
+    fecha: new Date().toISOString().split('T')[0], // YYYY-MM-DD
+    numeroCotizacion: 'V-033',
+    costoMateriales: 0
+  });
 
   // Perform client-side manual search
   useEffect(() => {
@@ -212,8 +222,12 @@ export default function CotizadorSupremoSection() {
     const ivaUf = ivaActive ? netoUf * 0.19 : 0;
     const ivaClp = ivaActive ? netoClp * 0.19 : 0;
     
-    const totalUf = netoUf + ivaUf;
-    const totalClp = netoClp + ivaClp;
+    // Add materials cost to totals
+    const materialsClp = Number(clientInfo.costoMateriales) || 0;
+    const materialsUf = materialsClp / ufValue;
+
+    const totalUf = netoUf + ivaUf + materialsUf;
+    const totalClp = netoClp + ivaClp + materialsClp;
 
     return {
       costDirectoUf,
@@ -226,6 +240,8 @@ export default function CotizadorSupremoSection() {
       netoClp,
       ivaUf,
       ivaClp,
+      materialsUf,
+      materialsClp,
       totalUf,
       totalClp
     };
@@ -262,6 +278,292 @@ export default function CotizadorSupremoSection() {
     navigator.clipboard.writeText(text);
     setCopySuccess(true);
     setTimeout(() => setCopySuccess(false), 3000);
+  };
+
+  // Generate and download client PDF (Presupuesto Matias Donoso format)
+  const handleDownloadPdf = async () => {
+    if (quoteItems.length === 0) return;
+    setErrorMsg('');
+
+    try {
+      const { jsPDF } = await import('jspdf');
+      const { CONTRAPUNTO_LOGO_BASE64 } = await import('../../lib/data/logoBase64');
+      
+      const doc = new jsPDF('p', 'mm', 'letter');
+      const pageWidth = doc.internal.pageSize.getWidth();
+
+      // Draw Logo (Size adjusted to 284/254 aspect ratio)
+      doc.addImage(CONTRAPUNTO_LOGO_BASE64, 'PNG', 20, 15, 30, 27);
+
+      // Title
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(20);
+      doc.setTextColor(31, 41, 55); // #1f2937
+      doc.text('PRESUPUESTO DE OBRA', pageWidth - 20, 24, { align: 'right' });
+
+      // Subtitle (Quote Number & Date)
+      doc.setFont('helvetica', 'oblique');
+      doc.setFontSize(9);
+      doc.setTextColor(107, 114, 128); // #6b7280
+      
+      let formattedDate = clientInfo.fecha;
+      try {
+        const parts = clientInfo.fecha.split('-');
+        if (parts.length === 3) {
+          formattedDate = `${parts[2]}-${parts[1]}-${parts[0]}`;
+        }
+      } catch {}
+
+      doc.text(`${clientInfo.numeroCotizacion} | ${formattedDate}`, pageWidth - 20, 29, { align: 'right' });
+
+      // Left info block below logo
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(8);
+      doc.setTextColor(55, 65, 81); // #374151
+      doc.text('Oficio y Normativa', 20, 48);
+      
+      doc.setTextColor(29, 78, 216); // #1d4ed8
+      doc.text('contacto@contrapuntoconstructora.cl | +56 9 6697 4560', 20, 52);
+
+      // Client info divider
+      doc.setDrawColor(217, 119, 6); // #d97706 orange
+      doc.setLineWidth(0.4);
+      doc.line(20, 58, pageWidth - 20, 58);
+
+      // Client info header
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(9);
+      doc.setTextColor(217, 119, 6);
+      doc.text('INFORMACIÓN DEL CLIENTE', 20, 63);
+
+      // Client info fields
+      doc.setFontSize(8.5);
+      doc.setTextColor(55, 65, 81);
+      
+      doc.setFont('helvetica', 'bold');
+      doc.text('Nombre:', 20, 70);
+      doc.setFont('helvetica', 'normal');
+      doc.text(clientInfo.nombre, 34, 70);
+
+      doc.setFont('helvetica', 'bold');
+      doc.text('RUT:', 20, 75);
+      doc.setFont('helvetica', 'normal');
+      doc.text(clientInfo.rut, 34, 75);
+
+      doc.setFont('helvetica', 'bold');
+      doc.text('Ubicación:', 20, 80);
+      doc.setFont('helvetica', 'normal');
+      doc.text(clientInfo.ubicacion || 'No especificada', 36, 80);
+
+      doc.setFont('helvetica', 'bold');
+      doc.text('Fecha:', 110, 70);
+      doc.setFont('helvetica', 'normal');
+      doc.text(formattedDate, 122, 70);
+
+      doc.setFont('helvetica', 'bold');
+      doc.text('Modelo:', 110, 75);
+      doc.setFont('helvetica', 'normal');
+      doc.text('Personalizado', 122, 75);
+
+      // Table Setup
+      let y = 88;
+
+      // Table Header Background Box
+      doc.setFillColor(31, 41, 55); // #1f2937
+      doc.rect(15, y, 186, 8, 'F');
+      
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(8.5);
+      doc.setTextColor(255, 255, 255);
+      
+      doc.text('Item', 17, y + 5.5);
+      doc.text('Descripción', 29, y + 5.5);
+      doc.text('Unidad', 121 + 6.5, y + 5.5, { align: 'center' });
+      doc.text('Cant.', 134 + 6, y + 5.5, { align: 'center' });
+      doc.text('Unitario (CLP)', 171 - 2, y + 5.5, { align: 'right' });
+      doc.text('Total (CLP)', 201 - 2, y + 5.5, { align: 'right' });
+
+      y += 8;
+
+      // Draw rows
+      quoteItems.forEach((item, index) => {
+        const itemNum = (index + 1).toFixed(1);
+        const puClp = item.priceUf * ufValue;
+        const totalClp = item.quantity * puClp;
+
+        const descLines = doc.splitTextToSize(item.description, 90);
+        const incLines = item.inclusions ? doc.splitTextToSize(item.inclusions, 88) : [];
+        
+        const descHeight = descLines.length * 4;
+        const incHeight = incLines.length > 0 ? (incLines.length * 3.2) + 1.5 : 0;
+        const rowNeededHeight = descHeight + incHeight + 4; // padding
+
+        // Page overflow check
+        if (y + rowNeededHeight > 255) {
+          doc.setDrawColor(229, 231, 235);
+          doc.line(15, y, 201, y);
+
+          doc.addPage();
+          y = 15;
+          // Redraw table header
+          doc.setFillColor(31, 41, 55);
+          doc.rect(15, y, 186, 8, 'F');
+          doc.setFont('helvetica', 'bold');
+          doc.setFontSize(8.5);
+          doc.setTextColor(255, 255, 255);
+          
+          doc.text('Item', 17, y + 5.5);
+          doc.text('Descripción', 29, y + 5.5);
+          doc.text('Unidad', 121 + 6.5, y + 5.5, { align: 'center' });
+          doc.text('Cant.', 134 + 6, y + 5.5, { align: 'center' });
+          doc.text('Unitario (CLP)', 171 - 2, y + 5.5, { align: 'right' });
+          doc.text('Total (CLP)', 201 - 2, y + 5.5, { align: 'right' });
+          y += 8;
+        }
+
+        // Row border line
+        doc.setDrawColor(229, 231, 235);
+        doc.setLineWidth(0.15);
+        doc.line(15, y, 201, y);
+
+        // Print values
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(8);
+        doc.setTextColor(55, 65, 81);
+
+        doc.text(itemNum, 17, y + 4.5);
+        doc.text(descLines, 29, y + 4.5);
+
+        if (incLines.length > 0) {
+          doc.setFont('helvetica', 'oblique');
+          doc.setFontSize(7.2);
+          doc.setTextColor(100, 100, 100);
+          doc.text(incLines, 31, y + 4.5 + descHeight + 1.2);
+          doc.setFont('helvetica', 'normal');
+          doc.setFontSize(8);
+          doc.setTextColor(55, 65, 81);
+        }
+
+        doc.text(item.unit, 121 + 6.5, y + 4.5, { align: 'center' });
+        doc.text(item.quantity.toLocaleString('es-CL'), 134 + 6, y + 4.5, { align: 'center' });
+        doc.text(`$${Math.round(puClp).toLocaleString('es-CL')}`, 171 - 2, y + 4.5, { align: 'right' });
+        doc.text(`$${Math.round(totalClp).toLocaleString('es-CL')}`, 201 - 2, y + 4.5, { align: 'right' });
+
+        y += rowNeededHeight;
+      });
+
+      // Close table
+      doc.setDrawColor(200);
+      doc.line(15, y, 201, y);
+
+      // Check remaining height for totals
+      if (y + 80 > 270) {
+        doc.addPage();
+        y = 15;
+      } else {
+        y += 10;
+      }
+
+      const y_total = y;
+
+      // Table 1: Mano de obra breakdown
+      const table1Rows = [
+        { label: 'Valor Mano de Obra', value: `$${Math.round(totals.costDirectoClp).toLocaleString('es-CL')}` },
+        { label: `Gastos generales (${gastosGenerales}%)`, value: `$${Math.round(totals.ggClp).toLocaleString('es-CL')}` },
+        { label: `Utilidades (${utilidad}%)`, value: `$${Math.round(totals.utilClp).toLocaleString('es-CL')}` },
+        { label: 'TOTAL NETO', value: `$${Math.round(totals.netoClp).toLocaleString('es-CL')}` },
+        { label: 'IVA (19%)', value: ivaActive ? `$${Math.round(totals.ivaClp).toLocaleString('es-CL')}` : '$0' },
+        { label: 'TOTAL mano de obra IVA incluido', value: `$${Math.round(totals.netoClp + totals.ivaClp).toLocaleString('es-CL')}`, isBold: true }
+      ];
+
+      doc.setDrawColor(200);
+      doc.setLineWidth(0.2);
+
+      table1Rows.forEach((row, i) => {
+        const y_row = y_total + (i * 4.8);
+        
+        doc.rect(131, y_row, 43, 4.8);
+        doc.rect(131 + 43, y_row, 27, 4.8);
+
+        doc.setFont('helvetica', row.isBold ? 'bold' : 'normal');
+        doc.setFontSize(row.isBold ? 7.5 : 7.2);
+        doc.setTextColor(31, 41, 55);
+        doc.text(row.label, 133, y_row + 3.4);
+        doc.text(row.value, 201 - 2, y_row + 3.4, { align: 'right' });
+      });
+
+      // Table 2: General total
+      const y_table2 = y_total + (6 * 4.8) + 4;
+      const table2Rows = [
+        { label: 'Mano de obra', value: `$${Math.round(totals.netoClp + totals.ivaClp).toLocaleString('es-CL')}` },
+        { label: 'Costo Materiales', value: `$${Math.round(totals.materialsClp).toLocaleString('es-CL')}` },
+        { label: 'TOTAL GENERAL', value: `$${Math.round(totals.totalClp).toLocaleString('es-CL')}`, isHighlight: true }
+      ];
+
+      table2Rows.forEach((row, i) => {
+        const y_row = y_table2 + (i * 4.8);
+
+        if (row.isHighlight) {
+          doc.setFillColor(217, 119, 6); // #d97706 orange
+          doc.rect(131, y_row, 43, 4.8, 'F');
+          doc.rect(131 + 43, y_row, 27, 4.8, 'F');
+          
+          doc.setTextColor(255, 255, 255);
+          doc.setFont('helvetica', 'bold');
+        } else {
+          doc.setTextColor(31, 41, 55);
+          doc.setFont('helvetica', 'normal');
+        }
+
+        doc.rect(131, y_row, 43, 4.8);
+        doc.rect(131 + 43, y_row, 27, 4.8);
+
+        doc.setFontSize(7.5);
+        doc.text(row.label, 133, y_row + 3.4);
+        doc.text(row.value, 201 - 2, y_row + 3.4, { align: 'right' });
+      });
+
+      // VALOR EN UF (Ref.)
+      const y_uf = y_table2 + (3 * 4.8) + 4;
+      doc.setTextColor(31, 41, 55);
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(7.5);
+      doc.text('VALOR EN UF (Ref.)', 131, y_uf + 3);
+      doc.text(totals.totalUf.toFixed(2), 201 - 2, y_uf + 3, { align: 'right' });
+
+      // Left column: Commercial conditions
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(8.5);
+      doc.setTextColor(217, 119, 6);
+      doc.text('CONDICIONES COMERCIALES', 15, y_total + 2);
+
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(7);
+      doc.setTextColor(75, 85, 99);
+      
+      doc.text('1. Validez de la oferta: 15 días corridos.', 15, y_total + 7);
+      doc.text('2. Forma de pago: 50% Anticipo / 40% Avance / 10% Recepción.', 15, y_total + 11);
+      doc.text('3. No incluye permisos de edificación ni derechos municipales.', 15, y_total + 15);
+      doc.text('4. Plazo de ejecución estimado: 30 dias corridos', 15, y_total + 19);
+
+      // Signature line
+      const y_sig = y_uf + 15;
+      doc.setDrawColor(156, 163, 175);
+      doc.setLineWidth(0.25);
+      doc.line(140, y_sig, 195, y_sig);
+      
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(7.5);
+      doc.setTextColor(107, 114, 128);
+      doc.text('Firma Cliente', 167.5, y_sig + 4, { align: 'center' });
+
+      // Save PDF document
+      const sanitizedName = clientInfo.nombre.toLowerCase().replace(/\s/g, '-');
+      doc.save(`presupuesto-${sanitizedName}-${clientInfo.numeroCotizacion}.pdf`);
+    } catch (error) {
+      console.error('Error generating PDF:', error);
+      setErrorMsg('Ocurrió un error al generar el PDF de cotización.');
+    }
   };
 
   return (
@@ -391,7 +693,85 @@ export default function CotizadorSupremoSection() {
             )}
           </div>
 
-          {/* Card 3: Parameters */}
+          {/* Card 3: Client and Project Details */}
+          <div className="bg-[#1a1815] border border-stone-800 rounded-2xl p-6 shadow-2xl space-y-4">
+            <h2 className="text-lg font-display text-cream mb-2 flex items-center gap-2">
+              <span className="text-sand">👤</span> Datos del Cliente y Proyecto
+            </h2>
+            
+            <div className="space-y-3">
+              <div>
+                <label className="block text-xs font-mono text-cream/50 mb-1.5">NOMBRE CLIENTE</label>
+                <input
+                  type="text"
+                  className="w-full bg-stone-950 border border-stone-800 rounded-xl px-3 py-2 text-sm text-cream focus:outline-none focus:border-sand"
+                  value={clientInfo.nombre}
+                  onChange={(e) => setClientInfo(prev => ({ ...prev, nombre: e.target.value }))}
+                  placeholder="Ej: Matias Donoso"
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-mono text-cream/50 mb-1.5">RUT / ID</label>
+                  <input
+                    type="text"
+                    className="w-full bg-stone-950 border border-stone-800 rounded-xl px-3 py-2 text-sm text-cream focus:outline-none focus:border-sand"
+                    value={clientInfo.rut}
+                    onChange={(e) => setClientInfo(prev => ({ ...prev, rut: e.target.value }))}
+                    placeholder="Ej: 12.345.678-9"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-mono text-cream/50 mb-1.5">Nº COTIZACIÓN</label>
+                  <input
+                    type="text"
+                    className="w-full bg-stone-950 border border-stone-800 rounded-xl px-3 py-2 text-sm text-cream font-mono focus:outline-none focus:border-sand"
+                    value={clientInfo.numeroCotizacion}
+                    onChange={(e) => setClientInfo(prev => ({ ...prev, numeroCotizacion: e.target.value }))}
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-mono text-cream/50 mb-1.5">UBICACIÓN</label>
+                  <input
+                    type="text"
+                    className="w-full bg-stone-950 border border-stone-800 rounded-xl px-3 py-2 text-sm text-cream focus:outline-none focus:border-sand"
+                    value={clientInfo.ubicacion}
+                    onChange={(e) => setClientInfo(prev => ({ ...prev, ubicacion: e.target.value }))}
+                    placeholder="Ej: Talca, Maule"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-mono text-cream/50 mb-1.5 font-mono">FECHA</label>
+                  <input
+                    type="date"
+                    className="w-full bg-stone-950 border border-stone-800 rounded-xl px-3 py-2 text-sm text-cream focus:outline-none focus:border-sand"
+                    value={clientInfo.fecha}
+                    onChange={(e) => setClientInfo(prev => ({ ...prev, fecha: e.target.value }))}
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-xs font-mono text-cream/50 mb-1.5">PRESUPUESTO MATERIALES ($ CLP)</label>
+                <input
+                  type="number"
+                  className="w-full bg-stone-950 border border-stone-800 rounded-xl px-3 py-2 text-sm text-cream font-mono focus:outline-none focus:border-sand"
+                  value={clientInfo.costoMateriales || ''}
+                  onChange={(e) => setClientInfo(prev => ({ ...prev, costoMateriales: Number(e.target.value) }))}
+                  placeholder="Ej: 10642830"
+                />
+                <p className="text-[10px] text-cream/35 mt-1 font-light leading-relaxed">
+                  Opcional. Si se ingresa, se desglosará de la Mano de Obra y sumará al Total General tanto en la interfaz como en el PDF de cotización.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Card 4: Parameters */}
           <div className="bg-[#1a1815] border border-stone-800 rounded-2xl p-6 shadow-2xl space-y-4">
             <h2 className="text-lg font-display text-cream mb-2">Parámetros Financieros</h2>
             
@@ -610,19 +990,21 @@ export default function CotizadorSupremoSection() {
 
                 <div className="mt-4 pt-4 flex gap-3">
                   <button
+                    onClick={handleDownloadPdf}
+                    className="flex-1 flex items-center justify-center gap-2 bg-[#d97706] hover:bg-[#ea580c] text-white py-3 px-4 rounded-xl text-sm font-semibold tracking-wide transition-all duration-300 active:scale-[0.98] select-none shadow-lg shadow-amber-950/20"
+                  >
+                    <Download className="w-4 h-4 text-white" />
+                    Obtener cotización
+                  </button>
+                  <button
                     onClick={handleCopyText}
-                    className="flex-1 flex items-center justify-center gap-2 bg-[#1a1815] border border-stone-850 hover:border-sand hover:bg-stone-900 text-cream py-3 px-4 rounded-xl text-xs font-semibold tracking-wide transition-all duration-300 active:scale-[0.98] select-none"
+                    title="Copiar texto estructurado"
+                    className="p-3 bg-[#1a1815] border border-stone-850 hover:border-sand hover:bg-stone-900 text-cream rounded-xl transition-all duration-300 active:scale-[0.98] select-none"
                   >
                     {copySuccess ? (
-                      <>
-                        <Check className="w-4 h-4 text-emerald-500" />
-                        ¡Copiado al Portapapeles!
-                      </>
+                      <Check className="w-4 h-4 text-emerald-500" />
                     ) : (
-                      <>
-                        <Copy className="w-4 h-4 text-sand" />
-                        Copiar para WhatsApp/Mail
-                      </>
+                      <Copy className="w-4 h-4 text-sand" />
                     )}
                   </button>
                 </div>
