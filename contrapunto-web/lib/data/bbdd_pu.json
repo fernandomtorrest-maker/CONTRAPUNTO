@@ -166,5 +166,45 @@
     "unit": "m2",
     "type": "Partida",
     "priceUf": 0.983113
+  },
+  {
+    "id": 21,
+    "code": "3.1",
+    "description": "Obra Gruesa - Tabiquería en Madera (Zona Centro)",
+    "unit": "m2",
+    "type": "Partida",
+    "priceUf": 8.0
+  },
+  {
+    "id": 22,
+    "code": "3.2",
+    "description": "Obra Gruesa - Metalcon (Acero Galvanizado)",
+    "unit": "m2",
+    "type": "Partida",
+    "priceUf": 10.0
+  },
+  {
+    "id": 23,
+    "code": "3.3",
+    "description": "Obra Gruesa - Panel SIP (Estructura Panel)",
+    "unit": "m2",
+    "type": "Partida",
+    "priceUf": 11.0
+  },
+  {
+    "id": 24,
+    "code": "3.4",
+    "description": "Obra Gruesa - Albañilería Confinada",
+    "unit": "m2",
+    "type": "Partida",
+    "priceUf": 13.0
+  },
+  {
+    "id": 25,
+    "code": "3.5",
+    "description": "Obra Gruesa - Hormigón Armado",
+    "unit": "m2",
+    "type": "Partida",
+    "priceUf": 16.0
   }
 ]
