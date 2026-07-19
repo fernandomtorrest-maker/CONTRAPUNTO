@@ -3,7 +3,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { Paintbrush, Sun, Sparkles, LayoutGrid, MessageSquare, Compass } from 'lucide-react';
+import { Paintbrush, Sun, LayoutGrid, MessageSquare, Compass } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import Link from 'next/link';
 
