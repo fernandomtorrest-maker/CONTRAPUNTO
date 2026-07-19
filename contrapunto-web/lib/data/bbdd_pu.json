@@ -376,5 +376,41 @@
     "type": "Partida",
     "priceUf": 0.8,
     "inclusions": "Incluye: desmantelado y retiro de planchas de zinc antiguas a botadero, revisión y nivelación menor de la costanera existente, suministro e instalación de planchas de zinc nuevas de 0.4 mm, tornillos autoperforantes con golilla de neopreno y caballetes nuevos."
+  },
+  {
+    "id": 42,
+    "code": "7.1",
+    "description": "Portón - Estructural de Fierro y Madera (Manual)",
+    "unit": "ml",
+    "type": "Partida",
+    "priceUf": 10.0,
+    "inclusions": "Incluye: fabricación de portón en estructura de acero con bastidor y revestimiento en madera o fierro, riel de piso, ruedas de acero, pilares de tope/guía e instalación en terreno."
+  },
+  {
+    "id": 43,
+    "code": "7.2",
+    "description": "Portón - Estructural de Fierro y Madera (Automático)",
+    "unit": "ml",
+    "type": "Partida",
+    "priceUf": 13.0,
+    "inclusions": "Incluye: fabricación de portón de acero/madera, riel, ruedas, pilares, motor eléctrico de cremallera de alto tráfico, cremallera metálica, 2 controles remotos e instalación y calibración eléctrica."
+  },
+  {
+    "id": 44,
+    "code": "8.1",
+    "description": "Mueble - Cocina a Medida (Mueble Base + Aéreo + Cubierta)",
+    "unit": "ml",
+    "type": "Partida",
+    "priceUf": 12.0,
+    "inclusions": "Incluye: diseño, fabricación e instalación de mueble base y aéreo de cocina en melamina de 18mm con cantos de PVC, bisagras con cierre suave (soft-close), cajoneras con rieles telescópicos y cubierta de cuarzo o granito."
+  },
+  {
+    "id": 45,
+    "code": "8.2",
+    "description": "Mueble - Clóset Dormitorio a Medida",
+    "unit": "ml",
+    "type": "Partida",
+    "priceUf": 8.0,
+    "inclusions": "Incluye: fabricación e instalación de clóset a medida en melamina de 18mm, barra de colgar cromada, cajoneras con correderas telescópicas, tiradores metálicos, repisas interiores y puertas de abatir o correderas."
   }
 ]
