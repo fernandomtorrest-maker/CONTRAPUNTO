@@ -94,6 +94,21 @@ export const ServicesSection = () => {
         </svg>
       ),
       href: '/audio-residencial'
+    },
+    {
+      number: '07',
+      title: 'ASESORÍA ESTÉTICA',
+      description: 'Interiorismo, materialidad y diseño de iluminación para dar coherencia visual y carácter a tu obra.',
+      iconSvg: (
+        <svg className="w-12 h-12 text-carbon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2">
+          <path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9c.83 0 1.5-.67 1.5-1.5 0-.39-.15-.76-.39-1.05-.23-.29-.38-.66-.38-1.07 0-.83.67-1.5 1.5-1.5h1.77c2.78 0 5-2.22 5-5 0-4.97-4.03-9-9-9z" />
+          <circle cx="7.5" cy="10.5" r="1" fill="currentColor" />
+          <circle cx="11.5" cy="7.5" r="1" fill="currentColor" />
+          <circle cx="16.5" cy="9.5" r="1" fill="currentColor" />
+          <circle cx="15.5" cy="14.5" r="1" fill="currentColor" />
+        </svg>
+      ),
+      href: '/asesoria-estetica'
     }
   ];
 
