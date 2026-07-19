@@ -126,7 +126,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Call Gemini API to parse the prompt
-    const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key=${apiKey}`;
+    const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent?key=${apiKey}`;
     const contents = [
       {
         role: 'user',
