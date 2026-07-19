@@ -457,5 +457,32 @@
     "type": "Partida",
     "priceUf": 0.2,
     "inclusions": "Incluye: lijado de madera en sentido de la fibra, limpieza de resinas, impregnante protector Stain y 2 manos de barniz marino o protector Stain de terminación."
+  },
+  {
+    "id": 51,
+    "code": "10.1",
+    "description": "Arquitectura - Anteproyecto Arquitectónico (Diseño Conceptual)",
+    "unit": "m2",
+    "type": "Partida",
+    "priceUf": 0.2,
+    "inclusions": "Incluye: reuniones de diseño, análisis de cabida básica según normativa local (PRC/OGUC), propuesta de planta de distribución, elevaciones esquemáticas, volumetría en modelo 3D conceptual y ajustes iniciales."
+  },
+  {
+    "id": 52,
+    "code": "10.2",
+    "description": "Arquitectura - Proyecto de Arquitectura Ejecutiva (Apto Municipal DOM)",
+    "unit": "m2",
+    "type": "Partida",
+    "priceUf": 0.5,
+    "inclusions": "Incluye: planimetría completa oficial para solicitud de Permiso de Edificación (plantas, cortes, elevaciones, emplazamiento), cuadro de superficies, especificaciones técnicas de arquitectura, formularios DOM y firmas profesionales."
+  },
+  {
+    "id": 53,
+    "code": "10.3",
+    "description": "Arquitectura - Levantamiento y Regularización (Propiedad Existente)",
+    "unit": "m2",
+    "type": "Partida",
+    "priceUf": 0.32,
+    "inclusions": "Incluye: visitas de medición física en terreno de la vivienda construida, digitalización a planos CAD, elaboración de expediente de regularización para presentación en dirección de obras municipales (DOM) y firma del arquitecto patrocinante."
   }
 ]
