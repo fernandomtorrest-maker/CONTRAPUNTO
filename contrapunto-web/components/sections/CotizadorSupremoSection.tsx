@@ -11,11 +11,12 @@ interface DbItem {
   unit: string;
   type: string;
   priceUf: number;
+  inclusions?: string;
 }
 
 interface ParsedResultItem {
-  matchedItem: { id: number; code: string; description: string; unit: string; priceUf: number } | null;
-  alternatives: Array<{ id: number; code: string; description: string; unit: string; priceUf: number }>;
+  matchedItem: { id: number; code: string; description: string; unit: string; priceUf: number; inclusions?: string } | null;
+  alternatives: Array<{ id: number; code: string; description: string; unit: string; priceUf: number; inclusions?: string }>;
   originalQuery: string;
   requestedQty: number;
   requestedUnit: string;
@@ -27,6 +28,7 @@ interface AlternativeItem {
   description: string;
   unit: string;
   priceUf: number;
+  inclusions?: string;
 }
 
 interface QuoteItem {
@@ -37,12 +39,14 @@ interface QuoteItem {
   unit: string;
   quantity: number;
   priceUf: number;
+  inclusions?: string;
   alternatives: Array<{
     id: number;
     code: string;
     description: string;
     unit: string;
     priceUf: number;
+    inclusions?: string;
   }>;
 }
 
@@ -112,6 +116,7 @@ export default function CotizadorSupremoSection() {
           unit: matched ? matched.unit : resItem.requestedUnit || 'un',
           quantity: resItem.requestedQty || 1,
           priceUf: matched ? matched.priceUf : 0,
+          inclusions: matched ? matched.inclusions : undefined,
           alternatives: resItem.alternatives || []
         };
       });
@@ -137,6 +142,7 @@ export default function CotizadorSupremoSection() {
       unit: item.unit,
       quantity: 1,
       priceUf: item.priceUf,
+      inclusions: item.inclusions,
       alternatives: []
     };
     setQuoteItems((prev) => [...prev, newItem]);
@@ -162,7 +168,8 @@ export default function CotizadorSupremoSection() {
           code: item.code,
           description: item.description,
           unit: item.unit,
-          priceUf: item.priceUf
+          priceUf: item.priceUf,
+          inclusions: item.inclusions
         };
         // Remove selection from alternatives and add current matched
         const newAlts = item.alternatives
@@ -176,6 +183,7 @@ export default function CotizadorSupremoSection() {
           description: alternative.description,
           unit: alternative.unit,
           priceUf: alternative.priceUf,
+          inclusions: alternative.inclusions,
           alternatives: newAlts
         };
       })
@@ -486,24 +494,10 @@ export default function CotizadorSupremoSection() {
                           
                           <td className="p-4 min-w-[200px]">
                             <div className="text-xs text-cream font-medium line-clamp-2">{item.description}</div>
-                            {/* Inclusions Detail Sub-text for Obra Gruesa */}
-                            {item.description.toLowerCase().includes('obra gruesa') && (
+                            {/* Inclusions Detail Sub-text from Database */}
+                            {item.inclusions && (
                               <div className="mt-1 text-[10px] text-cream/40 leading-relaxed max-w-sm italic">
-                                {item.description.includes('Madera') && (
-                                  <span>Incluye: cimientos, sobrecimientos, radier, estructura pino 2x4&quot;, OSB 9.5mm, membrana hidrófuga y aislación según norma Zona Centro.</span>
-                                )}
-                                {item.description.includes('Metalcon') && (
-                                  <span>Incluye: cimientos, sobrecimientos, radier, estructura Metalcon 90mm, OSB 9.5mm, aislación térmica y membrana hidrófuga exterior.</span>
-                                )}
-                                {item.description.includes('SIP') && (
-                                  <span>Incluye: cimientos, sobrecimientos, radier, paneles SIP 90/120mm, pie derecho calibrado, pernos de anclaje y adhesivo estructural.</span>
-                                )}
-                                {item.description.includes('Albañilería') && (
-                                  <span>Incluye: cimientos, sobrecimientos, radier, ladrillo princesa/fiscal, pilares/cadenas de hormigón H20/H25 y enfierradura.</span>
-                                )}
-                                {item.description.includes('Hormigón') && (
-                                  <span>Incluye: cimientos, sobrecimientos, radier, muros/losas de hormigón H25/H30, doble malla fierro y moldajes estruct.</span>
-                                )}
+                                <span>{item.inclusions}</span>
                               </div>
                             )}
                             {/* Alternative matching notification & switcher dropdown */}

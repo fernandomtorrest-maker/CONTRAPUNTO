@@ -21,6 +21,7 @@ interface DbItem {
   unit: string;
   type: string;
   priceUf: number;
+  inclusions?: string;
 }
 
 function matchDatabaseItem(searchTerm: string, userUnit: string): { matched: DbItem | null; alternatives: DbItem[] } {
@@ -185,14 +186,16 @@ export async function POST(request: NextRequest) {
           code: matched.code,
           description: matched.description,
           unit: matched.unit,
-          priceUf: matched.priceUf
+          priceUf: matched.priceUf,
+          inclusions: matched.inclusions
         } : null,
         alternatives: alternatives.map(alt => ({
           id: alt.id,
           code: alt.code,
           description: alt.description,
           unit: alt.unit,
-          priceUf: alt.priceUf
+          priceUf: alt.priceUf,
+          inclusions: alt.inclusions
         }))
       };
     });
