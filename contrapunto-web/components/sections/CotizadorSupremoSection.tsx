@@ -70,8 +70,9 @@ export default function CotizadorSupremoSection() {
   // Client details for PDF quotes
   const [clientInfo, setClientInfo] = useState({
     nombre: 'Matias Donoso',
-    rut: 'Modelo Personalizado',
-    ubicacion: 'Talca',
+    telefono: '+56 9 6697 4560',
+    correo: 'contacto@contrapuntoconstructora.cl',
+    localidad: 'Talca',
     fecha: new Date().toISOString().split('T')[0], // YYYY-MM-DD
     numeroCotizacion: 'V-033',
     costoMateriales: 0
@@ -341,29 +342,34 @@ export default function CotizadorSupremoSection() {
       doc.setTextColor(55, 65, 81);
       
       doc.setFont('helvetica', 'bold');
-      doc.text('Nombre:', 20, 70);
+      doc.text('Nombre y Apellido:', 20, 70);
       doc.setFont('helvetica', 'normal');
-      doc.text(clientInfo.nombre, 34, 70);
+      doc.text(clientInfo.nombre, 48, 70);
 
       doc.setFont('helvetica', 'bold');
-      doc.text('RUT:', 20, 75);
+      doc.text('Teléfono:', 20, 75);
       doc.setFont('helvetica', 'normal');
-      doc.text(clientInfo.rut, 34, 75);
+      doc.text(clientInfo.telefono, 48, 75);
 
       doc.setFont('helvetica', 'bold');
-      doc.text('Ubicación:', 20, 80);
+      doc.text('Localidad:', 20, 80);
       doc.setFont('helvetica', 'normal');
-      doc.text(clientInfo.ubicacion || 'No especificada', 36, 80);
+      doc.text(clientInfo.localidad || 'No especificada', 48, 80);
 
       doc.setFont('helvetica', 'bold');
       doc.text('Fecha:', 110, 70);
       doc.setFont('helvetica', 'normal');
-      doc.text(formattedDate, 122, 70);
+      doc.text(formattedDate, 126, 70);
 
       doc.setFont('helvetica', 'bold');
-      doc.text('Modelo:', 110, 75);
+      doc.text('Correo:', 110, 75);
       doc.setFont('helvetica', 'normal');
-      doc.text('Personalizado', 122, 75);
+      doc.text(clientInfo.correo, 126, 75);
+
+      doc.setFont('helvetica', 'bold');
+      doc.text('Cotización:', 110, 80);
+      doc.setFont('helvetica', 'normal');
+      doc.text(clientInfo.numeroCotizacion, 126, 80);
 
       // Table Setup
       let y = 88;
@@ -701,7 +707,7 @@ export default function CotizadorSupremoSection() {
             
             <div className="space-y-3">
               <div>
-                <label className="block text-xs font-mono text-cream/50 mb-1.5">NOMBRE CLIENTE</label>
+                <label className="block text-xs font-mono text-cream/50 mb-1.5">NOMBRE Y APELLIDO</label>
                 <input
                   type="text"
                   className="w-full bg-stone-950 border border-stone-800 rounded-xl px-3 py-2 text-sm text-cream focus:outline-none focus:border-sand"
@@ -713,34 +719,35 @@ export default function CotizadorSupremoSection() {
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-mono text-cream/50 mb-1.5">RUT / ID</label>
+                  <label className="block text-xs font-mono text-cream/50 mb-1.5">TELÉFONO</label>
                   <input
                     type="text"
                     className="w-full bg-stone-950 border border-stone-800 rounded-xl px-3 py-2 text-sm text-cream focus:outline-none focus:border-sand"
-                    value={clientInfo.rut}
-                    onChange={(e) => setClientInfo(prev => ({ ...prev, rut: e.target.value }))}
-                    placeholder="Ej: 12.345.678-9"
+                    value={clientInfo.telefono}
+                    onChange={(e) => setClientInfo(prev => ({ ...prev, telefono: e.target.value }))}
+                    placeholder="Ej: +56 9 1234 5678"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-mono text-cream/50 mb-1.5">Nº COTIZACIÓN</label>
+                  <label className="block text-xs font-mono text-cream/50 mb-1.5">CORREO</label>
                   <input
-                    type="text"
-                    className="w-full bg-stone-950 border border-stone-800 rounded-xl px-3 py-2 text-sm text-cream font-mono focus:outline-none focus:border-sand"
-                    value={clientInfo.numeroCotizacion}
-                    onChange={(e) => setClientInfo(prev => ({ ...prev, numeroCotizacion: e.target.value }))}
+                    type="email"
+                    className="w-full bg-stone-950 border border-stone-800 rounded-xl px-3 py-2 text-sm text-cream focus:outline-none focus:border-sand"
+                    value={clientInfo.correo}
+                    onChange={(e) => setClientInfo(prev => ({ ...prev, correo: e.target.value }))}
+                    placeholder="Ej: cliente@correo.cl"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-mono text-cream/50 mb-1.5">UBICACIÓN</label>
+                  <label className="block text-xs font-mono text-cream/50 mb-1.5">LOCALIDAD</label>
                   <input
                     type="text"
                     className="w-full bg-stone-950 border border-stone-800 rounded-xl px-3 py-2 text-sm text-cream focus:outline-none focus:border-sand"
-                    value={clientInfo.ubicacion}
-                    onChange={(e) => setClientInfo(prev => ({ ...prev, ubicacion: e.target.value }))}
+                    value={clientInfo.localidad}
+                    onChange={(e) => setClientInfo(prev => ({ ...prev, localidad: e.target.value }))}
                     placeholder="Ej: Talca, Maule"
                   />
                 </div>
@@ -755,18 +762,26 @@ export default function CotizadorSupremoSection() {
                 </div>
               </div>
 
-              <div>
-                <label className="block text-xs font-mono text-cream/50 mb-1.5">PRESUPUESTO MATERIALES ($ CLP)</label>
-                <input
-                  type="number"
-                  className="w-full bg-stone-950 border border-stone-800 rounded-xl px-3 py-2 text-sm text-cream font-mono focus:outline-none focus:border-sand"
-                  value={clientInfo.costoMateriales || ''}
-                  onChange={(e) => setClientInfo(prev => ({ ...prev, costoMateriales: Number(e.target.value) }))}
-                  placeholder="Ej: 10642830"
-                />
-                <p className="text-[10px] text-cream/35 mt-1 font-light leading-relaxed">
-                  Opcional. Si se ingresa, se desglosará de la Mano de Obra y sumará al Total General tanto en la interfaz como en el PDF de cotización.
-                </p>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-mono text-cream/50 mb-1.5">Nº COTIZACIÓN</label>
+                  <input
+                    type="text"
+                    className="w-full bg-stone-950 border border-stone-800 rounded-xl px-3 py-2 text-sm text-cream font-mono focus:outline-none focus:border-sand"
+                    value={clientInfo.numeroCotizacion}
+                    onChange={(e) => setClientInfo(prev => ({ ...prev, numeroCotizacion: e.target.value }))}
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-mono text-cream/50 mb-1.5">PRESUPUESTO MATERIALES ($)</label>
+                  <input
+                    type="number"
+                    className="w-full bg-stone-950 border border-stone-800 rounded-xl px-3 py-2 text-sm text-cream font-mono focus:outline-none focus:border-sand"
+                    value={clientInfo.costoMateriales || ''}
+                    onChange={(e) => setClientInfo(prev => ({ ...prev, costoMateriales: Number(e.target.value) }))}
+                    placeholder="Ej: 10642830"
+                  />
+                </div>
               </div>
             </div>
           </div>
