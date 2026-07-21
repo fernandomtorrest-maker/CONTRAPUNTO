@@ -56,18 +56,18 @@ export const metadata: Metadata = {
       'Proyectos a medida construidos con precisión, materiales nobles y atención en cada detalle.',
     images: [
       {
-        url: '/images/og-image.jpg',
+        url: 'https://www.contrapuntoconstructora.com/og-image.jpg',
         width: 1200,
         height: 630,
         alt: 'Constructora Contrapunto - Espacios con Carácter',
         type: 'image/jpeg',
       },
       {
-        url: '/logo.png',
-        width: 800,
-        height: 400,
-        alt: 'Constructora Contrapunto Logo',
-        type: 'image/png',
+        url: 'https://www.contrapuntoconstructora.com/images/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Constructora Contrapunto - Espacios con Carácter',
+        type: 'image/jpeg',
       },
     ],
   },
@@ -76,7 +76,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Constructora Contrapunto',
     description: 'Construimos espacios con carácter. Proyectos a medida en Santiago, Chile.',
-    images: ['/images/og-image.jpg'],
+    images: ['https://www.contrapuntoconstructora.com/og-image.jpg'],
   },
 
   robots: {
