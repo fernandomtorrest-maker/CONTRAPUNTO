@@ -21,7 +21,7 @@ const barlowCondensed = Barlow_Condensed({
 
 // ─── SEO Metadata ──────────────────────────────────────────────────────────────
 export const metadata: Metadata = {
-  metadataBase: new URL('https://constructoracontrapunto.cl'),
+  metadataBase: new URL('https://www.contrapuntoconstructora.com'),
 
   title: {
     default: 'Constructora Contrapunto | Construcción y Diseño de Espacios con Carácter',
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'es_CL',
-    url: 'https://constructoracontrapunto.cl',
+    url: 'https://www.contrapuntoconstructora.com',
     siteName: 'Constructora Contrapunto',
     title: 'Constructora Contrapunto | Construimos Espacios con Carácter',
     description:
@@ -60,6 +60,14 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'Constructora Contrapunto - Espacios con Carácter',
+        type: 'image/jpeg',
+      },
+      {
+        url: '/logo.png',
+        width: 800,
+        height: 400,
+        alt: 'Constructora Contrapunto Logo',
+        type: 'image/png',
       },
     ],
   },
