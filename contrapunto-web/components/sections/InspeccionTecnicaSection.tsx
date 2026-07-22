@@ -229,9 +229,9 @@ export const InspeccionTecnicaSection = () => {
           {[
             {
               src: '/images/inspeccion/diego_terreno_1.webp',
-              alt: 'Diego Stankovsky inspeccionando muros y humedad en terreno',
-              title: 'Evaluación de Humedad & Terminaciones',
-              desc: 'Inspección minuciosa en terreno utilizando instrumental digital para medir humedad y verificar la calidad de acabados en muros y cerámicos.'
+              alt: 'Diego Stankovsky en evaluación de terminaciones',
+              title: 'Evaluación de terminaciones',
+              desc: 'Inspección minuciosa en terreno para verificar la calidad de acabados, marcos, puertas, muros y revestimientos en departamentos y casas.'
             },
             {
               src: '/images/inspeccion/diego_terreno_2.webp',
