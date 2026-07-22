@@ -31,6 +31,7 @@ const team: TeamMember[] = [
     name: 'Diego Stankovsky',
     role: 'Inspector Técnico de Obras',
     image: '/images/equipo/diego_stankovsky.png',
+    link: '/inspeccion-tecnica',
   },
   {
     id: 'matias-torres',
