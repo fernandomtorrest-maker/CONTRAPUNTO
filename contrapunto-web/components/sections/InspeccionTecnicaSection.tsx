@@ -206,6 +206,70 @@ export const InspeccionTecnicaSection = () => {
           </a>
         </div>
       </div>
+
+      {/* SECCIÓN DE GALERÍA: DIEGO EN ACCIÓN */}
+      <div className="container-base mt-24 pt-16 border-t border-white/10 relative z-10">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-12">
+          <div className="space-y-3">
+            <span className="text-label text-sand font-bold block uppercase tracking-widest">
+              Diego en Acción
+            </span>
+            <h3 className="font-heading text-3xl md:text-4xl font-extrabold uppercase text-cream tracking-wider">
+              Inspecciones Técnicas en Terreno
+            </h3>
+            <span className="accent-line !bg-sand" />
+          </div>
+          <p className="text-xs text-neutral-400 max-w-md font-light leading-relaxed uppercase tracking-wider">
+            Fotografías de Diego Stankovsky realizando evaluaciones técnicas minuciosas en terreno, medición de humedad, revisión de estructuras y cuadros eléctricos.
+          </p>
+        </div>
+
+        {/* GRID DE GALERÍA DIEGO EN ACCIÓN */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          {[
+            {
+              src: '/images/inspeccion/diego_terreno_1.webp',
+              alt: 'Diego Stankovsky inspeccionando muros y humedad en terreno',
+              title: 'Evaluación de Humedad & Terminaciones',
+              desc: 'Inspección minuciosa en terreno utilizando instrumental digital para medir humedad y verificar la calidad de acabados en muros y cerámicos.'
+            },
+            {
+              src: '/images/inspeccion/diego_terreno_2.webp',
+              alt: 'Diego Stankovsky inspeccionando tableros eléctricos y estructuras',
+              title: 'Inspección de Redes & Cuadros Eléctricos',
+              desc: 'Revisión de tableros eléctricos, instalaciones, continuidad de tierra y estructuras superiores antes de la entrega final del inmueble.'
+            }
+          ].map((item, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-50px' }}
+              transition={{ duration: 0.5, delay: idx * 0.15 }}
+              className="group flex flex-col bg-stone-dark/30 border border-white/5 rounded-xl overflow-hidden shadow-lg hover:border-sand/20 transition-all duration-300"
+            >
+              <div className="relative aspect-[3/2] overflow-hidden bg-carbon/40">
+                <Image
+                  src={item.src}
+                  alt={item.alt}
+                  fill
+                  sizes="(max-width: 640px) 100vw, 50vw"
+                  className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                />
+                <div className="absolute inset-0 bg-carbon/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center pointer-events-none" />
+              </div>
+              <div className="p-5 space-y-2">
+                <h4 className="font-heading text-lg font-bold text-cream uppercase tracking-wider group-hover:text-sand transition-colors">
+                  {item.title}
+                </h4>
+                <p className="text-xs text-neutral-400 leading-relaxed font-light">
+                  {item.desc}
+                </p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
     </section>
   );
 };
