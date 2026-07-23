@@ -150,7 +150,7 @@ export const InspeccionTecnicaSection = () => {
                   ✓ 100% Imparcial
                 </span>
                 <span className="flex items-center gap-1.5 bg-carbon/70 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/10">
-                  ✓ +50 Puntos de Revisión
+                  ✓ Revisión exhaustiva
                 </span>
                 <span className="flex items-center gap-1.5 bg-carbon/70 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/10">
                   ✓ Informe Digital 24h
@@ -268,9 +268,9 @@ export const InspeccionTecnicaSection = () => {
           {[
             {
               src: '/images/inspeccion/diego_terreno_1.webp',
-              alt: 'Diego Stankovsky en evaluación de terminaciones',
+              alt: 'Detección de defectos y fallas en terminaciones constructivas',
               title: 'Evaluación de terminaciones',
-              desc: 'Inspección minuciosa en terreno para verificar la calidad de acabados, marcos, puertas, muros y revestimientos en departamentos y casas.'
+              desc: 'Detección en terreno de fallas, descuadres, fisuras y terminaciones deficientes en muros, cerámicos, juntas y molduras.'
             },
             {
               src: '/images/inspeccion/diego_terreno_2.webp',
