@@ -274,9 +274,9 @@ export const InspeccionTecnicaSection = () => {
             },
             {
               src: '/images/inspeccion/diego_terreno_2.webp',
-              alt: 'Detección de filtraciones de agua y humedad en muros y cielos',
+              alt: 'Escáner e inspección termográfica infrarroja para detectar filtraciones ocultas y humedades',
               title: 'Detección de Humedades & Filtraciones',
-              desc: 'Evaluación técnica mediante instrumental digital para detectar fugas ocultas, manchas de agua, desprendimiento de pintura y fallas de aislación hídrica.'
+              desc: 'Inspección con cámara termográfica infrarroja HIKMICRO de alta precisión para detectar filtraciones de agua no visibles, fugas ocultas en losas y puentes térmicos.'
             }
           ].map((item, idx) => (
             <motion.div
