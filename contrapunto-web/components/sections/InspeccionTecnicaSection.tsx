@@ -3,6 +3,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import Link from 'next/link';
 import { ClipboardCheck, ShieldCheck, Home, FileText, MessageSquare, AlertTriangle } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 
@@ -93,16 +94,11 @@ export const InspeccionTecnicaSection = () => {
           </div>
 
           <div className="pt-4 flex flex-col sm:flex-row xl:flex-col gap-4 w-full">
-            <a
-              href="https://wa.me/56966974560?text=Hola%20Contrapunto!%20Me%20interesa%20solicitar%20una%20Inspecci%C3%B3n%20T%C3%A9cnica%20de%20Propiedad%20con%20Diego%20Stankovsky."
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full"
-            >
+            <Link href="/cotizador-ito" className="w-full">
               <Button className="w-full bg-sand text-carbon hover:bg-[#a38b72] font-bold tracking-widest uppercase text-xs py-4 cursor-pointer">
                 Cotizar Inspección Técnica
               </Button>
-            </a>
+            </Link>
             <a
               href="https://wa.me/56966974560?text=Hola%20Contrapunto!%20Tengo%20dudas%20sobre%20la%20Inspecci%C3%B3n%20T%C3%A9cnica%20de%20mi%20propiedad."
               target="_blank"
