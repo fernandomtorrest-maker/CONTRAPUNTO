@@ -118,23 +118,66 @@ export const InspeccionTecnicaSection = () => {
         {/* DETALLE DE ESPECIALIDADES */}
         <div className="w-full xl:w-3/4 flex flex-col space-y-12">
           
-          {/* Card Destacada Banner */}
-          <div className="relative w-full aspect-[21/9] rounded-2xl overflow-hidden border border-white/10 shadow-2xl bg-stone-900">
+          {/* Card Destacada Banner Rediseñada */}
+          <div className="relative w-full rounded-2xl overflow-hidden border border-white/10 shadow-2xl bg-stone-900 group min-h-[320px] md:min-h-[380px] flex flex-col justify-between p-6 sm:p-8 md:p-10">
+            {/* Imagen de Fondo Arquitectónica HD */}
             <Image
-              src="/images/equipo/diego_stankovsky.png"
-              alt="Diego Stankovsky - Inspección Técnica de Obras"
+              src="/images/inspeccion/banner_inspeccion_hero.jpg"
+              alt="Inspección Técnica de Propiedades - Constructora Contrapunto"
               fill
-              className="object-cover object-top opacity-60"
+              className="object-cover transition-transform duration-700 group-hover:scale-105 opacity-40"
+              priority
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-carbon via-carbon/70 to-transparent" />
-            <div className="absolute bottom-6 left-6 md:bottom-10 md:left-10 max-w-md space-y-2 relative z-10">
-              <span className="text-[10px] font-mono text-sand uppercase tracking-widest">Respaldo y Rigurosidad</span>
-              <h3 className="font-heading text-xl md:text-2xl font-extrabold text-cream uppercase tracking-wide">
+            
+            {/* Gradient Overlays para Máxima Legibilidad */}
+            <div className="absolute inset-0 bg-gradient-to-r from-carbon via-carbon/85 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-carbon via-transparent to-carbon/40" />
+
+            {/* Contenido Principal con Glassmorphism */}
+            <div className="relative z-10 max-w-xl space-y-4">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sand/15 border border-sand/30 text-sand text-[10px] sm:text-xs font-mono tracking-widest uppercase">
+                <ShieldCheck className="w-3.5 h-3.5 text-sand" />
+                RESPALDO & RIGUROSIDAD TÉCNICA
+              </div>
+
+              <h3 className="font-heading text-2xl sm:text-3xl md:text-4xl font-extrabold text-cream uppercase tracking-wide leading-tight">
                 Protegemos tu patrimonio antes de recibir o comprar
               </h3>
-              <p className="text-[10px] md:text-xs text-neutral-300 leading-relaxed font-light">
-                Revisamos hasta el último detalle técnico en redes, estructura y acabados para garantizar que recibas una propiedad en óptimas condiciones.
+
+              <p className="text-xs sm:text-sm text-cream/80 leading-relaxed font-light">
+                Revisamos hasta el último detalle técnico en estructuras, terminaciones, instalaciones sanitarias y eléctricas para garantizar que recibas una propiedad en óptimas condiciones.
               </p>
+
+              {/* Puntos destacados / Métricas en la tarjeta */}
+              <div className="pt-2 flex flex-wrap items-center gap-3 text-[11px] font-mono text-sand/90">
+                <span className="flex items-center gap-1.5 bg-carbon/70 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/10">
+                  ✓ 100% Imparcial
+                </span>
+                <span className="flex items-center gap-1.5 bg-carbon/70 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/10">
+                  ✓ +50 Puntos de Revisión
+                </span>
+                <span className="flex items-center gap-1.5 bg-carbon/70 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/10">
+                  ✓ Informe Digital 24h
+                </span>
+              </div>
+            </div>
+
+            {/* Badge de Diego Stankovsky en la esquina inferior */}
+            <div className="relative z-10 mt-6 pt-4 border-t border-white/10 flex items-center justify-between flex-wrap gap-4">
+              <div className="flex items-center gap-3 bg-carbon/80 backdrop-blur-md px-4 py-2 rounded-xl border border-white/10 shadow-lg">
+                <div className="relative w-10 h-10 rounded-full overflow-hidden border border-sand/40 shrink-0">
+                  <Image
+                    src="/images/equipo/diego_stankovsky.png"
+                    alt="Diego Stankovsky"
+                    fill
+                    className="object-cover object-top"
+                  />
+                </div>
+                <div>
+                  <span className="block text-xs font-bold text-cream uppercase tracking-wider">Diego Stankovsky</span>
+                  <span className="block text-[10px] text-sand font-mono uppercase tracking-widest">Inspector Técnico de Obras (ITO)</span>
+                </div>
+              </div>
             </div>
           </div>
 
