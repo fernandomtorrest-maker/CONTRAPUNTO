@@ -274,9 +274,9 @@ export const InspeccionTecnicaSection = () => {
             },
             {
               src: '/images/inspeccion/diego_terreno_2.webp',
-              alt: 'Diego Stankovsky inspeccionando tableros eléctricos y estructuras',
-              title: 'Inspección de Redes & Cuadros Eléctricos',
-              desc: 'Revisión de tableros eléctricos, instalaciones, continuidad de tierra y estructuras superiores antes de la entrega final del inmueble.'
+              alt: 'Detección de filtraciones de agua y humedad en muros y cielos',
+              title: 'Detección de Humedades & Filtraciones',
+              desc: 'Evaluación técnica mediante instrumental digital para detectar fugas ocultas, manchas de agua, desprendimiento de pintura y fallas de aislación hídrica.'
             }
           ].map((item, idx) => (
             <motion.div
