@@ -258,9 +258,6 @@ export const InspeccionTecnicaSection = () => {
             </h3>
             <span className="accent-line !bg-sand" />
           </div>
-          <p className="text-xs text-neutral-400 max-w-md font-light leading-relaxed uppercase tracking-wider">
-            Fotografías de Diego Stankovsky realizando evaluaciones técnicas minuciosas en terreno, medición de humedad, revisión de estructuras y cuadros eléctricos.
-          </p>
         </div>
 
         {/* GRID DE GALERÍA DIEGO EN ACCIÓN */}
