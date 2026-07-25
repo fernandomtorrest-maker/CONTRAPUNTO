@@ -2,12 +2,13 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ShieldCheck, Check, Download, MessageSquare, Calculator, FileText, Sparkles, Building2, Home, Wrench } from 'lucide-react';
+import { ShieldCheck, Check, Download, MessageSquare, Calculator, FileText, Sparkles, Building2, Home, Wrench, Calendar, Layers, Clock } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import jsPDF from 'jspdf';
 import { LOGO_BASE64 } from '@/lib/logoBase64';
 
 type InspectionType = 'nuevo' | 'usado' | 'ito';
+type ItoTerrenoSubMode = 'frecuencia' | 'hitos';
 
 interface Plan {
   id: string;
@@ -18,6 +19,26 @@ interface Plan {
   minPrice: number;  // Piso mínimo CLP
   description: string;
   includedFeatures: string[];
+}
+
+interface ItoFrequencyOption {
+  id: string;
+  name: string;
+  badge?: string;
+  isPopular?: boolean;
+  visitsPerWeek: number;
+  ratePerVisit: number;
+  description: string;
+  features: string[];
+}
+
+interface ItoHitoOption {
+  id: string;
+  number: string;
+  title: string;
+  price: number;
+  description: string;
+  verifications: string[];
 }
 
 const INSPECTION_TYPES = [
@@ -43,7 +64,7 @@ const INSPECTION_TYPES = [
     sub: 'Supervisión de Obra',
     factor: 1.25,
     icon: <Wrench className="w-5 h-5 text-sand" />,
-    desc: 'Control continuo de avance y calidad constructiva en obra.'
+    desc: 'Control continuo de avance, calidad e hitos críticos en terreno.'
   }
 ];
 
@@ -53,7 +74,7 @@ const PLANS: Plan[] = [
     name: 'Plan Básico',
     ratePerM2: 1300,
     minPrice: 90000,
-    description: 'Inspección visual essencial de terminaciones y redes generales.',
+    description: 'Inspección visual esencial de terminaciones y redes generales.',
     includedFeatures: [
       'Inspección visual de terminaciones (pinturas, cerámicos, pisadura)',
       'Verificación de funcionamiento de puertas, ventanas y quincallería',
@@ -98,60 +119,139 @@ const PLANS: Plan[] = [
   }
 ];
 
+const ITO_FREQUENCIES: ItoFrequencyOption[] = [
+  {
+    id: 'frec_1',
+    name: '1 Visita / semana',
+    badge: 'Hitos & Avance',
+    visitsPerWeek: 1,
+    ratePerVisit: 80000,
+    description: 'Control semanal de avance físico y revisión de hitos clave en obras pequeñas o remodelaciones.',
+    features: [
+      '1 Visita técnica presencial por semana',
+      'Emisión de Informe de Avance Semanal',
+      'Anotaciones oficiales en Libro de Obras',
+      'Revisión visual de calidad en partidas en curso'
+    ]
+  },
+  {
+    id: 'frec_2',
+    name: '2 Visitas / semana',
+    badge: 'RECOMENDADO',
+    isPopular: true,
+    visitsPerWeek: 2,
+    ratePerVisit: 72000,
+    description: 'Supervisión constante de calidad, recepción de insumos e inspección en etapas intermedias.',
+    features: [
+      '2 Visitas técnicas presenciales por semana',
+      'Control de recepción de materiales e insumos',
+      'Revisión y validación de Estados de Pago del contratista',
+      'Informes fotográficos de avance y RNC (No Conformidades)',
+      'Asesoría técnica directa con el mandante'
+    ]
+  },
+  {
+    id: 'frec_3',
+    name: '3 Visitas / semana',
+    badge: 'INTEGRAL',
+    visitsPerWeek: 3,
+    ratePerVisit: 65000,
+    description: 'Fiscalización intensiva para obras complejas, vaciado de hormigones y coordinación estrecha.',
+    features: [
+      '3 Visitas técnicas presenciales por semana',
+      'Presencia en llenado de hormigones y recepciones críticas',
+      'Control riguroso de Carta Gantt y Estados de Pago',
+      'Informes técnicos semanales detallados con validez legal',
+      'Soporte prioritario y reuniones con equipo constructor'
+    ]
+  }
+];
+
+const ITO_HITOS: ItoHitoOption[] = [
+  {
+    id: 'hito_1',
+    number: 'HITO 01',
+    title: 'Fundaciones & Excavaciones',
+    price: 95000,
+    description: 'Verificación técnica previa al llenado de hormigón en cimientos y sobrecimientos.',
+    verifications: [
+      'Revisión de sello de excavación y cotas de nivelación',
+      'Verificación de enfierradura (diámetros, traslapes, amarres y recubrimientos)',
+      'Inspección de pasadas de tuberías en sobrecimientos'
+    ]
+  },
+  {
+    id: 'hito_2',
+    number: 'HITO 02',
+    title: 'Obra Gruesa & Estructuras',
+    price: 105000,
+    description: 'Control de elementos soportantes, losas, muros de hormigón o albañilería.',
+    verifications: [
+      'Revisión de moldajes, alzaprimado y aplomado de muros',
+      'Certificados de resistencia y muestreo de probetas de hormigón',
+      'Inspección de cadenas, dindeles y estructuración de techumbre'
+    ]
+  },
+  {
+    id: 'hito_3',
+    number: 'HITO 03',
+    title: 'Instalaciones Empotradas (SEC / Sanitarias)',
+    price: 95000,
+    description: 'Pruebas de estanqueidad y presión antes de cerrar tabiques y losas.',
+    verifications: [
+      'Prueba de presión hidráulica en redes de agua fría y caliente',
+      'Prueba de estanqueidad y pendientes en alcantarillado',
+      'Trazado de canalizaciones eléctricas y sellos normativos SEC'
+    ]
+  },
+  {
+    id: 'hito_4',
+    number: 'HITO 04',
+    title: 'Techumbre & Impermeabilización',
+    price: 90000,
+    description: 'Inspección de cubiertas, evacuación pluvial y barreras de humedad.',
+    verifications: [
+      'Verificación de pendientes y hojalatería de cubierta',
+      'Inspección de aislación térmica y barreras de vapor/humedad',
+      'Pruebas de hermeticidad en ventanas y encuentros'
+    ]
+  },
+  {
+    id: 'hito_5',
+    number: 'HITO 05',
+    title: 'Tabiquería, Estucos & Revestimientos',
+    price: 85000,
+    description: 'Control de aplomado, nivelación de pisos y secado de morteros.',
+    verifications: [
+      'Verificación de plomo en muros y escuadra en esquinas',
+      'Secado y adherencia de estucos y microcementos',
+      'Instalación de pavimentos, porcelanatos y juntas de dilatación'
+    ]
+  },
+  {
+    id: 'hito_6',
+    number: 'HITO 06',
+    title: 'Recepción Final & Cierre de Obra',
+    price: 110000,
+    description: 'Auditoría integral Snag List y entrega de acta de conformidad.',
+    verifications: [
+      'Auditoría minuciosa de terminaciones, quincallería y pinturas',
+      'Prueba funcional total de artefactos e iluminación',
+      'Informe Pericial de Cierre y aprobación de recepción final'
+    ]
+  }
+];
+
 const COMMUNAS = [
-  'Alhué',
-  'Buin',
-  'Calera de Tango',
-  'Cerrillos',
-  'Cerro Navia',
-  'Colina / Chicureo',
-  'Conchalí',
-  'Curacaví',
-  'El Bosque',
-  'El Monte',
-  'Estación Central',
-  'Huechuraba',
-  'Independencia',
-  'Isla de Maipo',
-  'La Cisterna',
-  'La Florida',
-  'La Granja',
-  'La Pintana',
-  'La Reina',
-  'Lampa',
-  'Las Condes',
-  'Lo Barnechea',
-  'Lo Espejo',
-  'Lo Prado',
-  'Macul',
-  'Maipú',
-  'María Pinto',
-  'Melipilla',
-  'Ñuñoa',
-  'Padre Hurtado',
-  'Paine',
-  'Pedro Aguirre Cerda',
-  'Peñaflor',
-  'Peñalolén',
-  'Pirque',
-  'Providencia',
-  'Pudahuel',
-  'Puente Alto',
-  'Quilicura',
-  'Quinta Normal',
-  'Recoleta',
-  'Renca',
-  'San Bernardo',
-  'San Joaquín',
-  'San José de Maipo',
-  'San Miguel',
-  'San Pedro',
-  'San Ramón',
-  'Santiago Centro',
-  'Talagante',
-  'Tiltil',
-  'Vitacura',
-  'Otras Comunas (Regiones)'
+  'Alhué', 'Buin', 'Calera de Tango', 'Cerrillos', 'Cerro Navia', 'Colina / Chicureo',
+  'Conchalí', 'Curacaví', 'El Bosque', 'El Monte', 'Estación Central', 'Huechuraba',
+  'Independencia', 'Isla de Maipo', 'La Cisterna', 'La Florida', 'La Granja', 'La Pintana',
+  'La Reina', 'Lampa', 'Las Condes', 'Lo Barnechea', 'Lo Espejo', 'Lo Prado', 'Macul',
+  'Maipú', 'María Pinto', 'Melipilla', 'Ñuñoa', 'Padre Hurtado', 'Paine',
+  'Pedro Aguirre Cerda', 'Peñaflor', 'Peñalolén', 'Pirque', 'Providencia', 'Pudahuel',
+  'Puente Alto', 'Quilicura', 'Quinta Normal', 'Recoleta', 'Renca', 'San Bernardo',
+  'San Joaquín', 'San José de Maipo', 'San Miguel', 'San Pedro', 'San Ramón',
+  'Santiago Centro', 'Talagante', 'Tiltil', 'Vitacura', 'Otras Comunas (Regiones)'
 ];
 
 export const CotizadorItoSection = () => {
@@ -159,6 +259,12 @@ export const CotizadorItoSection = () => {
   const [m2, setM2] = useState<number>(90);
   const [selectedPlanId, setSelectedPlanId] = useState<string>('intermedio');
   const [commune, setCommune] = useState<string>('Las Condes');
+
+  // Estados específicos para ITO en Terreno
+  const [itoMode, setItoMode] = useState<ItoTerrenoSubMode>('frecuencia');
+  const [itoMonths, setItoMonths] = useState<number>(3);
+  const [selectedFrecId, setSelectedFrecId] = useState<string>('frec_2');
+  const [selectedHitos, setSelectedHitos] = useState<string[]>(['hito_1', 'hito_3', 'hito_6']);
 
   // Datos del cliente para PDF/WhatsApp
   const [clientInfo, setClientInfo] = useState({
@@ -177,7 +283,7 @@ export const CotizadorItoSection = () => {
   // Obtener el tipo de inspección actual
   const currentTypeObj = INSPECTION_TYPES.find(t => t.id === selectedType) || INSPECTION_TYPES[0];
 
-  // Cálculo de precio para cada plan
+  // Cálculo de precio para cada plan estándar por m2 (Pre-entrega / Usada)
   const calculatePlanPrice = (plan: Plan) => {
     const rawPrice = m2 * plan.ratePerM2 * currentTypeObj.factor;
     const finalPrice = Math.max(plan.minPrice, Math.round(rawPrice));
@@ -186,7 +292,39 @@ export const CotizadorItoSection = () => {
   };
 
   const selectedPlanObj = PLANS.find(p => p.id === selectedPlanId) || PLANS[1];
-  const { finalPrice: currentPriceClp, ufPrice: currentPriceUf } = calculatePlanPrice(selectedPlanObj);
+
+  // Cálculos dinámicos según el tipo de servicio seleccionado
+  let currentPriceClp = 0;
+  let currentPriceUf = 0;
+  let currentFrecObj = ITO_FREQUENCIES[1];
+  const selectedHitosObjs = ITO_HITOS.filter(h => selectedHitos.includes(h.id));
+
+  if (selectedType === 'ito') {
+    if (itoMode === 'frecuencia') {
+      currentFrecObj = ITO_FREQUENCIES.find(f => f.id === selectedFrecId) || ITO_FREQUENCIES[1];
+      const totalVisits = itoMonths * 4 * currentFrecObj.visitsPerWeek;
+      currentPriceClp = totalVisits * currentFrecObj.ratePerVisit;
+      currentPriceUf = currentPriceClp / UF_VALUE;
+    } else {
+      currentPriceClp = selectedHitosObjs.reduce((acc, h) => acc + h.price, 0);
+      currentPriceUf = currentPriceClp / UF_VALUE;
+    }
+  } else {
+    const { finalPrice, ufPrice } = calculatePlanPrice(selectedPlanObj);
+    currentPriceClp = finalPrice;
+    currentPriceUf = ufPrice;
+  }
+
+  // Manejador para activar/desactivar un hito en Modalidad B
+  const toggleHito = (hitoId: string) => {
+    if (selectedHitos.includes(hitoId)) {
+      if (selectedHitos.length > 1) {
+        setSelectedHitos(selectedHitos.filter(id => id !== hitoId));
+      }
+    } else {
+      setSelectedHitos([...selectedHitos, hitoId]);
+    }
+  };
 
   // Generación de PDF de Cotización ITO
   const handleDownloadPdf = async () => {
@@ -225,9 +363,9 @@ export const CotizadorItoSection = () => {
 
       // Client Box
       doc.setFillColor(245, 245, 240);
-      doc.rect(12, 38, 192, 32, 'F');
+      doc.rect(12, 38, 192, 34, 'F');
       doc.setDrawColor(220, 220, 210);
-      doc.rect(12, 38, 192, 32, 'S');
+      doc.rect(12, 38, 192, 34, 'S');
 
       doc.setTextColor(20, 19, 17);
       doc.setFont('helvetica', 'bold');
@@ -240,33 +378,80 @@ export const CotizadorItoSection = () => {
       doc.text(`Teléfono: ${clientInfo.telefono}`, 16, 58);
       doc.text(`Correo: ${clientInfo.correo || 'No informado'}`, 16, 64);
 
-      doc.text(`Tipo de Inspección: ${currentTypeObj.name} (${currentTypeObj.sub})`, 110, 52);
-      doc.text(`Superficie: ${m2} m²`, 110, 58);
-      doc.text(`Comuna / Ubicación: ${commune} ${clientInfo.direccion ? '- ' + clientInfo.direccion : ''}`, 110, 64);
+      if (selectedType === 'ito') {
+        doc.text(`Tipo Servicio: ITO en Terreno (${itoMode === 'frecuencia' ? 'Frecuencia Semanal' : 'Hitos Críticos'})`, 110, 52);
+        if (itoMode === 'frecuencia') {
+          doc.text(`Duración: ${itoMonths} Meses (${itoMonths * 4} Semanas)`, 110, 58);
+          doc.text(`Frecuencia: ${currentFrecObj.name} (${itoMonths * 4 * currentFrecObj.visitsPerWeek} visitas tot.)`, 110, 64);
+        } else {
+          doc.text(`Hitos Contratados: ${selectedHitosObjs.length} Hitos Críticos`, 110, 58);
+          doc.text(`Ubicación: ${commune} ${clientInfo.direccion ? '- ' + clientInfo.direccion : ''}`, 110, 64);
+        }
+      } else {
+        doc.text(`Tipo de Inspección: ${currentTypeObj.name} (${currentTypeObj.sub})`, 110, 52);
+        doc.text(`Superficie: ${m2} m²`, 110, 58);
+        doc.text(`Comuna / Ubicación: ${commune} ${clientInfo.direccion ? '- ' + clientInfo.direccion : ''}`, 110, 64);
+      }
 
       // Selected Plan Summary Header
       doc.setFillColor(217, 119, 6); // Sand / Orange
-      doc.rect(12, 76, 192, 8, 'F');
+      doc.rect(12, 78, 192, 8, 'F');
       doc.setTextColor(255, 255, 255);
       doc.setFont('helvetica', 'bold');
       doc.setFontSize(10);
-      doc.text(`DETALLE DEL PLAN SELECCIONADO: ${selectedPlanObj.name.toUpperCase()}`, 16, 81.5);
 
-      // Features Table Body
-      let y = 90;
+      if (selectedType === 'ito') {
+        if (itoMode === 'frecuencia') {
+          doc.text(`DETALLE DE COBERTURA: ${currentFrecObj.name.toUpperCase()} (${itoMonths} MESES)`, 16, 83.5);
+        } else {
+          doc.text(`DETALLE DE PAQUETE DE HITOS CRÍTICOS (${selectedHitosObjs.length} HITOS)`, 16, 83.5);
+        }
+      } else {
+        doc.text(`DETALLE DEL PLAN SELECCIONADO: ${selectedPlanObj.name.toUpperCase()}`, 16, 83.5);
+      }
+
+      // Features / Items Table Body
+      let y = 92;
       doc.setTextColor(40, 40, 40);
       doc.setFont('helvetica', 'normal');
       doc.setFontSize(8.5);
 
-      selectedPlanObj.includedFeatures.forEach((feat, index) => {
-        doc.setFillColor(index % 2 === 0 ? 250 : 255, index % 2 === 0 ? 250 : 255, 250);
-        doc.rect(12, y - 4, 192, 7, 'F');
-        doc.setDrawColor(240, 240, 240);
-        doc.rect(12, y - 4, 192, 7, 'S');
+      if (selectedType === 'ito') {
+        if (itoMode === 'frecuencia') {
+          currentFrecObj.features.forEach((feat, index) => {
+            doc.setFillColor(index % 2 === 0 ? 250 : 255, index % 2 === 0 ? 250 : 255, 250);
+            doc.rect(12, y - 4, 192, 7, 'F');
+            doc.setDrawColor(240, 240, 240);
+            doc.rect(12, y - 4, 192, 7, 'S');
 
-        doc.text(`[✓]  ${feat}`, 16, y);
-        y += 7.5;
-      });
+            doc.text(`[✓]  ${feat}`, 16, y);
+            y += 7.5;
+          });
+        } else {
+          selectedHitosObjs.forEach((hito, index) => {
+            doc.setFillColor(index % 2 === 0 ? 250 : 255, index % 2 === 0 ? 250 : 255, 250);
+            doc.rect(12, y - 4, 192, 7.5, 'F');
+            doc.setDrawColor(240, 240, 240);
+            doc.rect(12, y - 4, 192, 7.5, 'S');
+
+            doc.setFont('helvetica', 'bold');
+            doc.text(`[✓] ${hito.number}: ${hito.title}`, 16, y);
+            doc.setFont('helvetica', 'normal');
+            doc.text(`$${hito.price.toLocaleString('es-CL')} CLP`, 200, y, { align: 'right' });
+            y += 8;
+          });
+        }
+      } else {
+        selectedPlanObj.includedFeatures.forEach((feat, index) => {
+          doc.setFillColor(index % 2 === 0 ? 250 : 255, index % 2 === 0 ? 250 : 255, 250);
+          doc.rect(12, y - 4, 192, 7, 'F');
+          doc.setDrawColor(240, 240, 240);
+          doc.rect(12, y - 4, 192, 7, 'S');
+
+          doc.text(`[✓]  ${feat}`, 16, y);
+          y += 7.5;
+        });
+      }
 
       // Price Box
       y += 6;
@@ -312,7 +497,7 @@ export const CotizadorItoSection = () => {
       doc.setTextColor(80, 80, 80);
       doc.text('1. Validez de esta cotización: 15 días corridos.', 12, y + 10);
       doc.text('2. Coordinación de visita sujeta a disponibilidad de agenda.', 12, y + 14);
-      doc.text('3. Entrega de informe digital en 24 a 48 hrs hábiles tras inspección.', 12, y + 18);
+      doc.text('3. Entrega de informe digital en 24 a 48 hrs hábiles tras cada inspección.', 12, y + 18);
 
       const fileName = `cotizacion-ito-${clientInfo.nombre.toLowerCase().replace(/\s+/g, '-')}.pdf`;
       doc.save(fileName);
@@ -324,13 +509,22 @@ export const CotizadorItoSection = () => {
     }
   };
 
-  // Enlace de WhatsApp estructurado
+  // Enlace de WhatsApp estructurado según modalidad
+  let whatsappDetails = '';
+  if (selectedType === 'ito') {
+    if (itoMode === 'frecuencia') {
+      whatsappDetails = `- Servicio: *ITO en Terreno (Frecuencia Semanal)*\n- Duración: ${itoMonths} Meses (${itoMonths * 4} semanas)\n- Frecuencia: *${currentFrecObj.name}*\n- Total Visitas: ${itoMonths * 4 * currentFrecObj.visitsPerWeek} visitas en terreno`;
+    } else {
+      whatsappDetails = `- Servicio: *ITO en Terreno (Paquete de Hitos Críticos)*\n- Hitos Seleccionados (${selectedHitosObjs.length}): ${selectedHitosObjs.map(h => h.title).join(', ')}`;
+    }
+  } else {
+    whatsappDetails = `- Plan: *${selectedPlanObj.name}*\n- Tipo: ${currentTypeObj.name}\n- Superficie: ${m2} m²`;
+  }
+
   const whatsappText = encodeURIComponent(
     `Hola Diego Stankovsky! Me interesa agendar una Inspección Técnica.\n\n` +
     `📌 *Detalles:* \n` +
-    `- Plan: *${selectedPlanObj.name}*\n` +
-    `- Tipo: ${currentTypeObj.name}\n` +
-    `- Superficie: ${m2} m²\n` +
+    `${whatsappDetails}\n` +
     `- Comuna: ${commune}\n` +
     `- Valor Estimado: *$${currentPriceClp.toLocaleString('es-CL')} CLP* (${currentPriceUf.toFixed(2)} UF)\n\n` +
     `👤 *Mis Datos:*\n` +
@@ -356,7 +550,7 @@ export const CotizadorItoSection = () => {
             Cotizador de Inspección Técnica
           </h1>
           <p className="text-xs sm:text-sm text-neutral-300 font-light leading-relaxed">
-            Ingresa la superficie de tu propiedad y selecciona el plan que mejor se adapte a tus necesidades. Obtén tu tarifa estimada de inmediato y descarga tu cotización formal firmada por nuestro inspector <span className="text-sand font-bold">Diego Stankovsky</span>.
+            Calcula tu tarifa personalizada para inspección de pre-entrega, propiedades usadas o supervisión continua ITO en terreno. Obtén tu presupuesto de inmediato firmado por nuestro inspector <span className="text-sand font-bold">Diego Stankovsky</span>.
           </p>
         </div>
 
@@ -366,11 +560,11 @@ export const CotizadorItoSection = () => {
           {/* LEFT COLUMN: Property Config & Customer Form */}
           <div className="lg:col-span-5 space-y-6">
 
-            {/* CARD 1: Configuración de Propiedad */}
+            {/* CARD 1: Configuración del Servicio */}
             <div className="bg-[#181614] border border-white/10 rounded-2xl p-6 sm:p-8 space-y-6 shadow-2xl">
               <h2 className="font-heading text-xl font-extrabold text-cream uppercase tracking-wider flex items-center gap-2 border-b border-white/10 pb-3">
                 <Building2 className="w-5 h-5 text-sand" />
-                1. Características de la Propiedad
+                1. Selección del Servicio
               </h2>
 
               {/* Selector de Tipo de Inspección */}
@@ -401,36 +595,109 @@ export const CotizadorItoSection = () => {
                 </div>
               </div>
 
-              {/* Selector de Metraje (m2) */}
-              <div className="space-y-3 pt-2">
-                <div className="flex justify-between items-center">
-                  <label className="text-xs font-bold uppercase tracking-wider text-sand">
-                    Superficie a Inspeccionar
-                  </label>
-                  <span className="font-mono text-base font-bold text-cream bg-carbon/80 px-3 py-1 rounded-lg border border-white/10">
-                    {m2} m²
-                  </span>
+              {/* CONTENIDO VARIABLE SEGÚN TIPO */}
+              {selectedType !== 'ito' ? (
+                /* Selector de Metraje (m2) para Pre-entrega o Usada */
+                <div className="space-y-3 pt-2 border-t border-white/5">
+                  <div className="flex justify-between items-center">
+                    <label className="text-xs font-bold uppercase tracking-wider text-sand">
+                      Superficie a Inspeccionar
+                    </label>
+                    <span className="font-mono text-base font-bold text-cream bg-carbon/80 px-3 py-1 rounded-lg border border-white/10">
+                      {m2} m²
+                    </span>
+                  </div>
+                  <input
+                    type="range"
+                    min={30}
+                    max={500}
+                    step={5}
+                    value={m2}
+                    onChange={(e) => setM2(Number(e.target.value))}
+                    className="w-full h-2 bg-stone-800 rounded-lg appearance-none cursor-pointer accent-sand"
+                  />
+                  <div className="flex justify-between text-[10px] font-mono text-neutral-500">
+                    <span>30 m²</span>
+                    <span>250 m²</span>
+                    <span>500 m²</span>
+                  </div>
                 </div>
-                <input
-                  type="range"
-                  min={30}
-                  max={500}
-                  step={5}
-                  value={m2}
-                  onChange={(e) => setM2(Number(e.target.value))}
-                  className="w-full h-2 bg-stone-800 rounded-lg appearance-none cursor-pointer accent-sand"
-                />
-                <div className="flex justify-between text-[10px] font-mono text-neutral-500">
-                  <span>30 m²</span>
-                  <span>250 m²</span>
-                  <span>500 m²</span>
+              ) : (
+                /* Configurador específico para ITO EN TERRENO */
+                <div className="space-y-5 pt-2 border-t border-white/5">
+                  
+                  {/* Selector de Sub-Modalidad ITO en Terreno */}
+                  <div className="space-y-2">
+                    <label className="text-xs font-bold uppercase tracking-wider text-sand block">
+                      Enfoque de la Supervisión ITO
+                    </label>
+                    <div className="grid grid-cols-2 gap-2 p-1 bg-carbon rounded-xl border border-white/10">
+                      <button
+                        onClick={() => setItoMode('frecuencia')}
+                        className={`py-2 px-3 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-1.5 ${
+                          itoMode === 'frecuencia'
+                            ? 'bg-sand text-carbon shadow-sm'
+                            : 'text-neutral-400 hover:text-cream'
+                        }`}
+                      >
+                        <Clock className="w-3.5 h-3.5" />
+                        A. Frecuencia & Meses
+                      </button>
+                      <button
+                        onClick={() => setItoMode('hitos')}
+                        className={`py-2 px-3 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-1.5 ${
+                          itoMode === 'hitos'
+                            ? 'bg-sand text-carbon shadow-sm'
+                            : 'text-neutral-400 hover:text-cream'
+                        }`}
+                      >
+                        <Layers className="w-3.5 h-3.5" />
+                        B. Hitos Críticos
+                      </button>
+                    </div>
+                  </div>
+
+                  {itoMode === 'frecuencia' ? (
+                    /* Modalidad A: Slider de Meses */
+                    <div className="space-y-3 bg-carbon/60 p-4 rounded-xl border border-white/5">
+                      <div className="flex justify-between items-center">
+                        <label className="text-xs font-bold uppercase tracking-wider text-cream flex items-center gap-1.5">
+                          <Calendar className="w-3.5 h-3.5 text-sand" />
+                          Duración de la Obra
+                        </label>
+                        <span className="font-mono text-sm font-bold text-sand bg-stone-900 px-2.5 py-0.5 rounded border border-white/10">
+                          {itoMonths} {itoMonths === 1 ? 'Mes' : 'Meses'} ({itoMonths * 4} Semanas)
+                        </span>
+                      </div>
+                      <input
+                        type="range"
+                        min={1}
+                        max={12}
+                        step={1}
+                        value={itoMonths}
+                        onChange={(e) => setItoMonths(Number(e.target.value))}
+                        className="w-full h-2 bg-stone-800 rounded-lg appearance-none cursor-pointer accent-sand"
+                      />
+                      <div className="flex justify-between text-[9px] font-mono text-neutral-500">
+                        <span>1 mes</span>
+                        <span>6 meses</span>
+                        <span>12 meses</span>
+                      </div>
+                    </div>
+                  ) : (
+                    /* Modalidad B: Leyenda informativa Hitos */
+                    <div className="bg-carbon/60 p-3.5 rounded-xl border border-white/5 text-[11px] text-neutral-300 font-light leading-relaxed">
+                      💡 <span className="text-sand font-bold">Instrucciones:</span> Selecciona en la columna derecha los hitos clave que requieres fiscalizar en tu proyecto de construcción o remodelación.
+                    </div>
+                  )}
+
                 </div>
-              </div>
+              )}
 
               {/* Selector de Comuna */}
-              <div className="space-y-2 pt-2">
+              <div className="space-y-2 pt-2 border-t border-white/5">
                 <label className="text-xs font-bold uppercase tracking-wider text-sand block">
-                  Comuna / Ubicación
+                  Comuna / Ubicación de la Obra
                 </label>
                 <select
                   value={commune}
@@ -515,90 +782,243 @@ export const CotizadorItoSection = () => {
 
           </div>
 
-          {/* RIGHT COLUMN: 3 Plans Selection & Summary */}
+          {/* RIGHT COLUMN: Options Selection & Summary */}
           <div className="lg:col-span-7 space-y-6">
 
-            {/* SELECCIÓN DE PLANES (3 CARDS PARALELAS) */}
-            <div className="space-y-4">
-              <h2 className="font-heading text-xl font-extrabold text-cream uppercase tracking-wider flex items-center gap-2">
-                <Sparkles className="w-5 h-5 text-sand" />
-                3. Elige tu Plan de Inspección
-              </h2>
+            {/* SELECCIÓN DINÁMICA DE OPCIONES */}
+            {selectedType !== 'ito' ? (
+              /* SELECCIÓN DE PLANES POR M2 (Pre-entrega / Usada) */
+              <div className="space-y-4">
+                <h2 className="font-heading text-xl font-extrabold text-cream uppercase tracking-wider flex items-center gap-2">
+                  <Sparkles className="w-5 h-5 text-sand" />
+                  3. Elige tu Plan de Inspección
+                </h2>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {PLANS.map((plan) => {
-                  const { finalPrice, ufPrice } = calculatePlanPrice(plan);
-                  const isSelected = selectedPlanId === plan.id;
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  {PLANS.map((plan) => {
+                    const { finalPrice, ufPrice } = calculatePlanPrice(plan);
+                    const isSelected = selectedPlanId === plan.id;
 
-                  return (
-                    <motion.div
-                      key={plan.id}
-                      onClick={() => setSelectedPlanId(plan.id)}
-                      whileHover={{ scale: 1.02 }}
-                      className={`relative cursor-pointer rounded-2xl p-5 border flex flex-col justify-between transition-all duration-300 ${
-                        isSelected
-                          ? 'border-sand bg-stone-900/90 shadow-2xl ring-2 ring-sand/40'
-                          : 'border-white/10 bg-stone-900/40 hover:border-white/30'
-                      }`}
-                    >
-                      {/* Badge Banner si es popular */}
-                      {plan.badge && (
-                        <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-sand text-carbon text-[9px] font-bold uppercase tracking-widest px-3 py-0.5 rounded-full shadow-md">
-                          {plan.badge}
-                        </div>
-                      )}
-
-                      <div className="space-y-3 pt-1">
-                        <div className="flex justify-between items-center">
-                          <h3 className="font-heading text-lg font-bold text-cream uppercase tracking-wider">
-                            {plan.name}
-                          </h3>
-                          {isSelected && (
-                            <div className="w-5 h-5 rounded-full bg-sand text-carbon flex items-center justify-center">
-                              <Check className="w-3.5 h-3.5 stroke-[3]" />
-                            </div>
-                          )}
-                        </div>
-
-                        <p className="text-[10px] text-neutral-400 font-light leading-relaxed min-h-[36px]">
-                          {plan.description}
-                        </p>
-
-                        {/* Precio Estimado del Plan */}
-                        <div className="pt-2 border-t border-white/10">
-                          <div className="text-xl font-mono font-bold text-sand">
-                            ${finalPrice.toLocaleString('es-CL')}
-                          </div>
-                          <div className="text-[10px] font-mono text-neutral-400">
-                            ~ {ufPrice.toFixed(2)} UF CLP
-                          </div>
-                        </div>
-
-                        {/* Lista de Inclusiones resumida */}
-                        <ul className="space-y-2 pt-2 border-t border-white/5 text-[10px] text-neutral-300 font-light">
-                          {plan.includedFeatures.map((feat, idx) => (
-                            <li key={idx} className="flex items-start gap-1.5 leading-snug">
-                              <span className="text-sand mt-0.5">•</span>
-                              {feat}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-
-                      <button
-                        className={`mt-4 w-full py-2.5 rounded-xl font-bold uppercase tracking-widest text-[10px] transition-colors ${
+                    return (
+                      <motion.div
+                        key={plan.id}
+                        onClick={() => setSelectedPlanId(plan.id)}
+                        whileHover={{ scale: 1.02 }}
+                        className={`relative cursor-pointer rounded-2xl p-5 border flex flex-col justify-between transition-all duration-300 ${
                           isSelected
-                            ? 'bg-sand text-carbon'
-                            : 'bg-white/5 text-cream border border-white/10 hover:bg-white/10'
+                            ? 'border-sand bg-stone-900/90 shadow-2xl ring-2 ring-sand/40'
+                            : 'border-white/10 bg-stone-900/40 hover:border-white/30'
                         }`}
                       >
-                        {isSelected ? 'Plan Seleccionado' : 'Seleccionar'}
-                      </button>
-                    </motion.div>
-                  );
-                })}
+                        {plan.badge && (
+                          <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-sand text-carbon text-[9px] font-bold uppercase tracking-widest px-3 py-0.5 rounded-full shadow-md">
+                            {plan.badge}
+                          </div>
+                        )}
+
+                        <div className="space-y-3 pt-1">
+                          <div className="flex justify-between items-center">
+                            <h3 className="font-heading text-lg font-bold text-cream uppercase tracking-wider">
+                              {plan.name}
+                            </h3>
+                            {isSelected && (
+                              <div className="w-5 h-5 rounded-full bg-sand text-carbon flex items-center justify-center">
+                                <Check className="w-3.5 h-3.5 stroke-[3]" />
+                              </div>
+                            )}
+                          </div>
+
+                          <p className="text-[10px] text-neutral-400 font-light leading-relaxed min-h-[36px]">
+                            {plan.description}
+                          </p>
+
+                          <div className="pt-2 border-t border-white/10">
+                            <div className="text-xl font-mono font-bold text-sand">
+                              ${finalPrice.toLocaleString('es-CL')}
+                            </div>
+                            <div className="text-[10px] font-mono text-neutral-400">
+                              ~ {ufPrice.toFixed(2)} UF CLP
+                            </div>
+                          </div>
+
+                          <ul className="space-y-2 pt-2 border-t border-white/5 text-[10px] text-neutral-300 font-light">
+                            {plan.includedFeatures.map((feat, idx) => (
+                              <li key={idx} className="flex items-start gap-1.5 leading-snug">
+                                <span className="text-sand mt-0.5">•</span>
+                                {feat}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+
+                        <button
+                          className={`mt-4 w-full py-2.5 rounded-xl font-bold uppercase tracking-widest text-[10px] transition-colors ${
+                            isSelected
+                              ? 'bg-sand text-carbon'
+                              : 'bg-white/5 text-cream border border-white/10 hover:bg-white/10'
+                          }`}
+                        >
+                          {isSelected ? 'Plan Seleccionado' : 'Seleccionar'}
+                        </button>
+                      </motion.div>
+                    );
+                  })}
+                </div>
               </div>
-            </div>
+            ) : itoMode === 'frecuencia' ? (
+              /* MODALIDAD A: SELECCIÓN DE FRECUENCIA SEMANAL */
+              <div className="space-y-4">
+                <div className="flex justify-between items-center flex-wrap gap-2">
+                  <h2 className="font-heading text-xl font-extrabold text-cream uppercase tracking-wider flex items-center gap-2">
+                    <Clock className="w-5 h-5 text-sand" />
+                    3. Frecuencia de Visitas Semanales
+                  </h2>
+                  <span className="text-xs font-mono text-sand font-bold">
+                    Duración elegida: {itoMonths} {itoMonths === 1 ? 'Mes' : 'Meses'}
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  {ITO_FREQUENCIES.map((frec) => {
+                    const totalVisits = itoMonths * 4 * frec.visitsPerWeek;
+                    const totalPrice = totalVisits * frec.ratePerVisit;
+                    const ufPrice = totalPrice / UF_VALUE;
+                    const isSelected = selectedFrecId === frec.id;
+
+                    return (
+                      <motion.div
+                        key={frec.id}
+                        onClick={() => setSelectedFrecId(frec.id)}
+                        whileHover={{ scale: 1.02 }}
+                        className={`relative cursor-pointer rounded-2xl p-5 border flex flex-col justify-between transition-all duration-300 ${
+                          isSelected
+                            ? 'border-sand bg-stone-900/90 shadow-2xl ring-2 ring-sand/40'
+                            : 'border-white/10 bg-stone-900/40 hover:border-white/30'
+                        }`}
+                      >
+                        {frec.badge && (
+                          <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-sand text-carbon text-[9px] font-bold uppercase tracking-widest px-3 py-0.5 rounded-full shadow-md">
+                            {frec.badge}
+                          </div>
+                        )}
+
+                        <div className="space-y-3 pt-1">
+                          <div className="flex justify-between items-center">
+                            <h3 className="font-heading text-base font-bold text-cream uppercase tracking-wider">
+                              {frec.name}
+                            </h3>
+                            {isSelected && (
+                              <div className="w-5 h-5 rounded-full bg-sand text-carbon flex items-center justify-center">
+                                <Check className="w-3.5 h-3.5 stroke-[3]" />
+                              </div>
+                            )}
+                          </div>
+
+                          <p className="text-[10px] text-neutral-400 font-light leading-relaxed min-h-[36px]">
+                            {frec.description}
+                          </p>
+
+                          <div className="pt-2 border-t border-white/10 space-y-1">
+                            <div className="text-xl font-mono font-bold text-sand">
+                              ${totalPrice.toLocaleString('es-CL')}
+                            </div>
+                            <div className="text-[10px] font-mono text-neutral-400 flex justify-between">
+                              <span>Total ({totalVisits} visitas):</span>
+                              <span>~ {ufPrice.toFixed(2)} UF</span>
+                            </div>
+                            <div className="text-[10px] font-mono text-sand/80">
+                              ~ ${Math.round(totalPrice / itoMonths).toLocaleString('es-CL')} / mes
+                            </div>
+                          </div>
+
+                          <ul className="space-y-2 pt-2 border-t border-white/5 text-[10px] text-neutral-300 font-light">
+                            {frec.features.map((feat, idx) => (
+                              <li key={idx} className="flex items-start gap-1.5 leading-snug">
+                                <span className="text-sand mt-0.5">•</span>
+                                {feat}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+
+                        <button
+                          className={`mt-4 w-full py-2.5 rounded-xl font-bold uppercase tracking-widest text-[10px] transition-colors ${
+                            isSelected
+                              ? 'bg-sand text-carbon'
+                              : 'bg-white/5 text-cream border border-white/10 hover:bg-white/10'
+                          }`}
+                        >
+                          {isSelected ? 'Frecuencia Elegida' : 'Seleccionar'}
+                        </button>
+                      </motion.div>
+                    );
+                  })}
+                </div>
+              </div>
+            ) : (
+              /* MODALIDAD B: SELECCIÓN DE HITOS CRÍTICOS (CHECKBOXES) */
+              <div className="space-y-4">
+                <div className="flex justify-between items-center flex-wrap gap-2">
+                  <h2 className="font-heading text-xl font-extrabold text-cream uppercase tracking-wider flex items-center gap-2">
+                    <Layers className="w-5 h-5 text-sand" />
+                    3. Paquete Personalizado de Hitos Críticos
+                  </h2>
+                  <span className="text-xs font-mono text-sand font-bold">
+                    {selectedHitos.length} de {ITO_HITOS.length} Hitos Seleccionados
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {ITO_HITOS.map((hito) => {
+                    const isChecked = selectedHitos.includes(hito.id);
+
+                    return (
+                      <div
+                        key={hito.id}
+                        onClick={() => toggleHito(hito.id)}
+                        className={`cursor-pointer rounded-2xl p-5 border flex flex-col justify-between transition-all duration-300 ${
+                          isChecked
+                            ? 'border-sand bg-stone-900/90 shadow-xl ring-1 ring-sand/30'
+                            : 'border-white/10 bg-stone-900/30 hover:border-white/20'
+                        }`}
+                      >
+                        <div className="space-y-3">
+                          <div className="flex items-start justify-between gap-3">
+                            <div className="flex items-center gap-2.5">
+                              <div className={`w-5 h-5 rounded border flex items-center justify-center transition-colors ${
+                                isChecked ? 'bg-sand border-sand text-carbon' : 'border-white/30 bg-carbon'
+                              }`}>
+                                {isChecked && <Check className="w-3.5 h-3.5 stroke-[3]" />}
+                              </div>
+                              <div>
+                                <span className="text-[10px] font-mono text-sand uppercase tracking-widest block">{hito.number}</span>
+                                <h3 className="font-heading text-base font-bold text-cream uppercase tracking-wider">{hito.title}</h3>
+                              </div>
+                            </div>
+                            <span className="font-mono text-sm font-bold text-sand shrink-0">
+                              ${hito.price.toLocaleString('es-CL')}
+                            </span>
+                          </div>
+
+                          <p className="text-[10px] text-neutral-400 font-light leading-relaxed">
+                            {hito.description}
+                          </p>
+
+                          <ul className="space-y-1.5 border-t border-white/5 pt-2 text-[10px] text-neutral-300 font-light">
+                            {hito.verifications.map((verif, vIdx) => (
+                              <li key={vIdx} className="flex items-start gap-1.5 leading-snug">
+                                <span className="text-sand mt-0.5">•</span>
+                                {verif}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
 
             {/* RESUMEN FINAL & ACCIONES */}
             <div className="bg-[#181614] border border-sand/30 rounded-2xl p-6 sm:p-8 space-y-6 shadow-2xl relative overflow-hidden">
@@ -608,10 +1028,14 @@ export const CotizadorItoSection = () => {
                 <div>
                   <span className="text-[10px] font-mono text-sand uppercase tracking-widest block">Resumen de Cotización</span>
                   <h3 className="font-heading text-2xl font-extrabold text-cream uppercase tracking-wide">
-                    {selectedPlanObj.name} ({m2} m²)
+                    {selectedType === 'ito' ? (
+                      itoMode === 'frecuencia' ? `ITO ${currentFrecObj.name} (${itoMonths}m)` : `ITO Paquete (${selectedHitos.length} Hitos)`
+                    ) : (
+                      `${selectedPlanObj.name} (${m2} m²)`
+                    )}
                   </h3>
                   <span className="text-xs text-neutral-400">
-                    Tipo: {currentTypeObj.name} — Ubicación: {commune}
+                    Servicio: {currentTypeObj.name} — Ubicación: {commune}
                   </span>
                 </div>
 
