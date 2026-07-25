@@ -18,14 +18,14 @@ interface PlanMantenimiento {
 const PROPERTY_TYPES = [
   {
     id: 'edificio',
-    name: 'Edificios Habitacionales',
+    name: 'Edificios Residenciales',
     sub: 'Comunidades & Copropiedad',
     icon: <Building2 className="w-6 h-6 text-sand" />,
     desc: 'Mantención preventiva según Ley 21.442, estanques de agua, fachadas, pasillos y tableros.'
   },
   {
     id: 'condominio',
-    name: 'Condominios de Casas',
+    name: 'Condominios',
     sub: 'Barrios & Áreas Verdes',
     icon: <Home className="w-6 h-6 text-sand" />,
     desc: 'Atención de portones, iluminación perimetral, salas de bombas, garitas y cuidado profesional de jardines y áreas verdes comunes.'
@@ -130,7 +130,7 @@ const MAINTENANCE_PLANS: PlanMantenimiento[] = [
     isPopular: true,
     badge: 'MÁS SOLICITADO',
     priceClp: 490000,
-    description: 'Recomendado para condominios, edificios habitacionales y oficinas corporativas.',
+    description: 'Recomendado para condominios, edificios residenciales y oficinas corporativas.',
     includedFeatures: [
       '2 Visitas técnicas presenciales programadas al mes',
       'Revisión preventiva de salas de bombas, iluminaciones y portones',
@@ -165,7 +165,7 @@ export const MantenimientoSection = () => {
     nombre: '',
     telefono: '',
     correo: '',
-    propiedad: 'Edificio Habitacional',
+    propiedad: 'Edificio Residencial',
     direccion: '',
     comentarios: ''
   });
@@ -209,7 +209,7 @@ export const MantenimientoSection = () => {
             Mantenimiento Técnico Integral para Edificios & Empresas
           </h1>
           <p className="text-xs sm:text-base text-neutral-300 font-light leading-relaxed max-w-3xl mx-auto">
-            Protegemos el valor de tu copropiedad e infraestructura con programas de <span className="text-sand font-bold">mantención preventiva mensual, atención de emergencias 24/7 y auditorías técnicas</span>. Respaldado por el equipo profesional e ITO de Constructora Contrapunto.
+            Protegemos el valor de tu propiedad e infraestructura con programas de <span className="text-sand font-bold">mantención preventiva mensual, atención de emergencias 24/7 y auditorías técnicas</span>. Respaldado por el equipo profesional e ITO de Constructora Contrapunto.
           </p>
           <div className="pt-2 flex flex-wrap justify-center items-center gap-4">
             <a
@@ -489,8 +489,8 @@ export const MantenimientoSection = () => {
                         onChange={(e) => setFormState({ ...formState, propiedad: e.target.value })}
                         className="w-full bg-stone-900 border border-white/10 text-cream rounded-xl p-3 text-xs focus:outline-none focus:border-sand"
                       >
-                        <option value="Edificio Habitacional">Edificio Habitacional</option>
-                        <option value="Condominio de Casas">Condominio de Casas</option>
+                        <option value="Edificio Residencial">Edificio Residencial</option>
+                        <option value="Condominios">Condominios</option>
                         <option value="Edificio Corporativo">Edificio Corporativo / Oficinas</option>
                         <option value="Empresa o Bodega">Empresa / Bodega / Comercial</option>
                       </select>
