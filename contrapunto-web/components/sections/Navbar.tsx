@@ -31,6 +31,7 @@ export const Navbar = () => {
   const navLinks = [
     { label: 'Inicio', href: '/' },
     { label: 'Servicios', href: '/#servicios' },
+    { label: 'Mantenimiento', href: '/mantenimiento' },
     { label: 'Proyectos', href: '/#proyectos' },
     { label: 'Catálogo', href: '/catalogo' },
     { label: 'Nosotros', href: '/#nosotros' },
