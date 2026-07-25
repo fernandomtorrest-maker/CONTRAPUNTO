@@ -489,7 +489,7 @@ export const CotizadorItoSection = () => {
       doc.setFontSize(7.5);
       doc.setTextColor(100, 100, 100);
       doc.text('Inspector Técnico de Obras (ITO) | Constructora Contrapunto', 162.5, y + 9, { align: 'center' });
-      doc.text('www.contrapuntoconstructora.com | +56 9 6697 4560', 162.5, y + 13, { align: 'center' });
+      doc.text('www.contrapuntoconstructora.com | +56 9 8953 1450', 162.5, y + 13, { align: 'center' });
 
       // Commercial Terms
       doc.setFont('helvetica', 'bold');
@@ -1068,7 +1068,7 @@ export const CotizadorItoSection = () => {
                 </Button>
 
                 <a
-                  href={`https://wa.me/56966974560?text=${whatsappText}`}
+                  href={`https://wa.me/56989531450?text=${whatsappText}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex-1 flex items-center justify-center gap-2 border border-white/20 hover:border-sand/40 hover:bg-white/[0.04] text-cream hover:text-sand py-4 px-6 rounded-xl font-bold uppercase tracking-widest text-xs transition-all"

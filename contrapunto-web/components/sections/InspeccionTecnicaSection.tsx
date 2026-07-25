@@ -236,7 +236,7 @@ export const InspeccionTecnicaSection = () => {
             </div>
           </div>
           <a
-            href="https://wa.me/56966974560?text=Hola%20Diego!%20Me%20gustar%C3%ADa%20agendar%20una%20Inspecci%C3%B3n%20T%C3%A9cnica%20de%20mi%20propiedad."
+            href="https://wa.me/56989531450?text=Hola%20Diego!%20Me%20gustar%C3%ADa%20agendar%20una%20Inspecci%C3%B3n%20T%C3%A9cnica%20de%20mi%20propiedad."
             target="_blank"
             rel="noopener noreferrer"
             className="shrink-0 bg-sand text-carbon font-bold px-6 py-3 rounded-lg text-xs uppercase tracking-widest hover:bg-[#a38b72] transition-colors"

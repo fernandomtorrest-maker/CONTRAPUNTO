@@ -207,7 +207,7 @@ export const MantenimientoSection = () => {
               Solicitar Levantamiento Gratuito en Terreno
             </a>
             <a
-              href={`https://wa.me/56966974560?text=${whatsappMessage}`}
+              href={`https://wa.me/56989531450?text=${whatsappMessage}`}
               target="_blank"
               rel="noopener noreferrer"
               className="border border-white/20 hover:border-sand/40 hover:bg-white/[0.04] text-cream hover:text-sand px-6 py-3.5 rounded-xl font-bold uppercase tracking-widest text-xs transition-all flex items-center gap-2"
@@ -512,7 +512,7 @@ export const MantenimientoSection = () => {
                       Agendar Visita de Levantamiento
                     </Button>
                     <a
-                      href={`https://wa.me/56966974560?text=${whatsappMessage}`}
+                      href={`https://wa.me/56989531450?text=${whatsappMessage}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-center justify-center gap-2 border border-white/20 hover:border-sand/40 hover:bg-white/[0.04] text-cream hover:text-sand py-3.5 px-5 rounded-xl font-bold uppercase tracking-widest text-xs transition-all"
