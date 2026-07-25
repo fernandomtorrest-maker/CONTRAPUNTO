@@ -118,6 +118,7 @@ const MAINTENANCE_PLANS: PlanMantenimiento[] = [
     includedFeatures: [
       '1 Visita técnica presencial programada al mes con Pauta Checklist',
       'Inspección de iluminación común, redes sanitarias y tableros principales',
+      'Orientado a infraestructura física e instalaciones técnicas principales',
       'Informe Técnico Digital Mensual para la administración o gerencia',
       'Atención de urgencias correctivas con respuesta prioritaria',
       '10% de descuento en obras civiles o reparaciones adicionales'
@@ -133,7 +134,7 @@ const MAINTENANCE_PLANS: PlanMantenimiento[] = [
     includedFeatures: [
       '2 Visitas técnicas presenciales programadas al mes',
       'Revisión preventiva de salas de bombas, iluminaciones y portones',
-      'Cuidado preventivo de jardines comunes y revisión de riego tecnificado',
+      'Cuidado preventivo de jardines comunes (hasta 300 m² + riego tecnificado)',
       'Atención Preferencial de Urgencias 24/7 (Respuesta < 3 hrs)',
       'Libro y Bitácora de Mantenciones Digital (Cumplimiento Ley 21.442)',
       '15% de descuento en pintura de fachadas y reparaciones mayores',
@@ -149,7 +150,7 @@ const MAINTENANCE_PLANS: PlanMantenimiento[] = [
     includedFeatures: [
       '4 Visitas técnicas presenciales al mes (1 visita semanal)',
       'Asignación de Técnico de Cabecera para la propiedad',
-      'Programa continuo de paisajismo, fertilización y control fitosanitario',
+      'Programa continuo de paisajismo, fertilización y control fitosanitario (grandes extensiones)',
       'Levantamiento técnico inicial completo de infraestructura sin costo',
       'Supervisión de equipos críticos (eléctrico, hidráulico, HVAC y obras)',
       'Gestión de garantías postventa y auditorías de infraestructura',
@@ -384,6 +385,13 @@ export const MantenimientoSection = () => {
                 </motion.div>
               );
             })}
+          </div>
+
+          <div className="mt-8 flex items-center justify-center gap-2 text-xs font-mono text-neutral-300 bg-stone-900/80 border border-sand/20 rounded-2xl p-4 max-w-3xl mx-auto text-center">
+            <Trees className="w-4 h-4 text-sand shrink-0" />
+            <span>
+              <strong className="text-sand">Nota de Escala de Jardines:</strong> Para condominios o recintos con superficies de áreas verdes superiores a 300 m², el programa de paisajismo e insumos se ajusta a la medida durante la Visita Técnica de Levantamiento Gratuita.
+            </span>
           </div>
         </div>
 
