@@ -461,11 +461,11 @@ export const CotizadorItoSection = () => {
       doc.setTextColor(217, 119, 6);
       doc.setFont('helvetica', 'bold');
       doc.setFontSize(11);
-      doc.text('TOTAL ESTIMADO INSPECCIÓN TÉCNICA:', 18, y + 9);
+      doc.text('TOTAL ESTIMADO INSPECCIÓN TÉCNICA (+ IVA):', 18, y + 9);
 
       doc.setTextColor(255, 255, 255);
-      doc.setFontSize(16);
-      doc.text(`$${currentPriceClp.toLocaleString('es-CL')} CLP`, 200, y + 10, { align: 'right' });
+      doc.setFontSize(15);
+      doc.text(`$${currentPriceClp.toLocaleString('es-CL')} CLP + IVA`, 200, y + 10, { align: 'right' });
       
       doc.setFontSize(8.5);
       doc.setFont('helvetica', 'normal');
@@ -526,7 +526,7 @@ export const CotizadorItoSection = () => {
     `📌 *Detalles:* \n` +
     `${whatsappDetails}\n` +
     `- Comuna: ${commune}\n` +
-    `- Valor Estimado: *$${currentPriceClp.toLocaleString('es-CL')} CLP* (${currentPriceUf.toFixed(2)} UF)\n\n` +
+    `- Valor Estimado: *$${currentPriceClp.toLocaleString('es-CL')} CLP + IVA* (${currentPriceUf.toFixed(2)} UF)\n\n` +
     `👤 *Mis Datos:*\n` +
     `- Nombre: ${clientInfo.nombre || 'Sin indicar'}\n` +
     `- Teléfono: ${clientInfo.telefono || 'Sin indicar'}`
@@ -834,7 +834,7 @@ export const CotizadorItoSection = () => {
 
                           <div className="pt-2 border-t border-white/10">
                             <div className="text-xl font-mono font-bold text-sand">
-                              ${finalPrice.toLocaleString('es-CL')}
+                              ${finalPrice.toLocaleString('es-CL')} <span className="text-xs font-normal text-sand/80">+ IVA</span>
                             </div>
                             <div className="text-[10px] font-mono text-neutral-400">
                               ~ {ufPrice.toFixed(2)} UF CLP
@@ -920,14 +920,14 @@ export const CotizadorItoSection = () => {
 
                           <div className="pt-2 border-t border-white/10 space-y-1">
                             <div className="text-xl font-mono font-bold text-sand">
-                              ${totalPrice.toLocaleString('es-CL')}
+                              ${totalPrice.toLocaleString('es-CL')} <span className="text-xs font-normal text-sand/80">+ IVA</span>
                             </div>
                             <div className="text-[10px] font-mono text-neutral-400 flex justify-between">
                               <span>Total ({totalVisits} visitas):</span>
                               <span>~ {ufPrice.toFixed(2)} UF</span>
                             </div>
                             <div className="text-[10px] font-mono text-sand/80">
-                              ~ ${Math.round(totalPrice / itoMonths).toLocaleString('es-CL')} / mes
+                              ~ ${Math.round(totalPrice / itoMonths).toLocaleString('es-CL')} / mes + IVA
                             </div>
                           </div>
 
@@ -996,7 +996,7 @@ export const CotizadorItoSection = () => {
                               </div>
                             </div>
                             <span className="font-mono text-sm font-bold text-sand shrink-0">
-                              ${hito.price.toLocaleString('es-CL')}
+                              ${hito.price.toLocaleString('es-CL')} <span className="text-[10px] font-normal text-sand/80">+ IVA</span>
                             </span>
                           </div>
 
@@ -1040,9 +1040,9 @@ export const CotizadorItoSection = () => {
                 </div>
 
                 <div className="text-left md:text-right">
-                  <span className="text-[10px] font-mono text-neutral-400 block uppercase tracking-wider">Total Estimado Neto</span>
+                  <span className="text-[10px] font-mono text-neutral-400 block uppercase tracking-wider">Total Estimado (+ IVA)</span>
                   <div className="text-3xl font-mono font-bold text-sand">
-                    ${currentPriceClp.toLocaleString('es-CL')} <span className="text-xs font-normal text-cream/70">CLP</span>
+                    ${currentPriceClp.toLocaleString('es-CL')} <span className="text-xs font-normal text-cream/70">CLP + IVA</span>
                   </div>
                   <span className="text-xs font-mono text-neutral-400">
                     ~ {currentPriceUf.toFixed(2)} UF
