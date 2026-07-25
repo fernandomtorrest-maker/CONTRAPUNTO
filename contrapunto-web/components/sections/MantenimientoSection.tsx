@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ShieldCheck, Check, MessageSquare, Wrench, Building2, Home, Zap, Droplets, Paintbrush, Wind, ShieldAlert, Calendar, ClipboardCheck, ArrowRight, UserCheck, PhoneCall } from 'lucide-react';
+import { ShieldCheck, Check, MessageSquare, Wrench, Building2, Home, Zap, Droplets, Paintbrush, Wind, ShieldAlert, Calendar, ClipboardCheck, ArrowRight, UserCheck, PhoneCall, Trees } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 
 interface PlanMantenimiento {
@@ -26,9 +26,9 @@ const PROPERTY_TYPES = [
   {
     id: 'condominio',
     name: 'Condominios de Casas',
-    sub: 'Barrios & Garitas de Acceso',
+    sub: 'Barrios & Áreas Verdes',
     icon: <Home className="w-6 h-6 text-sand" />,
-    desc: 'Atención de portones, iluminación perimetral, salas de bombas y garitas de control.'
+    desc: 'Atención de portones, iluminación perimetral, salas de bombas, garitas y cuidado profesional de jardines y áreas verdes comunes.'
   },
   {
     id: 'corporativo',
@@ -96,6 +96,16 @@ const TECHNICAL_PILLARS = [
       'Pruebas de estanqueidad y estandarización para inspección municipal',
       'Cumplimiento estricto de la Ley 21.442 de Copropiedad'
     ]
+  },
+  {
+    id: 'verde',
+    icon: <Trees className="w-6 h-6 text-sand" />,
+    title: '6. Paisajismo & Áreas Verdes',
+    items: [
+      'Corte regular de césped, orillado, desmalezado y retiro de residuos vegetales',
+      'Mantención y programación de sistemas de riego tecnificado y electroválvulas',
+      'Poda de formación de árboles/arbustos, fertilización y control fitosanitario'
+    ]
   }
 ];
 
@@ -123,6 +133,7 @@ const MAINTENANCE_PLANS: PlanMantenimiento[] = [
     includedFeatures: [
       '2 Visitas técnicas presenciales programadas al mes',
       'Revisión preventiva de salas de bombas, iluminaciones y portones',
+      'Cuidado preventivo de jardines comunes y revisión de riego tecnificado',
       'Atención Preferencial de Urgencias 24/7 (Respuesta < 3 hrs)',
       'Libro y Bitácora de Mantenciones Digital (Cumplimiento Ley 21.442)',
       '15% de descuento en pintura de fachadas y reparaciones mayores',
@@ -138,6 +149,7 @@ const MAINTENANCE_PLANS: PlanMantenimiento[] = [
     includedFeatures: [
       '4 Visitas técnicas presenciales al mes (1 visita semanal)',
       'Asignación de Técnico de Cabecera para la propiedad',
+      'Programa continuo de paisajismo, fertilización y control fitosanitario',
       'Levantamiento técnico inicial completo de infraestructura sin costo',
       'Supervisión de equipos críticos (eléctrico, hidráulico, HVAC y obras)',
       'Gestión de garantías postventa y auditorías de infraestructura',
