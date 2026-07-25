@@ -1,6 +1,8 @@
 import React from 'react';
 import { Metadata } from 'next';
-import { MantenimientoSection } from '@/components/sections/MantenimientoSection';
+import Navbar from '@/components/sections/Navbar';
+import Footer from '@/components/sections/Footer';
+import MantenimientoSection from '@/components/sections/MantenimientoSection';
 
 export const metadata: Metadata = {
   title: 'Mantenimiento Integral de Edificios, Condominios & Empresas | Constructora Contrapunto',
@@ -19,8 +21,12 @@ export const metadata: Metadata = {
 
 export default function MantenimientoPage() {
   return (
-    <main className="pt-20">
-      <MantenimientoSection />
-    </main>
+    <div className="relative min-h-screen bg-[#0f0e0c] text-cream overflow-hidden selection:bg-sand selection:text-carbon font-body">
+      <Navbar />
+      <main className="pt-20 min-h-screen relative z-10">
+        <MantenimientoSection />
+      </main>
+      <Footer />
+    </div>
   );
 }
