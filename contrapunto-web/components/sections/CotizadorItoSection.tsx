@@ -277,23 +277,25 @@ export const CotizadorItoSection = () => {
   const [pdfGenerating, setPdfGenerating] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
 
-  // UF constante de referencia (ej. 38.500 CLP)
+  // UF constante de referencia (ej. 38.500 CLP) e IVA (19%)
   const UF_VALUE = 38500;
+  const IVA_FACTOR = 1.19;
 
   // Obtener el tipo de inspección actual
   const currentTypeObj = INSPECTION_TYPES.find(t => t.id === selectedType) || INSPECTION_TYPES[0];
 
-  // Cálculo de precio para cada plan estándar por m2 (Pre-entrega / Usada)
+  // Cálculo de precio para cada plan estándar por m2 con IVA (Pre-entrega / Usada)
   const calculatePlanPrice = (plan: Plan) => {
-    const rawPrice = m2 * plan.ratePerM2 * currentTypeObj.factor;
-    const finalPrice = Math.max(plan.minPrice, Math.round(rawPrice));
+    const rawPriceNet = m2 * plan.ratePerM2 * currentTypeObj.factor;
+    const baseNet = Math.max(plan.minPrice, Math.round(rawPriceNet));
+    const finalPrice = Math.round(baseNet * IVA_FACTOR);
     const ufPrice = finalPrice / UF_VALUE;
     return { finalPrice, ufPrice };
   };
 
   const selectedPlanObj = PLANS.find(p => p.id === selectedPlanId) || PLANS[1];
 
-  // Cálculos dinámicos según el tipo de servicio seleccionado
+  // Cálculos dinámicos según el tipo de servicio seleccionado (con IVA incluido)
   let currentPriceClp = 0;
   let currentPriceUf = 0;
   let currentFrecObj = ITO_FREQUENCIES[1];
@@ -303,10 +305,12 @@ export const CotizadorItoSection = () => {
     if (itoMode === 'frecuencia') {
       currentFrecObj = ITO_FREQUENCIES.find(f => f.id === selectedFrecId) || ITO_FREQUENCIES[1];
       const totalVisits = itoMonths * 4 * currentFrecObj.visitsPerWeek;
-      currentPriceClp = totalVisits * currentFrecObj.ratePerVisit;
+      const netTotal = totalVisits * currentFrecObj.ratePerVisit;
+      currentPriceClp = Math.round(netTotal * IVA_FACTOR);
       currentPriceUf = currentPriceClp / UF_VALUE;
     } else {
-      currentPriceClp = selectedHitosObjs.reduce((acc, h) => acc + h.price, 0);
+      const netTotal = selectedHitosObjs.reduce((acc, h) => acc + h.price, 0);
+      currentPriceClp = Math.round(netTotal * IVA_FACTOR);
       currentPriceUf = currentPriceClp / UF_VALUE;
     }
   } else {
@@ -461,11 +465,11 @@ export const CotizadorItoSection = () => {
       doc.setTextColor(217, 119, 6);
       doc.setFont('helvetica', 'bold');
       doc.setFontSize(11);
-      doc.text('TOTAL ESTIMADO INSPECCIÓN TÉCNICA (+ IVA):', 18, y + 9);
+      doc.text('TOTAL ESTIMADO INSPECCIÓN TÉCNICA (IVA INCLUIDO):', 18, y + 9);
 
       doc.setTextColor(255, 255, 255);
       doc.setFontSize(15);
-      doc.text(`$${currentPriceClp.toLocaleString('es-CL')} CLP + IVA`, 200, y + 10, { align: 'right' });
+      doc.text(`$${currentPriceClp.toLocaleString('es-CL')} CLP (IVA incl.)`, 200, y + 10, { align: 'right' });
       
       doc.setFontSize(8.5);
       doc.setFont('helvetica', 'normal');
@@ -526,7 +530,7 @@ export const CotizadorItoSection = () => {
     `📌 *Detalles:* \n` +
     `${whatsappDetails}\n` +
     `- Comuna: ${commune}\n` +
-    `- Valor Estimado: *$${currentPriceClp.toLocaleString('es-CL')} CLP + IVA* (${currentPriceUf.toFixed(2)} UF)\n\n` +
+    `- Valor Estimado: *$${currentPriceClp.toLocaleString('es-CL')} CLP (IVA Incluido)* (${currentPriceUf.toFixed(2)} UF)\n\n` +
     `👤 *Mis Datos:*\n` +
     `- Nombre: ${clientInfo.nombre || 'Sin indicar'}\n` +
     `- Teléfono: ${clientInfo.telefono || 'Sin indicar'}`
@@ -834,7 +838,7 @@ export const CotizadorItoSection = () => {
 
                           <div className="pt-2 border-t border-white/10">
                             <div className="text-xl font-mono font-bold text-sand">
-                              ${finalPrice.toLocaleString('es-CL')} <span className="text-xs font-normal text-sand/80">+ IVA</span>
+                              ${finalPrice.toLocaleString('es-CL')} <span className="text-xs font-normal text-sand/80">(IVA incl.)</span>
                             </div>
                             <div className="text-[10px] font-mono text-neutral-400">
                               ~ {ufPrice.toFixed(2)} UF CLP
@@ -881,7 +885,8 @@ export const CotizadorItoSection = () => {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   {ITO_FREQUENCIES.map((frec) => {
                     const totalVisits = itoMonths * 4 * frec.visitsPerWeek;
-                    const totalPrice = totalVisits * frec.ratePerVisit;
+                    const totalPriceNet = totalVisits * frec.ratePerVisit;
+                    const totalPrice = Math.round(totalPriceNet * IVA_FACTOR);
                     const ufPrice = totalPrice / UF_VALUE;
                     const isSelected = selectedFrecId === frec.id;
 
@@ -920,14 +925,14 @@ export const CotizadorItoSection = () => {
 
                           <div className="pt-2 border-t border-white/10 space-y-1">
                             <div className="text-xl font-mono font-bold text-sand">
-                              ${totalPrice.toLocaleString('es-CL')} <span className="text-xs font-normal text-sand/80">+ IVA</span>
+                              ${totalPrice.toLocaleString('es-CL')} <span className="text-xs font-normal text-sand/80">(IVA incl.)</span>
                             </div>
                             <div className="text-[10px] font-mono text-neutral-400 flex justify-between">
                               <span>Total ({totalVisits} visitas):</span>
                               <span>~ {ufPrice.toFixed(2)} UF</span>
                             </div>
                             <div className="text-[10px] font-mono text-sand/80">
-                              ~ ${Math.round(totalPrice / itoMonths).toLocaleString('es-CL')} / mes + IVA
+                              ~ ${Math.round(totalPrice / itoMonths).toLocaleString('es-CL')} / mes (IVA incl.)
                             </div>
                           </div>
 
@@ -971,6 +976,7 @@ export const CotizadorItoSection = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {ITO_HITOS.map((hito) => {
                     const isChecked = selectedHitos.includes(hito.id);
+                    const hitoPriceWithIva = Math.round(hito.price * IVA_FACTOR);
 
                     return (
                       <div
@@ -996,7 +1002,7 @@ export const CotizadorItoSection = () => {
                               </div>
                             </div>
                             <span className="font-mono text-sm font-bold text-sand shrink-0">
-                              ${hito.price.toLocaleString('es-CL')} <span className="text-[10px] font-normal text-sand/80">+ IVA</span>
+                              ${hitoPriceWithIva.toLocaleString('es-CL')} <span className="text-[10px] font-normal text-sand/80">(IVA incl.)</span>
                             </span>
                           </div>
 
@@ -1040,9 +1046,9 @@ export const CotizadorItoSection = () => {
                 </div>
 
                 <div className="text-left md:text-right">
-                  <span className="text-[10px] font-mono text-neutral-400 block uppercase tracking-wider">Total Estimado (+ IVA)</span>
+                  <span className="text-[10px] font-mono text-neutral-400 block uppercase tracking-wider">Total Estimado (IVA Incluido)</span>
                   <div className="text-3xl font-mono font-bold text-sand">
-                    ${currentPriceClp.toLocaleString('es-CL')} <span className="text-xs font-normal text-cream/70">CLP + IVA</span>
+                    ${currentPriceClp.toLocaleString('es-CL')} <span className="text-xs font-normal text-cream/70">CLP (IVA incl.)</span>
                   </div>
                   <span className="text-xs font-mono text-neutral-400">
                     ~ {currentPriceUf.toFixed(2)} UF
