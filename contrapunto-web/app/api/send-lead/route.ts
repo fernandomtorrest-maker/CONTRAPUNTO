@@ -1,5 +1,61 @@
 import { NextRequest, NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
+import fs from 'fs';
+import path from 'path';
+
+const LEADS_FILE_PATH = path.join(process.cwd(), 'lib', 'data', 'leads.json');
+
+// Guardar nuevo lead en archivo JSON local
+function appendLeadToDatabase(leadData: {
+  nombre?: string;
+  telefono?: string;
+  email?: string;
+  proyecto?: string;
+  mensaje?: string;
+  detalles?: string;
+  comuna?: string;
+}) {
+  try {
+    let currentLeads: Array<{
+      id: string;
+      nombre: string;
+      telefono: string;
+      correo: string;
+      servicio: string;
+      comuna: string;
+      mensaje: string;
+      status: string;
+      assignedTo: string;
+      createdAt: string;
+      notes: string;
+    }> = [];
+
+    if (fs.existsSync(LEADS_FILE_PATH)) {
+      const fileData = fs.readFileSync(LEADS_FILE_PATH, 'utf8');
+      currentLeads = JSON.parse(fileData);
+    }
+
+    const newEntry = {
+      id: `lead-${Date.now()}`,
+      nombre: leadData.nombre?.trim() || 'Cliente Sin Nombre',
+      telefono: leadData.telefono?.trim() || '',
+      correo: leadData.email?.trim() || '',
+      servicio: leadData.proyecto?.trim() || 'Contacto Web',
+      comuna: leadData.comuna?.trim() || 'No especificada',
+      mensaje: leadData.detalles || leadData.mensaje || 'Sin detalles.',
+      status: 'Nuevo',
+      assignedTo: 'Sin Asignar',
+      createdAt: new Date().toISOString(),
+      notes: ''
+    };
+
+    currentLeads.unshift(newEntry);
+    fs.writeFileSync(LEADS_FILE_PATH, JSON.stringify(currentLeads, null, 2), 'utf8');
+    console.log(`[Lead DB Persistent] Lead guardado exitosamente en ${LEADS_FILE_PATH}`);
+  } catch (err) {
+    console.error('Error al guardar lead en JSON:', err);
+  }
+}
 
 // Configuración SMTP cargada de variables de entorno o fallbacks
 const SMTP_HOST = process.env.SMTP_HOST || 'smtp.hostinger.com';
@@ -25,6 +81,9 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     const { nombre, telefono, email, proyecto, mensaje, detalles } = body;
+
+    // Guardar lead automáticamente en base de datos persistente
+    appendLeadToDatabase(body);
 
     // Destinatarios indicados por el usuario
     const recipients = [

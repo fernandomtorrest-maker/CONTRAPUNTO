@@ -1,0 +1,28 @@
+[
+  {
+    "id": "lead-1001",
+    "nombre": "Carolina Morales",
+    "telefono": "+56 9 9123 4567",
+    "correo": "carolina.morales@gmail.com",
+    "servicio": "Inspección Técnica Pre-Entrega",
+    "comuna": "Providencia",
+    "mensaje": "Hola, necesito cotizar inspección técnica para recepción de departamento nuevo de 85m2.",
+    "status": "Nuevo",
+    "assignedTo": "Diego",
+    "createdAt": "2026-07-27T20:30:00.000Z",
+    "notes": "Cliente interesada en agendar para la próxima semana."
+  },
+  {
+    "id": "lead-1002",
+    "nombre": "Comité Condominio Los Alerces",
+    "telefono": "+56 9 8765 4321",
+    "correo": "administracion@losalerces.cl",
+    "servicio": "Mantenimiento Integral",
+    "comuna": "Las Condes",
+    "mensaje": "Solicitamos visita técnica de levantamiento gratuita para mantención preventiva de 2 torres y áreas verdes.",
+    "status": "En Contacto",
+    "assignedTo": "Fernando",
+    "createdAt": "2026-07-27T18:15:00.000Z",
+    "notes": "Coordinada visita presencial para este jueves 10:00 AM."
+  }
+]

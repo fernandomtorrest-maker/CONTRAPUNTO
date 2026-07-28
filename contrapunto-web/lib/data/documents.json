@@ -1,0 +1,32 @@
+[
+  {
+    "id": "doc-1",
+    "title": "Plantilla Informe Técnico de Inspección Pre-Entrega (ITO)",
+    "category": "Plantillas ITO",
+    "format": "PDF / Word",
+    "description": "Formato estandarizado de informe técnico de inspección de recepción de viviendas según normativa NCh.",
+    "url": "/docs/plantilla-informe-ito.pdf",
+    "uploadedBy": "Diego",
+    "createdAt": "2026-07-25T12:00:00.000Z"
+  },
+  {
+    "id": "doc-2",
+    "title": "Resumen Ejecutivo Ley 21.442 de Copropiedad Inmobiliaria",
+    "category": "Normativa & Leyes",
+    "format": "PDF",
+    "description": "Guía de cumplimiento legal de mantenimiento de instalaciones comunes para Administraciones de Edificios y Condominios.",
+    "url": "/docs/resumen-ley-21442.pdf",
+    "uploadedBy": "Fernando",
+    "createdAt": "2026-07-26T14:30:00.000Z"
+  },
+  {
+    "id": "doc-3",
+    "title": "Presentación Institucional Constructora Contrapunto 2026",
+    "category": "Comercial & Presentaciones",
+    "format": "PDF",
+    "description": "Dossier corporativo de servicios de Inspección Técnica, Mantenimiento e Inversiones Inmobiliarias.",
+    "url": "/docs/presentacion-contrapunto-2026.pdf",
+    "uploadedBy": "Nicole",
+    "createdAt": "2026-07-27T09:00:00.000Z"
+  }
+]

@@ -351,45 +351,59 @@ export function DashboardSection({ currentUser }: DashboardSectionProps) {
                 </div>
               </Link>
 
-              {/* Tarjeta 5: Gestión de Leads Web (Próximamente) */}
-              <div className="bg-[#181614]/60 border border-white/5 rounded-2xl p-5 flex flex-col justify-between opacity-70">
+              {/* Tarjeta 5: Gestión de Leads Web */}
+              <Link
+                href="/admin/leads"
+                className="bg-[#181614] border border-white/10 hover:border-sand hover:bg-stone-900 rounded-2xl p-5 transition-all group shadow-xl flex flex-col justify-between"
+              >
                 <div className="space-y-3">
                   <div className="flex justify-between items-start">
-                    <div className="p-3 rounded-xl bg-stone-800 text-neutral-400">
+                    <div className="p-3 rounded-xl bg-sand/15 text-sand group-hover:scale-110 transition-transform">
                       <Inbox className="w-6 h-6" />
                     </div>
-                    <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-neutral-400 bg-white/5 border border-white/10 px-2 py-0.5 rounded-full">
-                      PRÓXIMAMENTE
+                    <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-2 py-0.5 rounded-full">
+                      ACTIVO
                     </span>
                   </div>
-                  <h3 className="font-heading text-base font-bold text-neutral-300">
+                  <h3 className="font-heading text-base font-bold text-cream group-hover:text-sand transition-colors">
                     Gestión de Leads & Contactos
                   </h3>
-                  <p className="text-xs text-neutral-500 font-light">
-                    Centralización de solicitudes web recibidas para asignación por usuario.
+                  <p className="text-xs text-neutral-400 font-light leading-relaxed">
+                    Registro automático y asignación de prospectos recibidos desde los formularios web.
                   </p>
                 </div>
-              </div>
+                <div className="pt-4 border-t border-white/5 flex items-center justify-between text-xs font-mono text-sand">
+                  <span>Ver Leads Recibidos</span>
+                  <span>→</span>
+                </div>
+              </Link>
 
-              {/* Tarjeta 6: Centro de Documentos (Próximamente) */}
-              <div className="bg-[#181614]/60 border border-white/5 rounded-2xl p-5 flex flex-col justify-between opacity-70">
+              {/* Tarjeta 6: Centro de Documentos */}
+              <Link
+                href="/admin/documentos"
+                className="bg-[#181614] border border-white/10 hover:border-sand hover:bg-stone-900 rounded-2xl p-5 transition-all group shadow-xl flex flex-col justify-between"
+              >
                 <div className="space-y-3">
                   <div className="flex justify-between items-start">
-                    <div className="p-3 rounded-xl bg-stone-800 text-neutral-400">
+                    <div className="p-3 rounded-xl bg-sand/15 text-sand group-hover:scale-110 transition-transform">
                       <FileText className="w-6 h-6" />
                     </div>
-                    <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-neutral-400 bg-white/5 border border-white/10 px-2 py-0.5 rounded-full">
-                      PRÓXIMAMENTE
+                    <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-2 py-0.5 rounded-full">
+                      ACTIVO
                     </span>
                   </div>
-                  <h3 className="font-heading text-base font-bold text-neutral-300">
+                  <h3 className="font-heading text-base font-bold text-cream group-hover:text-sand transition-colors">
                     Centro de Documentos & Plantillas
                   </h3>
-                  <p className="text-xs text-neutral-500 font-light">
-                    Repositorio oficial de informes ITO, manuales Ley 21.442 y formatos.
+                  <p className="text-xs text-neutral-400 font-light leading-relaxed">
+                    Repositorio oficial de informes ITO, manuales Ley 21.442 y formatos corporativos.
                   </p>
                 </div>
-              </div>
+                <div className="pt-4 border-t border-white/5 flex items-center justify-between text-xs font-mono text-sand">
+                  <span>Abrir Documentos</span>
+                  <span>→</span>
+                </div>
+              </Link>
 
             </div>
           </div>
