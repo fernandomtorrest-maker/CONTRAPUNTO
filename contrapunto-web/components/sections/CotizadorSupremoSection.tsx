@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { Sparkles, Trash2, Search, Plus, Copy, Check, RefreshCw, AlertCircle, HelpCircle, Download } from 'lucide-react';
 import bbddPuData from '@/lib/data/bbdd_pu.json';
 
@@ -575,17 +576,26 @@ export default function CotizadorSupremoSection() {
   return (
     <section className="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       {/* Header section */}
-      <div className="mb-10 text-center sm:text-left">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sand/10 border border-sand/20 text-sand text-xs mb-3 font-mono">
-          <Sparkles className="w-3.5 h-3.5 text-sand animate-pulse" />
-          MÓDULO INTERNO SECRETO
+      <div className="mb-10 flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4">
+        <div className="text-center sm:text-left">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sand/10 border border-sand/20 text-sand text-xs mb-3 font-mono">
+            <Sparkles className="w-3.5 h-3.5 text-sand animate-pulse" />
+            MÓDULO INTERNO SECRETO
+          </div>
+          <h1 className="text-4xl sm:text-5xl font-display font-light text-cream tracking-wide">
+            Cotizador <span className="font-serif italic text-sand">Supremo</span>
+          </h1>
+          <p className="mt-3 text-cream/60 max-w-2xl font-light text-sm">
+            Ingresa descripciones en lenguaje natural para que la IA extraiga cantidades y busque precios, o busca directamente partidas en la base de datos.
+          </p>
         </div>
-        <h1 className="text-4xl sm:text-5xl font-display font-light text-cream tracking-wide">
-          Cotizador <span className="font-serif italic text-sand">Supremo</span>
-        </h1>
-        <p className="mt-3 text-cream/60 max-w-2xl font-light text-sm">
-          Ingresa descripciones en lenguaje natural para que la IA extraiga cantidades y busque precios, o busca directamente partidas en la base de datos de 1,486 elementos.
-        </p>
+
+        <Link
+          href="/admin/partidas"
+          className="bg-stone-900 border border-sand/30 hover:border-sand hover:bg-stone-800 text-sand font-mono text-xs uppercase tracking-wider px-4 py-2.5 rounded-xl transition-all inline-flex items-center gap-2 shrink-0 shadow-lg"
+        >
+          ⚙️ Panel Admin de Partidas
+        </Link>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
