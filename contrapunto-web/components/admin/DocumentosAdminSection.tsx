@@ -29,6 +29,8 @@ export function DocumentosAdminSection() {
   const [search, setSearch] = useState('');
   const [filterCategory, setFilterCategory] = useState<string>('Todas');
 
+  const TEAM_MEMBERS = ['Diego', 'Fernando', 'Nicole', 'Niels', 'Julio'];
+
   // Formulario nuevo documento
   const [showAddForm, setShowAddForm] = useState(false);
   const [newTitle, setNewTitle] = useState('');
@@ -36,6 +38,7 @@ export function DocumentosAdminSection() {
   const [newFormat, setNewFormat] = useState('PDF');
   const [newDescription, setNewDescription] = useState('');
   const [newUrl, setNewUrl] = useState('');
+  const [newUploadedBy, setNewUploadedBy] = useState('Diego');
   const [submitting, setSubmitting] = useState(false);
 
   // Cargar documentos desde API
@@ -74,6 +77,7 @@ export function DocumentosAdminSection() {
           format: newFormat,
           description: newDescription,
           url: newUrl,
+          uploadedBy: newUploadedBy,
         }),
       });
 
@@ -182,7 +186,7 @@ export function DocumentosAdminSection() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="md:col-span-2">
+              <div>
                 <label className="text-[10px] font-mono uppercase text-neutral-400 block mb-1">
                   Enlace URL / Ruta del Archivo *
                 </label>
@@ -207,6 +211,23 @@ export function DocumentosAdminSection() {
                   onChange={(e) => setNewFormat(e.target.value)}
                   className="w-full bg-stone-900 border border-white/10 text-cream rounded-xl p-3 text-xs focus:outline-none focus:border-sand font-mono"
                 />
+              </div>
+
+              <div>
+                <label className="text-[10px] font-mono uppercase text-neutral-400 block mb-1">
+                  Encargado de subir documento
+                </label>
+                <select
+                  value={newUploadedBy}
+                  onChange={(e) => setNewUploadedBy(e.target.value)}
+                  className="w-full bg-stone-900 border border-white/10 text-cream rounded-xl p-3 text-xs focus:outline-none focus:border-sand font-mono cursor-pointer"
+                >
+                  {TEAM_MEMBERS.map((user) => (
+                    <option key={user} value={user}>
+                      👤 Encargado: {user}
+                    </option>
+                  ))}
+                </select>
               </div>
             </div>
 
@@ -308,18 +329,18 @@ export function DocumentosAdminSection() {
                   </p>
                 </div>
 
-                <div className="pt-4 border-t border-white/5 flex items-center justify-between text-xs font-mono">
-                  <span className="text-neutral-500 text-[10px]">
-                    Subido por {doc.uploadedBy}
+                <div className="pt-4 border-t border-white/5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs font-mono">
+                  <span className="text-amber-400/90 text-[10px] font-bold flex items-center gap-1">
+                    ⚠️ Falta subir documento — Encargado: {doc.uploadedBy}
                   </span>
 
                   <a
                     href={doc.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="bg-sand/15 hover:bg-sand text-sand hover:text-carbon border border-sand/30 font-bold px-3 py-1.5 rounded-xl transition-colors flex items-center gap-1.5"
+                    className="bg-sand/15 hover:bg-sand text-sand hover:text-carbon border border-sand/30 font-bold px-3 py-1.5 rounded-xl transition-colors flex items-center gap-1.5 shrink-0"
                   >
-                    <Download className="w-3.5 h-3.5" /> Abrir / Descargar
+                    <Download className="w-3.5 h-3.5" /> Abrir / Enlace
                   </a>
                 </div>
               </div>
