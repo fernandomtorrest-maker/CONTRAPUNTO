@@ -53,7 +53,18 @@ function generateApuFromNaturalLanguage(prompt: string) {
   let inclusions = '';
 
   // Reglas de inferencia técnica paramétrica según rubro
-  if (p.includes('radier') || p.includes('hormigon') || p.includes('fundacion') || p.includes('losa')) {
+  if (p.includes('estructura metalica') || p.includes('acero') || p.includes('cobertizo metalico') || p.includes('perfil') || p.includes('viga') || p.includes('galpon') || p.includes('cercha') || p.includes('soldadura')) {
+    unit = 'kg';
+    const isHeavy = p.includes('pesada') || p.includes('galpon') || p.includes('ipe') || p.includes('viga h');
+    priceUf = isHeavy ? 0.065 : 0.075;
+    mat = isHeavy ? 60 : 55;
+    mo = isHeavy ? 35 : 40;
+    eq = 5;
+    codePrefix = 'EST-MET';
+    inclusions = isHeavy
+      ? 'Incluye: suministro de acero estructural A36/A572 en perfiles pesados (IPE/H), trazado, biselado, soldadura MIG continua E7018, esquema anticorrosivo epóxico de 2 manos, pernos de anclaje A307, montaje en terreno con camión grúa pluma y aseo técnico.'
+      : 'Incluye: suministro de perfiles tubulares/costaneras de acero, trazado, corte mecánico, soldadura 7018, aplicación de 2 manos de pintura anticorrosiva sintética/epóxica, pernos de fijación, montaje en terreno y limpieza de obra.';
+  } else if (p.includes('radier') || p.includes('hormigon') || p.includes('fundacion') || p.includes('losa')) {
     unit = 'm2';
     priceUf = p.includes('15cm') || p.includes('h25') ? 1.15 : 0.85;
     mat = 55;

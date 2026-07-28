@@ -339,6 +339,25 @@ export function PartidasAdminSection() {
                 )}
               </button>
             </div>
+
+            {/* Sugerencias Rápidas de Prueba */}
+            <div className="flex flex-wrap items-center gap-2 text-[10px] font-mono">
+              <span className="text-neutral-400 font-bold uppercase">Sugerencia Rápida:</span>
+              <button
+                type="button"
+                onClick={() => setNaturalPrompt('Estructura metálica para cobertizo de quincho con perfiles tubulares y anticorrosivo')}
+                className="bg-stone-900 hover:bg-stone-800 text-sand border border-white/10 px-2.5 py-1 rounded-lg cursor-pointer transition-colors"
+              >
+                🏗️ Cobertizo Metálico (Tubular/kg)
+              </button>
+              <button
+                type="button"
+                onClick={() => setNaturalPrompt('Fabricación y montaje de galpón metálico con pilares IPE 200 y vigas de acero')}
+                className="bg-stone-900 hover:bg-stone-800 text-sand border border-white/10 px-2.5 py-1 rounded-lg cursor-pointer transition-colors"
+              >
+                🏗️ Galpón Estructural (Vigas IPE/kg)
+              </button>
+            </div>
           </form>
 
           {/* TARJETA CON LA PROPUESTA GENERADA DE APU */}
