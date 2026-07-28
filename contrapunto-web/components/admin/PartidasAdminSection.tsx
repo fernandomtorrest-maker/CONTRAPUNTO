@@ -501,15 +501,28 @@ export function PartidasAdminSection() {
                 <label className="text-[10px] font-mono uppercase text-neutral-400 block mb-1">
                   Precio Unitario (UF) *
                 </label>
-                <input
-                  type="number"
-                  step="0.001"
-                  required
-                  placeholder="Ej. 0.85"
-                  value={newPriceUf}
-                  onChange={(e) => setNewPriceUf(e.target.value)}
-                  className="w-full bg-stone-900 border border-white/10 text-sand font-mono font-bold rounded-xl p-3 text-xs focus:outline-none focus:border-sand"
-                />
+                <div className="relative">
+                  <input
+                    type="number"
+                    step="0.001"
+                    required
+                    placeholder="Ej. 0.85"
+                    value={newPriceUf}
+                    onChange={(e) => setNewPriceUf(e.target.value)}
+                    className="w-full bg-stone-900 border border-white/10 text-sand font-mono font-bold rounded-xl p-3 pr-16 text-xs focus:outline-none focus:border-sand"
+                  />
+                  <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] font-mono text-sand font-bold">
+                    UF
+                  </span>
+                </div>
+                <div className="mt-1 text-[11px] font-mono font-bold text-emerald-400 flex items-center justify-between">
+                  <span>Valor en Pesos:</span>
+                  <span>
+                    {newPriceUf && !isNaN(Number(newPriceUf))
+                      ? `$${Math.round(Number(newPriceUf) * ufValue).toLocaleString('es-CL')} CLP`
+                      : '$0 CLP'}
+                  </span>
+                </div>
               </div>
             </div>
 
