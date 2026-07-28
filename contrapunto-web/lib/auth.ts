@@ -6,7 +6,17 @@ export const AUTHORIZED_USERS = [
   { id: 'diego', name: 'Diego' },
   { id: 'niels', name: 'Niels' },
   { id: 'julio', name: 'Julio' },
+  { id: 'jean', name: 'Jean' },
+  { id: 'valeria', name: 'Valeria' },
 ];
+
+export const RRHH_AUTHORIZED_USERS = ['Jean', 'Valeria', 'Nicole', 'Fernando'];
+
+export function hasRrhhPermission(userName: string): boolean {
+  return RRHH_AUTHORIZED_USERS.some(
+    (u) => u.toLowerCase() === userName.toLowerCase()
+  );
+}
 
 export const MASTER_PASSWORD = 'Contrapunto2026';
 const SECRET_KEY = process.env.ADMIN_JWT_SECRET || 'contrapunto-secret-key-2026-secure-auth-chile';

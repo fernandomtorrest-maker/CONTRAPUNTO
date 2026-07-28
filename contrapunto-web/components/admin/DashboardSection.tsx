@@ -18,8 +18,10 @@ import {
   ShieldCheck,
   Clock,
   ChevronDown,
-  ChevronUp
+  ChevronUp,
+  Users
 } from 'lucide-react';
+import { hasRrhhPermission } from '@/lib/auth';
 
 interface Comment {
   id: string;
@@ -395,12 +397,42 @@ export function DashboardSection({ currentUser }: DashboardSectionProps) {
                   <h3 className="font-heading text-base font-bold text-cream group-hover:text-sand transition-colors">
                     Centro de Documentos & Plantillas
                   </h3>
-                  <p className="text-xs text-neutral-400 font-light leading-relaxed">
-                    Repositorio oficial de informes ITO, manuales Ley 21.442 y formatos corporativos.
-                  </p>
                 </div>
                 <div className="pt-4 border-t border-white/5 flex items-center justify-between text-xs font-mono text-sand">
                   <span>Abrir Documentos</span>
+                  <span>→</span>
+                </div>
+              </Link>
+
+              {/* Tarjeta 7: Recursos Humanos & Personas */}
+              <Link
+                href="/admin/rrhh"
+                className="bg-[#181614] border border-white/10 hover:border-sand hover:bg-stone-900 rounded-2xl p-5 transition-all group shadow-xl flex flex-col justify-between"
+              >
+                <div className="space-y-3">
+                  <div className="flex justify-between items-start">
+                    <div className="p-3 rounded-xl bg-sand/15 text-sand group-hover:scale-110 transition-transform">
+                      <Users className="w-6 h-6" />
+                    </div>
+                    {hasRrhhPermission(currentUser) ? (
+                      <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-2 py-0.5 rounded-full">
+                        ACTIVO RRHH
+                      </span>
+                    ) : (
+                      <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-amber-400 bg-amber-500/10 border border-amber-500/30 px-2 py-0.5 rounded-full">
+                        RESTRINGIDO
+                      </span>
+                    )}
+                  </div>
+                  <h3 className="font-heading text-base font-bold text-cream group-hover:text-sand transition-colors">
+                    Recursos Humanos & Personas
+                  </h3>
+                  <p className="text-xs text-neutral-400 font-light leading-relaxed">
+                    Fichas de colaboradores, contratos, control de vacaciones, liquidaciones y EPP (Jean, Valeria, Nicole y Fernando).
+                  </p>
+                </div>
+                <div className="pt-4 border-t border-white/5 flex items-center justify-between text-xs font-mono text-sand">
+                  <span>Gestionar RRHH</span>
                   <span>→</span>
                 </div>
               </Link>

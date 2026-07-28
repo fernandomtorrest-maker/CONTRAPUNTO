@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { ShieldCheck, Lock, User, KeyRound, AlertCircle, ArrowRight } from 'lucide-react';
 import Image from 'next/image';
 
-const AUTHORIZED_USERS = ['Fernando', 'Nicole', 'Diego', 'Niels', 'Julio'];
+const AUTHORIZED_USERS = ['Fernando', 'Nicole', 'Diego', 'Niels', 'Julio', 'Jean', 'Valeria'];
 
 export default function AdminLoginPage() {
   const [selectedUser, setSelectedUser] = useState('Fernando');
