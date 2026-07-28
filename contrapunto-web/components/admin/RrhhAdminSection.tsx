@@ -15,8 +15,26 @@ import {
   AlertTriangle,
   CheckCircle2,
   Trash2,
+  FolderOpen,
+  UploadCloud,
+  ExternalLink,
+  Download,
+  Building2,
+  X,
+  FileText,
   UserCheck
 } from 'lucide-react';
+
+export interface CollaboratorDocument {
+  id: string;
+  title: string;
+  category: 'Contratos & Anexos' | 'Liquidaciones de Sueldo' | 'Licencias & Permisos' | 'Prevención & EPP' | 'Documentación Personal';
+  format: string;
+  url: string;
+  uploadedAt: string;
+  uploadedBy: string;
+  expirationDate?: string;
+}
 
 export interface CollaboratorItem {
   id: string;
@@ -31,6 +49,10 @@ export interface CollaboratorItem {
   correo: string;
   afp: string;
   salud: string;
+  tramoFonasa?: string;
+  montoIsapreUF?: number;
+  mutual?: string;
+  afc?: string;
   sueldoBase: number;
   status: 'Activo' | 'En Vacaciones' | 'Licencia Médica' | 'Desvinculado';
   vacacionesTotales: number;
@@ -38,13 +60,27 @@ export interface CollaboratorItem {
   eppEntregado: string;
   fechaUltimoEPP: string;
   observaciones: string;
+  documentos?: CollaboratorDocument[];
 }
 
 export function RrhhAdminSection() {
   const [collabs, setCollabs] = useState<CollaboratorItem[]>([]);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState<'personal' | 'contratos' | 'vacaciones' | 'sueldos' | 'epp'>('personal');
+  const [activeTab, setActiveTab] = useState<'personal' | 'contratos' | 'vacaciones' | 'sueldos' | 'previred' | 'epp'>('personal');
   const [search, setSearch] = useState('');
+
+  // Modal Expediente Documental de un Trabajador
+  const [selectedCollab, setSelectedCollab] = useState<CollaboratorItem | null>(null);
+  const [showDocModal, setShowDocModal] = useState(false);
+
+  // Formulario nuevo documento para trabajador
+  const [docTitle, setDocTitle] = useState('');
+  const [docCategory, setDocCategory] = useState<CollaboratorDocument['category']>('Contratos & Anexos');
+  const [docUrlMode, setDocUrlMode] = useState<'upload' | 'drive'>('upload');
+  const [docDriveUrl, setDocDriveUrl] = useState('');
+  const [docFile, setDocFile] = useState<File | null>(null);
+  const [docExpiration, setDocExpiration] = useState('N/A');
+  const [uploadingDoc, setUploadingDoc] = useState(false);
 
   // Formulario nuevo colaborador
   const [showAddModal, setShowAddModal] = useState(false);
@@ -122,6 +158,130 @@ export function RrhhAdminSection() {
     }
   };
 
+  // Abrir modal de documentos
+  const handleOpenFolder = (collab: CollaboratorItem) => {
+    setSelectedCollab(collab);
+    setShowDocModal(true);
+  };
+
+  // Guardar/Adjuntar documento a trabajador
+  const handleSaveDocument = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!selectedCollab || !docTitle.trim()) return;
+
+    setUploadingDoc(true);
+    let finalUrl = docDriveUrl.trim();
+
+    try {
+      // Subida de archivo directa si se seleccionó archivo local
+      if (docUrlMode === 'upload' && docFile) {
+        const formData = new FormData();
+        formData.append('file', docFile);
+        formData.append('collabId', selectedCollab.id);
+
+        const uploadRes = await fetch('/api/admin/rrhh/upload', {
+          method: 'POST',
+          body: formData,
+        });
+        const uploadData = await uploadRes.json();
+
+        if (uploadData.success) {
+          finalUrl = uploadData.fileUrl;
+        } else {
+          alert(uploadData.error || 'Error al subir archivo.');
+          setUploadingDoc(false);
+          return;
+        }
+      }
+
+      if (!finalUrl) {
+        alert('Debes ingresar una URL de Google Drive o seleccionar un archivo.');
+        setUploadingDoc(false);
+        return;
+      }
+
+      const res = await fetch('/api/admin/rrhh', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'add_document',
+          collabId: selectedCollab.id,
+          title: docTitle,
+          category: docCategory,
+          format: docFile ? docFile.name.split('.').pop()?.toUpperCase() || 'PDF' : 'PDF/Drive',
+          url: finalUrl,
+          expirationDate: docExpiration,
+        }),
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        setDocTitle('');
+        setDocDriveUrl('');
+        setDocFile(null);
+        setSelectedCollab(data.collaborator);
+        fetchCollaborators();
+      } else {
+        alert(data.error || 'Error al registrar documento.');
+      }
+    } catch {
+      alert('Error al guardar el documento.');
+    } finally {
+      setUploadingDoc(false);
+    }
+  };
+
+  // Eliminar documento
+  const handleDeleteDoc = async (docId: string) => {
+    if (!selectedCollab || !confirm('¿Eliminar este documento del expediente?')) return;
+    try {
+      const res = await fetch('/api/admin/rrhh', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'delete_document',
+          collabId: selectedCollab.id,
+          docId,
+        }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setSelectedCollab((prev) =>
+          prev
+            ? {
+                ...prev,
+                documentos: prev.documentos?.filter((d) => d.id !== docId),
+              }
+            : null
+        );
+        fetchCollaborators();
+      }
+    } catch {
+      alert('Error al eliminar el documento.');
+    }
+  };
+
+  // Exportar Plantilla Previred (.csv)
+  const handleExportPrevired = async () => {
+    try {
+      const res = await fetch('/api/admin/rrhh', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'export_previred' }),
+      });
+      const blob = await res.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `Nomina_Previred_Contrapunto_${new Date().toISOString().split('T')[0]}.csv`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+    } catch {
+      alert('Error al generar la plantilla de Previred.');
+    }
+  };
+
   // Actualizar estado del trabajador
   const handleUpdateStatus = async (id: string, newStatus: CollaboratorItem['status']) => {
     try {
@@ -192,16 +352,25 @@ export function RrhhAdminSection() {
               Recursos Humanos & Gestión de Personas
             </h1>
             <p className="text-xs text-neutral-400 font-light mt-1">
-              Acceso exclusivo para Administración (`Jean`, `Valeria`, `Nicole`, `Fernando`). Total personal: {collabs.length} colaboradores.
+              Expedientes digitales, subida de contratos/liquidaciones y exportador masivo para Previred (`Jean`, `Valeria`, `Nicole`, `Fernando`).
             </p>
           </div>
 
-          <button
-            onClick={() => setShowAddModal(!showAddModal)}
-            className="bg-sand text-carbon hover:bg-[#a38b72] px-5 py-3 rounded-xl font-bold uppercase tracking-widest text-xs transition-colors shadow-lg flex items-center gap-2 cursor-pointer"
-          >
-            <Plus className="w-4 h-4" /> Nuevo Trabajador
-          </button>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={handleExportPrevired}
+              className="bg-emerald-600/20 hover:bg-emerald-600 text-emerald-300 hover:text-white border border-emerald-500/40 px-4 py-3 rounded-xl font-bold uppercase tracking-widest text-xs transition-colors flex items-center gap-2 cursor-pointer font-mono"
+            >
+              <Building2 className="w-4 h-4" /> Exportar a Previred (.csv)
+            </button>
+
+            <button
+              onClick={() => setShowAddModal(!showAddModal)}
+              className="bg-sand text-carbon hover:bg-[#a38b72] px-5 py-3 rounded-xl font-bold uppercase tracking-widest text-xs transition-colors shadow-lg flex items-center gap-2 cursor-pointer"
+            >
+              <Plus className="w-4 h-4" /> Nuevo Trabajador
+            </button>
+          </div>
         </div>
 
         {/* FORMULARIO NUEVO TRABAJADOR */}
@@ -387,7 +556,7 @@ export function RrhhAdminSection() {
                 : 'bg-stone-900 text-neutral-400 hover:text-cream border border-white/5'
             }`}
           >
-            <Users className="w-4 h-4" /> Personal ({collabs.length})
+            <Users className="w-4 h-4" /> Expedientes Digitales ({collabs.length})
           </button>
 
           <button
@@ -399,6 +568,17 @@ export function RrhhAdminSection() {
             }`}
           >
             <FileCheck className="w-4 h-4" /> Contratos & Vencimientos
+          </button>
+
+          <button
+            onClick={() => setActiveTab('previred')}
+            className={`px-4 py-2 rounded-xl text-xs font-mono font-bold uppercase tracking-wider transition-all flex items-center gap-2 cursor-pointer ${
+              activeTab === 'previred'
+                ? 'bg-emerald-600 text-white shadow-lg font-bold'
+                : 'bg-stone-900 text-neutral-400 hover:text-cream border border-white/5'
+            }`}
+          >
+            <Building2 className="w-4 h-4" /> Previsión & Previred
           </button>
 
           <button
@@ -420,7 +600,7 @@ export function RrhhAdminSection() {
                 : 'bg-stone-900 text-neutral-400 hover:text-cream border border-white/5'
             }`}
           >
-            <DollarSign className="w-4 h-4" /> Liquidaciones & Anticipos
+            <DollarSign className="w-4 h-4" /> Liquidaciones & Sueldos
           </button>
 
           <button
@@ -457,62 +637,74 @@ export function RrhhAdminSection() {
           </div>
         ) : (
           <div className="space-y-4">
-            {/* PESTAÑA 1: PERSONAL */}
+            {/* PESTAÑA 1: EXPEDIENTES DIGITALES DE PERSONAL */}
             {activeTab === 'personal' && (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {filteredCollabs.map((collab) => (
-                  <div
-                    key={collab.id}
-                    className="bg-[#181614] border border-white/10 hover:border-sand/40 rounded-2xl p-5 shadow-xl space-y-3 transition-all flex flex-col justify-between"
-                  >
-                    <div className="space-y-2">
-                      <div className="flex justify-between items-start">
-                        <div>
-                          <span className="text-[10px] font-mono text-sand font-bold block">
-                            RUT: {collab.rut}
-                          </span>
-                          <h3 className="font-heading text-lg font-bold text-cream">
-                            {collab.nombre}
-                          </h3>
+                {filteredCollabs.map((collab) => {
+                  const docCount = collab.documentos?.length || 0;
+
+                  return (
+                    <div
+                      key={collab.id}
+                      className="bg-[#181614] border border-white/10 hover:border-sand/40 rounded-2xl p-5 shadow-xl space-y-4 transition-all flex flex-col justify-between"
+                    >
+                      <div className="space-y-2">
+                        <div className="flex justify-between items-start">
+                          <div>
+                            <span className="text-[10px] font-mono text-sand font-bold block">
+                              RUT: {collab.rut}
+                            </span>
+                            <h3 className="font-heading text-lg font-bold text-cream">
+                              {collab.nombre}
+                            </h3>
+                          </div>
+                          <select
+                            value={collab.status}
+                            onChange={(e) => handleUpdateStatus(collab.id, e.target.value as CollaboratorItem['status'])}
+                            className="bg-stone-900 border border-white/10 text-sand font-mono text-[10px] uppercase font-bold rounded-lg px-2 py-1 focus:outline-none focus:border-sand cursor-pointer"
+                          >
+                            <option value="Activo">🟢 Activo</option>
+                            <option value="En Vacaciones">🔵 Vacaciones</option>
+                            <option value="Licencia Médica">🟡 Licencia</option>
+                            <option value="Desvinculado">🔴 Desvinculado</option>
+                          </select>
                         </div>
-                        <select
-                          value={collab.status}
-                          onChange={(e) => handleUpdateStatus(collab.id, e.target.value as CollaboratorItem['status'])}
-                          className="bg-stone-900 border border-white/10 text-sand font-mono text-[10px] uppercase font-bold rounded-lg px-2 py-1 focus:outline-none focus:border-sand"
+
+                        <div className="space-y-1 text-xs text-neutral-300">
+                          <p className="font-medium text-cream">{collab.cargo}</p>
+                          <p className="text-[11px] font-mono text-neutral-400">
+                            Área: {collab.departamento} • Contrato: {collab.tipoContrato}
+                          </p>
+                        </div>
+
+                        <div className="pt-2 flex flex-wrap items-center gap-3 text-xs font-mono text-neutral-400">
+                          <span>AFP: {collab.afp}</span>
+                          <span>•</span>
+                          <span>Salud: {collab.salud}</span>
+                          <span>•</span>
+                          <span>Sueldo: ${collab.sueldoBase.toLocaleString('es-CL')} CLP</span>
+                        </div>
+                      </div>
+
+                      <div className="pt-3 border-t border-white/5 flex items-center justify-between gap-3 text-xs font-mono">
+                        <button
+                          onClick={() => handleOpenFolder(collab)}
+                          className="bg-sand/15 hover:bg-sand text-sand hover:text-carbon border border-sand/30 font-bold px-3 py-1.5 rounded-xl transition-all flex items-center gap-1.5 cursor-pointer text-xs"
                         >
-                          <option value="Activo">🟢 Activo</option>
-                          <option value="En Vacaciones">🔵 Vacaciones</option>
-                          <option value="Licencia Médica">🟡 Licencia</option>
-                          <option value="Desvinculado">🔴 Desvinculado</option>
-                        </select>
-                      </div>
+                          <FolderOpen className="w-4 h-4" /> Carpetas & Documentos ({docCount})
+                        </button>
 
-                      <div className="space-y-1 text-xs text-neutral-300">
-                        <p className="font-medium text-cream">{collab.cargo}</p>
-                        <p className="text-[11px] font-mono text-neutral-400">
-                          Área: {collab.departamento} • Contrato: {collab.tipoContrato}
-                        </p>
-                      </div>
-
-                      <div className="pt-2 flex flex-wrap items-center gap-3 text-xs font-mono text-neutral-400">
-                        <span>Ingreso: {collab.fechaIngreso}</span>
-                        <span>•</span>
-                        <span>Sueldo: ${collab.sueldoBase.toLocaleString('es-CL')} CLP</span>
+                        <button
+                          onClick={() => handleDeleteCollaborator(collab.id)}
+                          className="text-neutral-500 hover:text-red-400 p-1"
+                          title="Eliminar Expediente"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
                       </div>
                     </div>
-
-                    <div className="pt-3 border-t border-white/5 flex justify-between items-center text-xs font-mono">
-                      <span className="text-neutral-500 text-[10px]">AFP: {collab.afp} | Salud: {collab.salud}</span>
-                      <button
-                        onClick={() => handleDeleteCollaborator(collab.id)}
-                        className="text-neutral-500 hover:text-red-400 p-1"
-                        title="Eliminar Expediente"
-                      >
-                        <Trash2 className="w-4 h-4" />
-                      </button>
-                    </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             )}
 
@@ -560,7 +752,59 @@ export function RrhhAdminSection() {
               </div>
             )}
 
-            {/* PESTAÑA 3: VACACIONES */}
+            {/* PESTAÑA 3: PREVISIÓN & PREVIRED */}
+            {activeTab === 'previred' && (
+              <div className="space-y-6">
+                <div className="bg-[#181614] border border-emerald-500/30 rounded-2xl p-6 shadow-xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                  <div className="space-y-1">
+                    <h3 className="font-heading text-lg font-bold text-emerald-300 flex items-center gap-2">
+                      <Building2 className="w-5 h-5" /> Integración & Plantilla de Carga Masiva Previred
+                    </h3>
+                    <p className="text-xs text-neutral-300 font-light">
+                      Genera el archivo delimitado por punto y coma (<code>.csv</code>) normado para cargar directamente las cotizaciones del personal a <strong>Previred.com</strong>.
+                    </p>
+                  </div>
+
+                  <button
+                    onClick={handleExportPrevired}
+                    className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-5 py-3 rounded-xl transition-all shadow-lg flex items-center gap-2 font-mono text-xs cursor-pointer shrink-0"
+                  >
+                    <Download className="w-4 h-4" /> Exportar Nómina Previred (.csv)
+                  </button>
+                </div>
+
+                <div className="bg-[#181614] border border-white/10 rounded-2xl overflow-hidden shadow-xl">
+                  <table className="w-full text-left text-xs font-mono">
+                    <thead className="bg-stone-900 border-b border-white/10 text-sand uppercase text-[10px]">
+                      <tr>
+                        <th className="p-3.5">RUT</th>
+                        <th className="p-3.5">Trabajador</th>
+                        <th className="p-3.5">AFP</th>
+                        <th className="p-3.5">Salud</th>
+                        <th className="p-3.5">Mutualidad</th>
+                        <th className="p-3.5 text-right">Sueldo Imponible</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-white/5">
+                      {filteredCollabs.map((collab) => (
+                        <tr key={collab.id} className="hover:bg-white/[0.02]">
+                          <td className="p-3.5 text-sand font-bold">{collab.rut}</td>
+                          <td className="p-3.5 text-cream font-sans font-bold">{collab.nombre}</td>
+                          <td className="p-3.5 text-neutral-300">{collab.afp}</td>
+                          <td className="p-3.5 text-neutral-300">{collab.salud}</td>
+                          <td className="p-3.5 text-neutral-400">{collab.mutual || 'Mutual CChC'}</td>
+                          <td className="p-3.5 text-right font-bold text-emerald-400">
+                            ${collab.sueldoBase.toLocaleString('es-CL')} CLP
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )}
+
+            {/* PESTAÑA 4: VACACIONES */}
             {activeTab === 'vacaciones' && (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {filteredCollabs.map((collab) => {
@@ -594,7 +838,7 @@ export function RrhhAdminSection() {
               </div>
             )}
 
-            {/* PESTAÑA 4: SUELDOS & LIQUIDACIONES */}
+            {/* PESTAÑA 5: SUELDOS & LIQUIDACIONES */}
             {activeTab === 'sueldos' && (
               <div className="bg-[#181614] border border-white/10 rounded-2xl overflow-hidden shadow-xl">
                 <table className="w-full text-left text-xs font-mono">
@@ -630,7 +874,7 @@ export function RrhhAdminSection() {
               </div>
             )}
 
-            {/* PESTAÑA 5: EPP & PREVENCIÓN */}
+            {/* PESTAÑA 6: EPP & PREVENCIÓN */}
             {activeTab === 'epp' && (
               <div className="space-y-4">
                 {filteredCollabs.map((collab) => (
@@ -659,6 +903,183 @@ export function RrhhAdminSection() {
                 ))}
               </div>
             )}
+          </div>
+        )}
+
+        {/* MODAL EXPEDIENTE DOCUMENTAL DEL TRABAJADOR */}
+        {showDocModal && selectedCollab && (
+          <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+            <div className="bg-[#181614] border border-sand/40 rounded-3xl max-w-3xl w-full p-6 space-y-6 shadow-2xl animate-fade-in relative my-8">
+              <button
+                onClick={() => setShowDocModal(false)}
+                className="absolute top-5 right-5 text-neutral-400 hover:text-cream p-1"
+              >
+                <X className="w-5 h-5" />
+              </button>
+
+              <div className="space-y-1 border-b border-white/10 pb-4">
+                <span className="text-[10px] font-mono text-sand uppercase font-bold">Expediente Digital</span>
+                <h2 className="font-heading text-xl font-bold text-cream flex items-center gap-2">
+                  <FolderOpen className="w-5 h-5 text-sand" /> Documentos de {selectedCollab.nombre}
+                </h2>
+                <p className="text-xs text-neutral-400 font-mono">
+                  RUT: {selectedCollab.rut} | Cargo: {selectedCollab.cargo}
+                </p>
+              </div>
+
+              {/* FORMULARIO ADJUNTAR DOCUMENTO */}
+              <form onSubmit={handleSaveDocument} className="bg-stone-900 border border-white/10 rounded-2xl p-4 space-y-4">
+                <h3 className="text-xs font-bold text-sand uppercase tracking-wider flex items-center gap-1.5 font-mono">
+                  <Plus className="w-3.5 h-3.5" /> Adjuntar Nuevo Documento al Expediente
+                </h3>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div>
+                    <label className="text-[10px] font-mono uppercase text-neutral-400 block mb-1">
+                      Nombre / Título del Documento *
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      placeholder="Ej. Contrato Plazo Fijo 2026.pdf"
+                      value={docTitle}
+                      onChange={(e) => setDocTitle(e.target.value)}
+                      className="w-full bg-[#181614] border border-white/10 text-cream rounded-xl p-2.5 text-xs focus:outline-none focus:border-sand"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="text-[10px] font-mono uppercase text-neutral-400 block mb-1">
+                      Categoría
+                    </label>
+                    <select
+                      value={docCategory}
+                      onChange={(e) => setDocCategory(e.target.value as CollaboratorDocument['category'])}
+                      className="w-full bg-[#181614] border border-white/10 text-cream rounded-xl p-2.5 text-xs focus:outline-none focus:border-sand font-mono cursor-pointer"
+                    >
+                      <option value="Contratos & Anexos">Contratos & Anexos</option>
+                      <option value="Liquidaciones de Sueldo">Liquidaciones de Sueldo</option>
+                      <option value="Licencias & Permisos">Licencias & Permisos</option>
+                      <option value="Prevención & EPP">Prevención & EPP (Exámenes/Mutual)</option>
+                      <option value="Documentación Personal">Documentación Personal (Carnet/AFP)</option>
+                    </select>
+                  </div>
+                </div>
+
+                {/* MODOS DE SUBIDA (SUBIR ARCHIVO DIRECTO O LINK DE GOOGLE DRIVE) */}
+                <div className="space-y-2">
+                  <div className="flex items-center gap-4 text-xs font-mono">
+                    <label className="flex items-center gap-1.5 cursor-pointer text-sand">
+                      <input
+                        type="radio"
+                        name="mode"
+                        checked={docUrlMode === 'upload'}
+                        onChange={() => setDocUrlMode('upload')}
+                        className="accent-sand"
+                      />
+                      <UploadCloud className="w-3.5 h-3.5" /> Subir Archivo PDF/Foto Directo a la Web
+                    </label>
+
+                    <label className="flex items-center gap-1.5 cursor-pointer text-neutral-300">
+                      <input
+                        type="radio"
+                        name="mode"
+                        checked={docUrlMode === 'drive'}
+                        onChange={() => setDocUrlMode('drive')}
+                        className="accent-sand"
+                      />
+                      <ExternalLink className="w-3.5 h-3.5" /> Enlace a Google Drive / Cloud
+                    </label>
+                  </div>
+
+                  {docUrlMode === 'upload' ? (
+                    <input
+                      type="file"
+                      accept=".pdf,.png,.jpg,.jpeg,.doc,.docx,.xlsx"
+                      onChange={(e) => setDocFile(e.target.files?.[0] || null)}
+                      className="w-full bg-[#181614] border border-white/10 text-neutral-300 rounded-xl p-2 text-xs font-mono"
+                    />
+                  ) : (
+                    <input
+                      type="url"
+                      placeholder="Ej. https://drive.google.com/file/d/..."
+                      value={docDriveUrl}
+                      onChange={(e) => setDocDriveUrl(e.target.value)}
+                      className="w-full bg-[#181614] border border-white/10 text-cream rounded-xl p-2.5 text-xs focus:outline-none focus:border-sand font-mono"
+                    />
+                  )}
+                </div>
+
+                <div className="flex justify-between items-center pt-1">
+                  <input
+                    type="text"
+                    placeholder="Fecha Vencimiento (ej. 2026-12-31 o N/A)"
+                    value={docExpiration}
+                    onChange={(e) => setDocExpiration(e.target.value)}
+                    className="bg-[#181614] border border-white/10 text-cream rounded-xl p-2 text-xs font-mono w-56"
+                  />
+
+                  <button
+                    type="submit"
+                    disabled={uploadingDoc}
+                    className="bg-sand text-carbon hover:bg-[#a38b72] px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer"
+                  >
+                    {uploadingDoc ? 'Guardando...' : 'Adjuntar Documento'}
+                  </button>
+                </div>
+              </form>
+
+              {/* CARPETAS Y ARCHIVOS DEL TRABAJADOR */}
+              <div className="space-y-3">
+                <h3 className="text-xs font-bold text-neutral-400 uppercase tracking-wider font-mono">
+                  Documentos Registrados en Carpeta ({selectedCollab.documentos?.length || 0})
+                </h3>
+
+                {!selectedCollab.documentos || selectedCollab.documentos.length === 0 ? (
+                  <div className="bg-stone-900 border border-white/5 rounded-2xl p-6 text-center text-xs text-neutral-400 font-mono">
+                    No hay documentos adjuntos en el expediente de {selectedCollab.nombre}.
+                  </div>
+                ) : (
+                  <div className="space-y-2 max-h-60 overflow-y-auto pr-1">
+                    {selectedCollab.documentos.map((doc) => (
+                      <div
+                        key={doc.id}
+                        className="bg-stone-900 border border-white/10 hover:border-sand/40 rounded-xl p-3 flex items-center justify-between text-xs font-mono"
+                      >
+                        <div className="space-y-0.5">
+                          <span className="text-[9px] uppercase font-bold text-sand bg-sand/10 px-2 py-0.5 rounded border border-sand/30 mr-2">
+                            {doc.category}
+                          </span>
+                          <span className="font-bold text-cream">{doc.title}</span>
+                          <p className="text-[10px] text-neutral-400">
+                            Subido por {doc.uploadedBy} el {doc.uploadedAt} • Vencimiento: {doc.expirationDate || 'N/A'}
+                          </p>
+                        </div>
+
+                        <div className="flex items-center gap-2 shrink-0">
+                          <a
+                            href={doc.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="bg-sand/15 hover:bg-sand text-sand hover:text-carbon border border-sand/30 font-bold px-3 py-1 rounded-lg transition-colors flex items-center gap-1 text-[11px]"
+                          >
+                            <FileText className="w-3.5 h-3.5" /> Ver Archivo
+                          </a>
+
+                          <button
+                            onClick={() => handleDeleteDoc(doc.id)}
+                            className="text-neutral-500 hover:text-red-400 p-1"
+                            title="Eliminar Documento"
+                          >
+                            <Trash2 className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
         )}
 

@@ -12,13 +12,39 @@
     "correo": "juan.perez@contrapuntoconstructora.cl",
     "afp": "Habitat",
     "salud": "Fonasa",
+    "tramoFonasa": "B",
+    "montoIsapreUF": 0,
+    "mutual": "Mutual de Seguridad CChC",
+    "afc": "Sí",
     "sueldoBase": 850000,
     "status": "Activo",
     "vacacionesTotales": 15,
     "vacacionesTomadas": 3,
     "eppEntregado": "Casco, Calzado de Seguridad S3, Chaleco Geólogo, Arnés de Altura",
     "fechaUltimoEPP": "2026-03-10",
-    "observaciones": "Examen de altura física vigencia hasta Diciembre 2026."
+    "observaciones": "Examen de altura física vigencia hasta Diciembre 2026.",
+    "documentos": [
+      {
+        "id": "doc-01",
+        "title": "Contrato de Trabajo Plazo Fijo.pdf",
+        "category": "Contratos & Anexos",
+        "format": "PDF",
+        "url": "/docs/contrato-juan-perez.pdf",
+        "uploadedAt": "2025-11-01",
+        "uploadedBy": "Valeria",
+        "expirationDate": "2026-08-15"
+      },
+      {
+        "id": "doc-02",
+        "title": "Certificado Examen Altura Física ACHS.pdf",
+        "category": "Prevención & EPP",
+        "format": "PDF",
+        "url": "https://drive.google.com/file/d/sample-exam",
+        "uploadedAt": "2026-01-15",
+        "uploadedBy": "Nicole",
+        "expirationDate": "2026-12-31"
+      }
+    ]
   },
   {
     "id": "collab-102",
@@ -33,12 +59,28 @@
     "correo": "marcelo.ito@contrapuntoconstructora.cl",
     "afp": "Cuprum",
     "salud": "Banmédica",
+    "tramoFonasa": "N/A",
+    "montoIsapreUF": 4.5,
+    "mutual": "Mutual de Seguridad CChC",
+    "afc": "Sí",
     "sueldoBase": 1400000,
     "status": "Activo",
     "vacacionesTotales": 20,
     "vacacionesTomadas": 5,
     "eppEntregado": "Casco de Seguridad con Barbiquejo, Calzado Dieléctrico",
     "fechaUltimoEPP": "2026-01-15",
-    "observaciones": "Revisión técnica de obras residenciales."
+    "observaciones": "Revisión técnica de obras residenciales.",
+    "documentos": [
+      {
+        "id": "doc-03",
+        "title": "Contrato Indefinido ITO.pdf",
+        "category": "Contratos & Anexos",
+        "format": "PDF",
+        "url": "/docs/contrato-marcelo-gomez.pdf",
+        "uploadedAt": "2024-03-15",
+        "uploadedBy": "Jean",
+        "expirationDate": "Indefinido"
+      }
+    ]
   }
 ]
