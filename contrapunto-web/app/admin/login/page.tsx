@@ -29,7 +29,7 @@ export default function AdminLoginPage() {
       const data = await res.json();
 
       if (data.success) {
-        router.push('/admin/partidas');
+        router.push('/admin');
       } else {
         setErrorMsg(data.error || 'Credenciales no válidas.');
       }

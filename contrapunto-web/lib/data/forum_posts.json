@@ -1,0 +1,19 @@
+[
+  {
+    "id": "post-1",
+    "author": "Fernando",
+    "category": "Precios & Cotizaciones",
+    "title": "Bienvenido al nuevo Panel Admin & Cotizador Supremo",
+    "content": "Estimado equipo (Nicole, Diego, Niels, Julio), ya se encuentra habilitada la base de datos dinámica de partidas en línea. Todos los cambios que realicen en /admin/partidas se reflejan automáticamente en el Cotizador Supremo.",
+    "isPinned": true,
+    "createdAt": "2026-07-27T22:00:00.000Z",
+    "comments": [
+      {
+        "id": "comm-1",
+        "author": "Diego",
+        "content": "Excelente iniciativa. Revisaré las partidas de instalaciones de salas de bombas e iluminación esta tarde.",
+        "createdAt": "2026-07-27T22:05:00.000Z"
+      }
+    ]
+  }
+]
