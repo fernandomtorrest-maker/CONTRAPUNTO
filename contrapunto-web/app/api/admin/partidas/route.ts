@@ -282,3 +282,40 @@ export async function PUT(request: NextRequest) {
     return NextResponse.json({ success: false, error: 'Error interno al actualizar partida.' }, { status: 500 });
   }
 }
+
+// DELETE: Eliminar partida existente
+export async function DELETE(request: NextRequest) {
+  try {
+    const token = request.cookies.get('admin_token')?.value;
+    if (!token || !(await verifyAdminToken(token))) {
+      return NextResponse.json({ success: false, error: 'No autorizado. Inicie sesión.' }, { status: 401 });
+    }
+
+    const { searchParams } = new URL(request.url);
+    const id = searchParams.get('id');
+
+    if (!id) {
+      return NextResponse.json({ success: false, error: 'Se requiere el ID de la partida a eliminar.' }, { status: 400 });
+    }
+
+    const db = readDatabase();
+    const filteredDb = db.filter((item) => item.id !== Number(id));
+
+    if (filteredDb.length === db.length) {
+      return NextResponse.json({ success: false, error: 'Partida no encontrada.' }, { status: 404 });
+    }
+
+    const saved = saveDatabase(filteredDb);
+    if (!saved) {
+      return NextResponse.json({ success: false, error: 'No se pudo eliminar la partida del servidor.' }, { status: 500 });
+    }
+
+    return NextResponse.json({
+      success: true,
+      message: 'Partida eliminada exitosamente.',
+    });
+  } catch (err) {
+    console.error('[DELETE Admin Partidas Error]', err);
+    return NextResponse.json({ success: false, error: 'Error interno al eliminar la partida.' }, { status: 500 });
+  }
+}

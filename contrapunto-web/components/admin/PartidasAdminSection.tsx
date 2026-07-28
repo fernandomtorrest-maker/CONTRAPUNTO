@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Plus, Search, Check, RefreshCw, AlertCircle, ArrowLeft, Database, DollarSign, Sparkles, CheckCircle2 } from 'lucide-react';
+import { Plus, Search, Check, RefreshCw, AlertCircle, ArrowLeft, Database, DollarSign, Sparkles, CheckCircle2, Trash2 } from 'lucide-react';
 import Link from 'next/link';
 
 interface DbItem {
@@ -235,6 +235,33 @@ export function PartidasAdminSection() {
       }
     } catch {
       alert('Error de conexión.');
+    }
+  };
+
+  // Eliminar partida de la BBDD
+  const handleDeletePartida = async (id: number, description: string) => {
+    if (!confirm(`¿Estás seguro de que deseas eliminar la partida "${description}"? Esta acción no se puede deshacer.`)) {
+      return;
+    }
+
+    try {
+      const res = await fetch(`/api/admin/partidas?id=${id}`, {
+        method: 'DELETE',
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        setMsgStatus({
+          type: 'success',
+          text: `Partida "${description}" eliminada correctamente.`,
+        });
+        if (editingId === id) setEditingId(null);
+        fetchPartidas();
+      } else {
+        alert(data.error || 'Error al eliminar la partida.');
+      }
+    } catch {
+      alert('Error de conexión al eliminar la partida.');
     }
   };
 
@@ -680,23 +707,47 @@ export function PartidasAdminSection() {
                           </td>
                           <td className="p-3.5 text-center">
                             {isEditing ? (
-                              <button
-                                onClick={() => handleSaveEdit(item.id)}
-                                className="bg-emerald-600 text-white px-3 py-1 rounded text-[10px] font-bold uppercase"
-                              >
-                                Guardar
-                              </button>
+                              <div className="flex items-center justify-center gap-2">
+                                <button
+                                  onClick={() => handleSaveEdit(item.id)}
+                                  className="bg-emerald-600 hover:bg-emerald-500 text-white px-2.5 py-1 rounded text-[10px] font-bold uppercase transition-colors cursor-pointer"
+                                >
+                                  Guardar
+                                </button>
+                                <button
+                                  onClick={() => handleDeletePartida(item.id, item.description)}
+                                  className="bg-red-500/20 hover:bg-red-500 text-red-300 hover:text-white border border-red-500/40 px-2 py-1 rounded text-[10px] font-bold uppercase transition-all cursor-pointer flex items-center gap-1"
+                                  title="Eliminar partida"
+                                >
+                                  <Trash2 className="w-3 h-3" /> Eliminar
+                                </button>
+                                <button
+                                  onClick={() => setEditingId(null)}
+                                  className="text-neutral-400 hover:text-cream text-[10px] underline"
+                                >
+                                  Cancelar
+                                </button>
+                              </div>
                             ) : (
-                              <button
-                                onClick={() => {
-                                  setEditingId(item.id);
-                                  setEditPriceUf(String(item.priceUf));
-                                  setEditDescription(item.description);
-                                }}
-                                className="text-neutral-400 hover:text-sand text-[11px] underline"
-                              >
-                                Editar
-                              </button>
+                              <div className="flex items-center justify-center gap-3">
+                                <button
+                                  onClick={() => {
+                                    setEditingId(item.id);
+                                    setEditPriceUf(String(item.priceUf));
+                                    setEditDescription(item.description);
+                                  }}
+                                  className="text-neutral-400 hover:text-sand text-[11px] underline cursor-pointer"
+                                >
+                                  Editar
+                                </button>
+                                <button
+                                  onClick={() => handleDeletePartida(item.id, item.description)}
+                                  className="text-neutral-500 hover:text-red-400 transition-colors p-1 rounded cursor-pointer"
+                                  title="Eliminar partida"
+                                >
+                                  <Trash2 className="w-3.5 h-3.5" />
+                                </button>
+                              </div>
                             )}
                           </td>
                         </tr>

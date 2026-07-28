@@ -1,5 +1,29 @@
 [
   {
+    "id": 60,
+    "code": "EST-MET-438",
+    "description": "Cierre pv5, perfil 50x50, cada un metro, pintura anticorrosiva, anclaje a muro o estructura metalica existente",
+    "unit": "kg",
+    "type": "Partida",
+    "priceUf": 0.6,
+    "inclusions": "Incluye: suministro de perfiles tubulares/costaneras de acero, trazado, corte mecánico, soldadura 7018, aplicación de 2 manos de pintura anticorrosiva sintética/epóxica, pernos de fijación, montaje en terreno y limpieza de obra.",
+    "porcentajeMateriales": 55,
+    "porcentajeManoObra": 40,
+    "porcentajeEquipos": 5
+  },
+  {
+    "id": 59,
+    "code": "EST-MET-534",
+    "description": "Cierre pv5, perfil 50x50, cada un metro, pintura anticorrosiva, anclaje a muro o estructura metalica existente",
+    "unit": "kg",
+    "type": "Partida",
+    "priceUf": 0.7,
+    "inclusions": "Incluye: suministro de perfiles tubulares/costaneras de acero, trazado, corte mecánico, soldadura 7018, aplicación de 2 manos de pintura anticorrosiva sintética/epóxica, pernos de fijación, montaje en terreno y limpieza de obra.",
+    "porcentajeMateriales": 55,
+    "porcentajeManoObra": 40,
+    "porcentajeEquipos": 5
+  },
+  {
     "id": 58,
     "code": "PAV-448",
     "description": "Instalacion de porcelanato negro",
