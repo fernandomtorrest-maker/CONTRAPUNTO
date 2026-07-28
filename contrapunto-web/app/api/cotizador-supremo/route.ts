@@ -1,6 +1,21 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { env } from '@/lib/env';
-import bbddPuData from '@/lib/data/bbdd_pu.json';
+import fs from 'fs';
+import path from 'path';
+
+const DATA_FILE_PATH = path.join(process.cwd(), 'lib', 'data', 'bbdd_pu.json');
+
+function getDynamicDatabase(): DbItem[] {
+  try {
+    if (fs.existsSync(DATA_FILE_PATH)) {
+      const fileData = fs.readFileSync(DATA_FILE_PATH, 'utf-8');
+      return JSON.parse(fileData);
+    }
+  } catch (err) {
+    console.error('[Cotizador Supremo] Error al leer BBDD dinámica:', err);
+  }
+  return [];
+}
 
 // Normalize strings for comparison (lowercase, strip accents, remove non-alphanumeric)
 function normalizeText(text: string): string {
@@ -22,6 +37,9 @@ interface DbItem {
   type: string;
   priceUf: number;
   inclusions?: string;
+  porcentajeMateriales?: number;
+  porcentajeManoObra?: number;
+  porcentajeEquipos?: number;
 }
 
 function matchDatabaseItem(searchTerm: string, userUnit: string): { matched: DbItem | null; alternatives: DbItem[] } {
@@ -32,7 +50,7 @@ function matchDatabaseItem(searchTerm: string, userUnit: string): { matched: DbI
     searchWords.push(cleanSearch);
   }
 
-  const items = bbddPuData as DbItem[];
+  const items = getDynamicDatabase();
   const candidates: { item: DbItem; score: number }[] = [];
 
   for (const item of items) {

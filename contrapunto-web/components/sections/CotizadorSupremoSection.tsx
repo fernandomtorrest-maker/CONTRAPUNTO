@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Sparkles, Trash2, Search, Plus, Copy, Check, RefreshCw, AlertCircle, HelpCircle, Download } from 'lucide-react';
-import bbddPuData from '@/lib/data/bbdd_pu.json';
 
 interface DbItem {
   id: number;
@@ -85,23 +84,34 @@ export default function CotizadorSupremoSection() {
     costoMateriales: 0
   });
 
-  // Perform client-side manual search
+  // Buscador manual dinámico que consulta la BBDD en tiempo real
   useEffect(() => {
     if (searchQuery.trim().length < 2) {
       setSearchResults([]);
       return;
     }
 
-    const items = bbddPuData as DbItem[];
-    const filtered = items
-      .filter(item => 
-        item.type === 'Partida' && 
-        (item.description.toLowerCase().includes(searchQuery.toLowerCase()) || 
-         item.code.toLowerCase().includes(searchQuery.toLowerCase()))
-      )
-      .slice(0, 10); // limit to top 10
+    const fetchMatchingPartidas = async () => {
+      try {
+        const res = await fetch('/api/admin/partidas', { cache: 'no-store' });
+        const data = await res.json();
+        if (data.success && Array.isArray(data.data)) {
+          const items: DbItem[] = data.data;
+          const filtered = items
+            .filter(item => 
+              (item.type === 'Partida' || !item.type) && 
+              (item.description.toLowerCase().includes(searchQuery.toLowerCase()) || 
+               item.code.toLowerCase().includes(searchQuery.toLowerCase()))
+            )
+            .slice(0, 10);
+          setSearchResults(filtered);
+        }
+      } catch (err) {
+        console.error('Error al consultar buscador dinámico:', err);
+      }
+    };
 
-    setSearchResults(filtered);
+    fetchMatchingPartidas();
   }, [searchQuery]);
 
   // Submit NLP prompt to API
