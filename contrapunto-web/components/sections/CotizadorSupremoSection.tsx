@@ -13,6 +13,9 @@ interface DbItem {
   type: string;
   priceUf: number;
   inclusions?: string;
+  porcentajeMateriales?: number;
+  porcentajeManoObra?: number;
+  porcentajeEquipos?: number;
 }
 
 interface ParsedResultItem {
@@ -41,6 +44,9 @@ interface QuoteItem {
   quantity: number;
   priceUf: number;
   inclusions?: string;
+  porcentajeMateriales?: number;
+  porcentajeManoObra?: number;
+  porcentajeEquipos?: number;
   alternatives: Array<{
     id: number;
     code: string;
@@ -905,6 +911,16 @@ export default function CotizadorSupremoSection() {
                                 <span>{item.inclusions}</span>
                               </div>
                             )}
+
+                            {/* Desglose APU Mano de Obra vs Materiales */}
+                            <div className="mt-1.5 flex flex-wrap items-center gap-1.5 font-mono text-[9px]">
+                              <span className="bg-stone-900 border border-stone-800 px-2 py-0.5 rounded text-amber-300">
+                                📦 Mat ({item.porcentajeMateriales || 50}%): ${Math.round((totalItemClp * (item.porcentajeMateriales || 50)) / 100).toLocaleString('es-CL')}
+                              </span>
+                              <span className="bg-stone-900 border border-stone-800 px-2 py-0.5 rounded text-emerald-400">
+                                🔨 MO ({item.porcentajeManoObra || 45}%): ${Math.round((totalItemClp * (item.porcentajeManoObra || 45)) / 100).toLocaleString('es-CL')}
+                              </span>
+                            </div>
                             {/* Alternative matching notification & switcher dropdown */}
                             {item.alternatives.length > 0 && (
                               <div className="mt-1 flex items-center gap-1.5">

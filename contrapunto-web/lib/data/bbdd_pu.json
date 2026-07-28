@@ -6,7 +6,10 @@
     "unit": "m2",
     "type": "Partida",
     "priceUf": 0.8,
-    "inclusions": "Incluye: preparación de terreno, moldajes de madera, colocación de malla ACMA C-92, vaciado de hormigón H20 y nivelación de terminación."
+    "inclusions": "Incluye: preparación de terreno, moldajes de madera, colocación de malla ACMA C-92, vaciado de hormigón H20 y nivelación de terminación.",
+    "porcentajeMateriales": 55,
+    "porcentajeManoObra": 40,
+    "porcentajeEquipos": 5
   },
   {
     "id": 1,
@@ -15,7 +18,10 @@
     "unit": "m2",
     "type": "Partida",
     "priceUf": 0.266667,
-    "inclusions": "Incluye: preparación de superficie, lijado, sellado, empaste en fisuras leves, 2 manos de látex extra y 2 manos de esmalte al agua de terminación."
+    "inclusions": "Incluye: preparación de superficie, lijado, sellado, empaste en fisuras leves, 2 manos de látex extra y 2 manos de esmalte al agua de terminación.",
+    "porcentajeMateriales": 40,
+    "porcentajeManoObra": 55,
+    "porcentajeEquipos": 5
   },
   {
     "id": 2,
@@ -24,7 +30,10 @@
     "unit": "m2",
     "type": "Partida",
     "priceUf": 1.066667,
-    "inclusions": "Incluye: excavación, base de estabilizado compactado, doble malla ACMA, moldajes estruct., hormigón H25 y afinado mecánico tipo helicóptero."
+    "inclusions": "Incluye: excavación, base de estabilizado compactado, doble malla ACMA, moldajes estruct., hormigón H25 y afinado mecánico tipo helicóptero.",
+    "porcentajeMateriales": 55,
+    "porcentajeManoObra": 40,
+    "porcentajeEquipos": 5
   },
   {
     "id": 3,
@@ -33,7 +42,10 @@
     "unit": "un",
     "type": "Partida",
     "priceUf": 53.333333,
-    "inclusions": "Incluye: estructura de soporte en pino impregnado, 17 huellas de madera de roble natural cepillado, fijaciones ocultas y barnizado protector."
+    "inclusions": "Incluye: estructura de soporte en pino impregnado, 17 huellas de madera de roble natural cepillado, fijaciones ocultas y barnizado protector.",
+    "porcentajeMateriales": 40,
+    "porcentajeManoObra": 55,
+    "porcentajeEquipos": 5
   },
   {
     "id": 4,
@@ -42,7 +54,10 @@
     "unit": "m2",
     "type": "Partida",
     "priceUf": 0.933333,
-    "inclusions": "Incluye: colocación de piso vinílico SPC, perfiles de transición, guardapolvos de MDF/PVC y junquillos perimetrales."
+    "inclusions": "Incluye: colocación de piso vinílico SPC, perfiles de transición, guardapolvos de MDF/PVC y junquillos perimetrales.",
+    "porcentajeMateriales": 40,
+    "porcentajeManoObra": 55,
+    "porcentajeEquipos": 5
   },
   {
     "id": 5,
@@ -51,7 +66,10 @@
     "unit": "punto",
     "type": "Partida",
     "priceUf": 0.933333,
-    "inclusions": "Incluye: trazado, canalizado con tubería flexible Conduit PVC, cableado de cobre (Eva), caja de derivación y placa armada de interruptor o enchufe."
+    "inclusions": "Incluye: trazado, canalizado con tubería flexible Conduit PVC, cableado de cobre (Eva), caja de derivación y placa armada de interruptor o enchufe.",
+    "porcentajeMateriales": 50,
+    "porcentajeManoObra": 45,
+    "porcentajeEquipos": 5
   },
   {
     "id": 6,
@@ -60,7 +78,10 @@
     "unit": "m2",
     "type": "Partida",
     "priceUf": 1.6,
-    "inclusions": "Incluye: cerchas estructurales de pino, costaneras, planchas de zinc acanalado, aislación lana de vidrio, membrana hidrófuga, listones escurridores, caballetes y hojalatería."
+    "inclusions": "Incluye: cerchas estructurales de pino, costaneras, planchas de zinc acanalado, aislación lana de vidrio, membrana hidrófuga, listones escurridores, caballetes y hojalatería.",
+    "porcentajeMateriales": 50,
+    "porcentajeManoObra": 45,
+    "porcentajeEquipos": 5
   },
   {
     "id": 7,
@@ -69,7 +90,10 @@
     "unit": "m3",
     "type": "Partida",
     "priceUf": 0.8,
-    "inclusions": "Incluye: recolección de escombros en obra, carga manual, traslado en camión y depósito en botadero autorizado con correspondiente certificación."
+    "inclusions": "Incluye: recolección de escombros en obra, carga manual, traslado en camión y depósito en botadero autorizado con correspondiente certificación.",
+    "porcentajeMateriales": 50,
+    "porcentajeManoObra": 45,
+    "porcentajeEquipos": 5
   },
   {
     "id": 8,
@@ -78,7 +102,10 @@
     "unit": "m2",
     "type": "Partida",
     "priceUf": 1.066667,
-    "inclusions": "Incluye: vigas de pino impregnado (2x10\", 2x6\", 2x4\"), anclajes metálicos de soporte, pernos, fijaciones estructurales y nivelado de vigas de piso."
+    "inclusions": "Incluye: vigas de pino impregnado (2x10\", 2x6\", 2x4\"), anclajes metálicos de soporte, pernos, fijaciones estructurales y nivelado de vigas de piso.",
+    "porcentajeMateriales": 40,
+    "porcentajeManoObra": 55,
+    "porcentajeEquipos": 5
   },
   {
     "id": 9,
@@ -87,7 +114,10 @@
     "unit": "m2",
     "type": "Partida",
     "priceUf": 2.81736,
-    "inclusions": "Incluye: perfiles estructurales de acero ligeros y anclajes perimetrales para subdivisiones de local comercial."
+    "inclusions": "Incluye: perfiles estructurales de acero ligeros y anclajes perimetrales para subdivisiones de local comercial.",
+    "porcentajeMateriales": 50,
+    "porcentajeManoObra": 45,
+    "porcentajeEquipos": 5
   },
   {
     "id": 10,
@@ -96,7 +126,10 @@
     "unit": "m2",
     "type": "Partida",
     "priceUf": 4.267354,
-    "inclusions": "Incluye: encamisado de tabiques de cartón-yeso (Volcanita), empastado general, lijado y pintura de terminación comercial."
+    "inclusions": "Incluye: encamisado de tabiques de cartón-yeso (Volcanita), empastado general, lijado y pintura de terminación comercial.",
+    "porcentajeMateriales": 50,
+    "porcentajeManoObra": 45,
+    "porcentajeEquipos": 5
   },
   {
     "id": 11,
@@ -105,7 +138,10 @@
     "unit": "m2",
     "type": "Partida",
     "priceUf": 4.693678,
-    "inclusions": "Incluye: canalizaciones de fuerza, tendido de cables de cobre, tableros eléctricos de distribución y protecciones comerciales."
+    "inclusions": "Incluye: canalizaciones de fuerza, tendido de cables de cobre, tableros eléctricos de distribución y protecciones comerciales.",
+    "porcentajeMateriales": 50,
+    "porcentajeManoObra": 45,
+    "porcentajeEquipos": 5
   },
   {
     "id": 12,
@@ -114,7 +150,10 @@
     "unit": "m2",
     "type": "Partida",
     "priceUf": 0.228355,
-    "inclusions": "Incluye: tuberías de agua potable y alcantarillado PVC/PPR interior para baños de personal y áreas de servicio."
+    "inclusions": "Incluye: tuberías de agua potable y alcantarillado PVC/PPR interior para baños de personal y áreas de servicio.",
+    "porcentajeMateriales": 50,
+    "porcentajeManoObra": 45,
+    "porcentajeEquipos": 5
   },
   {
     "id": 13,
@@ -123,7 +162,10 @@
     "unit": "m2",
     "type": "Partida",
     "priceUf": 4.082114,
-    "inclusions": "Incluye: unidades de aire acondicionado split mural, cañerías de cobre refrigerante aisladas y termostatos de control."
+    "inclusions": "Incluye: unidades de aire acondicionado split mural, cañerías de cobre refrigerante aisladas y termostatos de control.",
+    "porcentajeMateriales": 50,
+    "porcentajeManoObra": 45,
+    "porcentajeEquipos": 5
   },
   {
     "id": 14,
@@ -132,7 +174,10 @@
     "unit": "m2",
     "type": "Partida",
     "priceUf": 0.039904,
-    "inclusions": "Incluye: aplicación de membranas asfálticas o elastómeros líquidos en zonas húmedas para evitar filtraciones."
+    "inclusions": "Incluye: aplicación de membranas asfálticas o elastómeros líquidos en zonas húmedas para evitar filtraciones.",
+    "porcentajeMateriales": 50,
+    "porcentajeManoObra": 45,
+    "porcentajeEquipos": 5
   },
   {
     "id": 15,
@@ -141,7 +186,10 @@
     "unit": "m2",
     "type": "Partida",
     "priceUf": 2.07878,
-    "inclusions": "Incluye: colocación de focos comerciales LED embutidos, focos de riel direccionales y cableados de control de encendido."
+    "inclusions": "Incluye: colocación de focos comerciales LED embutidos, focos de riel direccionales y cableados de control de encendido.",
+    "porcentajeMateriales": 50,
+    "porcentajeManoObra": 45,
+    "porcentajeEquipos": 5
   },
   {
     "id": 16,
@@ -150,7 +198,10 @@
     "unit": "m2",
     "type": "Partida",
     "priceUf": 2.152321,
-    "inclusions": "Incluye: trazado de tuberías de red húmeda de rociadores contra incendio (sprinklers) y detectores de humo direccionables."
+    "inclusions": "Incluye: trazado de tuberías de red húmeda de rociadores contra incendio (sprinklers) y detectores de humo direccionables.",
+    "porcentajeMateriales": 50,
+    "porcentajeManoObra": 45,
+    "porcentajeEquipos": 5
   },
   {
     "id": 17,
@@ -159,7 +210,10 @@
     "unit": "m2",
     "type": "Partida",
     "priceUf": 0.067894,
-    "inclusions": "Incluye: habilitación de sala de acopio de residuos con revestimiento lavable y contenedores de clasificación reglamentarios."
+    "inclusions": "Incluye: habilitación de sala de acopio de residuos con revestimiento lavable y contenedores de clasificación reglamentarios.",
+    "porcentajeMateriales": 50,
+    "porcentajeManoObra": 45,
+    "porcentajeEquipos": 5
   },
   {
     "id": 18,
@@ -168,7 +222,10 @@
     "unit": "m2",
     "type": "Partida",
     "priceUf": 0.097273,
-    "inclusions": "Incluye: cierros provisorios opacos perimetrales de obra, casetas de inspección, oficinas de terreno y conexión de servicios provisorios."
+    "inclusions": "Incluye: cierros provisorios opacos perimetrales de obra, casetas de inspección, oficinas de terreno y conexión de servicios provisorios.",
+    "porcentajeMateriales": 50,
+    "porcentajeManoObra": 45,
+    "porcentajeEquipos": 5
   },
   {
     "id": 19,
@@ -177,7 +234,10 @@
     "unit": "m2",
     "type": "Partida",
     "priceUf": 0.983113,
-    "inclusions": "Incluye: anclaje e instalación de mostradores de atención, percheros murales fijos y vitrinas comerciales modulares."
+    "inclusions": "Incluye: anclaje e instalación de mostradores de atención, percheros murales fijos y vitrinas comerciales modulares.",
+    "porcentajeMateriales": 50,
+    "porcentajeManoObra": 45,
+    "porcentajeEquipos": 5
   },
   {
     "id": 20,
@@ -186,7 +246,10 @@
     "unit": "m2",
     "type": "Partida",
     "priceUf": 8.0,
-    "inclusions": "Incluye: cimientos, sobrecimientos, radier, estructura pino 2x4\", OSB 9.5mm, membrana hidrófuga y aislación térmica según norma Zona Centro."
+    "inclusions": "Incluye: cimientos, sobrecimientos, radier, estructura pino 2x4\", OSB 9.5mm, membrana hidrófuga y aislación térmica según norma Zona Centro.",
+    "porcentajeMateriales": 40,
+    "porcentajeManoObra": 55,
+    "porcentajeEquipos": 5
   },
   {
     "id": 21,
@@ -195,7 +258,10 @@
     "unit": "m2",
     "type": "Partida",
     "priceUf": 10.0,
-    "inclusions": "Incluye: cimientos, sobrecimientos, radier, estructura Metalcon 90mm, OSB 9.5mm, aislación térmica y membrana hidrófuga exterior."
+    "inclusions": "Incluye: cimientos, sobrecimientos, radier, estructura Metalcon 90mm, OSB 9.5mm, aislación térmica y membrana hidrófuga exterior.",
+    "porcentajeMateriales": 50,
+    "porcentajeManoObra": 45,
+    "porcentajeEquipos": 5
   },
   {
     "id": 22,
@@ -204,7 +270,10 @@
     "unit": "m2",
     "type": "Partida",
     "priceUf": 11.0,
-    "inclusions": "Incluye: cimientos, sobrecimientos, radier, paneles SIP 90/120mm, pie derecho calibrado de pino, pernos de anclaje y adhesivo estructural."
+    "inclusions": "Incluye: cimientos, sobrecimientos, radier, paneles SIP 90/120mm, pie derecho calibrado de pino, pernos de anclaje y adhesivo estructural.",
+    "porcentajeMateriales": 50,
+    "porcentajeManoObra": 45,
+    "porcentajeEquipos": 5
   },
   {
     "id": 23,
@@ -213,7 +282,10 @@
     "unit": "m2",
     "type": "Partida",
     "priceUf": 13.0,
-    "inclusions": "Incluye: cimientos, sobrecimientos, radier, muros de ladrillo princesa o fiscal, pilares/cadenas de hormigón armado H20/H25 y enfierraduras."
+    "inclusions": "Incluye: cimientos, sobrecimientos, radier, muros de ladrillo princesa o fiscal, pilares/cadenas de hormigón armado H20/H25 y enfierraduras.",
+    "porcentajeMateriales": 50,
+    "porcentajeManoObra": 45,
+    "porcentajeEquipos": 5
   },
   {
     "id": 24,
@@ -222,7 +294,10 @@
     "unit": "m2",
     "type": "Partida",
     "priceUf": 16.0,
-    "inclusions": "Incluye: cimientos, sobrecimientos, radier, muros y losas de hormigón H25/H30, doble malla fierro A630-420H y moldajes estruct. terciado."
+    "inclusions": "Incluye: cimientos, sobrecimientos, radier, muros y losas de hormigón H25/H30, doble malla fierro A630-420H y moldajes estruct. terciado.",
+    "porcentajeMateriales": 50,
+    "porcentajeManoObra": 45,
+    "porcentajeEquipos": 5
   },
   {
     "id": 25,
@@ -231,7 +306,10 @@
     "unit": "m2",
     "type": "Partida",
     "priceUf": 1.0,
-    "inclusions": "Incluye: tablas de siding de fibrocemento, costaneras de madera, membrana hidrófuga, tornillos de fijación y esmalte de terminación al agua."
+    "inclusions": "Incluye: tablas de siding de fibrocemento, costaneras de madera, membrana hidrófuga, tornillos de fijación y esmalte de terminación al agua.",
+    "porcentajeMateriales": 40,
+    "porcentajeManoObra": 55,
+    "porcentajeEquipos": 5
   },
   {
     "id": 26,
@@ -240,7 +318,10 @@
     "unit": "m2",
     "type": "Partida",
     "priceUf": 1.4,
-    "inclusions": "Incluye: fachaletas de piedra natural, adhesivo cementicio flexible (tipo Bekron AC), fraguado de juntas y sellador hidrorrepelente exterior."
+    "inclusions": "Incluye: fachaletas de piedra natural, adhesivo cementicio flexible (tipo Bekron AC), fraguado de juntas y sellador hidrorrepelente exterior.",
+    "porcentajeMateriales": 50,
+    "porcentajeManoObra": 45,
+    "porcentajeEquipos": 5
   },
   {
     "id": 27,
@@ -249,7 +330,10 @@
     "unit": "m2",
     "type": "Partida",
     "priceUf": 0.8,
-    "inclusions": "Incluye: perfiles de siding de PVC vinílico, perfiles metálicos de fijación, tornillos, barrera de humedad y remates de esquinas."
+    "inclusions": "Incluye: perfiles de siding de PVC vinílico, perfiles metálicos de fijación, tornillos, barrera de humedad y remates de esquinas.",
+    "porcentajeMateriales": 50,
+    "porcentajeManoObra": 45,
+    "porcentajeEquipos": 5
   },
   {
     "id": 28,
@@ -258,7 +342,10 @@
     "unit": "m2",
     "type": "Partida",
     "priceUf": 1.0,
-    "inclusions": "Incluye: porcelanato de muros, adhesivo en pasta flexible (Bekron DA o similar), separadores autonivelantes plásticos y fragüe impermeable."
+    "inclusions": "Incluye: porcelanato de muros, adhesivo en pasta flexible (Bekron DA o similar), separadores autonivelantes plásticos y fragüe impermeable.",
+    "porcentajeMateriales": 55,
+    "porcentajeManoObra": 40,
+    "porcentajeEquipos": 5
   },
   {
     "id": 29,
@@ -267,7 +354,10 @@
     "unit": "m2",
     "type": "Partida",
     "priceUf": 0.7,
-    "inclusions": "Incluye: palmetas de cerámica de muros, adhesivo cerámico en polvo, crucetas de dilatación, fraguado de juntas y sellado perimetral."
+    "inclusions": "Incluye: palmetas de cerámica de muros, adhesivo cerámico en polvo, crucetas de dilatación, fraguado de juntas y sellado perimetral.",
+    "porcentajeMateriales": 55,
+    "porcentajeManoObra": 40,
+    "porcentajeEquipos": 5
   },
   {
     "id": 30,
@@ -276,7 +366,10 @@
     "unit": "m2",
     "type": "Partida",
     "priceUf": 0.9,
-    "inclusions": "Incluye: listones de nivelación de madera, entablado de pino machihembrado, clavos sin cabeza, lijado general y 2 manos de barniz vitrificante."
+    "inclusions": "Incluye: listones de nivelación de madera, entablado de pino machihembrado, clavos sin cabeza, lijado general y 2 manos de barniz vitrificante.",
+    "porcentajeMateriales": 40,
+    "porcentajeManoObra": 55,
+    "porcentajeEquipos": 5
   },
   {
     "id": 31,
@@ -285,7 +378,10 @@
     "unit": "m2",
     "type": "Partida",
     "priceUf": 0.5,
-    "inclusions": "Incluye: empaste y lijado fino de muros de volcanita, aplicación de sellador acrílico, colocación de papel mural y pegamento especial."
+    "inclusions": "Incluye: empaste y lijado fino de muros de volcanita, aplicación de sellador acrílico, colocación de papel mural y pegamento especial.",
+    "porcentajeMateriales": 40,
+    "porcentajeManoObra": 55,
+    "porcentajeEquipos": 5
   },
   {
     "id": 32,
@@ -294,7 +390,10 @@
     "unit": "m2",
     "type": "Partida",
     "priceUf": 2.5,
-    "inclusions": "Incluye: duelas de madera de ingeniería natural, manta acústica bajo piso, adhesivo elástico/sistema click, junquillos y guardapolvos a tono."
+    "inclusions": "Incluye: duelas de madera de ingeniería natural, manta acústica bajo piso, adhesivo elástico/sistema click, junquillos y guardapolvos a tono.",
+    "porcentajeMateriales": 40,
+    "porcentajeManoObra": 55,
+    "porcentajeEquipos": 5
   },
   {
     "id": 33,
@@ -303,7 +402,10 @@
     "unit": "m2",
     "type": "Partida",
     "priceUf": 2.0,
-    "inclusions": "Incluye: tacos de parquet de madera natural, adhesivo bituminoso o epóxico, pulido/nivelación mecánica, sellado y 3 manos de vitrificante poliuretano."
+    "inclusions": "Incluye: tacos de parquet de madera natural, adhesivo bituminoso o epóxico, pulido/nivelación mecánica, sellado y 3 manos de vitrificante poliuretano.",
+    "porcentajeMateriales": 40,
+    "porcentajeManoObra": 55,
+    "porcentajeEquipos": 5
   },
   {
     "id": 34,
@@ -312,7 +414,10 @@
     "unit": "m2",
     "type": "Partida",
     "priceUf": 1.2,
-    "inclusions": "Incluye: pulido y desbaste mecánico del radier mediante discos de diamante progresivos, densificador endurecedor de litio y sellador final."
+    "inclusions": "Incluye: pulido y desbaste mecánico del radier mediante discos de diamante progresivos, densificador endurecedor de litio y sellador final.",
+    "porcentajeMateriales": 50,
+    "porcentajeManoObra": 45,
+    "porcentajeEquipos": 5
   },
   {
     "id": 35,
@@ -321,7 +426,10 @@
     "unit": "m2",
     "type": "Partida",
     "priceUf": 1.0,
-    "inclusions": "Incluye: suministro de porcelanato, adhesivo en polvo flexible para piso Bekron, cuñas autonivelantes plásticas, fragüe y guardapolvos."
+    "inclusions": "Incluye: suministro de porcelanato, adhesivo en polvo flexible para piso Bekron, cuñas autonivelantes plásticas, fragüe y guardapolvos.",
+    "porcentajeMateriales": 40,
+    "porcentajeManoObra": 55,
+    "porcentajeEquipos": 5
   },
   {
     "id": 36,
@@ -330,7 +438,10 @@
     "unit": "m2",
     "type": "Partida",
     "priceUf": 0.6,
-    "inclusions": "Incluye: palmetas de piso fotolaminado de 8mm, espuma acústica niveladora, molduras de cubrejuntas, perfiles de transición y guardapolvos."
+    "inclusions": "Incluye: palmetas de piso fotolaminado de 8mm, espuma acústica niveladora, molduras de cubrejuntas, perfiles de transición y guardapolvos.",
+    "porcentajeMateriales": 40,
+    "porcentajeManoObra": 55,
+    "porcentajeEquipos": 5
   },
   {
     "id": 37,
@@ -339,7 +450,10 @@
     "unit": "m2",
     "type": "Partida",
     "priceUf": 0.3,
-    "inclusions": "Incluye: limpieza y raspado del radier existente, aplicación de puente de adherencia acrílico (imprimación), suministro y vertido de mortero autonivelante (espesor promedio de 3 a 5 mm) y lijado suave superficial final."
+    "inclusions": "Incluye: limpieza y raspado del radier existente, aplicación de puente de adherencia acrílico (imprimación), suministro y vertido de mortero autonivelante (espesor promedio de 3 a 5 mm) y lijado suave superficial final.",
+    "porcentajeMateriales": 40,
+    "porcentajeManoObra": 55,
+    "porcentajeEquipos": 5
   },
   {
     "id": 38,
@@ -348,7 +462,10 @@
     "unit": "m2",
     "type": "Partida",
     "priceUf": 2.1,
-    "inclusions": "Incluye: cerchas de pino, placa estructurante de OSB de 11.1 mm en toda la cubierta, fieltro asfáltico impermeable, tejas asfálticas de fibra de vidrio en diseño estándar, cumbreras, hojalatería de bordes y sellado térmico."
+    "inclusions": "Incluye: cerchas de pino, placa estructurante de OSB de 11.1 mm en toda la cubierta, fieltro asfáltico impermeable, tejas asfálticas de fibra de vidrio en diseño estándar, cumbreras, hojalatería de bordes y sellado térmico.",
+    "porcentajeMateriales": 50,
+    "porcentajeManoObra": 45,
+    "porcentajeEquipos": 5
   },
   {
     "id": 39,
@@ -357,7 +474,10 @@
     "unit": "m2",
     "type": "Partida",
     "priceUf": 1.8,
-    "inclusions": "Incluye: cerchas estructuradas con perfiles de acero galvanizado (Metalcon estructural 90 mm), costaneras omega de acero, planchas de zinc acanalado, barrera de vapor, lana de vidrio de 50 mm y remates de hojalatería."
+    "inclusions": "Incluye: cerchas estructuradas con perfiles de acero galvanizado (Metalcon estructural 90 mm), costaneras omega de acero, planchas de zinc acanalado, barrera de vapor, lana de vidrio de 50 mm y remates de hojalatería.",
+    "porcentajeMateriales": 50,
+    "porcentajeManoObra": 45,
+    "porcentajeEquipos": 5
   },
   {
     "id": 40,
@@ -366,7 +486,10 @@
     "unit": "m2",
     "type": "Partida",
     "priceUf": 3.0,
-    "inclusions": "Incluye: cerchas y vigas de soporte reforzadas de pino, placa de OSB, membrana impermeable, colocación de tejas de arcilla cocida tipo colonial con mortero/fijaciones y cumbreras tradicionales."
+    "inclusions": "Incluye: cerchas y vigas de soporte reforzadas de pino, placa de OSB, membrana impermeable, colocación de tejas de arcilla cocida tipo colonial con mortero/fijaciones y cumbreras tradicionales.",
+    "porcentajeMateriales": 50,
+    "porcentajeManoObra": 45,
+    "porcentajeEquipos": 5
   },
   {
     "id": 41,
@@ -375,7 +498,10 @@
     "unit": "m2",
     "type": "Partida",
     "priceUf": 0.8,
-    "inclusions": "Incluye: desmantelado y retiro de planchas de zinc antiguas a botadero, revisión y nivelación menor de la costanera existente, suministro e instalación de planchas de zinc nuevas de 0.4 mm, tornillos autoperforantes con golilla de neopreno y caballetes nuevos."
+    "inclusions": "Incluye: desmantelado y retiro de planchas de zinc antiguas a botadero, revisión y nivelación menor de la costanera existente, suministro e instalación de planchas de zinc nuevas de 0.4 mm, tornillos autoperforantes con golilla de neopreno y caballetes nuevos.",
+    "porcentajeMateriales": 50,
+    "porcentajeManoObra": 45,
+    "porcentajeEquipos": 5
   },
   {
     "id": 42,
@@ -384,7 +510,10 @@
     "unit": "ml",
     "type": "Partida",
     "priceUf": 10.0,
-    "inclusions": "Incluye: fabricación de portón en estructura de acero con bastidor y revestimiento en madera o fierro, riel de piso, ruedas de acero, pilares de tope/guía e instalación en terreno."
+    "inclusions": "Incluye: fabricación de portón en estructura de acero con bastidor y revestimiento en madera o fierro, riel de piso, ruedas de acero, pilares de tope/guía e instalación en terreno.",
+    "porcentajeMateriales": 40,
+    "porcentajeManoObra": 55,
+    "porcentajeEquipos": 5
   },
   {
     "id": 43,
@@ -393,7 +522,10 @@
     "unit": "ml",
     "type": "Partida",
     "priceUf": 13.0,
-    "inclusions": "Incluye: fabricación de portón de acero/madera, riel, ruedas, pilares, motor eléctrico de cremallera de alto tráfico, cremallera metálica, 2 controles remotos e instalación y calibración eléctrica."
+    "inclusions": "Incluye: fabricación de portón de acero/madera, riel, ruedas, pilares, motor eléctrico de cremallera de alto tráfico, cremallera metálica, 2 controles remotos e instalación y calibración eléctrica.",
+    "porcentajeMateriales": 40,
+    "porcentajeManoObra": 55,
+    "porcentajeEquipos": 5
   },
   {
     "id": 44,
@@ -402,7 +534,10 @@
     "unit": "ml",
     "type": "Partida",
     "priceUf": 12.0,
-    "inclusions": "Incluye: diseño, fabricación e instalación de mueble base y aéreo de cocina en melamina de 18mm con cantos de PVC, bisagras con cierre suave (soft-close), cajoneras con rieles telescópicos y cubierta de cuarzo o granito."
+    "inclusions": "Incluye: diseño, fabricación e instalación de mueble base y aéreo de cocina en melamina de 18mm con cantos de PVC, bisagras con cierre suave (soft-close), cajoneras con rieles telescópicos y cubierta de cuarzo o granito.",
+    "porcentajeMateriales": 50,
+    "porcentajeManoObra": 45,
+    "porcentajeEquipos": 5
   },
   {
     "id": 45,
@@ -411,7 +546,10 @@
     "unit": "ml",
     "type": "Partida",
     "priceUf": 8.0,
-    "inclusions": "Incluye: fabricación e instalación de clóset a medida en melamina de 18mm, barra de colgar cromada, cajoneras con correderas telescópicas, tiradores metálicos, repisas interiores y puertas de abatir o correderas."
+    "inclusions": "Incluye: fabricación e instalación de clóset a medida en melamina de 18mm, barra de colgar cromada, cajoneras con correderas telescópicas, tiradores metálicos, repisas interiores y puertas de abatir o correderas.",
+    "porcentajeMateriales": 50,
+    "porcentajeManoObra": 45,
+    "porcentajeEquipos": 5
   },
   {
     "id": 46,
@@ -420,7 +558,10 @@
     "unit": "m2",
     "type": "Partida",
     "priceUf": 0.15,
-    "inclusions": "Incluye: lijado suave de muros, limpieza de polvo, 1 mano de sellador acrílico y 2 manos de pintura látex de buena cobertura para zonas secas (dormitorios, living, comedor)."
+    "inclusions": "Incluye: lijado suave de muros, limpieza de polvo, 1 mano de sellador acrílico y 2 manos de pintura látex de buena cobertura para zonas secas (dormitorios, living, comedor).",
+    "porcentajeMateriales": 55,
+    "porcentajeManoObra": 40,
+    "porcentajeEquipos": 5
   },
   {
     "id": 47,
@@ -429,7 +570,10 @@
     "unit": "m2",
     "type": "Partida",
     "priceUf": 0.2,
-    "inclusions": "Incluye: preparación de superficie, lijado, sellador acrílico y 2 manos de esmalte al agua satinado de alta lavabilidad y antihongos para zonas húmedas o de alto tráfico (baños, cocinas, pasillos)."
+    "inclusions": "Incluye: preparación de superficie, lijado, sellador acrílico y 2 manos de esmalte al agua satinado de alta lavabilidad y antihongos para zonas húmedas o de alto tráfico (baños, cocinas, pasillos).",
+    "porcentajeMateriales": 55,
+    "porcentajeManoObra": 40,
+    "porcentajeEquipos": 5
   },
   {
     "id": 48,
@@ -438,7 +582,10 @@
     "unit": "m2",
     "type": "Partida",
     "priceUf": 0.25,
-    "inclusions": "Incluye: limpieza de fachada, reparación de fisuras menores con sellador elastomérico, imprimante fijador y 2 manos de esmalte al agua de exterior de alta resistencia climática."
+    "inclusions": "Incluye: limpieza de fachada, reparación de fisuras menores con sellador elastomérico, imprimante fijador y 2 manos de esmalte al agua de exterior de alta resistencia climática.",
+    "porcentajeMateriales": 55,
+    "porcentajeManoObra": 40,
+    "porcentajeEquipos": 5
   },
   {
     "id": 49,
@@ -447,7 +594,10 @@
     "unit": "m2",
     "type": "Partida",
     "priceUf": 0.3,
-    "inclusions": "Incluye: lijado inicial de muros, aplicación de 2 a 3 manos cruzadas de pasta muro para nivelación de imperfecciones y lijado al detalle con luz de control para terminación lisa."
+    "inclusions": "Incluye: lijado inicial de muros, aplicación de 2 a 3 manos cruzadas de pasta muro para nivelación de imperfecciones y lijado al detalle con luz de control para terminación lisa.",
+    "porcentajeMateriales": 55,
+    "porcentajeManoObra": 40,
+    "porcentajeEquipos": 5
   },
   {
     "id": 50,
@@ -456,7 +606,10 @@
     "unit": "m2",
     "type": "Partida",
     "priceUf": 0.2,
-    "inclusions": "Incluye: lijado de madera en sentido de la fibra, limpieza de resinas, impregnante protector Stain y 2 manos de barniz marino o protector Stain de terminación."
+    "inclusions": "Incluye: lijado de madera en sentido de la fibra, limpieza de resinas, impregnante protector Stain y 2 manos de barniz marino o protector Stain de terminación.",
+    "porcentajeMateriales": 40,
+    "porcentajeManoObra": 55,
+    "porcentajeEquipos": 5
   },
   {
     "id": 51,
@@ -465,7 +618,10 @@
     "unit": "m2",
     "type": "Partida",
     "priceUf": 0.2,
-    "inclusions": "Incluye: reuniones de diseño, análisis de cabida básica según normativa local (PRC/OGUC), propuesta de planta de distribución, elevaciones esquemáticas, volumetría en modelo 3D conceptual y ajustes iniciales."
+    "inclusions": "Incluye: reuniones de diseño, análisis de cabida básica según normativa local (PRC/OGUC), propuesta de planta de distribución, elevaciones esquemáticas, volumetría en modelo 3D conceptual y ajustes iniciales.",
+    "porcentajeMateriales": 50,
+    "porcentajeManoObra": 45,
+    "porcentajeEquipos": 5
   },
   {
     "id": 52,
@@ -474,7 +630,10 @@
     "unit": "m2",
     "type": "Partida",
     "priceUf": 0.5,
-    "inclusions": "Incluye: planimetría completa oficial para solicitud de Permiso de Edificación (plantas, cortes, elevaciones, emplazamiento), cuadro de superficies, especificaciones técnicas de arquitectura, formularios DOM y firmas profesionales."
+    "inclusions": "Incluye: planimetría completa oficial para solicitud de Permiso de Edificación (plantas, cortes, elevaciones, emplazamiento), cuadro de superficies, especificaciones técnicas de arquitectura, formularios DOM y firmas profesionales.",
+    "porcentajeMateriales": 50,
+    "porcentajeManoObra": 45,
+    "porcentajeEquipos": 5
   },
   {
     "id": 53,
@@ -483,6 +642,9 @@
     "unit": "m2",
     "type": "Partida",
     "priceUf": 0.32,
-    "inclusions": "Incluye: visitas de medición física en terreno de la vivienda construida, digitalización a planos CAD, elaboración de expediente de regularización para presentación en dirección de obras municipales (DOM) y firma del arquitecto patrocinante."
+    "inclusions": "Incluye: visitas de medición física en terreno de la vivienda construida, digitalización a planos CAD, elaboración de expediente de regularización para presentación en dirección de obras municipales (DOM) y firma del arquitecto patrocinante.",
+    "porcentajeMateriales": 50,
+    "porcentajeManoObra": 45,
+    "porcentajeEquipos": 5
   }
 ]
