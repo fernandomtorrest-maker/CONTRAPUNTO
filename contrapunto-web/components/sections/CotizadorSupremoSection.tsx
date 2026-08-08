@@ -9,7 +9,7 @@ interface DbItem {
   code: string;
   description: string;
   unit: string;
-  type: string;
+  type?: string;
   priceUf: number;
   inclusions?: string;
   porcentajeMateriales?: number;
@@ -18,21 +18,14 @@ interface DbItem {
 }
 
 interface ParsedResultItem {
-  matchedItem: { id: number; code: string; description: string; unit: string; priceUf: number; inclusions?: string } | null;
-  alternatives: Array<{ id: number; code: string; description: string; unit: string; priceUf: number; inclusions?: string }>;
+  matchedItem: DbItem | null;
+  alternatives: DbItem[];
   originalQuery: string;
   requestedQty: number;
   requestedUnit: string;
 }
 
-interface AlternativeItem {
-  id: number;
-  code: string;
-  description: string;
-  unit: string;
-  priceUf: number;
-  inclusions?: string;
-}
+type AlternativeItem = DbItem;
 
 interface QuoteItem {
   id: string; // unique instance ID
@@ -145,6 +138,9 @@ export default function CotizadorSupremoSection() {
           quantity: resItem.requestedQty || 1,
           priceUf: matched ? matched.priceUf : 0,
           inclusions: matched ? matched.inclusions : undefined,
+          porcentajeMateriales: matched ? matched.porcentajeMateriales ?? 50 : 50,
+          porcentajeManoObra: matched ? matched.porcentajeManoObra ?? 45 : 45,
+          porcentajeEquipos: matched ? matched.porcentajeEquipos ?? 5 : 5,
           alternatives: resItem.alternatives || []
         };
       });
@@ -171,6 +167,9 @@ export default function CotizadorSupremoSection() {
       quantity: 1,
       priceUf: item.priceUf,
       inclusions: item.inclusions,
+      porcentajeMateriales: item.porcentajeMateriales ?? 50,
+      porcentajeManoObra: item.porcentajeManoObra ?? 45,
+      porcentajeEquipos: item.porcentajeEquipos ?? 5,
       alternatives: []
     };
     setQuoteItems((prev) => [...prev, newItem]);

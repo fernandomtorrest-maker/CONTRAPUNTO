@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Plus, Search, Check, RefreshCw, AlertCircle, ArrowLeft, Database, DollarSign, Sparkles, CheckCircle2, Trash2 } from 'lucide-react';
+import { Plus, Search, Check, RefreshCw, AlertCircle, ArrowLeft, Database, DollarSign, Sparkles, CheckCircle2, Trash2, Upload, FileText } from 'lucide-react';
 import Link from 'next/link';
 
 interface DbItem {
@@ -54,10 +54,49 @@ export function PartidasAdminSection() {
   const [newMoPct, setNewMoPct] = useState(45);
   const [newEqPct, setNewEqPct] = useState(5);
 
+  // Estado para carga masiva de archivos multiformato (*.xlsx, *.pdf, *.docx, *.json, *.csv)
+  const [uploadingFile, setUploadingFile] = useState(false);
+
   // Estado para edición en línea de un item específico
   const [editingId, setEditingId] = useState<number | null>(null);
   const [editPriceUf, setEditPriceUf] = useState<string>('');
   const [editDescription, setEditDescription] = useState<string>('');
+
+  // Procesar archivo adjunto multiformato
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploadingFile(true);
+    setMsgStatus(null);
+
+    const formData = new FormData();
+    formData.append('file', file);
+
+    try {
+      const res = await fetch('/api/admin/partidas/import-file', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        setMsgStatus({
+          type: 'success',
+          text: data.message || 'Partidas importadas correctamente.',
+        });
+        fetchPartidas();
+      } else {
+        setMsgStatus({ type: 'error', text: data.error || 'Error al procesar el archivo.' });
+      }
+    } catch {
+      setMsgStatus({ type: 'error', text: 'Error de conexión al importar el archivo.' });
+    } finally {
+      setUploadingFile(false);
+      // Reset input
+      e.target.value = '';
+    }
+  };
 
   // Cargar partidas desde la API
   const fetchPartidas = async () => {
@@ -323,6 +362,50 @@ export function PartidasAdminSection() {
             <span>{msgStatus.text}</span>
           </div>
         )}
+
+        {/* MÓDULO DE IMPORTACIÓN MASIVA DE ARCHIVOS MULTIFORMATO */}
+        <div className="bg-[#181614] border border-sky-500/40 rounded-3xl p-6 sm:p-8 space-y-4 shadow-2xl relative overflow-hidden">
+          <div className="flex items-center gap-3 border-b border-white/10 pb-4">
+            <div className="p-2.5 rounded-xl bg-sky-500/15 border border-sky-500/40 text-sky-400">
+              <Upload className="w-6 h-6" />
+            </div>
+            <div>
+              <h2 className="font-heading text-lg font-bold uppercase text-cream tracking-wider flex items-center gap-2">
+                Importar & Adherir Partidas Masivamente a la Base de Datos
+              </h2>
+              <span className="text-[10px] font-mono text-sky-300 uppercase tracking-widest block">
+                Arrastra o selecciona un archivo para cargar automáticamente nuevas partidas a la web
+              </span>
+            </div>
+          </div>
+
+          <div className="border-2 border-dashed border-sky-500/30 hover:border-sky-400/70 rounded-2xl p-6 text-center transition-all bg-stone-900/60 relative group">
+            <input
+              type="file"
+              accept=".xlsx,.xls,.xlsm,.csv,.pdf,.docx,.doc,.json,.txt"
+              onChange={handleFileUpload}
+              disabled={uploadingFile}
+              className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+            />
+            <div className="flex flex-col items-center justify-center space-y-2 pointer-events-none">
+              <div className="p-3 rounded-full bg-sky-500/10 text-sky-400 group-hover:scale-110 transition-transform">
+                {uploadingFile ? (
+                  <RefreshCw className="w-8 h-8 animate-spin text-sky-400" />
+                ) : (
+                  <FileText className="w-8 h-8 text-sky-400" />
+                )}
+              </div>
+              <div className="text-xs font-mono">
+                <span className="font-bold text-cream block">
+                  {uploadingFile ? 'Procesando y extrayendo partidas...' : 'Haz clic o arrastra un archivo aquí'}
+                </span>
+                <span className="text-[11px] text-neutral-400 block mt-1">
+                  Soporta formatos: <strong className="text-sky-300">*.xlsx, *.xls, *.csv, *.pdf, *.docx, *.json, *.txt</strong>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
 
         {/* MÓDULO 1: ASISTENTE DE IA EN LENGUAJE NATURAL */}
         <div className="bg-[#181614] border border-amber-500/40 rounded-3xl p-6 sm:p-8 space-y-6 shadow-2xl relative overflow-hidden">

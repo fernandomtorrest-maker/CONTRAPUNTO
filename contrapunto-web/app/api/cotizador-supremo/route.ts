@@ -34,7 +34,7 @@ interface DbItem {
   code: string;
   description: string;
   unit: string;
-  type: string;
+  type?: string;
   priceUf: number;
   inclusions?: string;
   porcentajeMateriales?: number;
