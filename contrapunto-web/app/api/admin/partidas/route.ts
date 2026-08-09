@@ -175,8 +175,9 @@ export async function POST(request: NextRequest) {
     const {
       code,
       description,
+      category,
       unit,
-      type = 'Partida',
+      type,
       priceUf,
       inclusions,
       porcentajeMateriales = 50,
@@ -200,6 +201,7 @@ export async function POST(request: NextRequest) {
       id: newId,
       code: finalCode,
       description: description.trim(),
+      category: category?.trim() || 'CAP 03 - HORMIGONES & OBRA GRUESA',
       unit: unit.trim(),
       type: type || 'Partida',
       priceUf: Number(priceUf),
@@ -239,6 +241,7 @@ export async function PUT(request: NextRequest) {
       id,
       code,
       description,
+      category,
       unit,
       priceUf,
       inclusions,
@@ -261,6 +264,7 @@ export async function PUT(request: NextRequest) {
     // Actualizar campos
     if (code !== undefined) db[index].code = code.trim();
     if (description !== undefined) db[index].description = description.trim();
+    if (category !== undefined) db[index].category = category.trim();
     if (unit !== undefined) db[index].unit = unit.trim();
     if (priceUf !== undefined) db[index].priceUf = Number(priceUf);
     if (inclusions !== undefined) db[index].inclusions = inclusions.trim();

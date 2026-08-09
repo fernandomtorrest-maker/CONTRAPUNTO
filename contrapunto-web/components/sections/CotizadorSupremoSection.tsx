@@ -103,6 +103,8 @@ export default function CotizadorSupremoSection() {
     costoMateriales: 0
   });
 
+  const [chaptersList, setChaptersList] = useState<string[]>(CHAPTERS_LIST);
+
   // Cargar BBDD completa al montar
   useEffect(() => {
     const fetchAllPartidas = async () => {
@@ -110,7 +112,18 @@ export default function CotizadorSupremoSection() {
         const res = await fetch('/api/admin/partidas', { cache: 'no-store' });
         const data = await res.json();
         if (data.success && Array.isArray(data.data)) {
-          setAllDbItems(data.data);
+          const items: DbItem[] = data.data;
+          setAllDbItems(items);
+
+          const uniqueCats = Array.from(
+            new Set(
+              items
+                .map((item) => item.category)
+                .filter((cat): cat is string => Boolean(cat && cat.trim()))
+            )
+          );
+
+          setChaptersList(prev => Array.from(new Set([...CHAPTERS_LIST, ...uniqueCats, ...prev])));
         }
       } catch (err) {
         console.error('Error al cargar BBDD completa:', err);
@@ -725,8 +738,8 @@ export default function CotizadorSupremoSection() {
                 onChange={(e) => setSelectedCategory(e.target.value)}
                 className="w-full bg-stone-950 border border-stone-800 text-cream rounded-xl p-2.5 text-xs font-mono focus:outline-none focus:border-sand"
               >
-                <option value="TODAS">Ver Todos los Capítulos (772 Partidas)</option>
-                {CHAPTERS_LIST.map((cat) => (
+                <option value="TODAS">Ver Todos los Capítulos ({allDbItems.length} Partidas)</option>
+                {chaptersList.map((cat) => (
                   <option key={cat} value={cat}>
                     {cat}
                   </option>

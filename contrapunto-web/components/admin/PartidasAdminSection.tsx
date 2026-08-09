@@ -71,21 +71,41 @@ export function PartidasAdminSection() {
   const [newMoPct, setNewMoPct] = useState(45);
   const [newEqPct, setNewEqPct] = useState(5);
 
-  // Filtro de categoría en tabla
+  // Filtro de categoría en tabla & lista dinámica de Capítulos
   const [selectedCategoryFilter, setSelectedCategoryFilter] = useState<string>('TODAS');
+  const [chaptersList, setChaptersList] = useState<string[]>(CHAPTERS_LIST);
+  const [newCategoryInput, setNewCategoryInput] = useState<string>('');
+  const [showCategoryManager, setShowCategoryManager] = useState<boolean>(false);
 
   // Estado para carga masiva de archivos multiformato (*.xlsx, *.pdf, *.docx, *.json, *.csv)
   const [uploadingFile, setUploadingFile] = useState(false);
 
-  // Estado para edición en línea de un item específico
+  // Estado para edición en línea de un item específico (incluyendo cambio de categoría)
   const [editingId, setEditingId] = useState<number | null>(null);
   const [editPriceUf, setEditPriceUf] = useState<string>('');
   const [editDescription, setEditDescription] = useState<string>('');
+  const [editCategory, setEditCategory] = useState<string>('');
 
   // Estado para desplegable Ficha APU Excel por item ID
   const [openExcelId, setOpenExcelId] = useState<number | null>(null);
   const toggleExcelView = (id: number) => {
     setOpenExcelId(prev => (prev === id ? null : id));
+  };
+
+  // Agregar nueva categoría personalizada
+  const handleAddCustomCategory = () => {
+    const trimmed = newCategoryInput.trim();
+    if (!trimmed) return;
+
+    if (!chaptersList.includes(trimmed)) {
+      setChaptersList(prev => [...prev, trimmed]);
+      setNewCategory(trimmed); // Seleccionar la nueva categoría en el formulario de creación
+      setMsgStatus({
+        type: 'success',
+        text: `¡Categoría "${trimmed}" agregada exitosamente!`
+      });
+    }
+    setNewCategoryInput('');
   };
 
   // Procesar archivo adjunto multiformato
@@ -130,8 +150,23 @@ export function PartidasAdminSection() {
     try {
       const res = await fetch('/api/admin/partidas', { cache: 'no-store' });
       const data = await res.json();
-      if (data.success) {
-        setPartidas(data.data);
+      if (data.success && Array.isArray(data.data)) {
+        const fetchedItems: DbItem[] = data.data;
+        setPartidas(fetchedItems);
+
+        // Extraer categorías únicas para poblar las opciones del selector
+        const uniqueCats = Array.from(
+          new Set(
+            fetchedItems
+              .map((item) => item.category)
+              .filter((cat): cat is string => Boolean(cat && cat.trim()))
+          )
+        );
+
+        setChaptersList(prev => {
+          const merged = new Set([...CHAPTERS_LIST, ...uniqueCats, ...prev]);
+          return Array.from(merged);
+        });
       }
     } catch (err) {
       console.error('Error fetching partidas:', err);
@@ -274,6 +309,14 @@ export function PartidasAdminSection() {
     }
   };
 
+  // Iniciar edición de una partida
+  const handleStartEdit = (item: DbItem) => {
+    setEditingId(item.id);
+    setEditDescription(item.description);
+    setEditPriceUf(String(item.priceUf));
+    setEditCategory(item.category || chaptersList[0] || 'CAP 03 - HORMIGONES & OBRA GRUESA');
+  };
+
   // Guardar edición de partida
   const handleSaveEdit = async (id: number) => {
     if (!editPriceUf || isNaN(Number(editPriceUf))) {
@@ -288,6 +331,7 @@ export function PartidasAdminSection() {
         body: JSON.stringify({
           id,
           description: editDescription,
+          category: editCategory,
           priceUf: Number(editPriceUf),
         }),
       });
@@ -637,20 +681,55 @@ export function PartidasAdminSection() {
               </div>
 
               <div className="md:col-span-3">
-                <label className="text-[10px] font-mono uppercase text-neutral-400 block mb-1">
-                  Capítulo / Categoría *
-                </label>
+                <div className="flex items-center justify-between mb-1">
+                  <label className="text-[10px] font-mono uppercase text-sand font-bold">
+                    Capítulo / Categoría *
+                  </label>
+                  <button
+                    type="button"
+                    onClick={() => setShowCategoryManager(!showCategoryManager)}
+                    className="text-[9px] font-mono text-emerald-400 hover:underline font-bold"
+                  >
+                    {showCategoryManager ? '✕ Cerrar' : '➕ Crear Nueva Categoría'}
+                  </button>
+                </div>
+
                 <select
                   value={newCategory}
                   onChange={(e) => setNewCategory(e.target.value)}
                   className="w-full bg-stone-900 border border-white/10 text-cream rounded-xl p-3 text-xs focus:outline-none focus:border-sand font-mono"
                 >
-                  {CHAPTERS_LIST.map((cat) => (
+                  {chaptersList.map((cat) => (
                     <option key={cat} value={cat}>
                       {cat}
                     </option>
                   ))}
                 </select>
+
+                {/* Panel desplegable para agregar nueva categoría */}
+                {showCategoryManager && (
+                  <div className="mt-2.5 bg-stone-950 p-3 rounded-xl border border-emerald-500/30 space-y-2">
+                    <span className="block text-[10px] font-mono text-emerald-300 font-bold uppercase">
+                      Crear Categoría Personalizada:
+                    </span>
+                    <div className="flex gap-2">
+                      <input
+                        type="text"
+                        placeholder="Ej: CAP 13 - OBRAS EXTERIORES"
+                        value={newCategoryInput}
+                        onChange={(e) => setNewCategoryInput(e.target.value)}
+                        className="flex-1 bg-stone-900 border border-white/10 text-cream text-xs p-2 rounded-lg font-mono focus:outline-none focus:border-emerald-400"
+                      />
+                      <button
+                        type="button"
+                        onClick={handleAddCustomCategory}
+                        className="bg-emerald-600 hover:bg-emerald-500 text-white font-mono font-bold text-xs px-3 py-2 rounded-lg transition-colors"
+                      >
+                        Guardar
+                      </button>
+                    </div>
+                  </div>
+                )}
               </div>
 
               <div className="md:col-span-3">
@@ -761,7 +840,7 @@ export function PartidasAdminSection() {
                   className="bg-stone-900 border border-white/20 text-cream rounded-lg px-2.5 py-1 text-xs focus:outline-none focus:border-sand"
                 >
                   <option value="TODAS">Ver Todos los Capítulos ({partidas.length})</option>
-                  {CHAPTERS_LIST.map((cat) => (
+                  {chaptersList.map((cat) => (
                     <option key={cat} value={cat}>
                       {cat}
                     </option>
@@ -813,12 +892,35 @@ export function PartidasAdminSection() {
                           <td className="p-3.5 text-sand font-bold">{item.code}</td>
                           <td className="p-3.5 text-cream font-sans font-medium max-w-xs sm:max-w-md">
                             {isEditing ? (
-                              <input
-                                type="text"
-                                value={editDescription}
-                                onChange={(e) => setEditDescription(e.target.value)}
-                                className="w-full bg-stone-900 border border-sand text-cream p-1.5 rounded text-xs"
-                              />
+                              <div className="space-y-2">
+                                <div>
+                                  <label className="text-[9px] font-mono text-sand font-bold block mb-0.5 uppercase">
+                                    Capítulo / Categoría:
+                                  </label>
+                                  <select
+                                    value={editCategory}
+                                    onChange={(e) => setEditCategory(e.target.value)}
+                                    className="w-full bg-stone-900 border border-sand text-cream p-1.5 rounded text-xs font-mono"
+                                  >
+                                    {chaptersList.map((cat) => (
+                                      <option key={cat} value={cat}>
+                                        {cat}
+                                      </option>
+                                    ))}
+                                  </select>
+                                </div>
+                                <div>
+                                  <label className="text-[9px] font-mono text-neutral-400 block mb-0.5 uppercase">
+                                    Descripción:
+                                  </label>
+                                  <input
+                                    type="text"
+                                    value={editDescription}
+                                    onChange={(e) => setEditDescription(e.target.value)}
+                                    className="w-full bg-stone-900 border border-sand text-cream p-1.5 rounded text-xs"
+                                  />
+                                </div>
+                              </div>
                             ) : (
                               <div>
                                 {item.category && (
@@ -960,12 +1062,8 @@ export function PartidasAdminSection() {
                             ) : (
                               <div className="flex items-center justify-center gap-3">
                                 <button
-                                  onClick={() => {
-                                    setEditingId(item.id);
-                                    setEditPriceUf(String(item.priceUf));
-                                    setEditDescription(item.description);
-                                  }}
-                                  className="text-neutral-400 hover:text-sand text-[11px] underline cursor-pointer"
+                                  onClick={() => handleStartEdit(item)}
+                                  className="text-neutral-400 hover:text-sand text-[11px] underline cursor-pointer font-bold"
                                 >
                                   Editar
                                 </button>
