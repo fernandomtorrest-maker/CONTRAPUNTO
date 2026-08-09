@@ -759,9 +759,15 @@ export function PartidasAdminSection() {
                               <div>
                                 <span className="block font-bold">{item.description}</span>
                                 {item.inclusions && (
-                                  <span className="text-[10px] text-neutral-400 font-light block line-clamp-1">
-                                    {item.inclusions}
-                                  </span>
+                                  <div className="mt-1.5 bg-[#12110e] border border-sand/20 rounded p-2 font-mono text-[10px] space-y-1 shadow-inner">
+                                    <div className="flex items-center justify-between border-b border-white/10 pb-0.5 text-[9px] text-sand font-bold uppercase">
+                                      <span>📋 ESPECIFICACIÓN & CRITERIOS</span>
+                                      <span className="text-[8px] text-neutral-400">EXCEL CELL</span>
+                                    </div>
+                                    <div className="text-neutral-300 font-light border-l-2 border-sand/40 pl-1.5 leading-relaxed bg-stone-950/40 p-1 rounded">
+                                      {item.inclusions}
+                                    </div>
+                                  </div>
                                 )}
                               </div>
                             )}

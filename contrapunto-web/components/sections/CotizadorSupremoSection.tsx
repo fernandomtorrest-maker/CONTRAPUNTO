@@ -914,10 +914,18 @@ export default function CotizadorSupremoSection() {
                           
                           <td className="p-4 min-w-[200px]">
                             <div className="text-xs text-cream font-medium line-clamp-2">{item.description}</div>
-                            {/* Inclusions Detail Sub-text from Database */}
+                            {/* Especificación Técnica Estilo Celda Excel */}
                             {item.inclusions && (
-                              <div className="mt-1 text-[10px] text-cream/40 leading-relaxed max-w-sm italic">
-                                <span>{item.inclusions}</span>
+                              <div className="mt-2 bg-[#12110e] border border-amber-500/30 rounded-lg p-2.5 font-mono text-[10px] space-y-1.5 shadow-inner max-w-xl">
+                                <div className="flex items-center justify-between border-b border-amber-500/20 pb-1 text-[9px] text-amber-400 font-bold uppercase tracking-wider">
+                                  <span className="flex items-center gap-1">
+                                    📊 ESPECIFICACIÓN TÉCNICA Y CRITERIOS
+                                  </span>
+                                  <span className="text-[8px] bg-amber-500/10 px-1.5 py-0.5 rounded border border-amber-500/20 text-sand">FORMATO EXCEL</span>
+                                </div>
+                                <div className="text-neutral-300 leading-relaxed font-light border-l-2 border-amber-500/40 pl-2 bg-stone-950/40 p-1.5 rounded">
+                                  {item.inclusions}
+                                </div>
                               </div>
                             )}
 
