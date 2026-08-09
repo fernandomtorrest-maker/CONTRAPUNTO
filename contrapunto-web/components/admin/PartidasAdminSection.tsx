@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Plus, Search, Check, RefreshCw, AlertCircle, ArrowLeft, Database, DollarSign, Sparkles, CheckCircle2, Trash2, Upload, FileText } from 'lucide-react';
+import { Plus, Search, Check, RefreshCw, AlertCircle, ArrowLeft, Database, DollarSign, Sparkles, CheckCircle2, Trash2, Upload, FileText, Table } from 'lucide-react';
 import Link from 'next/link';
 
 interface DbItem {
@@ -61,6 +61,12 @@ export function PartidasAdminSection() {
   const [editingId, setEditingId] = useState<number | null>(null);
   const [editPriceUf, setEditPriceUf] = useState<string>('');
   const [editDescription, setEditDescription] = useState<string>('');
+
+  // Estado para desplegable Ficha APU Excel por item ID
+  const [openExcelId, setOpenExcelId] = useState<number | null>(null);
+  const toggleExcelView = (id: number) => {
+    setOpenExcelId(prev => (prev === id ? null : id));
+  };
 
   // Procesar archivo adjunto multiformato
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -758,14 +764,85 @@ export function PartidasAdminSection() {
                             ) : (
                               <div>
                                 <span className="block font-bold">{item.description}</span>
-                                {item.inclusions && (
-                                  <div className="mt-1.5 bg-[#12110e] border border-sand/20 rounded p-2 font-mono text-[10px] space-y-1 shadow-inner">
-                                    <div className="flex items-center justify-between border-b border-white/10 pb-0.5 text-[9px] text-sand font-bold uppercase">
-                                      <span>📋 ESPECIFICACIÓN & CRITERIOS</span>
-                                      <span className="text-[8px] text-neutral-400">EXCEL CELL</span>
+                                
+                                {/* BOTÓN DESPLEGABLE FICHA EXCEL */}
+                                <div className="mt-2">
+                                  <button
+                                    type="button"
+                                    onClick={() => toggleExcelView(item.id)}
+                                    className="inline-flex items-center gap-1.5 px-2 py-0.5 bg-[#107c41]/20 hover:bg-[#107c41]/35 border border-[#107c41]/50 rounded text-[9px] font-mono text-emerald-300 font-bold transition-all shadow-sm"
+                                  >
+                                    <Table className="w-3 h-3 text-emerald-400" />
+                                    {openExcelId === item.id ? 'OCULTAR FICHA EXCEL ▲' : '📊 VER FICHA APU EXCEL ▼'}
+                                  </button>
+                                </div>
+
+                                {/* PLANILLA DESPLEGABLE ULTRA FIEL A EXCEL */}
+                                {openExcelId === item.id && (
+                                  <div className="mt-2.5 bg-[#111111] border-2 border-[#107c41] rounded-lg overflow-hidden shadow-2xl font-mono text-[9px] max-w-xl">
+                                    {/* Barra de título estilo Microsoft Excel */}
+                                    <div className="bg-[#107c41] text-white px-2.5 py-1 flex items-center justify-between font-bold uppercase">
+                                      <div className="flex items-center gap-1.5">
+                                        <Table className="w-3 h-3" />
+                                        <span>MICROSOFT EXCEL - HOJA DE ANÁLISIS DE PRECIOS UNITARIOS</span>
+                                      </div>
+                                      <span className="text-[8px] opacity-80">HOJA_APU_CHILE.XLSX</span>
                                     </div>
-                                    <div className="text-neutral-300 font-light border-l-2 border-sand/40 pl-1.5 leading-relaxed bg-stone-950/40 p-1 rounded">
-                                      {item.inclusions}
+
+                                    {/* Encabezado de Columnas Excel (A, B, C, D, E) */}
+                                    <div className="grid grid-cols-12 bg-stone-900 border-b border-neutral-700 text-stone-400 text-center font-bold">
+                                      <div className="col-span-1 border-r border-neutral-700 py-0.5 bg-stone-950">A</div>
+                                      <div className="col-span-4 border-r border-neutral-700 py-0.5">B (CONCEPTO)</div>
+                                      <div className="col-span-2 border-r border-neutral-700 py-0.5">C (UNIDAD)</div>
+                                      <div className="col-span-2 border-r border-neutral-700 py-0.5">D (% APU)</div>
+                                      <div className="col-span-3 py-0.5">E (SUBTOTAL CLP)</div>
+                                    </div>
+
+                                    {/* Filas de Celdas Excel */}
+                                    <div className="divide-y divide-neutral-800 text-neutral-200">
+                                      {/* Fila 1: Materiales */}
+                                      <div className="grid grid-cols-12 hover:bg-white/5 transition-colors">
+                                        <div className="col-span-1 border-r border-neutral-800 p-1 text-center font-bold text-amber-400 bg-stone-950/60">1</div>
+                                        <div className="col-span-4 border-r border-neutral-800 p-1 flex items-center gap-1">
+                                          <span className="text-amber-400 font-bold">📦 Materiales</span>
+                                        </div>
+                                        <div className="col-span-2 border-r border-neutral-800 p-1 text-center">{item.unit || 'm2'}</div>
+                                        <div className="col-span-2 border-r border-neutral-800 p-1 text-center text-amber-300 font-bold">{item.porcentajeMateriales || 50}%</div>
+                                        <div className="col-span-3 p-1 text-right font-bold text-cream">${Math.round((clpEst * (item.porcentajeMateriales || 50)) / 100).toLocaleString('es-CL')}</div>
+                                      </div>
+
+                                      {/* Fila 2: Mano de Obra */}
+                                      <div className="grid grid-cols-12 hover:bg-white/5 transition-colors">
+                                        <div className="col-span-1 border-r border-neutral-800 p-1 text-center font-bold text-emerald-400 bg-stone-950/60">2</div>
+                                        <div className="col-span-4 border-r border-neutral-800 p-1 flex items-center gap-1">
+                                          <span className="text-emerald-400 font-bold">🔨 Mano de Obra</span>
+                                        </div>
+                                        <div className="col-span-2 border-r border-neutral-800 p-1 text-center">JORNAL</div>
+                                        <div className="col-span-2 border-r border-neutral-800 p-1 text-center text-emerald-300 font-bold">{item.porcentajeManoObra || 45}%</div>
+                                        <div className="col-span-3 p-1 text-right font-bold text-cream">${Math.round((clpEst * (item.porcentajeManoObra || 45)) / 100).toLocaleString('es-CL')}</div>
+                                      </div>
+
+                                      {/* Fila 3: Equipos */}
+                                      <div className="grid grid-cols-12 hover:bg-white/5 transition-colors">
+                                        <div className="col-span-1 border-r border-neutral-800 p-1 text-center font-bold text-sky-400 bg-stone-950/60">3</div>
+                                        <div className="col-span-4 border-r border-neutral-800 p-1 flex items-center gap-1">
+                                          <span className="text-sky-400 font-bold">🏗️ Equipos</span>
+                                        </div>
+                                        <div className="col-span-2 border-r border-neutral-800 p-1 text-center">GL</div>
+                                        <div className="col-span-2 border-r border-neutral-800 p-1 text-center text-sky-300 font-bold">{item.porcentajeEquipos || 5}%</div>
+                                        <div className="col-span-3 p-1 text-right font-bold text-cream">${Math.round((clpEst * (item.porcentajeEquipos || 5)) / 100).toLocaleString('es-CL')}</div>
+                                      </div>
+
+                                      {/* Fila 4: Especificación Técnica */}
+                                      {item.inclusions && (
+                                        <div className="grid grid-cols-12 bg-stone-950/80 p-1.5 border-t border-neutral-700">
+                                          <div className="col-span-1 border-r border-neutral-800 text-center font-bold text-sand">4</div>
+                                          <div className="col-span-11 pl-1.5 text-neutral-300 font-light leading-relaxed">
+                                            <span className="text-sand font-bold block uppercase text-[8px]">📋 ESPECIFICACIÓN TÉCNICA:</span>
+                                            {item.inclusions}
+                                          </div>
+                                        </div>
+                                      )}
                                     </div>
                                   </div>
                                 )}
