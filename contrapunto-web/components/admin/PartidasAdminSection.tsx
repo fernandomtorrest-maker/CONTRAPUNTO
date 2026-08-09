@@ -12,10 +12,26 @@ interface DbItem {
   type: string;
   priceUf: number;
   inclusions?: string;
+  category?: string;
   porcentajeMateriales?: number;
   porcentajeManoObra?: number;
   porcentajeEquipos?: number;
 }
+
+export const CHAPTERS_LIST = [
+  "CAP 01 - OBRAS PRELIMINARES & FAENAS",
+  "CAP 02 - MOVIMIENTO DE TIERRAS & EXCAVACIONES",
+  "CAP 03 - HORMIGONES & OBRA GRUESA",
+  "CAP 04 - ALBAÑILERÍA & TABIQUERÍA",
+  "CAP 05 - ESTRUCTURAS METÁLICAS & ACERO",
+  "CAP 06 - TECHUMBRES, CUBIERTAS & HOJALATERÍA",
+  "CAP 07 - IMPERMEABILIZACIÓN & AISLACIÓN",
+  "CAP 08 - PUERTAS, VENTANAS & PORTONES",
+  "CAP 09 - REVESTIMIENTOS & PAVIMENTOS",
+  "CAP 10 - INSTALACIONES (ELEC / SAN / CLIMA)",
+  "CAP 11 - PINTURAS & TERMINACIONES",
+  "CAP 12 - MOBILIARIO & ARQUITECTURA",
+];
 
 interface ApuProposal {
   code: string;
@@ -47,12 +63,16 @@ export function PartidasAdminSection() {
   // Estado del formulario de nueva partida
   const [newCode, setNewCode] = useState('');
   const [newDescription, setNewDescription] = useState('');
+  const [newCategory, setNewCategory] = useState('CAP 03 - HORMIGONES & OBRA GRUESA');
   const [newUnit, setNewUnit] = useState('m2');
   const [newPriceUf, setNewPriceUf] = useState('');
   const [newInclusions, setNewInclusions] = useState('');
   const [newMatPct, setNewMatPct] = useState(50);
   const [newMoPct, setNewMoPct] = useState(45);
   const [newEqPct, setNewEqPct] = useState(5);
+
+  // Filtro de categoría en tabla
+  const [selectedCategoryFilter, setSelectedCategoryFilter] = useState<string>('TODAS');
 
   // Estado para carga masiva de archivos multiformato (*.xlsx, *.pdf, *.docx, *.json, *.csv)
   const [uploadingFile, setUploadingFile] = useState(false);
@@ -221,6 +241,7 @@ export function PartidasAdminSection() {
         body: JSON.stringify({
           code: newCode,
           description: newDescription,
+          category: newCategory,
           unit: newUnit,
           type: 'Partida',
           priceUf: Number(newPriceUf),
@@ -310,14 +331,16 @@ export function PartidasAdminSection() {
     }
   };
 
-  // Filtrar partidas por texto de búsqueda
+  // Filtrar partidas por texto de búsqueda y por Capítulo
   const filteredPartidas = partidas.filter((item) => {
     const q = search.toLowerCase();
-    return (
+    const matchesQuery = (
       item.description.toLowerCase().includes(q) ||
       item.code.toLowerCase().includes(q) ||
       item.unit.toLowerCase().includes(q)
     );
+    const matchesCategory = selectedCategoryFilter === 'TODAS' || item.category === selectedCategoryFilter;
+    return matchesQuery && matchesCategory;
   });
 
   return (
@@ -615,6 +638,23 @@ export function PartidasAdminSection() {
 
               <div className="md:col-span-3">
                 <label className="text-[10px] font-mono uppercase text-neutral-400 block mb-1">
+                  Capítulo / Categoría *
+                </label>
+                <select
+                  value={newCategory}
+                  onChange={(e) => setNewCategory(e.target.value)}
+                  className="w-full bg-stone-900 border border-white/10 text-cream rounded-xl p-3 text-xs focus:outline-none focus:border-sand font-mono"
+                >
+                  {CHAPTERS_LIST.map((cat) => (
+                    <option key={cat} value={cat}>
+                      {cat}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="md:col-span-3">
+                <label className="text-[10px] font-mono uppercase text-neutral-400 block mb-1">
                   Precio Unitario (UF) *
                 </label>
                 <div className="relative">
@@ -708,11 +748,29 @@ export function PartidasAdminSection() {
 
         {/* TABLA DE PARTIDAS & EDICIÓN DE APU EN LÍNEA */}
         <div className="space-y-4">
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-[#181614] border border-white/10 rounded-2xl p-4 shadow-lg">
-            <span className="text-xs font-mono text-neutral-400">
-              Total de Partidas en BBDD: <strong className="text-sand">{partidas.length}</strong>
-            </span>
-            <div className="relative w-full sm:w-80">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-[#181614] border border-white/10 rounded-2xl p-4 shadow-lg">
+            <div className="flex flex-wrap items-center gap-3 text-xs font-mono">
+              <span className="text-neutral-400">
+                Total en BBDD: <strong className="text-sand">{partidas.length}</strong> | Mostrando: <strong className="text-emerald-400">{filteredPartidas.length}</strong>
+              </span>
+              <div className="flex items-center gap-2 border-l border-white/10 pl-3">
+                <span className="text-sand font-bold text-[11px]">Capítulo:</span>
+                <select
+                  value={selectedCategoryFilter}
+                  onChange={(e) => setSelectedCategoryFilter(e.target.value)}
+                  className="bg-stone-900 border border-white/20 text-cream rounded-lg px-2.5 py-1 text-xs focus:outline-none focus:border-sand"
+                >
+                  <option value="TODAS">Ver Todos los Capítulos ({partidas.length})</option>
+                  {CHAPTERS_LIST.map((cat) => (
+                    <option key={cat} value={cat}>
+                      {cat}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
+            <div className="relative w-full md:w-72">
               <Search className="w-4 h-4 text-neutral-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
               <input
                 type="text"
@@ -763,6 +821,11 @@ export function PartidasAdminSection() {
                               />
                             ) : (
                               <div>
+                                {item.category && (
+                                  <span className="inline-block text-[9px] font-mono font-bold bg-amber-500/10 text-amber-300 border border-amber-500/20 px-2 py-0.5 rounded mb-1 uppercase tracking-wider">
+                                    {item.category}
+                                  </span>
+                                )}
                                 <span className="block font-bold">{item.description}</span>
                                 
                                 {/* BOTÓN DESPLEGABLE FICHA EXCEL */}

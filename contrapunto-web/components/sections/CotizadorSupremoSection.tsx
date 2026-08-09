@@ -12,6 +12,7 @@ interface DbItem {
   type?: string;
   priceUf: number;
   inclusions?: string;
+  category?: string;
   porcentajeMateriales?: number;
   porcentajeManoObra?: number;
   porcentajeEquipos?: number;
@@ -36,6 +37,7 @@ interface QuoteItem {
   quantity: number;
   priceUf: number;
   inclusions?: string;
+  category?: string;
   porcentajeMateriales?: number;
   porcentajeManoObra?: number;
   porcentajeEquipos?: number;
@@ -920,6 +922,11 @@ export default function CotizadorSupremoSection() {
                           <td className="p-4 font-mono text-xs text-sand shrink-0">{item.code || 'S/C'}</td>
                           
                           <td className="p-4 min-w-[200px]">
+                            {item.category && (
+                              <span className="inline-block text-[9px] font-mono font-bold bg-amber-500/10 text-amber-300 border border-amber-500/20 px-2 py-0.5 rounded mb-1 uppercase tracking-wider">
+                                {item.category}
+                              </span>
+                            )}
                             <div className="text-xs text-cream font-medium line-clamp-2">{item.description}</div>
                             {/* BOTÓN DESPLEGABLE FICHA EXCEL */}
                             <div className="mt-2 flex flex-wrap items-center gap-2">

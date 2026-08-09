@@ -13,6 +13,7 @@ export interface DbItem {
   type: string;
   priceUf: number;
   inclusions?: string;
+  category?: string;
   porcentajeMateriales?: number;
   porcentajeManoObra?: number;
   porcentajeEquipos?: number;
