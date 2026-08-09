@@ -18,6 +18,21 @@ interface DbItem {
   porcentajeEquipos?: number;
 }
 
+const CHAPTERS_LIST = [
+  "CAP 01 - OBRAS PRELIMINARES & FAENAS",
+  "CAP 02 - MOVIMIENTO DE TIERRAS & EXCAVACIONES",
+  "CAP 03 - HORMIGONES & OBRA GRUESA",
+  "CAP 04 - ALBAÑILERÍA & TABIQUERÍA",
+  "CAP 05 - ESTRUCTURAS METÁLICAS & ACERO",
+  "CAP 06 - TECHUMBRES, CUBIERTAS & HOJALATERÍA",
+  "CAP 07 - IMPERMEABILIZACIÓN & AISLACIÓN",
+  "CAP 08 - PUERTAS, VENTANAS & PORTONES",
+  "CAP 09 - REVESTIMIENTOS & PAVIMENTOS",
+  "CAP 10 - INSTALACIONES (ELEC / SAN / CLIMA)",
+  "CAP 11 - PINTURAS & TERMINACIONES",
+  "CAP 12 - MOBILIARIO & ARQUITECTURA",
+];
+
 interface ParsedResultItem {
   matchedItem: DbItem | null;
   alternatives: DbItem[];
@@ -60,9 +75,11 @@ export default function CotizadorSupremoSection() {
   const [ivaActive, setIvaActive] = useState(true);
   const [quoteItems, setQuoteItems] = useState<QuoteItem[]>([]);
   
-  // Manual Search State
+  // Manual Search State & Category Filter
   const [searchQuery, setSearchQuery] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState<string>('TODAS');
   const [searchResults, setSearchResults] = useState<DbItem[]>([]);
+  const [allDbItems, setAllDbItems] = useState<DbItem[]>([]);
   
   // Feedback states
   const [copySuccess, setCopySuccess] = useState(false);
@@ -86,35 +103,44 @@ export default function CotizadorSupremoSection() {
     costoMateriales: 0
   });
 
-  // Buscador manual dinámico que consulta la BBDD en tiempo real
+  // Cargar BBDD completa al montar
   useEffect(() => {
-    if (searchQuery.trim().length < 2) {
-      setSearchResults([]);
-      return;
-    }
-
-    const fetchMatchingPartidas = async () => {
+    const fetchAllPartidas = async () => {
       try {
         const res = await fetch('/api/admin/partidas', { cache: 'no-store' });
         const data = await res.json();
         if (data.success && Array.isArray(data.data)) {
-          const items: DbItem[] = data.data;
-          const filtered = items
-            .filter(item => 
-              (item.type === 'Partida' || !item.type) && 
-              (item.description.toLowerCase().includes(searchQuery.toLowerCase()) || 
-               item.code.toLowerCase().includes(searchQuery.toLowerCase()))
-            )
-            .slice(0, 10);
-          setSearchResults(filtered);
+          setAllDbItems(data.data);
         }
       } catch (err) {
-        console.error('Error al consultar buscador dinámico:', err);
+        console.error('Error al cargar BBDD completa:', err);
       }
     };
+    fetchAllPartidas();
+  }, []);
 
-    fetchMatchingPartidas();
-  }, [searchQuery]);
+  // Filtrar partidas según texto o categoría seleccionada
+  useEffect(() => {
+    if (allDbItems.length === 0) return;
+
+    const queryLower = searchQuery.toLowerCase().trim();
+
+    if (!queryLower && selectedCategory === 'TODAS') {
+      setSearchResults([]);
+      return;
+    }
+
+    const filtered = allDbItems.filter((item) => {
+      const matchesCategory = selectedCategory === 'TODAS' || item.category === selectedCategory;
+      const matchesQuery = !queryLower || (
+        item.description.toLowerCase().includes(queryLower) ||
+        item.code.toLowerCase().includes(queryLower)
+      );
+      return matchesCategory && matchesQuery;
+    }).slice(0, 15);
+
+    setSearchResults(filtered);
+  }, [searchQuery, selectedCategory, allDbItems]);
 
   // Submit NLP prompt to API
   const handleAIParsing = async () => {
@@ -677,58 +703,96 @@ export default function CotizadorSupremoSection() {
             </button>
           </div>
 
-          {/* Card 2: Manual Search & Add */}
-          <div className="bg-[#1a1815] border border-stone-800 rounded-2xl p-6 shadow-2xl">
-            <h2 className="text-lg font-display text-cream mb-3 flex items-center gap-2">
-              <Search className="w-5 h-5 text-sand" />
-              Buscador de Base de Datos
+          {/* Card 2: Manual Search & Add por Categorías */}
+          <div className="bg-[#1a1815] border border-stone-800 rounded-2xl p-6 shadow-2xl space-y-3">
+            <h2 className="text-lg font-display text-cream flex items-center justify-between">
+              <span className="flex items-center gap-2">
+                <Search className="w-5 h-5 text-sand" />
+                Catálogo & Buscador por Capítulos
+              </span>
+              <span className="text-[10px] font-mono text-sand/70 bg-sand/10 border border-sand/20 px-2 py-0.5 rounded">
+                772 PARTIDAS
+              </span>
             </h2>
             
+            {/* Selector de Categoría / Capítulo */}
+            <div>
+              <label className="block text-[10px] font-mono uppercase text-sand mb-1">
+                Filtrar por Capítulo:
+              </label>
+              <select
+                value={selectedCategory}
+                onChange={(e) => setSelectedCategory(e.target.value)}
+                className="w-full bg-stone-950 border border-stone-800 text-cream rounded-xl p-2.5 text-xs font-mono focus:outline-none focus:border-sand"
+              >
+                <option value="TODAS">Ver Todos los Capítulos (772 Partidas)</option>
+                {CHAPTERS_LIST.map((cat) => (
+                  <option key={cat} value={cat}>
+                    {cat}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* Input de Búsqueda por Texto */}
             <div className="relative">
               <input
                 type="text"
-                className="w-full bg-stone-950 border border-stone-800 rounded-xl pl-10 pr-4 py-2.5 text-sm text-cream placeholder-cream/30 focus:outline-none focus:border-sand transition-colors duration-300 font-light"
-                placeholder="Busca por nombre o código (ej: Pintura, Radier)..."
+                className="w-full bg-stone-950 border border-stone-800 rounded-xl pl-10 pr-4 py-2 text-xs text-cream placeholder-cream/30 focus:outline-none focus:border-sand transition-colors font-mono"
+                placeholder="Filtrar por nombre o código (ej: Radier, Zinc)..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
-              <Search className="absolute left-3 top-3 w-4 h-4 text-cream/30" />
+              <Search className="absolute left-3 top-2.5 w-3.5 h-3.5 text-cream/30" />
             </div>
 
-            {/* Results list */}
+            {/* Results list con botón Añadir a 1-Clic */}
             {searchResults.length > 0 && (
-              <div className="mt-3 border border-stone-800 bg-stone-950 rounded-xl divide-y divide-stone-900 max-h-60 overflow-y-auto">
+              <div className="mt-3 border border-stone-800 bg-stone-950 rounded-xl divide-y divide-stone-900 max-h-72 overflow-y-auto">
                 {searchResults.map((item) => (
                   <div
                     key={item.id}
-                    onClick={() => handleAddManualItem(item)}
-                    className="p-3 text-left hover:bg-stone-900 cursor-pointer transition-colors duration-200 group flex items-start justify-between gap-3"
+                    className="p-3 hover:bg-stone-900/60 transition-colors duration-200 flex items-center justify-between gap-3 group"
                   >
-                    <div className="min-w-0">
+                    <div className="min-w-0 flex-1">
+                      {item.category && (
+                        <span className="inline-block text-[8px] font-mono font-bold bg-amber-500/10 text-amber-300 border border-amber-500/20 px-1.5 py-0.2 rounded mb-0.5 uppercase tracking-wider">
+                          {item.category}
+                        </span>
+                      )}
                       <div className="flex items-center gap-2 text-xs font-mono text-sand">
-                        <span>{item.code || 'S/C'}</span>
+                        <span className="font-bold">{item.code || 'S/C'}</span>
                         <span className="text-stone-600">|</span>
                         <span>{item.unit}</span>
                       </div>
-                      <div className="text-xs text-cream/80 truncate mt-0.5 group-hover:text-sand transition-colors">
+                      <div className="text-xs text-cream/90 font-medium line-clamp-1 mt-0.5">
                         {item.description}
                       </div>
                     </div>
+
                     <div className="shrink-0 flex items-center gap-3">
-                      <div className="text-right">
-                        <span className="block text-xs font-mono text-cream/60">{item.priceUf.toFixed(4)} UF</span>
-                        <span className="block text-[10px] font-mono text-cream/45 mt-0.5">${Math.round(item.priceUf * ufValue).toLocaleString('es-CL')}</span>
+                      <div className="text-right font-mono">
+                        <span className="block text-xs font-bold text-sand">{item.priceUf.toFixed(4)} UF</span>
+                        <span className="block text-[10px] text-cream/50">${Math.round(item.priceUf * ufValue).toLocaleString('es-CL')}</span>
                       </div>
-                      <Plus className="w-3.5 h-3.5 text-sand opacity-0 group-hover:opacity-100 transition-opacity self-center" />
+
+                      <button
+                        type="button"
+                        onClick={() => handleAddManualItem(item)}
+                        className="px-3 py-1.5 bg-amber-500/20 hover:bg-amber-500/40 border border-amber-500/50 text-amber-300 text-xs font-mono font-bold rounded-lg transition-all flex items-center gap-1 cursor-pointer shadow-sm active:scale-95"
+                      >
+                        <Plus className="w-3.5 h-3.5 text-amber-400" />
+                        Añadir
+                      </button>
                     </div>
                   </div>
                 ))}
               </div>
             )}
 
-            {searchQuery.trim().length >= 2 && searchResults.length === 0 && (
-              <div className="mt-3 p-3 text-center text-xs text-cream/40 font-light">
-                No se encontraron partidas para &quot;{searchQuery}&quot;.
+            {(searchQuery.trim().length >= 2 || selectedCategory !== 'TODAS') && searchResults.length === 0 && (
+              <div className="mt-3 p-3 text-center text-xs text-cream/40 font-light font-mono border border-stone-800 rounded-xl">
+                No se encontraron partidas en este filtro.
               </div>
             )}
           </div>
