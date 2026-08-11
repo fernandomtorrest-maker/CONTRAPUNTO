@@ -35,14 +35,25 @@ function appendLeadToDatabase(leadData: {
       currentLeads = JSON.parse(fileData);
     }
 
+    let fullMensaje = '';
+    if (leadData.mensaje && leadData.mensaje.trim()) {
+      fullMensaje += `💬 MENSAJE / DETALLES DEL CLIENTE:\n"${leadData.mensaje.trim()}"\n\n`;
+    }
+    if (leadData.detalles && leadData.detalles.trim()) {
+      fullMensaje += `📋 RESUMEN TÉCNICO DE COTIZACIÓN:\n${leadData.detalles.trim()}`;
+    }
+    if (!fullMensaje.trim()) {
+      fullMensaje = 'Sin mensaje ni detalles adicionales especificados.';
+    }
+
     const newEntry = {
       id: `lead-${Date.now()}`,
       nombre: leadData.nombre?.trim() || 'Cliente Sin Nombre',
-      telefono: leadData.telefono?.trim() || '',
+      telefono: leadData.telefono?.trim() || 'No especificado',
       correo: leadData.email?.trim() || '',
-      servicio: leadData.proyecto?.trim() || 'Contacto Web',
+      servicio: leadData.proyecto?.trim() || 'Cotización Web',
       comuna: leadData.comuna?.trim() || 'No especificada',
-      mensaje: leadData.detalles || leadData.mensaje || 'Sin detalles.',
+      mensaje: fullMensaje,
       status: 'Nuevo',
       assignedTo: 'Sin Asignar',
       createdAt: new Date().toISOString(),

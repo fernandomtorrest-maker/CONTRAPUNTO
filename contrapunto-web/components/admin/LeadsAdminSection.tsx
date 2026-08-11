@@ -446,7 +446,7 @@ export function LeadsAdminSection() {
                 </div>
 
                 {/* Mensaje original del cliente */}
-                <div className="bg-stone-900/60 border border-white/5 rounded-xl p-3 text-xs text-neutral-300 font-light leading-relaxed">
+                <div className="bg-stone-900/60 border border-white/5 rounded-xl p-3 text-xs text-neutral-300 font-light leading-relaxed whitespace-pre-line">
                   <span className="text-[10px] font-mono text-sand uppercase block mb-1 font-bold">
                     Mensaje / Consulta del Cliente:
                   </span>
