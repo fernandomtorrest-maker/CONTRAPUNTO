@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect, useMemo, useRef } from 'react'
 import { ChevronLeft, Plus, Minus, MessageCircle, Send, Download } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -279,6 +279,7 @@ export default function CotizadorContrapunto() {
   const [pasoActual, setPasoActual] = useState(0)
   const [enviando, setEnviando] = useState(false)
   const [enviado, setEnviado] = useState(false)
+  const hasCountedRef = useRef(false)
 
   const [respuestas, setRespuestas] = useState({
     tipoProyecto: '',
@@ -778,9 +779,10 @@ export default function CotizadorContrapunto() {
     doc.save(`cotizacion-contrapunto-${respuestas.tipoProyecto.toLowerCase().replace(/\s/g, '-')}-${new Date().toISOString().split('T')[0]}.pdf`)
   }
 
-  // Scroll suave e incremento del contador al llegar al resultado final de la cotización
+  // CRITERIO 3: Incremento automático del contador al llegar a la pantalla final de Resultado / Presupuesto
   useEffect(() => {
-    if (paso?.tipo === 'resultado') {
+    if (paso?.tipo === 'resultado' && !hasCountedRef.current) {
+      hasCountedRef.current = true;
       window.scrollTo({ top: 0, behavior: 'smooth' });
       fetch('/api/cotizar/count', { method: 'POST' }).catch(err => {
         console.error('Error al registrar contador de cotizar:', err);
@@ -1631,6 +1633,7 @@ export default function CotizadorContrapunto() {
           {paso.tipo === 'resultado' && (
             <button
               onClick={() => {
+                hasCountedRef.current = false;
                 setPasoActual(0)
                 setRespuestas({
                   tipoProyecto: '',
