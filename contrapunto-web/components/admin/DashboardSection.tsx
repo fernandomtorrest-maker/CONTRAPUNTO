@@ -19,7 +19,9 @@ import {
   Clock,
   ChevronDown,
   ChevronUp,
-  Users
+  Users,
+  Activity,
+  RotateCcw
 } from 'lucide-react';
 import { hasRrhhPermission } from '@/lib/auth';
 
@@ -48,6 +50,46 @@ interface DashboardSectionProps {
 export function DashboardSection({ currentUser }: DashboardSectionProps) {
   const [posts, setPosts] = useState<Post[]>([]);
   const [loadingPosts, setLoadingPosts] = useState(true);
+
+  // Estado del contador privado de /cotizar
+  const [cotizarCounter, setCotizarCounter] = useState<{ totalCotizaciones: number; lastUpdated: string } | null>(null);
+
+  // Cargar contador de /cotizar
+  const fetchCotizarCounter = async () => {
+    try {
+      const res = await fetch('/api/cotizar/count', { cache: 'no-store' });
+      const data = await res.json();
+      if (data.success) {
+        setCotizarCounter({
+          totalCotizaciones: data.totalCotizaciones,
+          lastUpdated: data.lastUpdated,
+        });
+      }
+    } catch (err) {
+      console.error('Error al cargar contador de cotizar:', err);
+    }
+  };
+
+  // Reiniciar contador a 0
+  const handleResetCounter = async () => {
+    if (!confirm('¿Estás seguro de que deseas reiniciar a 0 el contador de movimiento de /cotizar?')) return;
+    try {
+      const res = await fetch('/api/cotizar/count', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'reset' }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setCotizarCounter({
+          totalCotizaciones: 0,
+          lastUpdated: new Date().toISOString(),
+        });
+      }
+    } catch (err) {
+      console.error('Error al reiniciar contador:', err);
+    }
+  };
 
   // Formulario nuevo post
   const [newTitle, setNewTitle] = useState('');
@@ -80,6 +122,7 @@ export function DashboardSection({ currentUser }: DashboardSectionProps) {
 
   useEffect(() => {
     fetchPosts();
+    fetchCotizarCounter();
   }, []);
 
   // Manejar cierre de sesión
@@ -241,6 +284,55 @@ export function DashboardSection({ currentUser }: DashboardSectionProps) {
               <p className="text-xs text-neutral-400 font-light mt-1">
                 Accede directamente a los módulos administrativos y cotizadores.
               </p>
+            </div>
+
+            {/* TARJETA DESTACADA: CONTADOR PRIVADO DE /COTIZAR */}
+            <div className="bg-[#181614] border border-amber-500/30 rounded-2xl p-6 shadow-2xl space-y-4">
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 border-b border-white/10 pb-4">
+                <div className="flex items-center gap-3">
+                  <div className="p-3 rounded-xl bg-amber-500/15 text-amber-400">
+                    <Activity className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <h3 className="font-heading text-base font-bold text-cream uppercase">
+                      Registro de Movimiento Público (<span className="text-sand">/cotizar</span>)
+                    </h3>
+                    <p className="text-xs text-neutral-400 font-light">
+                      Monitoreo en tiempo real de solicitudes y presupuestos procesados por clientes.
+                    </p>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={handleResetCounter}
+                  className="bg-stone-900 hover:bg-red-500/20 text-neutral-400 hover:text-red-300 border border-white/10 hover:border-red-500/40 text-[10px] font-mono uppercase tracking-wider px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5 cursor-pointer shrink-0"
+                  title="Reiniciar el contador a 0"
+                >
+                  <RotateCcw className="w-3 h-3" /> Reiniciar a 0
+                </button>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 font-mono">
+                <div className="bg-stone-950 p-4 rounded-xl border border-white/5 space-y-1">
+                  <span className="text-[10px] text-neutral-400 uppercase tracking-wider block">
+                    TOTAL COTIZACIONES EN /COTIZAR:
+                  </span>
+                  <div className="text-3xl font-bold text-sand flex items-baseline gap-2">
+                    <span>{cotizarCounter ? cotizarCounter.totalCotizaciones : 0}</span>
+                    <span className="text-xs text-emerald-400 font-sans font-normal">procesadas</span>
+                  </div>
+                </div>
+
+                <div className="bg-stone-950 p-4 rounded-xl border border-white/5 space-y-1">
+                  <span className="text-[10px] text-neutral-400 uppercase tracking-wider block">
+                    ÚLTIMA ACTIVIDAD REGISTRADA:
+                  </span>
+                  <div className="text-xs text-cream/90 font-sans font-medium mt-1">
+                    {cotizarCounter?.lastUpdated ? formatDate(cotizarCounter.lastUpdated) : 'Sin actividad reciente'}
+                  </div>
+                </div>
+              </div>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

@@ -778,12 +778,15 @@ export default function CotizadorContrapunto() {
     doc.save(`cotizacion-contrapunto-${respuestas.tipoProyecto.toLowerCase().replace(/\s/g, '-')}-${new Date().toISOString().split('T')[0]}.pdf`)
   }
 
-  // Scroll suave hacia arriba al llegar al resultado
+  // Scroll suave hacia arriba al llegar al resultado e incrementar el contador privado
   useEffect(() => {
     if (paso?.tipo === 'resultado') {
-      window.scrollTo({ top: 0, behavior: 'smooth' })
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      fetch('/api/cotizar/count', { method: 'POST' }).catch(err => {
+        console.error('Error al registrar contador de cotizar:', err);
+      });
     }
-  }, [paso?.tipo])
+  }, [paso?.tipo]);
 
   // Evitar renderizado nulo si el paso no existe
   if (!paso) return null
