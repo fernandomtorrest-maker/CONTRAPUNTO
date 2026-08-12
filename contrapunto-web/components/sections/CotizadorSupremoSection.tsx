@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Sparkles, Trash2, Search, Plus, Copy, Check, RefreshCw, AlertCircle, HelpCircle, Download, Table } from 'lucide-react';
+import { Sparkles, Trash2, Search, Plus, Copy, Check, RefreshCw, AlertCircle, HelpCircle, Download, Table, ArrowLeft } from 'lucide-react';
 
 interface DbItem {
   id: number;
@@ -653,12 +653,21 @@ export default function CotizadorSupremoSection() {
           </p>
         </div>
 
-        <Link
-          href="/admin/partidas"
-          className="bg-stone-900 border border-sand/30 hover:border-sand hover:bg-stone-800 text-sand font-mono text-xs uppercase tracking-wider px-4 py-2.5 rounded-xl transition-all inline-flex items-center gap-2 shrink-0 shadow-lg"
-        >
-          ⚙️ Panel Admin de Partidas
-        </Link>
+        <div className="flex flex-wrap items-center gap-3 shrink-0">
+          <Link
+            href="/admin"
+            className="bg-stone-900 border border-sand/40 hover:border-sand hover:bg-stone-800 text-cream font-mono text-xs uppercase tracking-wider px-4 py-2.5 rounded-xl transition-all inline-flex items-center gap-2 shadow-lg group"
+          >
+            <ArrowLeft className="w-4 h-4 text-sand group-hover:-translate-x-1 transition-transform" />
+            <span>Volver al Dashboard</span>
+          </Link>
+          <Link
+            href="/admin/partidas"
+            className="bg-stone-900/60 border border-white/10 hover:border-sand/40 hover:bg-stone-800 text-sand/80 hover:text-sand font-mono text-xs uppercase tracking-wider px-3.5 py-2.5 rounded-xl transition-all inline-flex items-center gap-1.5"
+          >
+            <span>⚙️ Base de Partidas</span>
+          </Link>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
