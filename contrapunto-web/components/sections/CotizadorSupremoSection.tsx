@@ -4,6 +4,17 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Sparkles, Trash2, Search, Plus, Copy, Check, RefreshCw, AlertCircle, HelpCircle, Download, Table, ArrowLeft } from 'lucide-react';
 
+interface ApuInsumo {
+  tipo: string;
+  unit: string;
+  description: string;
+  cant: number | string;
+  pu: number;
+  p_total: number;
+  factor: number | string;
+  obs: string;
+}
+
 interface DbItem {
   id: number;
   code: string;
@@ -16,6 +27,7 @@ interface DbItem {
   porcentajeMateriales?: number;
   porcentajeManoObra?: number;
   porcentajeEquipos?: number;
+  apu_details?: ApuInsumo[];
 }
 
 const CHAPTERS_LIST = [
@@ -56,6 +68,7 @@ interface QuoteItem {
   porcentajeMateriales?: number;
   porcentajeManoObra?: number;
   porcentajeEquipos?: number;
+  apu_details?: ApuInsumo[];
   alternatives: Array<{
     id: number;
     code: string;
@@ -189,6 +202,7 @@ export default function CotizadorSupremoSection() {
           porcentajeMateriales: matched ? matched.porcentajeMateriales ?? 50 : 50,
           porcentajeManoObra: matched ? matched.porcentajeManoObra ?? 45 : 45,
           porcentajeEquipos: matched ? matched.porcentajeEquipos ?? 5 : 5,
+          apu_details: matched ? matched.apu_details : undefined,
           alternatives: resItem.alternatives || []
         };
       });
@@ -215,9 +229,11 @@ export default function CotizadorSupremoSection() {
       quantity: 1,
       priceUf: item.priceUf,
       inclusions: item.inclusions,
+      category: item.category,
       porcentajeMateriales: item.porcentajeMateriales ?? 50,
       porcentajeManoObra: item.porcentajeManoObra ?? 45,
       porcentajeEquipos: item.porcentajeEquipos ?? 5,
+      apu_details: item.apu_details,
       alternatives: []
     };
     setQuoteItems((prev) => [...prev, newItem]);
@@ -1093,53 +1109,79 @@ export default function CotizadorSupremoSection() {
                                     </tr>
                                   </thead>
                                   <tbody className="divide-y divide-[#107c41]/20 bg-white">
-                                    {/* Fila 1: Material Principal */}
-                                    <tr className="hover:bg-amber-50/60 transition-colors">
-                                      <td className="p-2 border-r border-[#107c41]/20 font-bold text-amber-800">Material</td>
-                                      <td className="p-2 border-r border-[#107c41]/20 text-center font-semibold">{item.unit || 'UD'}</td>
-                                      <td className="p-2 border-r border-[#107c41]/20 font-medium">{item.description} - Insumo Principal</td>
-                                      <td className="p-2 border-r border-[#107c41]/20 text-right font-mono font-bold">0,0171</td>
-                                      <td className="p-2 border-r border-[#107c41]/20 text-right font-mono">${Math.round((totalItemClp * (item.porcentajeMateriales || 50)) / 100).toLocaleString('es-CL')}</td>
-                                      <td className="p-2 border-r border-[#107c41]/20 text-right font-mono font-bold">${Math.round((totalItemClp * (item.porcentajeMateriales || 50)) / 100).toLocaleString('es-CL')}</td>
-                                      <td className="p-2 border-r border-[#107c41]/20 text-right font-mono font-bold text-red-600">58,33</td>
-                                      <td className="p-2 text-[9px] text-stone-600 uppercase font-sans">REND. SEGÚN ESPECIFICACIÓN TÉCNICA +20% PÉRDIDA</td>
-                                    </tr>
+                                    {item.apu_details && item.apu_details.length > 0 ? (
+                                      item.apu_details.map((insumo, idx) => {
+                                        const tipoColor =
+                                          insumo.tipo === 'Material'
+                                            ? 'text-amber-800 font-bold'
+                                            : insumo.tipo === 'Mano de obra'
+                                            ? 'text-emerald-800 font-bold'
+                                            : insumo.tipo === 'Subcontrato'
+                                            ? 'text-purple-800 font-bold'
+                                            : 'text-stone-700 font-bold';
 
-                                    {/* Fila 2: Material Auxiliar */}
-                                    <tr className="hover:bg-amber-50/60 transition-colors">
-                                      <td className="p-2 border-r border-[#107c41]/20 font-bold text-amber-800">Material</td>
-                                      <td className="p-2 border-r border-[#107c41]/20 text-center font-semibold">GL</td>
-                                      <td className="p-2 border-r border-[#107c41]/20 font-medium">MATERIAL AUXILIAR Y HERRAMIENTAS DE LIMPIEZA</td>
-                                      <td className="p-2 border-r border-[#107c41]/20 text-right font-mono font-bold">0,0040</td>
-                                      <td className="p-2 border-r border-[#107c41]/20 text-right font-mono">$30.000</td>
-                                      <td className="p-2 border-r border-[#107c41]/20 text-right font-mono font-bold">${Math.round((totalItemClp * (item.porcentajeEquipos || 5)) / 100).toLocaleString('es-CL')}</td>
-                                      <td className="p-2 border-r border-[#107c41]/20 text-right font-mono font-bold text-red-600">250,00</td>
-                                      <td className="p-2 text-[9px] text-stone-600 uppercase font-sans">ASIGNACIÓN A UN TOTAL DE TRABAJO; EDITAR S/CASO</td>
-                                    </tr>
+                                        const factorDisplay =
+                                          insumo.factor !== undefined && insumo.factor !== '' && insumo.factor !== null
+                                            ? typeof insumo.factor === 'number'
+                                              ? insumo.factor.toFixed(2)
+                                              : String(insumo.factor)
+                                            : '-';
 
-                                    {/* Fila 3: Mano de Obra */}
-                                    <tr className="hover:bg-amber-50/60 transition-colors">
-                                      <td className="p-2 border-r border-[#107c41]/20 font-bold text-emerald-800">Mano de obra</td>
-                                      <td className="p-2 border-r border-[#107c41]/20 text-center font-semibold">DÍA</td>
-                                      <td className="p-2 border-r border-[#107c41]/20 font-medium">MAESTRO / AYUDANTE ESPECIALIZADO</td>
-                                      <td className="p-2 border-r border-[#107c41]/20 text-right font-mono font-bold">0,0200</td>
-                                      <td className="p-2 border-r border-[#107c41]/20 text-right font-mono">${Math.round((totalItemClp * (item.porcentajeManoObra || 45)) / 100).toLocaleString('es-CL')}</td>
-                                      <td className="p-2 border-r border-[#107c41]/20 text-right font-mono font-bold">${Math.round((totalItemClp * (item.porcentajeManoObra || 45)) / 100).toLocaleString('es-CL')}</td>
-                                      <td className="p-2 border-r border-[#107c41]/20 text-right font-mono font-bold text-red-600">50,00</td>
-                                      <td className="p-2 text-[9px] text-stone-600 uppercase font-sans">RENDIMIENTO DÍA JORNADA TRABAJADOR EN TERRENO</td>
-                                    </tr>
+                                        return (
+                                          <tr key={idx} className="hover:bg-amber-50/60 transition-colors">
+                                            <td className={`p-2 border-r border-[#107c41]/20 ${tipoColor}`}>
+                                              {insumo.tipo}
+                                            </td>
+                                            <td className="p-2 border-r border-[#107c41]/20 text-center font-semibold text-stone-800">
+                                              {insumo.unit || '-'}
+                                            </td>
+                                            <td className="p-2 border-r border-[#107c41]/20 font-medium text-stone-900">
+                                              {insumo.description}
+                                            </td>
+                                            <td className="p-2 border-r border-[#107c41]/20 text-right font-mono font-bold text-stone-800">
+                                              {typeof insumo.cant === 'number' ? insumo.cant.toFixed(4) : insumo.cant}
+                                            </td>
+                                            <td className="p-2 border-r border-[#107c41]/20 text-right font-mono text-stone-800">
+                                              ${Math.round((insumo.pu || 0) * (ufValue / 38000)).toLocaleString('es-CL')}
+                                            </td>
+                                            <td className="p-2 border-r border-[#107c41]/20 text-right font-mono font-bold text-stone-950">
+                                              ${Math.round((insumo.p_total || 0) * (ufValue / 38000)).toLocaleString('es-CL')}
+                                            </td>
+                                            <td className="p-2 border-r border-[#107c41]/20 text-right font-mono font-bold text-red-600">
+                                              {factorDisplay}
+                                            </td>
+                                            <td className="p-2 text-[9px] text-stone-600 uppercase font-sans leading-tight">
+                                              {insumo.obs || '-'}
+                                            </td>
+                                          </tr>
+                                        );
+                                      })
+                                    ) : (
+                                      /* Fallback si no tiene detalles registrados */
+                                      <>
+                                        <tr className="hover:bg-amber-50/60 transition-colors">
+                                          <td className="p-2 border-r border-[#107c41]/20 font-bold text-amber-800">Material</td>
+                                          <td className="p-2 border-r border-[#107c41]/20 text-center font-semibold">{item.unit || 'UD'}</td>
+                                          <td className="p-2 border-r border-[#107c41]/20 font-medium">{item.description} - Insumo Principal</td>
+                                          <td className="p-2 border-r border-[#107c41]/20 text-right font-mono font-bold">1,0000</td>
+                                          <td className="p-2 border-r border-[#107c41]/20 text-right font-mono">${Math.round((totalItemClp * (item.porcentajeMateriales || 50)) / 100).toLocaleString('es-CL')}</td>
+                                          <td className="p-2 border-r border-[#107c41]/20 text-right font-mono font-bold">${Math.round((totalItemClp * (item.porcentajeMateriales || 50)) / 100).toLocaleString('es-CL')}</td>
+                                          <td className="p-2 border-r border-[#107c41]/20 text-right font-mono font-bold text-red-600">58,33</td>
+                                          <td className="p-2 text-[9px] text-stone-600 uppercase font-sans">REND. SEGÚN ESPECIFICACIÓN TÉCNICA +20% PÉRDIDA</td>
+                                        </tr>
 
-                                    {/* Fila 4: Leyes Sociales */}
-                                    <tr className="hover:bg-amber-50/60 transition-colors">
-                                      <td className="p-2 border-r border-[#107c41]/20 font-bold text-stone-700">Otros</td>
-                                      <td className="p-2 border-r border-[#107c41]/20 text-center font-semibold">%</td>
-                                      <td className="p-2 border-r border-[#107c41]/20 font-medium">LEYES SOCIALES Y PROTECCIÓN SOCIAL</td>
-                                      <td className="p-2 border-r border-[#107c41]/20 text-right font-mono font-bold">0,3800</td>
-                                      <td className="p-2 border-r border-[#107c41]/20 text-right font-mono">$700</td>
-                                      <td className="p-2 border-r border-[#107c41]/20 text-right font-mono font-bold">${Math.round((totalItemClp * (item.porcentajeManoObra || 45) * 0.38) / 100).toLocaleString('es-CL')}</td>
-                                      <td className="p-2 border-r border-[#107c41]/20 text-right font-mono font-bold text-red-600">-</td>
-                                      <td className="p-2 text-[9px] text-stone-600 uppercase font-sans">38% SOBRE TOTAL MANO DE OBRA DE CÁLCULO</td>
-                                    </tr>
+                                        <tr className="hover:bg-amber-50/60 transition-colors">
+                                          <td className="p-2 border-r border-[#107c41]/20 font-bold text-emerald-800">Mano de obra</td>
+                                          <td className="p-2 border-r border-[#107c41]/20 text-center font-semibold">DÍA</td>
+                                          <td className="p-2 border-r border-[#107c41]/20 font-medium">MAESTRO / AYUDANTE ESPECIALIZADO</td>
+                                          <td className="p-2 border-r border-[#107c41]/20 text-right font-mono font-bold">0,0200</td>
+                                          <td className="p-2 border-r border-[#107c41]/20 text-right font-mono">${Math.round((totalItemClp * (item.porcentajeManoObra || 45)) / 100).toLocaleString('es-CL')}</td>
+                                          <td className="p-2 border-r border-[#107c41]/20 text-right font-mono font-bold">${Math.round((totalItemClp * (item.porcentajeManoObra || 45)) / 100).toLocaleString('es-CL')}</td>
+                                          <td className="p-2 border-r border-[#107c41]/20 text-right font-mono font-bold text-red-600">50,00</td>
+                                          <td className="p-2 text-[9px] text-stone-600 uppercase font-sans">RENDIMIENTO DÍA JORNADA TRABAJADOR EN TERRENO</td>
+                                        </tr>
+                                      </>
+                                    )}
 
                                     {/* Fila Especificaciones Técnicas */}
                                     {item.inclusions && (
