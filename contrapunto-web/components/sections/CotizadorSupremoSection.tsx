@@ -82,7 +82,7 @@ interface QuoteItem {
 export default function CotizadorSupremoSection() {
   const [prompt, setPrompt] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [ufValue, setUfValue] = useState(37500);
+  const [ufValue, setUfValue] = useState(40857);
   const [gastosGenerales, setGastosGenerales] = useState(15);
   const [utilidad, setUtilidad] = useState(10);
   const [ivaActive, setIvaActive] = useState(true);

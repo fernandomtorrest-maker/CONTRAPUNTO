@@ -65,7 +65,7 @@ export function PartidasAdminSection() {
   const [msgStatus, setMsgStatus] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
 
   // UF de referencia
-  const [ufValue, setUfValue] = useState(38500);
+  const [ufValue, setUfValue] = useState(40857);
 
   // Generador en Lenguaje Natural (IA)
   const [naturalPrompt, setNaturalPrompt] = useState('');
@@ -858,6 +858,16 @@ export function PartidasAdminSection() {
                     </option>
                   ))}
                 </select>
+              </div>
+
+              <div className="flex items-center gap-2 border-l border-white/10 pl-3">
+                <span className="text-amber-400 font-bold text-[11px]">UF ($):</span>
+                <input
+                  type="number"
+                  value={ufValue}
+                  onChange={(e) => setUfValue(Number(e.target.value))}
+                  className="w-24 bg-stone-900 border border-amber-500/40 text-amber-300 font-bold rounded-lg px-2 py-0.5 text-xs text-right focus:outline-none focus:border-amber-400 font-mono"
+                />
               </div>
             </div>
 
