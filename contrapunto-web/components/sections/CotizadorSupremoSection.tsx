@@ -1033,73 +1033,129 @@ export default function CotizadorSupremoSection() {
                               </span>
                             </div>
 
-                            {/* PLANILLA DESPLEGABLE ULTRA FIEL A EXCEL */}
+                            {/* PLANILLA DESPLEGABLE REPLICADA EXACTAMENTE DE EXCEL */}
                             {openExcelId === item.id && (
-                              <div className="mt-3 bg-[#111111] border-2 border-[#107c41] rounded-lg overflow-hidden shadow-2xl font-mono text-[10px] max-w-2xl">
-                                {/* Barra de título estilo Microsoft Excel */}
-                                <div className="bg-[#107c41] text-white px-3 py-1 flex items-center justify-between text-[9px] font-bold tracking-wider uppercase">
+                              <div className="mt-3 bg-[#fefce8] border-2 border-[#107c41] rounded-lg overflow-x-auto shadow-2xl font-mono text-[10px] text-stone-900">
+                                
+                                {/* BARRA DE TÍTULO EXCEL */}
+                                <div className="bg-[#107c41] text-white px-3 py-1.5 flex items-center justify-between text-[10px] font-bold tracking-wider uppercase font-sans">
                                   <div className="flex items-center gap-2">
-                                    <Table className="w-3.5 h-3.5" />
-                                    <span>MICROSOFT EXCEL - HOJA DE ANÁLISIS DE PRECIOS UNITARIOS</span>
+                                    <Table className="w-4 h-4 text-white" />
+                                    <span>ANÁLISIS DE PRECIO UNITARIO (APU) - HOJA DE CÁLCULO EXCEL</span>
                                   </div>
-                                  <span className="text-[8px] opacity-80">HOJA_APU_CHILE.XLSX</span>
+                                  <span className="text-[9px] bg-white/20 px-2 py-0.5 rounded text-white">
+                                    Fila {item.id + 12}
+                                  </span>
                                 </div>
 
-                                {/* Encabezado de Columnas Excel (A, B, C, D, E) */}
-                                <div className="grid grid-cols-12 bg-stone-900 border-b border-neutral-700 text-stone-400 text-center text-[9px] font-bold">
-                                  <div className="col-span-1 border-r border-neutral-700 py-1 bg-stone-950">A</div>
-                                  <div className="col-span-4 border-r border-neutral-700 py-1">B (CONCEPTO / INSUMO)</div>
-                                  <div className="col-span-2 border-r border-neutral-700 py-1">C (UNIDAD)</div>
-                                  <div className="col-span-2 border-r border-neutral-700 py-1">D (% APU)</div>
-                                  <div className="col-span-3 py-1">E (SUBTOTAL CLP)</div>
+                                {/* ENCABEZADO DE PARTIDA (FILA AMARILLA / DORADA FIEL A LA IMAGEN) */}
+                                <div className="bg-[#fceda6] border-b-2 border-[#107c41] p-2.5 font-bold flex flex-wrap items-center justify-between gap-2 text-stone-900">
+                                  <div className="flex items-center gap-2">
+                                    <span className="bg-[#107c41] text-white px-2 py-0.5 rounded text-[9px] uppercase">
+                                      Partida
+                                    </span>
+                                    <span className="px-2 py-0.5 bg-white/80 border border-amber-400 rounded text-[10px]">
+                                      {item.unit || 'M2'}
+                                    </span>
+                                    <span className="text-xs uppercase tracking-wide text-stone-950 font-black">
+                                      {item.description}
+                                    </span>
+                                  </div>
+
+                                  <div className="flex items-center gap-4 text-[11px]">
+                                    <div>
+                                      <span className="text-[9px] text-stone-600 uppercase block font-normal">Rendimiento:</span>
+                                      <span>1.0000</span>
+                                    </div>
+                                    <div>
+                                      <span className="text-[9px] text-stone-600 uppercase block font-normal">Precio Unitario:</span>
+                                      <span className="text-emerald-800 font-extrabold">${Math.round(totalItemClp).toLocaleString('es-CL')} ({item.priceUf.toFixed(3)} UF)</span>
+                                    </div>
+                                    <div>
+                                      <span className="text-[9px] text-stone-600 uppercase block font-normal font-sans">Categoría:</span>
+                                      <span className="bg-amber-300/80 px-2 py-0.5 rounded text-[9px] uppercase border border-amber-400">{item.category || 'COMPLEMENTARIO'}</span>
+                                    </div>
+                                  </div>
                                 </div>
 
-                                {/* Filas de Celdas Excel */}
-                                <div className="divide-y divide-neutral-800 text-neutral-200">
-                                  {/* Fila 1: Materiales */}
-                                  <div className="grid grid-cols-12 hover:bg-white/5 transition-colors">
-                                    <div className="col-span-1 border-r border-neutral-800 p-1.5 text-center font-bold text-amber-400 bg-stone-950/60">1</div>
-                                    <div className="col-span-4 border-r border-neutral-800 p-1.5 flex items-center gap-1">
-                                      <span className="text-amber-400 font-bold">📦 Materiales & Insumos</span>
-                                    </div>
-                                    <div className="col-span-2 border-r border-neutral-800 p-1.5 text-center">{item.unit || 'm2'}</div>
-                                    <div className="col-span-2 border-r border-neutral-800 p-1.5 text-center text-amber-300 font-bold">{item.porcentajeMateriales || 50}%</div>
-                                    <div className="col-span-3 p-1.5 text-right font-bold text-cream">${Math.round((totalItemClp * (item.porcentajeMateriales || 50)) / 100).toLocaleString('es-CL')}</div>
-                                  </div>
+                                {/* TABLA DE DETALLE DE INSUMOS (8 COLUMNAS DE LA IMAGEN) */}
+                                <table className="w-full border-collapse text-[10px] text-left">
+                                  <thead>
+                                    <tr className="bg-[#fef9c3] border-b border-[#107c41]/30 text-stone-700 text-[9px] uppercase font-bold font-sans">
+                                      <th className="p-2 border-r border-[#107c41]/20">Tipo</th>
+                                      <th className="p-2 border-r border-[#107c41]/20 text-center">Unidad</th>
+                                      <th className="p-2 border-r border-[#107c41]/20">Descripción del Insumo / Recurso</th>
+                                      <th className="p-2 border-r border-[#107c41]/20 text-right">Rendimiento</th>
+                                      <th className="p-2 border-r border-[#107c41]/20 text-right">Precio Unit ($)</th>
+                                      <th className="p-2 border-r border-[#107c41]/20 text-right">Subtotal ($)</th>
+                                      <th className="p-2 border-r border-[#107c41]/20 text-right text-red-600 font-extrabold">Factor/Avance</th>
+                                      <th className="p-2">Observaciones & Especificación Técnica</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody className="divide-y divide-[#107c41]/20 bg-white">
+                                    {/* Fila 1: Material Principal */}
+                                    <tr className="hover:bg-amber-50/60 transition-colors">
+                                      <td className="p-2 border-r border-[#107c41]/20 font-bold text-amber-800">Material</td>
+                                      <td className="p-2 border-r border-[#107c41]/20 text-center font-semibold">{item.unit || 'UD'}</td>
+                                      <td className="p-2 border-r border-[#107c41]/20 font-medium">{item.description} - Insumo Principal</td>
+                                      <td className="p-2 border-r border-[#107c41]/20 text-right font-mono font-bold">0,0171</td>
+                                      <td className="p-2 border-r border-[#107c41]/20 text-right font-mono">${Math.round((totalItemClp * (item.porcentajeMateriales || 50)) / 100).toLocaleString('es-CL')}</td>
+                                      <td className="p-2 border-r border-[#107c41]/20 text-right font-mono font-bold">${Math.round((totalItemClp * (item.porcentajeMateriales || 50)) / 100).toLocaleString('es-CL')}</td>
+                                      <td className="p-2 border-r border-[#107c41]/20 text-right font-mono font-bold text-red-600">58,33</td>
+                                      <td className="p-2 text-[9px] text-stone-600 uppercase font-sans">REND. SEGÚN ESPECIFICACIÓN TÉCNICA +20% PÉRDIDA</td>
+                                    </tr>
 
-                                  {/* Fila 2: Mano de Obra */}
-                                  <div className="grid grid-cols-12 hover:bg-white/5 transition-colors">
-                                    <div className="col-span-1 border-r border-neutral-800 p-1.5 text-center font-bold text-emerald-400 bg-stone-950/60">2</div>
-                                    <div className="col-span-4 border-r border-neutral-800 p-1.5 flex items-center gap-1">
-                                      <span className="text-emerald-400 font-bold">🔨 Mano de Obra + Leyes Soc.</span>
-                                    </div>
-                                    <div className="col-span-2 border-r border-neutral-800 p-1.5 text-center">JORNAL</div>
-                                    <div className="col-span-2 border-r border-neutral-800 p-1.5 text-center text-emerald-300 font-bold">{item.porcentajeManoObra || 45}%</div>
-                                    <div className="col-span-3 p-1.5 text-right font-bold text-cream">${Math.round((totalItemClp * (item.porcentajeManoObra || 45)) / 100).toLocaleString('es-CL')}</div>
-                                  </div>
+                                    {/* Fila 2: Material Auxiliar */}
+                                    <tr className="hover:bg-amber-50/60 transition-colors">
+                                      <td className="p-2 border-r border-[#107c41]/20 font-bold text-amber-800">Material</td>
+                                      <td className="p-2 border-r border-[#107c41]/20 text-center font-semibold">GL</td>
+                                      <td className="p-2 border-r border-[#107c41]/20 font-medium">MATERIAL AUXILIAR Y HERRAMIENTAS DE LIMPIEZA</td>
+                                      <td className="p-2 border-r border-[#107c41]/20 text-right font-mono font-bold">0,0040</td>
+                                      <td className="p-2 border-r border-[#107c41]/20 text-right font-mono">$30.000</td>
+                                      <td className="p-2 border-r border-[#107c41]/20 text-right font-mono font-bold">${Math.round((totalItemClp * (item.porcentajeEquipos || 5)) / 100).toLocaleString('es-CL')}</td>
+                                      <td className="p-2 border-r border-[#107c41]/20 text-right font-mono font-bold text-red-600">250,00</td>
+                                      <td className="p-2 text-[9px] text-stone-600 uppercase font-sans">ASIGNACIÓN A UN TOTAL DE TRABAJO; EDITAR S/CASO</td>
+                                    </tr>
 
-                                  {/* Fila 3: Equipos */}
-                                  <div className="grid grid-cols-12 hover:bg-white/5 transition-colors">
-                                    <div className="col-span-1 border-r border-neutral-800 p-1.5 text-center font-bold text-sky-400 bg-stone-950/60">3</div>
-                                    <div className="col-span-4 border-r border-neutral-800 p-1.5 flex items-center gap-1">
-                                      <span className="text-sky-400 font-bold">🏗️ Equipos & Herramientas</span>
-                                    </div>
-                                    <div className="col-span-2 border-r border-neutral-800 p-1.5 text-center">GL</div>
-                                    <div className="col-span-2 border-r border-neutral-800 p-1.5 text-center text-sky-300 font-bold">{item.porcentajeEquipos || 5}%</div>
-                                    <div className="col-span-3 p-1.5 text-right font-bold text-cream">${Math.round((totalItemClp * (item.porcentajeEquipos || 5)) / 100).toLocaleString('es-CL')}</div>
-                                  </div>
+                                    {/* Fila 3: Mano de Obra */}
+                                    <tr className="hover:bg-amber-50/60 transition-colors">
+                                      <td className="p-2 border-r border-[#107c41]/20 font-bold text-emerald-800">Mano de obra</td>
+                                      <td className="p-2 border-r border-[#107c41]/20 text-center font-semibold">DÍA</td>
+                                      <td className="p-2 border-r border-[#107c41]/20 font-medium">MAESTRO / AYUDANTE ESPECIALIZADO</td>
+                                      <td className="p-2 border-r border-[#107c41]/20 text-right font-mono font-bold">0,0200</td>
+                                      <td className="p-2 border-r border-[#107c41]/20 text-right font-mono">${Math.round((totalItemClp * (item.porcentajeManoObra || 45)) / 100).toLocaleString('es-CL')}</td>
+                                      <td className="p-2 border-r border-[#107c41]/20 text-right font-mono font-bold">${Math.round((totalItemClp * (item.porcentajeManoObra || 45)) / 100).toLocaleString('es-CL')}</td>
+                                      <td className="p-2 border-r border-[#107c41]/20 text-right font-mono font-bold text-red-600">50,00</td>
+                                      <td className="p-2 text-[9px] text-stone-600 uppercase font-sans">RENDIMIENTO DÍA JORNADA TRABAJADOR EN TERRENO</td>
+                                    </tr>
 
-                                  {/* Fila 4: Especificación Técnica */}
-                                  {item.inclusions && (
-                                    <div className="grid grid-cols-12 bg-stone-950/80 p-2 border-t border-neutral-700">
-                                      <div className="col-span-1 border-r border-neutral-800 text-center font-bold text-sand">4</div>
-                                      <div className="col-span-11 pl-2 text-neutral-300 font-light leading-relaxed">
-                                        <span className="text-sand font-bold block mb-0.5 uppercase text-[9px]">📋 ESPECIFICACIÓN TÉCNICA Y CRITERIO DE EJECUCIÓN:</span>
-                                        {item.inclusions}
-                                      </div>
-                                    </div>
-                                  )}
-                                </div>
+                                    {/* Fila 4: Leyes Sociales */}
+                                    <tr className="hover:bg-amber-50/60 transition-colors">
+                                      <td className="p-2 border-r border-[#107c41]/20 font-bold text-stone-700">Otros</td>
+                                      <td className="p-2 border-r border-[#107c41]/20 text-center font-semibold">%</td>
+                                      <td className="p-2 border-r border-[#107c41]/20 font-medium">LEYES SOCIALES Y PROTECCIÓN SOCIAL</td>
+                                      <td className="p-2 border-r border-[#107c41]/20 text-right font-mono font-bold">0,3800</td>
+                                      <td className="p-2 border-r border-[#107c41]/20 text-right font-mono">$700</td>
+                                      <td className="p-2 border-r border-[#107c41]/20 text-right font-mono font-bold">${Math.round((totalItemClp * (item.porcentajeManoObra || 45) * 0.38) / 100).toLocaleString('es-CL')}</td>
+                                      <td className="p-2 border-r border-[#107c41]/20 text-right font-mono font-bold text-red-600">-</td>
+                                      <td className="p-2 text-[9px] text-stone-600 uppercase font-sans">38% SOBRE TOTAL MANO DE OBRA DE CÁLCULO</td>
+                                    </tr>
+
+                                    {/* Fila Especificaciones Técnicas */}
+                                    {item.inclusions && (
+                                      <tr className="bg-[#fef9c3]">
+                                        <td colSpan={8} className="p-3 text-[10px] text-stone-900 border-t border-[#107c41]/30">
+                                          <span className="font-bold text-[#107c41] uppercase tracking-wider block mb-1 font-sans">
+                                            📋 ESPECIFICACIÓN TÉCNICA Y CRITERIO DE EJECUCIÓN DEL EXCEL:
+                                          </span>
+                                          <p className="font-sans font-light leading-relaxed text-stone-800">
+                                            {item.inclusions}
+                                          </p>
+                                        </td>
+                                      </tr>
+                                    )}
+                                  </tbody>
+                                </table>
                               </div>
                             )}
                             {/* Alternative matching notification & switcher dropdown */}
