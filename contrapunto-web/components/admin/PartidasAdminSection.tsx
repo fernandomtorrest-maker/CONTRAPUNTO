@@ -4,6 +4,17 @@ import React, { useState, useEffect } from 'react';
 import { Plus, Search, Check, RefreshCw, AlertCircle, ArrowLeft, Database, DollarSign, Sparkles, CheckCircle2, Trash2, Upload, FileText, Table } from 'lucide-react';
 import Link from 'next/link';
 
+interface ApuInsumo {
+  tipo: string;
+  unit: string;
+  description: string;
+  cant: number | string;
+  pu: number;
+  p_total: number;
+  factor: number | string;
+  obs: string;
+}
+
 interface DbItem {
   id: number;
   code: string;
@@ -16,6 +27,7 @@ interface DbItem {
   porcentajeMateriales?: number;
   porcentajeManoObra?: number;
   porcentajeEquipos?: number;
+  apu_details?: ApuInsumo[];
 }
 
 export const CHAPTERS_LIST = [
@@ -942,73 +954,159 @@ export function PartidasAdminSection() {
                                   </button>
                                 </div>
 
-                                {/* PLANILLA DESPLEGABLE ULTRA FIEL A EXCEL */}
+                                {/* PLANILLA DESPLEGABLE REPLICADA EXACTAMENTE DE EXCEL */}
                                 {openExcelId === item.id && (
-                                  <div className="mt-2.5 bg-[#111111] border-2 border-[#107c41] rounded-lg overflow-hidden shadow-2xl font-mono text-[9px] max-w-xl">
-                                    {/* Barra de título estilo Microsoft Excel */}
-                                    <div className="bg-[#107c41] text-white px-2.5 py-1 flex items-center justify-between font-bold uppercase">
-                                      <div className="flex items-center gap-1.5">
-                                        <Table className="w-3 h-3" />
-                                        <span>MICROSOFT EXCEL - HOJA DE ANÁLISIS DE PRECIOS UNITARIOS</span>
+                                  <div className="mt-3 bg-[#fefce8] border-2 border-[#107c41] rounded-lg overflow-x-auto shadow-2xl font-mono text-[10px] text-stone-900">
+                                    
+                                    {/* BARRA DE TÍTULO EXCEL */}
+                                    <div className="bg-[#107c41] text-white px-3 py-1.5 flex items-center justify-between text-[10px] font-bold tracking-wider uppercase font-sans">
+                                      <div className="flex items-center gap-2">
+                                        <Table className="w-4 h-4 text-white" />
+                                        <span>ANÁLISIS DE PRECIO UNITARIO (APU) - HOJA DE CÁLCULO EXCEL</span>
                                       </div>
-                                      <span className="text-[8px] opacity-80">HOJA_APU_CHILE.XLSX</span>
+                                      <span className="text-[9px] bg-white/20 px-2 py-0.5 rounded text-white">
+                                        Fila {item.id + 12}
+                                      </span>
                                     </div>
 
-                                    {/* Encabezado de Columnas Excel (A, B, C, D, E) */}
-                                    <div className="grid grid-cols-12 bg-stone-900 border-b border-neutral-700 text-stone-400 text-center font-bold">
-                                      <div className="col-span-1 border-r border-neutral-700 py-0.5 bg-stone-950">A</div>
-                                      <div className="col-span-4 border-r border-neutral-700 py-0.5">B (CONCEPTO)</div>
-                                      <div className="col-span-2 border-r border-neutral-700 py-0.5">C (UNIDAD)</div>
-                                      <div className="col-span-2 border-r border-neutral-700 py-0.5">D (% APU)</div>
-                                      <div className="col-span-3 py-0.5">E (SUBTOTAL CLP)</div>
+                                    {/* ENCABEZADO DE PARTIDA (FILA AMARILLA / DORADA FIEL A LA IMAGEN) */}
+                                    <div className="bg-[#fceda6] border-b-2 border-[#107c41] p-2.5 font-bold flex flex-wrap items-center justify-between gap-2 text-stone-900">
+                                      <div className="flex items-center gap-2">
+                                        <span className="bg-[#107c41] text-white px-2 py-0.5 rounded text-[9px] uppercase">
+                                          Partida
+                                        </span>
+                                        <span className="px-2 py-0.5 bg-white/80 border border-amber-400 rounded text-[10px]">
+                                          {item.unit || 'M2'}
+                                        </span>
+                                        <span className="text-xs uppercase tracking-wide text-stone-950 font-black">
+                                          {item.description}
+                                        </span>
+                                      </div>
+
+                                      <div className="flex items-center gap-4 text-[11px]">
+                                        <div>
+                                          <span className="text-[9px] text-stone-600 uppercase block font-normal">Rendimiento:</span>
+                                          <span>1.0000</span>
+                                        </div>
+                                        <div>
+                                          <span className="text-[9px] text-stone-600 uppercase block font-normal">Precio Unitario:</span>
+                                          <span className="text-emerald-800 font-extrabold">${clpEst.toLocaleString('es-CL')} ({item.priceUf} UF)</span>
+                                        </div>
+                                        <div>
+                                          <span className="text-[9px] text-stone-600 uppercase block font-normal font-sans">Categoría:</span>
+                                          <span className="bg-amber-300/80 px-2 py-0.5 rounded text-[9px] uppercase border border-amber-400">{item.category || 'COMPLEMENTARIO'}</span>
+                                        </div>
+                                      </div>
                                     </div>
 
-                                    {/* Filas de Celdas Excel */}
-                                    <div className="divide-y divide-neutral-800 text-neutral-200">
-                                      {/* Fila 1: Materiales */}
-                                      <div className="grid grid-cols-12 hover:bg-white/5 transition-colors">
-                                        <div className="col-span-1 border-r border-neutral-800 p-1 text-center font-bold text-amber-400 bg-stone-950/60">1</div>
-                                        <div className="col-span-4 border-r border-neutral-800 p-1 flex items-center gap-1">
-                                          <span className="text-amber-400 font-bold">📦 Materiales</span>
-                                        </div>
-                                        <div className="col-span-2 border-r border-neutral-800 p-1 text-center">{item.unit || 'm2'}</div>
-                                        <div className="col-span-2 border-r border-neutral-800 p-1 text-center text-amber-300 font-bold">{item.porcentajeMateriales || 50}%</div>
-                                        <div className="col-span-3 p-1 text-right font-bold text-cream">${Math.round((clpEst * (item.porcentajeMateriales || 50)) / 100).toLocaleString('es-CL')}</div>
-                                      </div>
+                                    {/* TABLA DE DETALLE DE INSUMOS (8 COLUMNAS EXACTAS DE LA IMAGEN DE EXCEL) */}
+                                    <table className="w-full border-collapse text-[10px] text-left">
+                                      <thead>
+                                        <tr className="bg-[#202727] text-white border-b-2 border-[#0e4e42] text-[9px] uppercase font-bold tracking-wider font-sans select-none">
+                                          <th className="p-2 border-r border-[#0e4e42]/60 text-left font-black">
+                                            <div className="flex items-center gap-1">
+                                              <span>TIPO</span>
+                                              <span className="text-[10px] text-emerald-400 font-normal">▾</span>
+                                            </div>
+                                          </th>
+                                          <th className="p-2 border-r border-[#0e4e42]/60 text-center font-black">UD</th>
+                                          <th className="p-2 border-r border-[#0e4e42]/60 text-left font-black">DESCRIPCIÓN</th>
+                                          <th className="p-2 border-r border-[#0e4e42]/60 text-right font-black">CANT.</th>
+                                          <th className="p-2 border-r border-[#0e4e42]/60 text-right font-black">PU</th>
+                                          <th className="p-2 border-r border-[#0e4e42]/60 text-right font-black">P. TOTAL</th>
+                                          <th className="p-2 border-r border-[#0e4e42]/60 text-right text-red-400 font-black">REND.</th>
+                                          <th className="p-2 text-left font-black">OBSERVACIONES</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody className="divide-y divide-[#107c41]/20 bg-white">
+                                        {item.apu_details && item.apu_details.length > 0 ? (
+                                          item.apu_details.map((insumo, idx) => {
+                                            const tipoColor =
+                                              insumo.tipo === 'Material'
+                                                ? 'text-amber-800 font-bold'
+                                                : insumo.tipo === 'Mano de obra'
+                                                ? 'text-emerald-800 font-bold'
+                                                : insumo.tipo === 'Subcontrato'
+                                                ? 'text-purple-800 font-bold'
+                                                : 'text-stone-700 font-bold';
 
-                                      {/* Fila 2: Mano de Obra */}
-                                      <div className="grid grid-cols-12 hover:bg-white/5 transition-colors">
-                                        <div className="col-span-1 border-r border-neutral-800 p-1 text-center font-bold text-emerald-400 bg-stone-950/60">2</div>
-                                        <div className="col-span-4 border-r border-neutral-800 p-1 flex items-center gap-1">
-                                          <span className="text-emerald-400 font-bold">🔨 Mano de Obra</span>
-                                        </div>
-                                        <div className="col-span-2 border-r border-neutral-800 p-1 text-center">JORNAL</div>
-                                        <div className="col-span-2 border-r border-neutral-800 p-1 text-center text-emerald-300 font-bold">{item.porcentajeManoObra || 45}%</div>
-                                        <div className="col-span-3 p-1 text-right font-bold text-cream">${Math.round((clpEst * (item.porcentajeManoObra || 45)) / 100).toLocaleString('es-CL')}</div>
-                                      </div>
+                                            const factorDisplay =
+                                              insumo.factor !== undefined && insumo.factor !== '' && insumo.factor !== null
+                                                ? typeof insumo.factor === 'number'
+                                                  ? insumo.factor.toFixed(2)
+                                                  : String(insumo.factor)
+                                                : '-';
 
-                                      {/* Fila 3: Equipos */}
-                                      <div className="grid grid-cols-12 hover:bg-white/5 transition-colors">
-                                        <div className="col-span-1 border-r border-neutral-800 p-1 text-center font-bold text-sky-400 bg-stone-950/60">3</div>
-                                        <div className="col-span-4 border-r border-neutral-800 p-1 flex items-center gap-1">
-                                          <span className="text-sky-400 font-bold">🏗️ Equipos</span>
-                                        </div>
-                                        <div className="col-span-2 border-r border-neutral-800 p-1 text-center">GL</div>
-                                        <div className="col-span-2 border-r border-neutral-800 p-1 text-center text-sky-300 font-bold">{item.porcentajeEquipos || 5}%</div>
-                                        <div className="col-span-3 p-1 text-right font-bold text-cream">${Math.round((clpEst * (item.porcentajeEquipos || 5)) / 100).toLocaleString('es-CL')}</div>
-                                      </div>
+                                            return (
+                                              <tr key={idx} className="hover:bg-amber-50/60 transition-colors">
+                                                <td className={`p-2 border-r border-[#107c41]/20 ${tipoColor}`}>
+                                                  {insumo.tipo}
+                                                </td>
+                                                <td className="p-2 border-r border-[#107c41]/20 text-center font-semibold text-stone-800">
+                                                  {insumo.unit || '-'}
+                                                </td>
+                                                <td className="p-2 border-r border-[#107c41]/20 font-medium text-stone-900">
+                                                  {insumo.description}
+                                                </td>
+                                                <td className="p-2 border-r border-[#107c41]/20 text-right font-mono font-bold text-stone-800">
+                                                  {typeof insumo.cant === 'number' ? insumo.cant.toFixed(4) : insumo.cant}
+                                                </td>
+                                                <td className="p-2 border-r border-[#107c41]/20 text-right font-mono text-stone-800">
+                                                  ${Math.round((insumo.pu || 0) * (ufValue / 38000)).toLocaleString('es-CL')}
+                                                </td>
+                                                <td className="p-2 border-r border-[#107c41]/20 text-right font-mono font-bold text-stone-950">
+                                                  ${Math.round((insumo.p_total || 0) * (ufValue / 38000)).toLocaleString('es-CL')}
+                                                </td>
+                                                <td className="p-2 border-r border-[#107c41]/20 text-right font-mono font-bold text-red-600">
+                                                  {factorDisplay}
+                                                </td>
+                                                <td className="p-2 text-[9px] text-stone-600 uppercase font-sans leading-tight">
+                                                  {insumo.obs || '-'}
+                                                </td>
+                                              </tr>
+                                            );
+                                          })
+                                        ) : (
+                                          <>
+                                            <tr className="hover:bg-amber-50/60 transition-colors">
+                                              <td className="p-2 border-r border-[#107c41]/20 font-bold text-amber-800">Material</td>
+                                              <td className="p-2 border-r border-[#107c41]/20 text-center font-semibold">{item.unit || 'UD'}</td>
+                                              <td className="p-2 border-r border-[#107c41]/20 font-medium">{item.description} - Insumo Principal</td>
+                                              <td className="p-2 border-r border-[#107c41]/20 text-right font-mono font-bold">1,0000</td>
+                                              <td className="p-2 border-r border-[#107c41]/20 text-right font-mono">${Math.round((clpEst * (item.porcentajeMateriales || 50)) / 100).toLocaleString('es-CL')}</td>
+                                              <td className="p-2 border-r border-[#107c41]/20 text-right font-mono font-bold">${Math.round((clpEst * (item.porcentajeMateriales || 50)) / 100).toLocaleString('es-CL')}</td>
+                                              <td className="p-2 border-r border-[#107c41]/20 text-right font-mono font-bold text-red-600">58,33</td>
+                                              <td className="p-2 text-[9px] text-stone-600 uppercase font-sans">REND. SEGÚN ESPECIFICACIÓN TÉCNICA +20% PÉRDIDA</td>
+                                            </tr>
 
-                                      {/* Fila 4: Especificación Técnica */}
-                                      {item.inclusions && (
-                                        <div className="grid grid-cols-12 bg-stone-950/80 p-1.5 border-t border-neutral-700">
-                                          <div className="col-span-1 border-r border-neutral-800 text-center font-bold text-sand">4</div>
-                                          <div className="col-span-11 pl-1.5 text-neutral-300 font-light leading-relaxed">
-                                            <span className="text-sand font-bold block uppercase text-[8px]">📋 ESPECIFICACIÓN TÉCNICA:</span>
-                                            {item.inclusions}
-                                          </div>
-                                        </div>
-                                      )}
-                                    </div>
+                                            <tr className="hover:bg-amber-50/60 transition-colors">
+                                              <td className="p-2 border-r border-[#107c41]/20 font-bold text-emerald-800">Mano de obra</td>
+                                              <td className="p-2 border-r border-[#107c41]/20 text-center font-semibold">DÍA</td>
+                                              <td className="p-2 border-r border-[#107c41]/20 font-medium">MAESTRO / AYUDANTE ESPECIALIZADO</td>
+                                              <td className="p-2 border-r border-[#107c41]/20 text-right font-mono font-bold">0,0200</td>
+                                              <td className="p-2 border-r border-[#107c41]/20 text-right font-mono">${Math.round((clpEst * (item.porcentajeManoObra || 45)) / 100).toLocaleString('es-CL')}</td>
+                                              <td className="p-2 border-r border-[#107c41]/20 text-right font-mono font-bold">${Math.round((clpEst * (item.porcentajeManoObra || 45)) / 100).toLocaleString('es-CL')}</td>
+                                              <td className="p-2 border-r border-[#107c41]/20 text-right font-mono font-bold text-red-600">50,00</td>
+                                              <td className="p-2 text-[9px] text-stone-600 uppercase font-sans">RENDIMIENTO DÍA JORNADA TRABAJADOR EN TERRENO</td>
+                                            </tr>
+                                          </>
+                                        )}
+
+                                        {/* Fila Especificaciones Técnicas */}
+                                        {item.inclusions && (
+                                          <tr className="bg-[#fef9c3]">
+                                            <td colSpan={8} className="p-3 text-[10px] text-stone-900 border-t border-[#107c41]/30">
+                                              <span className="font-bold text-[#107c41] uppercase tracking-wider block mb-1 font-sans">
+                                                📋 ESPECIFICACIÓN TÉCNICA Y CRITERIO DE EJECUCIÓN DEL EXCEL:
+                                              </span>
+                                              <p className="font-sans font-light leading-relaxed text-stone-800">
+                                                {item.inclusions}
+                                              </p>
+                                            </td>
+                                          </tr>
+                                        )}
+                                      </tbody>
+                                    </table>
                                   </div>
                                 )}
                               </div>

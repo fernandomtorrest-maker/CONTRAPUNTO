@@ -1097,15 +1097,20 @@ export default function CotizadorSupremoSection() {
                                 {/* TABLA DE DETALLE DE INSUMOS (8 COLUMNAS DE LA IMAGEN) */}
                                 <table className="w-full border-collapse text-[10px] text-left">
                                   <thead>
-                                    <tr className="bg-[#fef9c3] border-b border-[#107c41]/30 text-stone-700 text-[9px] uppercase font-bold font-sans">
-                                      <th className="p-2 border-r border-[#107c41]/20">Tipo</th>
-                                      <th className="p-2 border-r border-[#107c41]/20 text-center">Unidad</th>
-                                      <th className="p-2 border-r border-[#107c41]/20">Descripción del Insumo / Recurso</th>
-                                      <th className="p-2 border-r border-[#107c41]/20 text-right">Rendimiento</th>
-                                      <th className="p-2 border-r border-[#107c41]/20 text-right">Precio Unit ($)</th>
-                                      <th className="p-2 border-r border-[#107c41]/20 text-right">Subtotal ($)</th>
-                                      <th className="p-2 border-r border-[#107c41]/20 text-right text-red-600 font-extrabold">Factor/Avance</th>
-                                      <th className="p-2">Observaciones & Especificación Técnica</th>
+                                    <tr className="bg-[#202727] text-white border-b-2 border-[#0e4e42] text-[9px] uppercase font-bold tracking-wider font-sans select-none">
+                                      <th className="p-2 border-r border-[#0e4e42]/60 text-left font-black">
+                                        <div className="flex items-center gap-1">
+                                          <span>TIPO</span>
+                                          <span className="text-[10px] text-emerald-400 font-normal">▾</span>
+                                        </div>
+                                      </th>
+                                      <th className="p-2 border-r border-[#0e4e42]/60 text-center font-black">UD</th>
+                                      <th className="p-2 border-r border-[#0e4e42]/60 text-left font-black">DESCRIPCIÓN</th>
+                                      <th className="p-2 border-r border-[#0e4e42]/60 text-right font-black">CANT.</th>
+                                      <th className="p-2 border-r border-[#0e4e42]/60 text-right font-black">PU</th>
+                                      <th className="p-2 border-r border-[#0e4e42]/60 text-right font-black">P. TOTAL</th>
+                                      <th className="p-2 border-r border-[#0e4e42]/60 text-right text-red-400 font-black">REND.</th>
+                                      <th className="p-2 text-left font-black">OBSERVACIONES</th>
                                     </tr>
                                   </thead>
                                   <tbody className="divide-y divide-[#107c41]/20 bg-white">
