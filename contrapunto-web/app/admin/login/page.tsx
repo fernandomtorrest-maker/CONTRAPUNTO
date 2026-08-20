@@ -5,10 +5,8 @@ import { useRouter } from 'next/navigation';
 import { ShieldCheck, Lock, User, KeyRound, AlertCircle, ArrowRight } from 'lucide-react';
 import Image from 'next/image';
 
-const AUTHORIZED_USERS = ['Fernando', 'Nicole', 'Diego', 'Niels', 'Julio', 'Jean', 'Valeria'];
-
 export default function AdminLoginPage() {
-  const [selectedUser, setSelectedUser] = useState('Fernando');
+  const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
@@ -23,7 +21,7 @@ export default function AdminLoginPage() {
       const res = await fetch('/api/admin/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ userName: selectedUser, password }),
+        body: JSON.stringify({ userName, password }),
       });
 
       const data = await res.json();
@@ -81,23 +79,20 @@ export default function AdminLoginPage() {
         {/* FORMULARIO DE ACCESO */}
         <form onSubmit={handleLogin} className="space-y-4">
           
-          {/* SELECTOR DE USUARIO AUTORIZADO */}
+          {/* CUADRO DE TEXTO NOMBRE DE USUARIO */}
           <div>
             <label className="text-[10px] font-mono font-bold uppercase tracking-wider text-sand block mb-1.5 flex items-center gap-1.5">
               <User className="w-3.5 h-3.5" />
-              Selecciona tu Usuario
+              Nombre de Usuario
             </label>
-            <select
-              value={selectedUser}
-              onChange={(e) => setSelectedUser(e.target.value)}
-              className="w-full bg-stone-900 border border-white/10 text-cream rounded-xl p-3.5 text-xs focus:outline-none focus:border-sand font-mono cursor-pointer"
-            >
-              {AUTHORIZED_USERS.map((user) => (
-                <option key={user} value={user}>
-                  👤 {user}
-                </option>
-              ))}
-            </select>
+            <input
+              type="text"
+              required
+              placeholder="Escribe tu nombre de usuario..."
+              value={userName}
+              onChange={(e) => setUserName(e.target.value)}
+              className="w-full bg-stone-900 border border-white/10 text-cream rounded-xl p-3.5 text-xs focus:outline-none focus:border-sand font-mono"
+            />
           </div>
 
           {/* CLAVE MAESTRA GENERAL */}
