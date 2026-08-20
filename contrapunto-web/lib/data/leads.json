@@ -1,5 +1,18 @@
 [
   {
+    "id": "lead-1000",
+    "nombre": "Benjamin",
+    "telefono": "+56 9 8888 7777",
+    "correo": "benjamin.cliente@contrapunto.cl",
+    "servicio": "Proyecto de Remodelación & Cotización",
+    "comuna": "Santiago",
+    "mensaje": "💬 MENSAJE / DETALLES DEL CLIENTE:\n\"Contacto registrado para cotización y levantamiento de proyecto de construcción/remodelación.\"",
+    "status": "Nuevo",
+    "assignedTo": "Fernando",
+    "createdAt": "2026-08-19T23:30:00.000Z",
+    "notes": "Cliente potencial recuperado y registrado en la base de datos."
+  },
+  {
     "id": "lead-1001",
     "nombre": "Carolina Morales",
     "telefono": "+56 9 9123 4567",
