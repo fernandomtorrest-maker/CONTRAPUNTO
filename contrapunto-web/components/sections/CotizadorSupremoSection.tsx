@@ -288,31 +288,56 @@ export default function CotizadorSupremoSection() {
 
   // Calculate costs
   const calculateTotals = () => {
-    const costDirectoUf = quoteItems.reduce((acc, item) => acc + (item.quantity * item.priceUf), 0);
-    const costDirectoClp = costDirectoUf * ufValue;
-    
+    let materialsDirectClp = 0;
+    let manoObraDirectClp = 0;
+    let equiposDirectClp = 0;
+
+    quoteItems.forEach((item) => {
+      const itemTotalClp = item.quantity * item.priceUf * ufValue;
+      const matPct = (item.porcentajeMateriales ?? 50) / 100;
+      const moPct = (item.porcentajeManoObra ?? 45) / 100;
+      const eqPct = (item.porcentajeEquipos ?? 5) / 100;
+
+      materialsDirectClp += itemTotalClp * matPct;
+      manoObraDirectClp += itemTotalClp * moPct;
+      equiposDirectClp += itemTotalClp * eqPct;
+    });
+
+    const costDirectoClp = materialsDirectClp + manoObraDirectClp + equiposDirectClp;
+    const costDirectoUf = costDirectoClp / ufValue;
+
+    const materialsDirectUf = materialsDirectClp / ufValue;
+    const manoObraDirectUf = manoObraDirectClp / ufValue;
+    const equiposDirectUf = equiposDirectClp / ufValue;
+
     const ggUf = costDirectoUf * (gastosGenerales / 100);
     const ggClp = costDirectoClp * (gastosGenerales / 100);
-    
+
     const utilUf = costDirectoUf * (utilidad / 100);
     const utilClp = costDirectoClp * (utilidad / 100);
-    
+
     const netoUf = costDirectoUf + ggUf + utilUf;
     const netoClp = costDirectoClp + ggClp + utilClp;
-    
+
     const ivaUf = ivaActive ? netoUf * 0.19 : 0;
     const ivaClp = ivaActive ? netoClp * 0.19 : 0;
-    
-    // Add materials cost to totals
-    const materialsClp = Number(clientInfo.costoMateriales) || 0;
-    const materialsUf = materialsClp / ufValue;
 
-    const totalUf = netoUf + ivaUf + materialsUf;
-    const totalClp = netoClp + ivaClp + materialsClp;
+    // Materiales extras ingresados opcionalmente en el cliente
+    const extraMaterialsClp = Number(clientInfo.costoMateriales) || 0;
+    const extraMaterialsUf = extraMaterialsClp / ufValue;
+
+    const totalUf = netoUf + ivaUf + extraMaterialsUf;
+    const totalClp = netoClp + ivaClp + extraMaterialsClp;
 
     return {
       costDirectoUf,
       costDirectoClp,
+      materialsDirectClp,
+      materialsDirectUf,
+      manoObraDirectClp,
+      manoObraDirectUf,
+      equiposDirectClp,
+      equiposDirectUf,
       ggUf,
       ggClp,
       utilUf,
@@ -321,8 +346,8 @@ export default function CotizadorSupremoSection() {
       netoClp,
       ivaUf,
       ivaClp,
-      materialsUf,
-      materialsClp,
+      materialsUf: extraMaterialsUf,
+      materialsClp: extraMaterialsClp,
       totalUf,
       totalClp
     };
@@ -552,14 +577,16 @@ export default function CotizadorSupremoSection() {
 
       const y_total = y;
 
-      // Table 1: Mano de obra breakdown
+      // Table 1: Desglose de Insumos, Mano de Obra y Totales
       const table1Rows = [
-        { label: 'Valor Mano de Obra', value: `$${Math.round(totals.costDirectoClp).toLocaleString('es-CL')}` },
+        { label: 'Total Insumos / Materiales', value: `$${Math.round(totals.materialsDirectClp + totals.materialsClp).toLocaleString('es-CL')}` },
+        { label: 'Total Mano de Obra', value: `$${Math.round(totals.manoObraDirectClp).toLocaleString('es-CL')}` },
+        { label: 'Subtotal Costo Directo', value: `$${Math.round(totals.costDirectoClp).toLocaleString('es-CL')}` },
         { label: `Gastos generales (${gastosGenerales}%)`, value: `$${Math.round(totals.ggClp).toLocaleString('es-CL')}` },
         { label: `Utilidades (${utilidad}%)`, value: `$${Math.round(totals.utilClp).toLocaleString('es-CL')}` },
         { label: 'TOTAL NETO', value: `$${Math.round(totals.netoClp).toLocaleString('es-CL')}` },
         { label: 'IVA (19%)', value: ivaActive ? `$${Math.round(totals.ivaClp).toLocaleString('es-CL')}` : '$0' },
-        { label: 'TOTAL mano de obra IVA incluido', value: `$${Math.round(totals.netoClp + totals.ivaClp).toLocaleString('es-CL')}`, isBold: true }
+        { label: 'TOTAL PRESUPUESTO', value: `$${Math.round(totals.totalClp).toLocaleString('es-CL')}`, isBold: true }
       ];
 
       doc.setDrawColor(200);
@@ -568,45 +595,40 @@ export default function CotizadorSupremoSection() {
       table1Rows.forEach((row, i) => {
         const y_row = y_total + (i * 4.8);
         
-        doc.rect(131, y_row, 43, 4.8);
-        doc.rect(131 + 43, y_row, 27, 4.8);
-
-        doc.setFont('helvetica', row.isBold ? 'bold' : 'normal');
+        doc.rect(125, y_row, 49, 4.8);
+        doc.rect(125 + 49, y_row, 27, 4.8);
+      doc.setFont('helvetica', row.isBold ? 'bold' : 'normal');
         doc.setFontSize(row.isBold ? 7.5 : 7.2);
         doc.setTextColor(31, 41, 55);
-        doc.text(row.label, 133, y_row + 3.4);
+        doc.text(row.label, 127, y_row + 3.4);
         doc.text(row.value, 201 - 2, y_row + 3.4, { align: 'right' });
       });
 
-      // Table 2: General total
-      const y_table2 = y_total + (6 * 4.8) + 4;
+      // Table 2: Resumen Destacado Total General
+      const y_table2 = y_total + (8 * 4.8) + 3;
       const table2Rows = [
-        { label: 'Mano de obra', value: `$${Math.round(totals.netoClp + totals.ivaClp).toLocaleString('es-CL')}` },
-        { label: 'Costo Materiales', value: `$${Math.round(totals.materialsClp).toLocaleString('es-CL')}` },
-        { label: 'TOTAL GENERAL', value: `$${Math.round(totals.totalClp).toLocaleString('es-CL')}`, isHighlight: true }
+        { label: 'TOTAL GENERAL ESTIMADO', value: `$${Math.round(totals.totalClp).toLocaleString('es-CL')} CLP`, isHighlight: true }
       ];
 
       table2Rows.forEach((row, i) => {
-        const y_row = y_table2 + (i * 4.8);
+        const y_row = y_table2 + (i * 5.2);
 
         if (row.isHighlight) {
           doc.setFillColor(217, 119, 6); // #d97706 orange
-          doc.rect(131, y_row, 43, 4.8, 'F');
-          doc.rect(131 + 43, y_row, 27, 4.8, 'F');
+          doc.rect(125, y_row, 49, 5.2, 'F');
+          doc.rect(125 + 49, y_row, 27, 5.2, 'F');
           
           doc.setTextColor(255, 255, 255);
           doc.setFont('helvetica', 'bold');
+          doc.setFontSize(7.8);
         } else {
           doc.setTextColor(31, 41, 55);
           doc.setFont('helvetica', 'normal');
+          doc.setFontSize(7.2);
         }
 
-        doc.rect(131, y_row, 43, 4.8);
-        doc.rect(131 + 43, y_row, 27, 4.8);
-
-        doc.setFontSize(7.5);
-        doc.text(row.label, 133, y_row + 3.4);
-        doc.text(row.value, 201 - 2, y_row + 3.4, { align: 'right' });
+        doc.text(row.label, 127, y_row + 3.8);
+        doc.text(row.value, 201 - 2, y_row + 3.8, { align: 'right' });
       });
 
       // VALOR EN UF (Ref.)
@@ -1270,8 +1292,37 @@ export default function CotizadorSupremoSection() {
             {/* Calculations Footer */}
             {quoteItems.length > 0 && (
               <div className="bg-stone-950 border-t border-stone-900 p-6 space-y-3.5">
-                <div className="flex justify-between items-center text-xs font-mono text-cream/60">
-                  <span>COSTO DIRECTO</span>
+                {/* DESGLOSE DESTACADO MATERIALES VS MANO DE OBRA */}
+                <div className="bg-stone-900/80 border border-white/10 rounded-xl p-3.5 space-y-2 font-mono text-xs">
+                  <div className="text-[11px] font-bold uppercase tracking-wider text-sand mb-1 flex items-center gap-1.5">
+                    <span>📊 DESGLOSE DE INSUMOS & MANO DE OBRA (COSTO DIRECTO)</span>
+                  </div>
+                  <div className="flex justify-between items-center text-amber-300">
+                    <span className="flex items-center gap-1.5 font-bold">
+                      📦 MONTO TOTAL EN MATERIALES:
+                    </span>
+                    <span className="font-bold">
+                      ${Math.round(totals.materialsDirectClp + totals.materialsClp).toLocaleString('es-CL')} CLP ({((totals.materialsDirectUf + totals.materialsUf)).toFixed(2)} UF)
+                    </span>
+                  </div>
+                  <div className="flex justify-between items-center text-emerald-400">
+                    <span className="flex items-center gap-1.5 font-bold">
+                      🔨 MONTO TOTAL EN MANO DE OBRA:
+                    </span>
+                    <span className="font-bold">
+                      ${Math.round(totals.manoObraDirectClp).toLocaleString('es-CL')} CLP ({totals.manoObraDirectUf.toFixed(2)} UF)
+                    </span>
+                  </div>
+                  {totals.equiposDirectClp > 0 && (
+                    <div className="flex justify-between items-center text-sky-400 text-[11px]">
+                      <span>⚙️ EQUIPOS & HERRAMIENTAS:</span>
+                      <span>${Math.round(totals.equiposDirectClp).toLocaleString('es-CL')} CLP ({totals.equiposDirectUf.toFixed(2)} UF)</span>
+                    </div>
+                  )}
+                </div>
+
+                <div className="flex justify-between items-center text-xs font-mono text-cream/60 pt-1">
+                  <span>SUBTOTAL COSTO DIRECTO</span>
                   <span>{totals.costDirectoUf.toFixed(2)} UF (${Math.round(totals.costDirectoClp).toLocaleString('es-CL')})</span>
                 </div>
                 

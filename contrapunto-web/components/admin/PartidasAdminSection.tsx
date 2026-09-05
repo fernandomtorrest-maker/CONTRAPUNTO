@@ -55,6 +55,7 @@ interface ApuProposal {
   porcentajeManoObra: number;
   porcentajeEquipos: number;
   inclusions: string;
+  marketReferences?: Array<{ source: string; url: string; note: string }>;
 }
 
 export function PartidasAdminSection() {
@@ -608,6 +609,31 @@ export function PartidasAdminSection() {
                 <strong className="text-sand font-mono uppercase text-[10px] block mb-1">Especificación & Criterios Considerados:</strong>
                 {apuProposal.inclusions}
               </div>
+
+              {/* FUENTES Y REFERENCIAS DE MERCADO CHILENO (APU CHILE / ONDAC / CYPE) */}
+              {apuProposal.marketReferences && apuProposal.marketReferences.length > 0 && (
+                <div className="bg-[#181614] p-3.5 rounded-xl border border-sky-500/30 text-xs font-mono space-y-2">
+                  <div className="flex items-center gap-2 text-sky-300 font-bold text-[11px] uppercase tracking-wider">
+                    <span>🌐 FUENTES Y BASE DE PRECIOS DE MERCADO EN CHILE (REFERENCIALES):</span>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                    {apuProposal.marketReferences.map((ref: { source: string; url: string; note: string }, idx: number) => (
+                      <a
+                        key={idx}
+                        href={ref.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="bg-stone-900/90 hover:bg-stone-800 border border-sky-500/20 hover:border-sky-400 p-2.5 rounded-lg transition-all group block"
+                      >
+                        <div className="font-bold text-sky-400 group-hover:underline text-[11px] flex items-center gap-1">
+                          <span>🔗 {ref.source}</span>
+                        </div>
+                        <p className="text-[9px] text-neutral-400 mt-1 line-clamp-2 leading-relaxed">{ref.note}</p>
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              )}
 
               <div className="flex justify-end gap-3 pt-2">
                 <button

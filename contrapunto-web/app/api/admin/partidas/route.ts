@@ -126,17 +126,35 @@ function generateApuFromNaturalLanguage(prompt: string) {
   // Generar código autogenerado
   const randomNum = Math.floor(Math.random() * 900) + 100;
   const generatedCode = `${codePrefix}-${randomNum}`;
+  const encodedQuery = encodeURIComponent(prompt.trim());
 
   return {
     code: generatedCode,
     description: prompt.charAt(0).toUpperCase() + prompt.slice(1),
     unit,
     priceUf,
-    priceClpEstimated: Math.round(priceUf * 38000),
+    priceClpEstimated: Math.round(priceUf * 40857),
     porcentajeMateriales: mat,
     porcentajeManoObra: mo,
     porcentajeEquipos: eq,
     inclusions,
+    marketReferences: [
+      {
+        source: 'APU Chile / Itemizar',
+        url: `https://www.google.com/search?q=${encodedQuery}+APU+Chile+Itemizar`,
+        note: 'Desglose de rendimiento de mano de obra e insumos de referencia en Chile.'
+      },
+      {
+        source: 'ONDAC Portal de la Construcción',
+        url: `https://portal.ondac.com/`,
+        note: 'Índice nacional de precios de insumos y materiales para la edificación.'
+      },
+      {
+        source: 'Generador de Precios CYPE Chile',
+        url: `https://chile.generadordeprecios.info/`,
+        note: 'Unidades de obra paramétricas y precios actualizados para Chile.'
+      }
+    ]
   };
 }
 
