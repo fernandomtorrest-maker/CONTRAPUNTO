@@ -102,51 +102,60 @@ const JOFRE_TEMPLATE_ITEMS: ChecklistItem[] = [
   {
     id: 'chk-j1',
     category: '💧 IMPERMEABILIZACIÓN & FILTRACIONES',
-    item: 'Prueba de estanqueidad y sellado de friso/cerámico en terraza superior',
+    item: 'Evaluación de revestimiento y fragües en terraza superior (Depto 2001)',
     status: 'NO_CUMPLE',
-    observations: 'Falla recurrente en la membrana impermeabilizante y fragüe desgastado en terraza de uso exclusivo del Depto 2001.',
-    solution: 'Retiro de revestimiento cerámico dañado, retiro de fragüe existente, aplicación de membrana líquida de poliuretano de alto rendimiento y re-fragüe epóxico.'
+    observations: 'El edificio tiene 25 años (entregado el año 2001). Es normal que superficies expuestas a la intemperie con esta data demuestren signos de fatiga de material y requieran mantenimiento. Sin embargo, no se ha podido revisar en detalle la terraza por no contar con acceso a esta.',
+    solution: 'Procedimiento recomendado a priori: Retiro de cerámica en el departamento 2001, aplicar membrana impermeabilizante cementicia e instalación de pavimento nuevo por definir. Renovar sellos.'
   },
   {
     id: 'chk-j2',
     category: '💧 IMPERMEABILIZACIÓN & FILTRACIONES',
-    item: 'Evacuación de aguas lluvias y limpiamanos de terraza',
+    item: 'Evacuación de aguas lluvias y pendiente hacia embudos de terraza',
     status: 'NO_CUMPLE',
-    observations: 'Pendiente insuficiente hacia los embudos de aguas lluvias, provocando empozamiento cercano al paramento del Depto 1901.',
+    observations: 'Pendiente insuficiente hacia los embudos de aguas lluvias, provocando empozamiento cercano al paramento del Depto 1901 en épocas de lluvia.',
     solution: 'Reperfilado de pendiente (mínimo 1.5%) e instalación de cazoleta con rejilla de acero inoxidable.'
   },
   {
     id: 'chk-j3',
     category: '🎨 TERMINACIONES, PINTURA & CIELOS',
-    item: 'Inspección de cielo raso y muros en dormitorios (Depto 1901)',
+    item: 'Inspección de cielo raso y muros en dormitorios y cocina (Depto 1901)',
     status: 'NO_CUMPLE',
-    observations: 'Desprendimiento de enlucido de yeso, abombamiento de látex y goteo constante en cielo de dormitorio principal y dormitorio secundario.',
+    observations: 'Desprendimiento de enlucido de yeso, abombamiento de látex y goteo activo en cielos de 2 dormitorios y cocina con origen desde la terraza superior.',
     solution: 'Raspado de enlucido afectado, tratamiento anti-hongos, empaste de alta adherencia y aplicación de 2 manos de pintura esmalte al agua.'
   },
   {
     id: 'chk-j4',
-    category: '🏗️ ESTRUCTURAS & LOSAS',
-    item: 'Integridad estructural de losa de hormigón armado entre pisos 19 y 20',
+    category: '🏗️ ESTRUCTURAS & REVISIÓN DE PLANOS',
+    item: 'Integridad de losa estructural e inspección de planos del edificio',
     status: 'SI_CUMPLE',
-    observations: 'Losa estructural sin grietas críticas de flexión; la afectación es de carácter superficial por infiltración de agua lluvia superior.'
+    observations: 'Losa de hormigón armado entre pisos 19 y 20 sin grietas estructurales críticas de flexión. Pudimos conseguir los planos técnicos del edificio con el mayordomo para corroborar trazados.',
+    solution: 'Cotejo satisfactorio con planos de arquitectura e instalaciones facilitados por la mayordomía del condominio.'
+  },
+  {
+    id: 'chk-j5',
+    category: '🚪 PUERTAS, VENTANAS & SELLOS DE SILICONA',
+    item: 'Sellado perimetral de ventanales y botaaguas de terraza',
+    status: 'NO_CUMPLE',
+    observations: 'Silicona perimetral cristalizada y desprendida en el ventanal de aluminio de la terraza por fatiga natural del material a la intemperie (25 años).',
+    solution: 'Remoción de sellantes desgastados y re-sellado con silicona neutra de exterior resistente a rayos UV.'
   }
 ];
 
 export function ChecklistSupremoSection() {
   const [data, setData] = useState<InspectionData>({
-    tituloInspeccion: 'INSPECCIÓN TÉCNICA GENERAL DE OBRA',
-    condominio: 'Condominio / Inmueble General',
-    direccion: 'Av. Principal 1234, Santiago',
-    deptoAfectado: 'Unidad / Sector N° 101',
-    deptoOrigen: 'Unidad / Área Colindante N° 201',
-    antiguedadSintomas: 'Inspección periódica de control de calidad y estado de avance.',
-    inspector: 'Fernando Torres - Inspector Técnico ITO',
+    tituloInspeccion: 'INFORME TÉCNICO DE INSPECCIÓN ITO',
+    condominio: 'Condominio Trinos de Santiago',
+    direccion: 'General Jofré 107, Santiago',
+    deptoAfectado: 'Depto 1901',
+    deptoOrigen: 'Depto 2001 (Terraza de uso exclusivo)',
+    antiguedadSintomas: 'Edificio entregado el año 2001 (25 años). Fatiga de material por intemperie. Filtración recurrente hace 3 años en 2 dormitorios y cocina. Planos conseguidos con mayordomo.',
+    inspector: 'Fernando Torres',
     fecha: new Date().toISOString().split('T')[0],
-    numeroReporte: 'CHK-2026-001',
-    dictamenGeneral: 'Se ha realizado el levantamiento técnico correspondiente. Los criterios marcados como NO CUMPLE requieren subsanación técnica inmediata según las observaciones detalladas.'
+    numeroReporte: 'CHK-2026-107',
+    dictamenGeneral: 'El edificio tiene 25 años. Entregado el año 2001. Es normal que superficies expuestas a la intemperie con esta data demuestren signos de fatiga de material y requieran mantenimiento.\n\nEl procedimiento recomendado a priori, sin todavía revisar en detalle la terraza por no contar con acceso a esta, es retiro de cerámica en el departamento 2001, aplicar membrana impermeabilizante cementicia e instalación de pavimento nuevo por definir. Renovar sellos.\n\nNota: Pudimos conseguir los planos con el mayordomo.'
   });
 
-  const [items, setItems] = useState<ChecklistItem[]>(GENERIC_TEMPLATE_ITEMS);
+  const [items, setItems] = useState<ChecklistItem[]>(JOFRE_TEMPLATE_ITEMS);
   const [selectedCategoryFilter, setSelectedCategoryFilter] = useState<string>('TODAS');
   const [customItemText, setCustomItemText] = useState('');
   const [customCategory, setCustomCategory] = useState(DEFAULT_CATEGORIES[0]);
@@ -172,16 +181,16 @@ export function ChecklistSupremoSection() {
   // Cargar Caso Real Jofré 107
   const handleLoadJofreCase = () => {
     setData({
-      tituloInspeccion: 'DIAGNÓSTICO TÉCNICO DE FILTRACIÓN EN TERRAZA',
+      tituloInspeccion: 'INFORME TÉCNICO DE INSPECCIÓN ITO',
       condominio: 'Condominio Trinos de Santiago',
       direccion: 'General Jofré 107, Santiago',
-      deptoAfectado: 'Depto 1901 (Propietarios: Padres del Solicitante)',
+      deptoAfectado: 'Depto 1901',
       deptoOrigen: 'Depto 2001 (Terraza de uso exclusivo)',
-      antiguedadSintomas: '3 años con filtración constante en épocas de lluvia. Goteo visible en dormitorio principal y daños en cocina.',
-      inspector: 'Fernando Torres - Inspector Técnico ITO',
+      antiguedadSintomas: 'Edificio entregado el año 2001 (25 años). Fatiga de material por intemperie. Filtración recurrente hace 3 años en 2 dormitorios y cocina. Planos conseguidos con mayordomo.',
+      inspector: 'Fernando Torres',
       fecha: new Date().toISOString().split('T')[0],
-      numeroReporte: 'CHK-JOFRE-107',
-      dictamenGeneral: 'Diagnóstico Confirmado: La patología responde a percolación de agua lluvia a través de las juntas de dilatación y fragües fracturados en la terraza superior del Depto 2001, afectando directamente la losa del Depto 1901.'
+      numeroReporte: 'CHK-2026-107',
+      dictamenGeneral: 'El edificio tiene 25 años. Entregado el año 2001. Es normal que superficies expuestas a la intemperie con esta data demuestren signos de fatiga de material y requieran mantenimiento.\n\nEl procedimiento recomendado a priori, sin todavía revisar en detalle la terraza por no contar con acceso a esta, es retiro de cerámica en el departamento 2001, aplicar membrana impermeabilizante cementicia e instalación de pavimento nuevo por definir. Renovar sellos.\n\nNota: Pudimos conseguir los planos con el mayordomo.'
     });
     setItems(JOFRE_TEMPLATE_ITEMS);
   };
@@ -410,7 +419,12 @@ export function ChecklistSupremoSection() {
       const dictamenLines = doc.splitTextToSize(data.dictamenGeneral, pageWidth - 30);
       doc.text(dictamenLines, 15, finalY + 5);
 
-      const firmasY = finalY + 28;
+      const dictamenHeight = dictamenLines.length * 4.5;
+      let firmasY = finalY + 8 + dictamenHeight + 12;
+      if (firmasY + 15 > 280) {
+        doc.addPage();
+        firmasY = 40;
+      }
 
       // Cuadro de Firma Inspector
       doc.setDrawColor(200);
