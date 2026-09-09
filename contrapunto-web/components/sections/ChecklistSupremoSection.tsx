@@ -4,9 +4,9 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import {
   ClipboardCheck,
-  CheckCircle2,
-  XCircle,
-  MinusCircle,
+  CheckSquare,
+  XSquare,
+  MinusSquare,
   Plus,
   Trash2,
   Download,
@@ -15,13 +15,15 @@ import {
   FileText,
   RefreshCw,
   Droplets,
-  ShieldCheck
+  ShieldCheck,
+  Edit3,
+  RotateCcw
 } from 'lucide-react';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { CONTRAPUNTO_LOGO_BASE64 } from '@/lib/data/logoBase64';
 
-export type StatusType = 'CUMPLE' | 'OBSERVADO' | 'NO_APLICA';
+export type StatusType = 'SI_CUMPLE' | 'NO_CUMPLE' | 'NO_APLICA';
 
 export interface ChecklistItem {
   id: string;
@@ -33,6 +35,7 @@ export interface ChecklistItem {
 }
 
 export interface InspectionData {
+  tituloInspeccion: string;
   condominio: string;
   direccion: string;
   deptoAfectado: string;
@@ -45,109 +48,131 @@ export interface InspectionData {
 }
 
 const DEFAULT_CATEGORIES = [
-  '💧 FILTRACIONES, HUMEDADES E IMPERMEABILIZACIÓN',
-  '🏗️ OBRA GRUESA, LOSAS Y ESTRUCTURAS',
-  '🎨 TERMINACIONES, CIELOS Y PINTURA',
-  '🚰 INSTALACIONES SANITARIAS Y DESAGÜES',
-  '⚡ INSTALACIONES ELÉCTRICAS Y SEGURIDAD',
-  '🚪 PUERTAS, VENTANAS Y SELLOS DE SILICONA'
+  'GENERAL & INFORMACIÓN DE OBRA',
+  '💧 IMPERMEABILIZACIÓN & FILTRACIONES',
+  '🏗️ ESTRUCTURAS & LOSAS',
+  '🎨 TERMINACIONES, PINTURA & CIELOS',
+  '🚰 SANITARIAS, REDES & DESAGÜES',
+  '⚡ ELÉCTRICAS & SEGURIDAD',
+  '🚪 PUERTAS, VENTANAS & CRISTALES'
 ];
 
-const INITIAL_ITEMS: ChecklistItem[] = [
-  // Filtraciones e Impermeabilización
+// PLANTILLA 1: GENÉRICA 100% EDITABLE EN BLANCO/BASE
+const GENERIC_TEMPLATE_ITEMS: ChecklistItem[] = [
   {
-    id: 'chk-1',
-    category: '💧 FILTRACIONES, HUMEDADES E IMPERMEABILIZACIÓN',
-    item: 'Prueba de estanqueidad y sellado de friso/cerámico en terraza superior',
-    status: 'OBSERVADO',
-    observations: 'Se detecta falla recurrente en la membrana impermeabilizante y fragüe desgastado en terraza de uso exclusivo del Depto 2001.',
-    solution: 'Retiro de revestimiento cerámico dañado, retiro de frágil existente, aplicación de membrana líquida de poliuretano de alto rendimiento y re-fragüe epóxico.'
+    id: 'chk-g1',
+    category: 'GENERAL & INFORMACIÓN DE OBRA',
+    item: 'Verificación visual inicial de la superficie u obra a inspeccionar',
+    status: 'SI_CUMPLE',
+    observations: 'Inspección visual inicial sin deformaciones o anomalías críticas a simple vista.'
   },
   {
-    id: 'chk-2',
-    category: '💧 FILTRACIONES, HUMEDADES E IMPERMEABILIZACIÓN',
+    id: 'chk-g2',
+    category: 'GENERAL & INFORMACIÓN DE OBRA',
+    item: 'Cumplimiento de especificaciones técnicas y materiales requeridos',
+    status: 'SI_CUMPLE',
+    observations: 'Insumos instalados corresponden a la marca y formato solicitado.'
+  },
+  {
+    id: 'chk-g3',
+    category: '💧 IMPERMEABILIZACIÓN & FILTRACIONES',
+    item: 'Prueba de agua / estanqueidad o hermeticidad en la zona inspeccionada',
+    status: 'NO_CUMPLE',
+    observations: 'Escriba aquí la descripción o hallazgo técnico del problema detectado...',
+    solution: 'Escriba aquí la solución técnica o reparación recomendada...'
+  },
+  {
+    id: 'chk-g4',
+    category: '🎨 TERMINACIONES, PINTURA & CIELOS',
+    item: 'Estado de nivelación, aplomo y empaste en muros / cielos',
+    status: 'SI_CUMPLE',
+    observations: 'Superficie aplomada y libre de abombamientos.'
+  },
+  {
+    id: 'chk-g5',
+    category: '⚡ ELÉCTRICAS & SEGURIDAD',
+    item: 'Prueba de funcionamiento de tableros, tomacorrientes y tierras',
+    status: 'SI_CUMPLE',
+    observations: 'Operación continua y verificación de disyuntor diferencial.'
+  }
+];
+
+// PLANTILLA 2: CASO REAL FILTRACIÓN (JOFRÉ 107)
+const JOFRE_TEMPLATE_ITEMS: ChecklistItem[] = [
+  {
+    id: 'chk-j1',
+    category: '💧 IMPERMEABILIZACIÓN & FILTRACIONES',
+    item: 'Prueba de estanqueidad y sellado de friso/cerámico en terraza superior',
+    status: 'NO_CUMPLE',
+    observations: 'Falla recurrente en la membrana impermeabilizante y fragüe desgastado en terraza de uso exclusivo del Depto 2001.',
+    solution: 'Retiro de revestimiento cerámico dañado, retiro de fragüe existente, aplicación de membrana líquida de poliuretano de alto rendimiento y re-fragüe epóxico.'
+  },
+  {
+    id: 'chk-j2',
+    category: '💧 IMPERMEABILIZACIÓN & FILTRACIONES',
     item: 'Evacuación de aguas lluvias y limpiamanos de terraza',
-    status: 'OBSERVADO',
+    status: 'NO_CUMPLE',
     observations: 'Pendiente insuficiente hacia los embudos de aguas lluvias, provocando empozamiento cercano al paramento del Depto 1901.',
     solution: 'Reperfilado de pendiente (mínimo 1.5%) e instalación de cazoleta con rejilla de acero inoxidable.'
   },
   {
-    id: 'chk-3',
-    category: '💧 FILTRACIONES, HUMEDADES E IMPERMEABILIZACIÓN',
-    item: 'Verificación de bajadas de agua servida y sifones en baño/cocina',
-    status: 'CUMPLE',
-    observations: 'Sin evidencias de fuga activa en cañerías verticales u horizontales de descarga interna.'
-  },
-
-  // Terminaciones y Cielos
-  {
-    id: 'chk-4',
-    category: '🎨 TERMINACIONES, CIELOS Y PINTURA',
+    id: 'chk-j3',
+    category: '🎨 TERMINACIONES, PINTURA & CIELOS',
     item: 'Inspección de cielo raso y muros en dormitorios (Depto 1901)',
-    status: 'OBSERVADO',
+    status: 'NO_CUMPLE',
     observations: 'Desprendimiento de enlucido de yeso, abombamiento de látex y goteo constante en cielo de dormitorio principal y dormitorio secundario.',
     solution: 'Raspado de enlucido afectado, tratamiento anti-hongos, empaste de alta adherencia y aplicación de 2 manos de pintura esmalte al agua.'
   },
   {
-    id: 'chk-5',
-    category: '🎨 TERMINACIONES, CIELOS Y PINTURA',
-    item: 'Estado de revestimientos en cocina y pasillo de distribución',
-    status: 'OBSERVADO',
-    observations: 'Manchas de humedad e eflorescencia salina en encuentro de cielo y losa de hormigón armado.',
-    solution: 'Secado técnico con deshumidificador industrial y re-pintado con sellante impermeabilizante de bloqueo.'
-  },
-
-  // Estructuras
-  {
-    id: 'chk-6',
-    category: '🏗️ OBRA GRUESA, LOSAS Y ESTRUCTURAS',
+    id: 'chk-j4',
+    category: '🏗️ ESTRUCTURAS & LOSAS',
     item: 'Integridad estructural de losa de hormigón armado entre pisos 19 y 20',
-    status: 'CUMPLE',
+    status: 'SI_CUMPLE',
     observations: 'Losa estructural sin grietas críticas de flexión; la afectación es de carácter superficial por infiltración de agua lluvia superior.'
-  },
-
-  // Sanitarias
-  {
-    id: 'chk-7',
-    category: '🚰 INSTALACIONES SANITARIAS Y DESAGÜES',
-    item: 'Prueba de presión y estanqueidad en redes de agua fría y caliente',
-    status: 'CUMPLE',
-    observations: 'Presión constante en 2.8 bar. Red sin variaciones de presión durante prueba de estanqueidad de 30 min.'
-  },
-
-  // Puertas y Ventanas
-  {
-    id: 'chk-8',
-    category: '🚪 PUERTAS, VENTANAS Y SELLOS DE SILICONA',
-    item: 'Sellado perimetral de ventanales y botaaguas de terraza',
-    status: 'OBSERVADO',
-    observations: 'Silicona perimetral cristalizada y desprendida en el ventanal de aluminio de la terraza.',
-    solution: 'Remoción de caucho/silicona vieja y re-sellado con silicona neutra de exterior resistente a rayos UV.'
   }
 ];
 
 export function ChecklistSupremoSection() {
   const [data, setData] = useState<InspectionData>({
-    condominio: 'Condominio Trinos de Santiago',
-    direccion: 'General Jofré 107, Santiago',
-    deptoAfectado: 'Depto 1901',
-    deptoOrigen: 'Depto 2001 (Terraza de uso exclusivo)',
-    antiguedadSintomas: 'Filtración recurrente al llover desde hace 3 años; goteo activo en 2 dormitorios y cocina.',
-    inspector: 'Fernando Torres',
+    tituloInspeccion: 'INSPECCIÓN TÉCNICA GENERAL DE OBRA',
+    condominio: 'Condominio / Inmueble General',
+    direccion: 'Av. Principal 1234, Santiago',
+    deptoAfectado: 'Unidad / Sector N° 101',
+    deptoOrigen: 'Unidad / Área Colindante N° 201',
+    antiguedadSintomas: 'Inspección periódica de control de calidad y estado de avance.',
+    inspector: 'Fernando Torres - Inspector Técnico ITO',
     fecha: new Date().toISOString().split('T')[0],
-    numeroReporte: 'CHK-2026-107',
-    dictamenGeneral: 'Se concluye técnicamente que la humedad proviene de la falla en la membrana impermeabilizante y pendiente de la terraza del Depto 2001. Se recomienda ejecución urgente de sellado epóxico y reparación de cielos del Depto 1901.'
+    numeroReporte: 'CHK-2026-001',
+    dictamenGeneral: 'Se ha realizado el levantamiento técnico correspondiente. Los criterios marcados como NO CUMPLE requieren subsanación técnica inmediata según las observaciones detalladas.'
   });
 
-  const [items, setItems] = useState<ChecklistItem[]>(INITIAL_ITEMS);
+  const [items, setItems] = useState<ChecklistItem[]>(GENERIC_TEMPLATE_ITEMS);
   const [selectedCategoryFilter, setSelectedCategoryFilter] = useState<string>('TODAS');
   const [customItemText, setCustomItemText] = useState('');
   const [customCategory, setCustomCategory] = useState(DEFAULT_CATEGORIES[0]);
   const [generatingPdf, setGeneratingPdf] = useState(false);
 
-  // Cargar caso de ejemplo Jofré 107
+  // Cargar Plantilla Genérica Vacía Editable
+  const handleLoadGenericTemplate = () => {
+    setData({
+      tituloInspeccion: 'INSPECCIÓN TÉCNICA GENERAL DE OBRA',
+      condominio: 'Nombre de la Obra / Condominio / Casa',
+      direccion: 'Dirección del Inmueble',
+      deptoAfectado: 'Unidad / Sector Afectado',
+      deptoOrigen: 'Sector / Origen de Inspección',
+      antiguedadSintomas: 'Descripción general del motivo de inspección...',
+      inspector: 'Inspector Responsable',
+      fecha: new Date().toISOString().split('T')[0],
+      numeroReporte: `CHK-${Date.now().toString().slice(-4)}`,
+      dictamenGeneral: 'Dictamen y conclusiones finales de la inspección técnica...'
+    });
+    setItems(GENERIC_TEMPLATE_ITEMS);
+  };
+
+  // Cargar Caso Real Jofré 107
   const handleLoadJofreCase = () => {
     setData({
+      tituloInspeccion: 'DIAGNÓSTICO TÉCNICO DE FILTRACIÓN EN TERRAZA',
       condominio: 'Condominio Trinos de Santiago',
       direccion: 'General Jofré 107, Santiago',
       deptoAfectado: 'Depto 1901 (Propietarios: Padres del Solicitante)',
@@ -158,12 +183,17 @@ export function ChecklistSupremoSection() {
       numeroReporte: 'CHK-JOFRE-107',
       dictamenGeneral: 'Diagnóstico Confirmado: La patología responde a percolación de agua lluvia a través de las juntas de dilatación y fragües fracturados en la terraza superior del Depto 2001, afectando directamente la losa del Depto 1901.'
     });
-    setItems(INITIAL_ITEMS);
+    setItems(JOFRE_TEMPLATE_ITEMS);
   };
 
-  // Cambiar estado de un ítem
+  // Cambiar estado de un ítem con 1 clic (SI_CUMPLE / NO_CUMPLE / NO_APLICA)
   const handleStatusChange = (id: string, status: StatusType) => {
     setItems(prev => prev.map(item => item.id === id ? { ...item, status } : item));
+  };
+
+  // Editar directamente el nombre del criterio
+  const handleItemNameChange = (id: string, newName: string) => {
+    setItems(prev => prev.map(item => item.id === id ? { ...item, item: newName } : item));
   };
 
   // Cambiar observación de un ítem
@@ -181,7 +211,7 @@ export function ChecklistSupremoSection() {
     setItems(prev => prev.filter(item => item.id !== id));
   };
 
-  // Agregar nuevo ítem personalizado
+  // Agregar nuevo criterio personalizado
   const handleAddCustomItem = (e: React.FormEvent) => {
     e.preventDefault();
     if (!customItemText.trim()) return;
@@ -190,18 +220,25 @@ export function ChecklistSupremoSection() {
       id: `chk-custom-${Date.now()}`,
       category: customCategory,
       item: customItemText.trim(),
-      status: 'OBSERVADO',
-      observations: 'Observación técnica registrada durante la inspección.',
-      solution: 'Reparación o subsanación recomendada.'
+      status: 'NO_CUMPLE',
+      observations: 'Escriba aquí la descripción u observación técnica...',
+      solution: 'Escriba aquí la solución o subsanación recomendada...'
     };
 
     setItems(prev => [...prev, newItem]);
     setCustomItemText('');
   };
 
+  // Limpiar todos los ítems para empezar de cero
+  const handleClearAllItems = () => {
+    if (confirm('¿Deseas limpiar todos los criterios para crear un checklist nuevo desde cero?')) {
+      setItems([]);
+    }
+  };
+
   // Estadísticas rápidas
-  const totalCumple = items.filter(i => i.status === 'CUMPLE').length;
-  const totalObservado = items.filter(i => i.status === 'OBSERVADO').length;
+  const totalCumple = items.filter(i => i.status === 'SI_CUMPLE').length;
+  const totalNoCumple = items.filter(i => i.status === 'NO_CUMPLE').length;
   const totalNoAplica = items.filter(i => i.status === 'NO_APLICA').length;
   const porcentajeAprobacion = items.length > 0 ? Math.round((totalCumple / items.length) * 100) : 0;
 
@@ -224,14 +261,14 @@ export function ChecklistSupremoSection() {
 
       // Título Informe Supremo
       doc.setFont('helvetica', 'bold');
-      doc.setFontSize(16);
+      doc.setFontSize(14);
       doc.setTextColor(31, 41, 55);
-      doc.text('INFORME TÉCNICO DE INSPECCIÓN', pageWidth - 15, 20, { align: 'right' });
+      doc.text(data.tituloInspeccion.toUpperCase(), pageWidth - 15, 20, { align: 'right' });
 
       doc.setFont('helvetica', 'bold');
       doc.setFontSize(10);
       doc.setTextColor(217, 119, 6);
-      doc.text('CHECKLIST SUPREMO ITO', pageWidth - 15, 25, { align: 'right' });
+      doc.text('INFORME TÉCNICO CHECKLIST SUPREMO', pageWidth - 15, 25, { align: 'right' });
 
       doc.setFont('helvetica', 'oblique');
       doc.setFontSize(8.5);
@@ -252,13 +289,13 @@ export function ChecklistSupremoSection() {
       doc.setFont('helvetica', 'bold');
       doc.setFontSize(8.5);
       doc.setTextColor(217, 119, 6);
-      doc.text('INFORMACIÓN GENERAL DE LA OBRA & DIAGNÓSTICO', 18, 44);
+      doc.text('INFORMACIÓN GENERAL DE LA OBRA & INSPECCIÓN', 18, 44);
 
       doc.setFontSize(8);
       doc.setTextColor(55, 65, 81);
 
       doc.setFont('helvetica', 'bold');
-      doc.text('Condominio/Edificación:', 18, 50);
+      doc.text('Obra / Condominio:', 18, 50);
       doc.setFont('helvetica', 'normal');
       doc.text(data.condominio, 53, 50);
 
@@ -273,7 +310,7 @@ export function ChecklistSupremoSection() {
       doc.text(data.deptoAfectado, 53, 60);
 
       doc.setFont('helvetica', 'bold');
-      doc.text('Inspector A Cargo:', 115, 50);
+      doc.text('Inspector ITO:', 115, 50);
       doc.setFont('helvetica', 'normal');
       doc.text(data.inspector, 145, 50);
 
@@ -283,7 +320,7 @@ export function ChecklistSupremoSection() {
       doc.text(data.deptoOrigen, 145, 55);
 
       doc.setFont('helvetica', 'bold');
-      doc.text('Antigüedad/Síntomas:', 115, 60);
+      doc.text('Motivo / Síntomas:', 115, 60);
       doc.setFont('helvetica', 'normal');
       const sintomaSplit = doc.splitTextToSize(data.antiguedadSintomas, 48);
       doc.text(sintomaSplit, 145, 60);
@@ -294,17 +331,17 @@ export function ChecklistSupremoSection() {
       doc.setFont('helvetica', 'bold');
       doc.setFontSize(8);
       doc.setTextColor(180, 83, 9);
-      doc.text(`RESUMEN DE INSPECCIÓN: ${items.length} Puntos Evaluados  |  ✅ Conformes: ${totalCumple}  |  ❌ Observados: ${totalObservado}  |  ⚪ No Aplica: ${totalNoAplica}  |  Índice de Aprobación: ${porcentajeAprobacion}%`, 18, 78);
+      doc.text(`RESUMEN DE INSPECCIÓN: ${items.length} Criterios Evaluados  |  ✅ SI CUMPLE: ${totalCumple}  |  ❌ NO CUMPLE: ${totalNoCumple}  |  ⚪ N/A: ${totalNoAplica}  |  Índice de Aprobación: ${porcentajeAprobacion}%`, 18, 78);
 
       // 3. TABLA DE CHECKLIST DETALLADO
       const tableData = items.map((item, idx) => {
-        let statusLabel = 'CUMPLE';
-        if (item.status === 'OBSERVADO') statusLabel = 'OBSERVADO';
+        let statusLabel = 'SI CUMPLE';
+        if (item.status === 'NO_CUMPLE') statusLabel = 'NO CUMPLE';
         if (item.status === 'NO_APLICA') statusLabel = 'N/A';
 
-        let fullObs = `• Ítem: ${item.item}\n• Hallazgo: ${item.observations}`;
+        let fullObs = `• Criterio: ${item.item}\n• Descripción / Hallazgo: ${item.observations}`;
         if (item.solution && item.solution.trim()) {
-          fullObs += `\n• Reparación Sugerida: ${item.solution}`;
+          fullObs += `\n• Solución / Subsanación: ${item.solution}`;
         }
 
         return [
@@ -317,7 +354,7 @@ export function ChecklistSupremoSection() {
 
       autoTable(doc, {
         startY: 84,
-        head: [['Nº', 'Capítulo / Especialidad', 'Estado', 'Punto Inspeccionado & Observación Técnica']],
+        head: [['Nº', 'Categoría de Inspección', 'Resultado', 'Criterio & Descripción Técnica']],
         body: tableData,
         theme: 'grid',
         headStyles: {
@@ -330,7 +367,7 @@ export function ChecklistSupremoSection() {
         columnStyles: {
           0: { cellWidth: 10, halign: 'center' },
           1: { cellWidth: 42, fontStyle: 'bold' },
-          2: { cellWidth: 22, halign: 'center', fontStyle: 'bold' },
+          2: { cellWidth: 24, halign: 'center', fontStyle: 'bold' },
           3: { cellWidth: 'auto' }
         },
         styles: {
@@ -342,9 +379,9 @@ export function ChecklistSupremoSection() {
         didParseCell: (data: any) => {
           if (data.section === 'body' && data.column.index === 2) {
             const val = data.cell.raw;
-            if (val === 'CUMPLE') {
+            if (val === 'SI CUMPLE') {
               data.cell.styles.textColor = [16, 185, 129];
-            } else if (val === 'OBSERVADO') {
+            } else if (val === 'NO CUMPLE') {
               data.cell.styles.textColor = [239, 68, 68];
             } else {
               data.cell.styles.textColor = [156, 163, 175];
@@ -365,7 +402,7 @@ export function ChecklistSupremoSection() {
       doc.setFont('helvetica', 'bold');
       doc.setFontSize(8.5);
       doc.setTextColor(217, 119, 6);
-      doc.text('DICTAMEN TÉCNICO FINAL DE LA INSPECCIÓN', 15, finalY);
+      doc.text('DICTAMEN TÉCNICO FINAL Y OBSERVACIONES DE CIERRE', 15, finalY);
 
       doc.setFont('helvetica', 'normal');
       doc.setFontSize(8);
@@ -396,12 +433,12 @@ export function ChecklistSupremoSection() {
       doc.setFont('helvetica', 'normal');
       doc.setFontSize(7);
       doc.setTextColor(100, 100, 100);
-      doc.text('Conformidad de Informe de Inspección', 155, firmasY + 8, { align: 'center' });
+      doc.text('Conformidad de Inspección Técnica', 155, firmasY + 8, { align: 'center' });
 
       // Pie de página oficial
       doc.setFontSize(7);
       doc.setTextColor(156, 163, 175);
-      doc.text('Constructora Contrapunto © 2026 • Informe de Inspección Técnica ITO Oficial', pageWidth / 2, 287, { align: 'center' });
+      doc.text('Constructora Contrapunto © 2026 • Formato General Editable de Inspección ITO', pageWidth / 2, 287, { align: 'center' });
 
       doc.save(`Checklist_Supremo_${data.numeroReporte}.pdf`);
     } catch (err) {
@@ -435,7 +472,7 @@ export function ChecklistSupremoSection() {
               </div>
               <div>
                 <span className="text-[10px] font-mono text-sand font-bold tracking-widest uppercase block">
-                  MÓDULO DE INSPECCIÓN ITO & PRE-ENTREGA
+                  FORMATO GENERAL EDITABLE DE INSPECCIÓN ITO
                 </span>
                 <h1 className="font-heading text-xl font-extrabold uppercase tracking-wide text-cream">
                   Checklist Supremo
@@ -444,13 +481,24 @@ export function ChecklistSupremoSection() {
             </div>
           </div>
 
-          <div className="flex items-center gap-3">
+          {/* BOTONES DE PLANTILLAS Y EXPORTACIÓN */}
+          <div className="flex flex-wrap items-center gap-2">
+            <button
+              onClick={handleLoadGenericTemplate}
+              className="inline-flex items-center gap-1.5 bg-stone-900 hover:bg-stone-800 text-cream border border-white/10 px-3 py-2 rounded-xl text-xs font-mono font-bold transition-all cursor-pointer"
+              title="Cargar formato genérico editable en blanco"
+            >
+              <RotateCcw className="w-3.5 h-3.5 text-sand" />
+              <span>Plantilla Generica</span>
+            </button>
+
             <button
               onClick={handleLoadJofreCase}
-              className="inline-flex items-center gap-2 bg-stone-900 hover:bg-stone-800 text-amber-300 border border-amber-500/30 px-3.5 py-2 rounded-xl text-xs font-mono font-bold transition-all cursor-pointer"
+              className="inline-flex items-center gap-1.5 bg-stone-900 hover:bg-stone-800 text-amber-300 border border-amber-500/30 px-3 py-2 rounded-xl text-xs font-mono font-bold transition-all cursor-pointer"
+              title="Cargar caso real de filtración Jofré 107"
             >
-              <Droplets className="w-4 h-4 text-amber-400" />
-              <span>Cargar Caso Real (Jofré 107)</span>
+              <Droplets className="w-3.5 h-3.5 text-amber-400" />
+              <span>Caso Jofré 107</span>
             </button>
 
             <button
@@ -464,7 +512,7 @@ export function ChecklistSupremoSection() {
                 </>
               ) : (
                 <>
-                  <Download className="w-4 h-4" /> Generar PDF Supremo
+                  <Download className="w-4 h-4" /> Exportar PDF
                 </>
               )}
             </button>
@@ -474,13 +522,13 @@ export function ChecklistSupremoSection() {
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 pt-8 space-y-8">
 
-        {/* TARJETA 1: DATOS DE LA OBRA Y PROPIEDAD */}
+        {/* TARJETA 1: ENCABEZADO EDITABLE DE LA INSPECCIÓN */}
         <div className="bg-[#181614] border border-white/10 rounded-3xl p-6 sm:p-8 space-y-6 shadow-2xl">
           <div className="flex items-center justify-between border-b border-white/10 pb-4">
             <div className="flex items-center gap-2.5">
               <Building className="w-5 h-5 text-sand" />
               <h2 className="font-heading text-lg font-bold uppercase text-cream tracking-wide">
-                Información del Inmueble & Antecedentes Técnicos
+                Datos Generales del Inmueble & Registro de Inspección
               </h2>
             </div>
             <span className="text-[10px] font-mono bg-sand/15 text-sand border border-sand/30 px-2.5 py-1 rounded-full uppercase">
@@ -489,8 +537,19 @@ export function ChecklistSupremoSection() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-xs font-mono">
+            <div className="lg:col-span-2">
+              <label className="block text-amber-300 font-bold mb-1">TÍTULO GENERAL DE LA INSPECCIÓN</label>
+              <input
+                type="text"
+                value={data.tituloInspeccion}
+                onChange={e => setData({ ...data, tituloInspeccion: e.target.value })}
+                className="w-full bg-stone-900 border border-amber-500/30 text-amber-200 font-bold rounded-xl p-3 focus:outline-none focus:border-sand uppercase"
+                placeholder="Ej. INSPECCIÓN TÉCNICA RECEPCIÓN DE DEPARTAMENTO"
+              />
+            </div>
+
             <div>
-              <label className="block text-cream/50 mb-1">CONDOMINIO / EDIFICIO</label>
+              <label className="block text-cream/50 mb-1">CONDOMINIO / OBRA / LOCAL</label>
               <input
                 type="text"
                 value={data.condominio}
@@ -512,7 +571,7 @@ export function ChecklistSupremoSection() {
             </div>
 
             <div>
-              <label className="block text-cream/50 mb-1">DEPTO / UNIDAD AFECTADA</label>
+              <label className="block text-cream/50 mb-1">UNIDAD / SECTOR AFECTADO</label>
               <input
                 type="text"
                 value={data.deptoAfectado}
@@ -523,24 +582,13 @@ export function ChecklistSupremoSection() {
             </div>
 
             <div>
-              <label className="block text-cream/50 mb-1">DEPTO / ORIGEN COLINDANTE</label>
+              <label className="block text-cream/50 mb-1">UNIDAD / SECTOR ORIGEN</label>
               <input
                 type="text"
                 value={data.deptoOrigen}
                 onChange={e => setData({ ...data, deptoOrigen: e.target.value })}
                 className="w-full bg-stone-900 border border-white/10 text-cream rounded-xl p-3 focus:outline-none focus:border-sand"
                 placeholder="Ej. Depto 2001 (Terraza superior)"
-              />
-            </div>
-
-            <div className="md:col-span-2">
-              <label className="block text-cream/50 mb-1">SÍNTOMAS & ANTIGÜEDAD DEL PROBLEMA</label>
-              <input
-                type="text"
-                value={data.antiguedadSintomas}
-                onChange={e => setData({ ...data, antiguedadSintomas: e.target.value })}
-                className="w-full bg-stone-900 border border-white/10 text-cream rounded-xl p-3 focus:outline-none focus:border-sand"
-                placeholder="Ej. 3 años de filtración recurrente al llover..."
               />
             </div>
 
@@ -563,43 +611,54 @@ export function ChecklistSupremoSection() {
                 className="w-full bg-stone-900 border border-white/10 text-cream rounded-xl p-3 focus:outline-none focus:border-sand"
               />
             </div>
+
+            <div className="md:col-span-4">
+              <label className="block text-cream/50 mb-1">MOTIVO DE INSPECCIÓN & SÍNTOMAS REGISTRADOS</label>
+              <input
+                type="text"
+                value={data.antiguedadSintomas}
+                onChange={e => setData({ ...data, antiguedadSintomas: e.target.value })}
+                className="w-full bg-stone-900 border border-white/10 text-cream rounded-xl p-3 focus:outline-none focus:border-sand"
+                placeholder="Ej. Verificación de avance de obra / Filtraciones recurrentes..."
+              />
+            </div>
           </div>
         </div>
 
-        {/* TARJETA 2: RESUMEN ESTADÍSTICO DE HALLAZGOS */}
+        {/* TARJETA 2: RESUMEN ESTADÍSTICO DE RESULTADOS */}
         <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
           <div className="bg-[#181614] border border-white/10 rounded-2xl p-4 flex items-center gap-3">
             <div className="p-3 rounded-xl bg-blue-500/10 text-blue-400 border border-blue-500/20">
               <ClipboardCheck className="w-6 h-6" />
             </div>
             <div>
-              <span className="text-[10px] font-mono text-neutral-400 uppercase block">Total Puntos</span>
+              <span className="text-[10px] font-mono text-neutral-400 uppercase block">Total Criterios</span>
               <strong className="text-xl font-mono text-cream">{items.length}</strong>
             </div>
           </div>
 
           <div className="bg-[#181614] border border-emerald-500/30 rounded-2xl p-4 flex items-center gap-3">
             <div className="p-3 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-              <CheckCircle2 className="w-6 h-6" />
+              <CheckSquare className="w-6 h-6" />
             </div>
             <div>
-              <span className="text-[10px] font-mono text-emerald-400 uppercase block">Conformes ✅</span>
+              <span className="text-[10px] font-mono text-emerald-400 uppercase block">SI CUMPLE ✅</span>
               <strong className="text-xl font-mono text-emerald-300">{totalCumple}</strong>
             </div>
           </div>
 
           <div className="bg-[#181614] border border-red-500/30 rounded-2xl p-4 flex items-center gap-3">
             <div className="p-3 rounded-xl bg-red-500/10 text-red-400 border border-red-500/20">
-              <XCircle className="w-6 h-6" />
+              <XSquare className="w-6 h-6" />
             </div>
             <div>
-              <span className="text-[10px] font-mono text-red-400 uppercase block">Observados ❌</span>
-              <strong className="text-xl font-mono text-red-300">{totalObservado}</strong>
+              <span className="text-[10px] font-mono text-red-400 uppercase block">NO CUMPLE ❌</span>
+              <strong className="text-xl font-mono text-red-300">{totalNoCumple}</strong>
             </div>
           </div>
 
           <div className="bg-[#181614] border border-amber-500/30 rounded-2xl p-4 flex items-center gap-3">
-            <div className="p-3 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20">
+            <div className="p-3 rounded-xl bg-amber-500/15 text-amber-400 border border-amber-500/30">
               <ShieldCheck className="w-6 h-6" />
             </div>
             <div>
@@ -609,17 +668,18 @@ export function ChecklistSupremoSection() {
           </div>
         </div>
 
-        {/* TARJETA 3: AGREGAR PUNTO PERSONALIZADO & FILTROS */}
-        <div className="bg-[#181614] border border-white/10 rounded-3xl p-6 space-y-4">
+        {/* TARJETA 3: CONTROLES PARA AGREGAR CRITERIOS & FILTROS */}
+        <div className="bg-[#181614] border border-white/10 rounded-3xl p-6 space-y-4 shadow-xl">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+            
             <div className="flex items-center gap-2">
-              <span className="text-xs font-mono text-neutral-400">Filtrar por Capítulo:</span>
+              <span className="text-xs font-mono text-neutral-400">Filtrar Categoría:</span>
               <select
                 value={selectedCategoryFilter}
                 onChange={e => setSelectedCategoryFilter(e.target.value)}
-                className="bg-stone-900 border border-white/10 text-cream rounded-xl px-3 py-1.5 text-xs font-mono focus:outline-none focus:border-sand cursor-pointer"
+                className="bg-stone-900 border border-white/10 text-cream rounded-xl px-3 py-2 text-xs font-mono focus:outline-none focus:border-sand cursor-pointer"
               >
-                <option value="TODAS">Ver Todos los Capítulos ({items.length})</option>
+                <option value="TODAS">Ver Todas las Categorías ({items.length})</option>
                 {DEFAULT_CATEGORIES.map(cat => (
                   <option key={cat} value={cat}>
                     {cat}
@@ -628,7 +688,7 @@ export function ChecklistSupremoSection() {
               </select>
             </div>
 
-            {/* FORMULARIO AGREGAR ÍTEM PERSONALIZADO */}
+            {/* FORMULARIO AGREGAR CRITERIO PERSONALIZADO */}
             <form onSubmit={handleAddCustomItem} className="flex flex-col sm:flex-row items-center gap-2 w-full md:w-auto">
               <select
                 value={customCategory}
@@ -643,96 +703,127 @@ export function ChecklistSupremoSection() {
               </select>
               <input
                 type="text"
-                placeholder="Escribe un nuevo punto a inspeccionar..."
+                placeholder="Escribe un nuevo criterio a inspeccionar..."
                 value={customItemText}
                 onChange={e => setCustomItemText(e.target.value)}
                 className="bg-stone-900 border border-white/10 text-cream rounded-xl px-3 py-2 text-xs font-mono focus:outline-none focus:border-sand flex-1 sm:w-64"
               />
               <button
                 type="submit"
-                className="bg-sand text-carbon hover:bg-[#a38b72] font-bold text-xs px-3.5 py-2 rounded-xl font-mono uppercase tracking-wider flex items-center gap-1 shrink-0 cursor-pointer"
+                className="bg-amber-500 hover:bg-amber-400 text-carbon font-bold text-xs px-4 py-2 rounded-xl font-mono uppercase tracking-wider flex items-center gap-1 shrink-0 cursor-pointer shadow-md"
               >
-                <Plus className="w-4 h-4" /> Agregar
+                <Plus className="w-4 h-4" /> Agregar Criterio
               </button>
             </form>
+
+            <button
+              onClick={handleClearAllItems}
+              className="text-xs font-mono text-red-400 hover:text-red-300 underline"
+            >
+              Limpiar Criterios
+            </button>
           </div>
         </div>
 
-        {/* TARJETA 4: MATRIZ DE PUNTOS CON CASILLAS 3 ESTADOS Y DESCRIPCIÓN */}
+        {/* TARJETA 4: MATRIZ EDITABLE DE CRITERIOS CON CASILLAS Y DESCRIPCIÓN */}
         <div className="space-y-4">
-          <h2 className="font-heading text-lg font-bold uppercase text-cream tracking-wide flex items-center gap-2">
-            <ClipboardCheck className="w-5 h-5 text-sand" />
-            Matriz Detallada de Inspección & Hallazgos Técnicos
-          </h2>
+          <div className="flex items-center justify-between">
+            <h2 className="font-heading text-lg font-bold uppercase text-cream tracking-wide flex items-center gap-2">
+              <CheckSquare className="w-5 h-5 text-sand" />
+              Matriz Editable de Criterios de Inspección & Evaluación
+            </h2>
+            <span className="text-xs font-mono text-neutral-400">
+              Mostrando {filteredItems.length} de {items.length} criterios
+            </span>
+          </div>
 
           <div className="space-y-4">
             {filteredItems.map((item, index) => (
               <div
                 key={item.id}
-                className={`bg-[#181614] border rounded-2xl p-5 space-y-3 transition-all ${
-                  item.status === 'CUMPLE'
-                    ? 'border-emerald-500/30'
-                    : item.status === 'OBSERVADO'
-                    ? 'border-red-500/40'
+                className={`bg-[#181614] border rounded-2xl p-5 space-y-4 transition-all shadow-lg ${
+                  item.status === 'SI_CUMPLE'
+                    ? 'border-emerald-500/40 bg-stone-900/40'
+                    : item.status === 'NO_CUMPLE'
+                    ? 'border-red-500/50 bg-stone-900/60'
                     : 'border-white/10'
                 }`}
               >
-                <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-3">
-                  <div className="space-y-1">
-                    <span className="text-[9px] font-mono font-bold bg-amber-500/10 text-amber-300 border border-amber-500/20 px-2 py-0.5 rounded uppercase">
-                      {item.category}
-                    </span>
-                    <h3 className="font-mono text-sm font-bold text-cream flex items-center gap-2">
-                      <span className="text-neutral-500">#{index + 1}</span>
-                      {item.item}
-                    </h3>
+                <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
+                  
+                  {/* EDICIÓN DEL NOMBRE DEL CRITERIO */}
+                  <div className="space-y-1.5 flex-1 w-full">
+                    <div className="flex items-center gap-2">
+                      <span className="text-[9px] font-mono font-bold bg-amber-500/10 text-amber-300 border border-amber-500/20 px-2 py-0.5 rounded uppercase">
+                        {item.category}
+                      </span>
+                      <span className="text-xs font-mono text-neutral-500">Criterio N° {index + 1}</span>
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                      <Edit3 className="w-4 h-4 text-sand shrink-0" />
+                      <input
+                        type="text"
+                        value={item.item}
+                        onChange={e => handleItemNameChange(item.id, e.target.value)}
+                        className="w-full bg-stone-900 border border-white/10 text-cream font-mono text-sm font-bold rounded-xl p-2 focus:outline-none focus:border-sand"
+                        placeholder="Nombre o enunciado del criterio de inspección..."
+                      />
+                    </div>
                   </div>
 
-                  {/* CASILLAS DE VERIFICACIÓN (3 ESTADOS) */}
-                  <div className="flex items-center gap-2 shrink-0 bg-stone-900/90 p-1.5 rounded-xl border border-white/10 font-mono text-xs">
+                  {/* CASILLAS TÁCTILES INTERACTIVAS DE 1 CLIC (SI CUMPLE / NO CUMPLE / N/A) */}
+                  <div className="flex items-center gap-2 shrink-0 bg-stone-950 p-2 rounded-2xl border border-white/10 font-mono text-xs shadow-inner w-full sm:w-auto justify-center">
+                    
+                    {/* CASILLA SI / CUMPLE */}
                     <button
                       type="button"
-                      onClick={() => handleStatusChange(item.id, 'CUMPLE')}
-                      className={`flex items-center gap-1 px-3 py-1.5 rounded-lg font-bold transition-all cursor-pointer ${
-                        item.status === 'CUMPLE'
-                          ? 'bg-emerald-500 text-carbon shadow-md'
-                          : 'text-neutral-400 hover:text-emerald-400'
+                      onClick={() => handleStatusChange(item.id, 'SI_CUMPLE')}
+                      className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl font-bold transition-all cursor-pointer border ${
+                        item.status === 'SI_CUMPLE'
+                          ? 'bg-emerald-500 border-emerald-400 text-carbon shadow-lg shadow-emerald-950/40 scale-105'
+                          : 'bg-stone-900 border-white/5 text-neutral-400 hover:text-emerald-400 hover:border-emerald-500/30'
                       }`}
                     >
-                      <CheckCircle2 className="w-3.5 h-3.5" /> Cumple
+                      <CheckSquare className="w-4 h-4" />
+                      <span>SI (CUMPLE)</span>
                     </button>
 
+                    {/* CASILLA NO / NO CUMPLE */}
                     <button
                       type="button"
-                      onClick={() => handleStatusChange(item.id, 'OBSERVADO')}
-                      className={`flex items-center gap-1 px-3 py-1.5 rounded-lg font-bold transition-all cursor-pointer ${
-                        item.status === 'OBSERVADO'
-                          ? 'bg-red-500 text-white shadow-md'
-                          : 'text-neutral-400 hover:text-red-400'
+                      onClick={() => handleStatusChange(item.id, 'NO_CUMPLE')}
+                      className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl font-bold transition-all cursor-pointer border ${
+                        item.status === 'NO_CUMPLE'
+                          ? 'bg-red-500 border-red-400 text-white shadow-lg shadow-red-950/40 scale-105'
+                          : 'bg-stone-900 border-white/5 text-neutral-400 hover:text-red-400 hover:border-red-500/30'
                       }`}
                     >
-                      <XCircle className="w-3.5 h-3.5" /> Observado
+                      <XSquare className="w-4 h-4" />
+                      <span>NO (NO CUMPLE)</span>
                     </button>
 
+                    {/* CASILLA NO APLICA */}
                     <button
                       type="button"
                       onClick={() => handleStatusChange(item.id, 'NO_APLICA')}
-                      className={`flex items-center gap-1 px-3 py-1.5 rounded-lg font-bold transition-all cursor-pointer ${
+                      className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl font-bold transition-all cursor-pointer border ${
                         item.status === 'NO_APLICA'
-                          ? 'bg-stone-700 text-white shadow-md'
-                          : 'text-neutral-400 hover:text-cream'
+                          ? 'bg-stone-700 border-stone-500 text-white shadow-lg scale-105'
+                          : 'bg-stone-900 border-white/5 text-neutral-400 hover:text-cream'
                       }`}
                     >
-                      <MinusCircle className="w-3.5 h-3.5" /> N/A
+                      <MinusSquare className="w-4 h-4" />
+                      <span>N/A</span>
                     </button>
 
                     <button
                       type="button"
                       onClick={() => handleDeleteItem(item.id)}
-                      className="p-1.5 text-neutral-500 hover:text-red-400 transition-colors ml-1"
-                      title="Eliminar punto"
+                      className="p-2 text-neutral-500 hover:text-red-400 transition-colors ml-1"
+                      title="Eliminar este criterio"
                     >
-                      <Trash2 className="w-4 h-4" />
+                      <Trash2 className="w-4.5 h-4.5" />
                     </button>
                   </div>
                 </div>
@@ -740,28 +831,28 @@ export function ChecklistSupremoSection() {
                 {/* CAJAS DE DESCRIPCIÓN & SOLUCIÓN RECOMENDADA */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-2 font-mono text-xs">
                   <div>
-                    <label className="block text-[10px] text-neutral-400 mb-1">
-                      💬 HALLAZGO / OBSERVACIÓN TÉCNICA:
+                    <label className="block text-[10px] text-neutral-400 mb-1 font-bold">
+                      📝 DESCRIPCIÓN / OBSERVACIÓN TÉCNICA DEL CRITERIO:
                     </label>
                     <textarea
                       rows={2}
                       value={item.observations}
                       onChange={e => handleObservationChange(item.id, e.target.value)}
-                      className="w-full bg-stone-900 border border-white/10 text-cream rounded-xl p-2.5 focus:outline-none focus:border-sand"
-                      placeholder="Describe la falla, grieta o problema hallado..."
+                      className="w-full bg-stone-900 border border-white/10 text-cream rounded-xl p-3 focus:outline-none focus:border-sand"
+                      placeholder="Escribe la descripción o hallazgo técnico del criterio..."
                     />
                   </div>
 
                   <div>
-                    <label className="block text-[10px] text-amber-300 mb-1">
-                      🛠️ REPARACIÓN & SUBSANACIÓN RECOMENDADA:
+                    <label className="block text-[10px] text-amber-300 mb-1 font-bold">
+                      🛠️ ACCIÓN SUBSANATORIA / SOLUCIÓN SUGERIDA:
                     </label>
                     <textarea
                       rows={2}
                       value={item.solution || ''}
                       onChange={e => handleSolutionChange(item.id, e.target.value)}
-                      className="w-full bg-stone-900 border border-amber-500/20 text-cream rounded-xl p-2.5 focus:outline-none focus:border-sand"
-                      placeholder="Escribe la solución técnica o tratamiento sugerido..."
+                      className="w-full bg-stone-900 border border-amber-500/20 text-cream rounded-xl p-3 focus:outline-none focus:border-sand"
+                      placeholder="Escribe la solución técnica o subsanación recomendada..."
                     />
                   </div>
                 </div>
@@ -770,12 +861,12 @@ export function ChecklistSupremoSection() {
           </div>
         </div>
 
-        {/* TARJETA 5: DICTAMEN TÉCNICO FINAL Y RESUMEN */}
-        <div className="bg-[#181614] border border-amber-500/40 rounded-3xl p-6 sm:p-8 space-y-4">
+        {/* TARJETA 5: DICTAMEN TÉCNICO FINAL Y OBSERVACIONES DE CIERRE */}
+        <div className="bg-[#181614] border border-amber-500/40 rounded-3xl p-6 sm:p-8 space-y-4 shadow-2xl">
           <div className="flex items-center gap-2 text-amber-400">
             <FileText className="w-5 h-5" />
             <h3 className="font-heading text-base font-bold uppercase tracking-wider">
-              Dictamen Técnico Final del Inspector ITO
+              Dictamen Técnico Final & Conclusión del Inspector ITO
             </h3>
           </div>
           <textarea
@@ -783,7 +874,7 @@ export function ChecklistSupremoSection() {
             value={data.dictamenGeneral}
             onChange={e => setData({ ...data, dictamenGeneral: e.target.value })}
             className="w-full bg-stone-900 border border-white/10 text-cream rounded-2xl p-4 text-xs font-mono focus:outline-none focus:border-sand"
-            placeholder="Escribe la conclusión general de la inspección para el informe final..."
+            placeholder="Escribe la conclusión general de la inspección para el informe oficial..."
           />
         </div>
 
