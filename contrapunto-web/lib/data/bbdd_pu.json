@@ -1,5 +1,31 @@
 [
   {
+    "id": 774,
+    "code": "ELEC-714",
+    "description": "instalacion wc",
+    "category": "CAP 03 - HORMIGONES & OBRA GRUESA",
+    "unit": "un",
+    "type": "Partida",
+    "priceUf": 1.2,
+    "inclusions": "Incluye: canalización cacheno/conduit embutido o a la vista, cableado de cobre libre de halógenos, módulo de tomacorriente/foco y certificación de continuidad.",
+    "porcentajeMateriales": 50,
+    "porcentajeManoObra": 45,
+    "porcentajeEquipos": 5
+  },
+  {
+    "id": 773,
+    "code": "ELEC-714",
+    "description": "Punto electrico",
+    "category": "CAP 03 - HORMIGONES & OBRA GRUESA",
+    "unit": "un",
+    "type": "Partida",
+    "priceUf": 1.2,
+    "inclusions": "Incluye: canalización cacheno/conduit embutido o a la vista, cableado de cobre libre de halógenos, módulo de tomacorriente/foco y certificación de continuidad.",
+    "porcentajeMateriales": 50,
+    "porcentajeManoObra": 45,
+    "porcentajeEquipos": 5
+  },
+  {
     "id": 1,
     "code": "PAR-0001",
     "description": "EXTENCIÓN DE ALTURA CON MALLA RASCHELL SUPERIOR H= 1,00 MT.",

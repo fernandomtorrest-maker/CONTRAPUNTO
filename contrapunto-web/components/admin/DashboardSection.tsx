@@ -391,7 +391,34 @@ export function DashboardSection({ currentUser }: DashboardSectionProps) {
                 </div>
               </Link>
 
-              {/* Tarjeta 3: Cotizador ITO */}
+              {/* Tarjeta 3: Checklist Supremo ITO */}
+              <Link
+                href="/admin/checklist-supremo"
+                className="bg-[#181614] border border-amber-500/30 hover:border-amber-400 hover:bg-stone-900 rounded-2xl p-5 transition-all group shadow-xl flex flex-col justify-between"
+              >
+                <div className="space-y-3">
+                  <div className="flex justify-between items-start">
+                    <div className="p-3 rounded-xl bg-amber-500/15 text-amber-400 group-hover:scale-110 transition-transform">
+                      <ClipboardList className="w-6 h-6" />
+                    </div>
+                    <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-amber-400 bg-amber-500/10 border border-amber-500/30 px-2 py-0.5 rounded-full">
+                      NUEVO
+                    </span>
+                  </div>
+                  <h3 className="font-heading text-base font-bold text-cream group-hover:text-amber-300 transition-colors">
+                    Checklist Supremo (ITO)
+                  </h3>
+                  <p className="text-xs text-neutral-400 font-light leading-relaxed">
+                    Inspección técnica con casillas, diagnóstico de filtraciones/patologías y generación de informes PDF oficiales.
+                  </p>
+                </div>
+                <div className="pt-4 border-t border-white/5 flex items-center justify-between text-xs font-mono text-amber-300 font-bold">
+                  <span>Abrir Checklist ITO</span>
+                  <span>→</span>
+                </div>
+              </Link>
+
+              {/* Tarjeta 4: Cotizador ITO */}
               <Link
                 href="/cotizador-ito"
                 className="bg-[#181614] border border-white/10 hover:border-sand hover:bg-stone-900 rounded-2xl p-5 transition-all group shadow-xl flex flex-col justify-between"
