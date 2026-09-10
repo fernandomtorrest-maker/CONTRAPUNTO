@@ -420,7 +420,7 @@ export function DashboardSection({ currentUser }: DashboardSectionProps) {
 
               {/* Tarjeta 4: Cotizador ITO */}
               <Link
-                href="/cotizador-ito"
+                href="/admin/ito"
                 className="bg-[#181614] border border-white/10 hover:border-sand hover:bg-stone-900 rounded-2xl p-5 transition-all group shadow-xl flex flex-col justify-between"
               >
                 <div className="space-y-3">
