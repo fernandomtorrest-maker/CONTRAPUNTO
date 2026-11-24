@@ -1,4 +1,4 @@
-// Catálogo completo de 120 servicios y valores reales (sin oferta) extraídos de Sodimac Chile
+// Catálogo completo de 120 servicios oficiales con características, inclusiones, exclusiones y condiciones técnicas
 export interface ServicePriceItem {
   id: string;
   num: number;
@@ -9,7 +9,10 @@ export interface ServicePriceItem {
   unit: string;
   badge?: string;
   description: string;
+  caracteristicas: string;
   includes: string[];
+  notIncludes: string[];
+  conditions: string;
   iconType: 'brush' | 'droplet' | 'wind' | 'flame' | 'wrench' | 'lock' | 'sofa' | 'hammer' | 'file';
 }
 
@@ -36,13 +39,22 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "price": 16990,
     "unit": "m²",
     "badge": "Terminaciones",
-    "description": "Servicio especializado de servicio instalación de cerámica por m2 con estándar técnico profesional y garantía de ejecución.",
+    "description": "Servicio profesional de revestimiento y acabados para transformar pisos y muros con estándar de alta durabilidad y estética impecable. Especialidad: Servicio Instalación de Cerámica por M2.",
+    "caracteristicas": "Mano de obra especializada siguiendo estrictas normas técnicas y de nivelación. Contempla la preparación de la base, trazado, colocación milimétrica y fraguado uniforme.",
     "includes": [
-      "Preparación técnica de superficie",
-      "Aplicación con herramientas profesionales",
-      "Nivelación y remate de canterías",
-      "Limpieza y retiro de excedentes"
+      "Mano de obra calificada de instalación",
+      "Preparación de base piso o muro (puntereo, galleteo o quemado superficial)",
+      "Instalación según patrón y cantería indicada",
+      "Fraguado técnico parejo y retiro de excedentes",
+      "Instalación de topes de puertas rectos en accesos intervenidos"
     ],
+    "notIncludes": [
+      "Materiales e insumos (palmetas, cerámicos, adhesivo polimérico, fragüe)",
+      "Reparación de preexistencias estructurales (filtraciones, grietas vivas o humedad)",
+      "Retiro de revestimientos existentes o picado de losa mayor (se cotiza como partida adicional)",
+      "Formatos especiales de gran dimensión mayores a 60 cm sin rectificación previa"
+    ],
+    "conditions": "Contratación mínima de 15 m². Superficie base afinada, limpia y libre de humedad. Sujeto a rectificación técnica.",
     "iconType": "brush"
   },
   {
@@ -54,13 +66,22 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "price": 19990,
     "unit": "m²",
     "badge": "Terminaciones",
-    "description": "Servicio especializado de servicio instalación de porcelanato por m2 con estándar técnico profesional y garantía de ejecución.",
+    "description": "Servicio profesional de revestimiento y acabados para transformar pisos y muros con estándar de alta durabilidad y estética impecable. Especialidad: Servicio Instalación de Porcelanato por M2.",
+    "caracteristicas": "Mano de obra especializada siguiendo estrictas normas técnicas y de nivelación. Contempla la preparación de la base, trazado, colocación milimétrica y fraguado uniforme.",
     "includes": [
-      "Preparación técnica de superficie",
-      "Aplicación con herramientas profesionales",
-      "Nivelación y remate de canterías",
-      "Limpieza y retiro de excedentes"
+      "Mano de obra calificada de instalación",
+      "Preparación de base piso o muro (puntereo, galleteo o quemado superficial)",
+      "Instalación según patrón y cantería indicada",
+      "Fraguado técnico parejo y retiro de excedentes",
+      "Instalación de topes de puertas rectos en accesos intervenidos"
     ],
+    "notIncludes": [
+      "Materiales e insumos (palmetas, cerámicos, adhesivo polimérico, fragüe)",
+      "Reparación de preexistencias estructurales (filtraciones, grietas vivas o humedad)",
+      "Retiro de revestimientos existentes o picado de losa mayor (se cotiza como partida adicional)",
+      "Formatos especiales de gran dimensión mayores a 60 cm sin rectificación previa"
+    ],
+    "conditions": "Contratación mínima de 15 m². Superficie base afinada, limpia y libre de humedad. Sujeto a rectificación técnica.",
     "iconType": "brush"
   },
   {
@@ -72,13 +93,22 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "price": 10990,
     "unit": "m²",
     "badge": "Terminaciones",
-    "description": "Servicio especializado de servicio de instalación de piso vinílico por m2 con estándar técnico profesional y garantía de ejecución.",
+    "description": "Servicio profesional de revestimiento y acabados para transformar pisos y muros con estándar de alta durabilidad y estética impecable. Especialidad: Servicio de Instalación de Piso Vinílico por M2.",
+    "caracteristicas": "Mano de obra especializada siguiendo estrictas normas técnicas y de nivelación. Contempla la preparación de la base, trazado, colocación milimétrica y fraguado uniforme.",
     "includes": [
-      "Preparación técnica de superficie",
-      "Aplicación con herramientas profesionales",
-      "Nivelación y remate de canterías",
-      "Limpieza y retiro de excedentes"
+      "Mano de obra calificada de instalación",
+      "Preparación de base piso o muro (puntereo, galleteo o quemado superficial)",
+      "Instalación según patrón y cantería indicada",
+      "Fraguado técnico parejo y retiro de excedentes",
+      "Instalación de topes de puertas rectos en accesos intervenidos"
     ],
+    "notIncludes": [
+      "Materiales e insumos (palmetas, cerámicos, adhesivo polimérico, fragüe)",
+      "Reparación de preexistencias estructurales (filtraciones, grietas vivas o humedad)",
+      "Retiro de revestimientos existentes o picado de losa mayor (se cotiza como partida adicional)",
+      "Formatos especiales de gran dimensión mayores a 60 cm sin rectificación previa"
+    ],
+    "conditions": "Contratación mínima de 15 m². Superficie base afinada, limpia y libre de humedad. Sujeto a rectificación técnica.",
     "iconType": "brush"
   },
   {
@@ -90,13 +120,22 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "price": 10990,
     "unit": "m²",
     "badge": "Terminaciones",
-    "description": "Servicio especializado de servicio de instalación de piso laminado por m2 con estándar técnico profesional y garantía de ejecución.",
+    "description": "Servicio profesional de revestimiento y acabados para transformar pisos y muros con estándar de alta durabilidad y estética impecable. Especialidad: Servicio de Instalación de piso laminado por M2.",
+    "caracteristicas": "Mano de obra especializada siguiendo estrictas normas técnicas y de nivelación. Contempla la preparación de la base, trazado, colocación milimétrica y fraguado uniforme.",
     "includes": [
-      "Preparación técnica de superficie",
-      "Aplicación con herramientas profesionales",
-      "Nivelación y remate de canterías",
-      "Limpieza y retiro de excedentes"
+      "Mano de obra calificada de instalación",
+      "Preparación de base piso o muro (puntereo, galleteo o quemado superficial)",
+      "Instalación según patrón y cantería indicada",
+      "Fraguado técnico parejo y retiro de excedentes",
+      "Instalación de topes de puertas rectos en accesos intervenidos"
     ],
+    "notIncludes": [
+      "Materiales e insumos (palmetas, cerámicos, adhesivo polimérico, fragüe)",
+      "Reparación de preexistencias estructurales (filtraciones, grietas vivas o humedad)",
+      "Retiro de revestimientos existentes o picado de losa mayor (se cotiza como partida adicional)",
+      "Formatos especiales de gran dimensión mayores a 60 cm sin rectificación previa"
+    ],
+    "conditions": "Superficie base debe estar completamente desocupada, seca y nivelada. Mínimo de contratación general: 15 m². Sujeto a rectificación de medidas en terreno.",
     "iconType": "brush"
   },
   {
@@ -108,13 +147,22 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "price": 4990,
     "unit": "instalación",
     "badge": "Terminaciones",
-    "description": "Servicio especializado de inst alfombra full con estándar técnico profesional y garantía de ejecución.",
+    "description": "Servicio profesional de revestimiento y acabados para transformar pisos y muros con estándar de alta durabilidad y estética impecable. Especialidad: INST ALFOMBRA FULL.",
+    "caracteristicas": "Mano de obra especializada siguiendo estrictas normas técnicas y de nivelación. Contempla la preparación de la base, trazado, colocación milimétrica y fraguado uniforme.",
     "includes": [
-      "Preparación técnica de superficie",
-      "Aplicación con herramientas profesionales",
-      "Nivelación y remate de canterías",
-      "Limpieza y retiro de excedentes"
+      "Mano de obra calificada de instalación",
+      "Preparación de base piso o muro (puntereo, galleteo o quemado superficial)",
+      "Instalación según patrón y cantería indicada",
+      "Fraguado técnico parejo y retiro de excedentes",
+      "Instalación de topes de puertas rectos en accesos intervenidos"
     ],
+    "notIncludes": [
+      "Materiales e insumos (palmetas, cerámicos, adhesivo polimérico, fragüe)",
+      "Reparación de preexistencias estructurales (filtraciones, grietas vivas o humedad)",
+      "Retiro de revestimientos existentes o picado de losa mayor (se cotiza como partida adicional)",
+      "Formatos especiales de gran dimensión mayores a 60 cm sin rectificación previa"
+    ],
+    "conditions": "Superficie base debe estar completamente desocupada, seca y nivelada. Mínimo de contratación general: 15 m². Sujeto a rectificación de medidas en terreno.",
     "iconType": "brush"
   },
   {
@@ -126,13 +174,22 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "price": 4990,
     "unit": "m²",
     "badge": "Terminaciones",
-    "description": "Servicio especializado de servicio de aplicación de pintura interior por m2 con estándar técnico profesional y garantía de ejecución.",
+    "description": "Servicio profesional de revestimiento y acabados para transformar pisos y muros con estándar de alta durabilidad y estética impecable. Especialidad: Servicio de Aplicación de Pintura Interior por M2.",
+    "caracteristicas": "Mano de obra especializada siguiendo estrictas normas técnicas y de nivelación. Contempla la preparación de la base, trazado, colocación milimétrica y fraguado uniforme.",
     "includes": [
-      "Preparación técnica de superficie",
-      "Aplicación con herramientas profesionales",
-      "Nivelación y remate de canterías",
-      "Limpieza y retiro de excedentes"
+      "Mano de obra calificada de instalación",
+      "Preparación de base piso o muro (puntereo, galleteo o quemado superficial)",
+      "Instalación según patrón y cantería indicada",
+      "Fraguado técnico parejo y retiro de excedentes",
+      "Instalación de topes de puertas rectos en accesos intervenidos"
     ],
+    "notIncludes": [
+      "Materiales e insumos (palmetas, cerámicos, adhesivo polimérico, fragüe)",
+      "Reparación de preexistencias estructurales (filtraciones, grietas vivas o humedad)",
+      "Retiro de revestimientos existentes o picado de losa mayor (se cotiza como partida adicional)",
+      "Formatos especiales de gran dimensión mayores a 60 cm sin rectificación previa"
+    ],
+    "conditions": "Superficie base debe estar completamente desocupada, seca y nivelada. Mínimo de contratación general: 15 m². Sujeto a rectificación de medidas en terreno.",
     "iconType": "brush"
   },
   {
@@ -144,13 +201,22 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "price": 7990,
     "unit": "m²",
     "badge": "Terminaciones",
-    "description": "Servicio especializado de servicio de aplicación de pintura exterior por m2 con estándar técnico profesional y garantía de ejecución.",
+    "description": "Servicio profesional de revestimiento y acabados para transformar pisos y muros con estándar de alta durabilidad y estética impecable. Especialidad: Servicio de Aplicación de Pintura Exterior por M2.",
+    "caracteristicas": "Mano de obra especializada siguiendo estrictas normas técnicas y de nivelación. Contempla la preparación de la base, trazado, colocación milimétrica y fraguado uniforme.",
     "includes": [
-      "Preparación técnica de superficie",
-      "Aplicación con herramientas profesionales",
-      "Nivelación y remate de canterías",
-      "Limpieza y retiro de excedentes"
+      "Mano de obra calificada de instalación",
+      "Preparación de base piso o muro (puntereo, galleteo o quemado superficial)",
+      "Instalación según patrón y cantería indicada",
+      "Fraguado técnico parejo y retiro de excedentes",
+      "Instalación de topes de puertas rectos en accesos intervenidos"
     ],
+    "notIncludes": [
+      "Materiales e insumos (palmetas, cerámicos, adhesivo polimérico, fragüe)",
+      "Reparación de preexistencias estructurales (filtraciones, grietas vivas o humedad)",
+      "Retiro de revestimientos existentes o picado de losa mayor (se cotiza como partida adicional)",
+      "Formatos especiales de gran dimensión mayores a 60 cm sin rectificación previa"
+    ],
+    "conditions": "Superficie base debe estar completamente desocupada, seca y nivelada. Mínimo de contratación general: 15 m². Sujeto a rectificación de medidas en terreno.",
     "iconType": "brush"
   },
   {
@@ -162,13 +228,22 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "price": 29990,
     "unit": "mueble",
     "badge": "Armado Experto",
-    "description": "Servicio especializado de servicio armado de 1 mueble con estándar técnico profesional y garantía de ejecución.",
+    "description": "Ensamble e instalación experta de mobiliario en caja, clósets, pérgolas, quinchos y casetas exteriores garantizando estabilidad y calce perfecto. Especialidad: Servicio Armado de 1 Mueble.",
+    "caracteristicas": "Personal calificado para armado según planos del fabricante. Contempla verificación de piezas, ensamble con herrajes apropiados, escuadrado, calibración y anclaje seguro.",
     "includes": [
-      "Armado según plano técnico del fabricante",
-      "Calibración de bisagras y correderas",
-      "Anclaje de seguridad cuando aplica",
-      "Retiro de material de embalaje"
+      "Desempaque e inventario de piezas y herrajes",
+      "Armado y ensamble estructural completo según plano técnico",
+      "Calibración y cuadratura de puertas, bisagras y rieles telescópicos",
+      "Fijación y anclaje de seguridad a muro en muebles altos o clósets",
+      "Retiro y acopio ordenado del material de embalaje"
     ],
+    "notIncludes": [
+      "Mueble o producto en sí (debe estar en el lugar antes de la visita)",
+      "Piezas defectuosas o faltantes de fábrica (se levanta reporte para garantía)",
+      "Modificaciones estructurales, cortes o perforaciones a tableros de melamina",
+      "Anclaje a muros de yeso-cartón sin estructura de refuerzo interior"
+    ],
+    "conditions": "El cliente debe disponer de un espacio despejado y techado de al menos 2x2 metros para trabajar. Pisos nivelados en caso de pérgolas y bodegas exteriores.",
     "iconType": "sofa"
   },
   {
@@ -180,13 +255,22 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "price": 58990,
     "unit": "mueble",
     "badge": "Armado Experto",
-    "description": "Servicio especializado de servicio armado de 2 a 3 muebles con estándar técnico profesional y garantía de ejecución.",
+    "description": "Ensamble e instalación experta de mobiliario en caja, clósets, pérgolas, quinchos y casetas exteriores garantizando estabilidad y calce perfecto. Especialidad: Servicio Armado de 2 a 3 Muebles.",
+    "caracteristicas": "Personal calificado para armado según planos del fabricante. Contempla verificación de piezas, ensamble con herrajes apropiados, escuadrado, calibración y anclaje seguro.",
     "includes": [
-      "Armado según plano técnico del fabricante",
-      "Calibración de bisagras y correderas",
-      "Anclaje de seguridad cuando aplica",
-      "Retiro de material de embalaje"
+      "Desempaque e inventario de piezas y herrajes",
+      "Armado y ensamble estructural completo según plano técnico",
+      "Calibración y cuadratura de puertas, bisagras y rieles telescópicos",
+      "Fijación y anclaje de seguridad a muro en muebles altos o clósets",
+      "Retiro y acopio ordenado del material de embalaje"
     ],
+    "notIncludes": [
+      "Mueble o producto en sí (debe estar en el lugar antes de la visita)",
+      "Piezas defectuosas o faltantes de fábrica (se levanta reporte para garantía)",
+      "Modificaciones estructurales, cortes o perforaciones a tableros de melamina",
+      "Anclaje a muros de yeso-cartón sin estructura de refuerzo interior"
+    ],
+    "conditions": "El cliente debe disponer de un espacio despejado y techado de al menos 2x2 metros para trabajar. Pisos nivelados en caso de pérgolas y bodegas exteriores.",
     "iconType": "sofa"
   },
   {
@@ -198,13 +282,22 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "price": 87990,
     "unit": "mueble",
     "badge": "Armado Experto",
-    "description": "Servicio especializado de servicio armado de 4 a 6 muebles con estándar técnico profesional y garantía de ejecución.",
+    "description": "Ensamble e instalación experta de mobiliario en caja, clósets, pérgolas, quinchos y casetas exteriores garantizando estabilidad y calce perfecto. Especialidad: Servicio Armado de 4 a 6 Muebles.",
+    "caracteristicas": "Personal calificado para armado según planos del fabricante. Contempla verificación de piezas, ensamble con herrajes apropiados, escuadrado, calibración y anclaje seguro.",
     "includes": [
-      "Armado según plano técnico del fabricante",
-      "Calibración de bisagras y correderas",
-      "Anclaje de seguridad cuando aplica",
-      "Retiro de material de embalaje"
+      "Desempaque e inventario de piezas y herrajes",
+      "Armado y ensamble estructural completo según plano técnico",
+      "Calibración y cuadratura de puertas, bisagras y rieles telescópicos",
+      "Fijación y anclaje de seguridad a muro en muebles altos o clósets",
+      "Retiro y acopio ordenado del material de embalaje"
     ],
+    "notIncludes": [
+      "Mueble o producto en sí (debe estar en el lugar antes de la visita)",
+      "Piezas defectuosas o faltantes de fábrica (se levanta reporte para garantía)",
+      "Modificaciones estructurales, cortes o perforaciones a tableros de melamina",
+      "Anclaje a muros de yeso-cartón sin estructura de refuerzo interior"
+    ],
+    "conditions": "El cliente debe disponer de un espacio despejado y techado de al menos 2x2 metros para trabajar. Pisos nivelados en caso de pérgolas y bodegas exteriores.",
     "iconType": "sofa"
   },
   {
@@ -216,13 +309,22 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "price": 46990,
     "unit": "mueble",
     "badge": "Armado Experto",
-    "description": "Servicio especializado de servicio armado closet desde 6 puertas con estándar técnico profesional y garantía de ejecución.",
+    "description": "Ensamble e instalación experta de mobiliario en caja, clósets, pérgolas, quinchos y casetas exteriores garantizando estabilidad y calce perfecto. Especialidad: Servicio Armado closet desde 6 puertas.",
+    "caracteristicas": "Personal calificado para armado según planos del fabricante. Contempla verificación de piezas, ensamble con herrajes apropiados, escuadrado, calibración y anclaje seguro.",
     "includes": [
-      "Armado según plano técnico del fabricante",
-      "Calibración de bisagras y correderas",
-      "Anclaje de seguridad cuando aplica",
-      "Retiro de material de embalaje"
+      "Desempaque e inventario de piezas y herrajes",
+      "Armado y ensamble estructural completo según plano técnico",
+      "Calibración y cuadratura de puertas, bisagras y rieles telescópicos",
+      "Fijación y anclaje de seguridad a muro en muebles altos o clósets",
+      "Retiro y acopio ordenado del material de embalaje"
     ],
+    "notIncludes": [
+      "Mueble o producto en sí (debe estar en el lugar antes de la visita)",
+      "Piezas defectuosas o faltantes de fábrica (se levanta reporte para garantía)",
+      "Modificaciones estructurales, cortes o perforaciones a tableros de melamina",
+      "Anclaje a muros de yeso-cartón sin estructura de refuerzo interior"
+    ],
+    "conditions": "El cliente debe disponer de un espacio despejado y techado de al menos 2x2 metros para trabajar. Pisos nivelados en caso de pérgolas y bodegas exteriores.",
     "iconType": "sofa"
   },
   {
@@ -234,13 +336,22 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "price": 19990,
     "unit": "mueble",
     "badge": "Armado Experto",
-    "description": "Servicio especializado de servicio armado de 1 silla con estándar técnico profesional y garantía de ejecución.",
+    "description": "Ensamble e instalación experta de mobiliario en caja, clósets, pérgolas, quinchos y casetas exteriores garantizando estabilidad y calce perfecto. Especialidad: Servicio Armado de 1 Silla.",
+    "caracteristicas": "Personal calificado para armado según planos del fabricante. Contempla verificación de piezas, ensamble con herrajes apropiados, escuadrado, calibración y anclaje seguro.",
     "includes": [
-      "Armado según plano técnico del fabricante",
-      "Calibración de bisagras y correderas",
-      "Anclaje de seguridad cuando aplica",
-      "Retiro de material de embalaje"
+      "Desempaque e inventario de piezas y herrajes",
+      "Armado y ensamble estructural completo según plano técnico",
+      "Calibración y cuadratura de puertas, bisagras y rieles telescópicos",
+      "Fijación y anclaje de seguridad a muro en muebles altos o clósets",
+      "Retiro y acopio ordenado del material de embalaje"
     ],
+    "notIncludes": [
+      "Mueble o producto en sí (debe estar en el lugar antes de la visita)",
+      "Piezas defectuosas o faltantes de fábrica (se levanta reporte para garantía)",
+      "Modificaciones estructurales, cortes o perforaciones a tableros de melamina",
+      "Anclaje a muros de yeso-cartón sin estructura de refuerzo interior"
+    ],
+    "conditions": "El cliente debe disponer de un espacio despejado y techado de al menos 2x2 metros para trabajar. Pisos nivelados en caso de pérgolas y bodegas exteriores.",
     "iconType": "sofa"
   },
   {
@@ -252,13 +363,22 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "price": 54990,
     "unit": "mueble",
     "badge": "Armado Experto",
-    "description": "Servicio especializado de servicio armado y anclaje mueble de tv (no incluye soporte) con estándar técnico profesional y garantía de ejecución.",
+    "description": "Ensamble e instalación experta de mobiliario en caja, clósets, pérgolas, quinchos y casetas exteriores garantizando estabilidad y calce perfecto. Especialidad: Servicio Armado y Anclaje mueble de TV (no incluye soporte).",
+    "caracteristicas": "Personal calificado para armado según planos del fabricante. Contempla verificación de piezas, ensamble con herrajes apropiados, escuadrado, calibración y anclaje seguro.",
     "includes": [
-      "Armado según plano técnico del fabricante",
-      "Calibración de bisagras y correderas",
-      "Anclaje de seguridad cuando aplica",
-      "Retiro de material de embalaje"
+      "Desempaque e inventario de piezas y herrajes",
+      "Armado y ensamble estructural completo según plano técnico",
+      "Calibración y cuadratura de puertas, bisagras y rieles telescópicos",
+      "Fijación y anclaje de seguridad a muro en muebles altos o clósets",
+      "Retiro y acopio ordenado del material de embalaje"
     ],
+    "notIncludes": [
+      "Mueble o producto en sí (debe estar en el lugar antes de la visita)",
+      "Piezas defectuosas o faltantes de fábrica (se levanta reporte para garantía)",
+      "Modificaciones estructurales, cortes o perforaciones a tableros de melamina",
+      "Anclaje a muros de yeso-cartón sin estructura de refuerzo interior"
+    ],
+    "conditions": "El cliente debe disponer de un espacio despejado y techado de al menos 2x2 metros para trabajar. Pisos nivelados en caso de pérgolas y bodegas exteriores.",
     "iconType": "sofa"
   },
   {
@@ -270,13 +390,22 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "price": 64990,
     "unit": "mueble",
     "badge": "Armado Experto",
-    "description": "Servicio especializado de servicio armado y anclaje mueble de tv + instalación de soporte y tv con estándar técnico profesional y garantía de ejecución.",
+    "description": "Ensamble e instalación experta de mobiliario en caja, clósets, pérgolas, quinchos y casetas exteriores garantizando estabilidad y calce perfecto. Especialidad: Servicio Armado y Anclaje mueble de TV + Instalación de Soporte y TV.",
+    "caracteristicas": "Personal calificado para armado según planos del fabricante. Contempla verificación de piezas, ensamble con herrajes apropiados, escuadrado, calibración y anclaje seguro.",
     "includes": [
-      "Armado según plano técnico del fabricante",
-      "Calibración de bisagras y correderas",
-      "Anclaje de seguridad cuando aplica",
-      "Retiro de material de embalaje"
+      "Desempaque e inventario de piezas y herrajes",
+      "Armado y ensamble estructural completo según plano técnico",
+      "Calibración y cuadratura de puertas, bisagras y rieles telescópicos",
+      "Fijación y anclaje de seguridad a muro en muebles altos o clósets",
+      "Retiro y acopio ordenado del material de embalaje"
     ],
+    "notIncludes": [
+      "Mueble o producto en sí (debe estar en el lugar antes de la visita)",
+      "Piezas defectuosas o faltantes de fábrica (se levanta reporte para garantía)",
+      "Modificaciones estructurales, cortes o perforaciones a tableros de melamina",
+      "Anclaje a muros de yeso-cartón sin estructura de refuerzo interior"
+    ],
+    "conditions": "El cliente debe disponer de un espacio despejado y techado de al menos 2x2 metros para trabajar. Pisos nivelados en caso de pérgolas y bodegas exteriores.",
     "iconType": "sofa"
   },
   {
@@ -288,13 +417,22 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "price": 41990,
     "unit": "mueble",
     "badge": "Armado Experto",
-    "description": "Servicio especializado de servicio armado y anclaje 1 mueble de cocina aéreo de 3 a 4 puertas con estándar técnico profesional y garantía de ejecución.",
+    "description": "Ensamble e instalación experta de mobiliario en caja, clósets, pérgolas, quinchos y casetas exteriores garantizando estabilidad y calce perfecto. Especialidad: Servicio Armado y Anclaje 1 Mueble de Cocina Aéreo de 3 a 4 puertas.",
+    "caracteristicas": "Personal calificado para armado según planos del fabricante. Contempla verificación de piezas, ensamble con herrajes apropiados, escuadrado, calibración y anclaje seguro.",
     "includes": [
-      "Armado según plano técnico del fabricante",
-      "Calibración de bisagras y correderas",
-      "Anclaje de seguridad cuando aplica",
-      "Retiro de material de embalaje"
+      "Desempaque e inventario de piezas y herrajes",
+      "Armado y ensamble estructural completo según plano técnico",
+      "Calibración y cuadratura de puertas, bisagras y rieles telescópicos",
+      "Fijación y anclaje de seguridad a muro en muebles altos o clósets",
+      "Retiro y acopio ordenado del material de embalaje"
     ],
+    "notIncludes": [
+      "Mueble o producto en sí (debe estar en el lugar antes de la visita)",
+      "Piezas defectuosas o faltantes de fábrica (se levanta reporte para garantía)",
+      "Modificaciones estructurales, cortes o perforaciones a tableros de melamina",
+      "Anclaje a muros de yeso-cartón sin estructura de refuerzo interior"
+    ],
+    "conditions": "El cliente debe disponer de un espacio despejado y techado de al menos 2x2 metros para trabajar. Pisos nivelados en caso de pérgolas y bodegas exteriores.",
     "iconType": "sofa"
   },
   {
@@ -306,13 +444,22 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "price": 71990,
     "unit": "mueble",
     "badge": "Armado Experto",
-    "description": "Servicio especializado de servicio armado e instalación kit mueble de lavaplatos con estándar técnico profesional y garantía de ejecución.",
+    "description": "Ensamble e instalación experta de mobiliario en caja, clósets, pérgolas, quinchos y casetas exteriores garantizando estabilidad y calce perfecto. Especialidad: Servicio Armado e Instalación Kit Mueble de Lavaplatos.",
+    "caracteristicas": "Personal calificado para armado según planos del fabricante. Contempla verificación de piezas, ensamble con herrajes apropiados, escuadrado, calibración y anclaje seguro.",
     "includes": [
-      "Armado según plano técnico del fabricante",
-      "Calibración de bisagras y correderas",
-      "Anclaje de seguridad cuando aplica",
-      "Retiro de material de embalaje"
+      "Desempaque e inventario de piezas y herrajes",
+      "Armado y ensamble estructural completo según plano técnico",
+      "Calibración y cuadratura de puertas, bisagras y rieles telescópicos",
+      "Fijación y anclaje de seguridad a muro en muebles altos o clósets",
+      "Retiro y acopio ordenado del material de embalaje"
     ],
+    "notIncludes": [
+      "Mueble o producto en sí (debe estar en el lugar antes de la visita)",
+      "Piezas defectuosas o faltantes de fábrica (se levanta reporte para garantía)",
+      "Modificaciones estructurales, cortes o perforaciones a tableros de melamina",
+      "Anclaje a muros de yeso-cartón sin estructura de refuerzo interior"
+    ],
+    "conditions": "El cliente debe disponer de un espacio despejado y techado de al menos 2x2 metros para trabajar. Pisos nivelados en caso de pérgolas y bodegas exteriores.",
     "iconType": "sofa"
   },
   {
@@ -324,13 +471,22 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "price": 49990,
     "unit": "mueble",
     "badge": "Armado Experto",
-    "description": "Servicio especializado de servicio armado bodega (precio normal hasta $400.000) con estándar técnico profesional y garantía de ejecución.",
+    "description": "Ensamble e instalación experta de mobiliario en caja, clósets, pérgolas, quinchos y casetas exteriores garantizando estabilidad y calce perfecto. Especialidad: Servicio Armado Bodega (precio normal hasta $400.000).",
+    "caracteristicas": "Personal calificado para armado según planos del fabricante. Contempla verificación de piezas, ensamble con herrajes apropiados, escuadrado, calibración y anclaje seguro.",
     "includes": [
-      "Armado según plano técnico del fabricante",
-      "Calibración de bisagras y correderas",
-      "Anclaje de seguridad cuando aplica",
-      "Retiro de material de embalaje"
+      "Desempaque e inventario de piezas y herrajes",
+      "Armado y ensamble estructural completo según plano técnico",
+      "Calibración y cuadratura de puertas, bisagras y rieles telescópicos",
+      "Fijación y anclaje de seguridad a muro en muebles altos o clósets",
+      "Retiro y acopio ordenado del material de embalaje"
     ],
+    "notIncludes": [
+      "Mueble o producto en sí (debe estar en el lugar antes de la visita)",
+      "Piezas defectuosas o faltantes de fábrica (se levanta reporte para garantía)",
+      "Modificaciones estructurales, cortes o perforaciones a tableros de melamina",
+      "Anclaje a muros de yeso-cartón sin estructura de refuerzo interior"
+    ],
+    "conditions": "El cliente debe disponer de un espacio despejado y techado de al menos 2x2 metros para trabajar. Pisos nivelados en caso de pérgolas y bodegas exteriores.",
     "iconType": "sofa"
   },
   {
@@ -342,13 +498,22 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "price": 29990,
     "unit": "instalación",
     "badge": "Armado Experto",
-    "description": "Servicio especializado de servicio armado de terraza con estándar técnico profesional y garantía de ejecución.",
+    "description": "Ensamble e instalación experta de mobiliario en caja, clósets, pérgolas, quinchos y casetas exteriores garantizando estabilidad y calce perfecto. Especialidad: Servicio Armado de Terraza.",
+    "caracteristicas": "Personal calificado para armado según planos del fabricante. Contempla verificación de piezas, ensamble con herrajes apropiados, escuadrado, calibración y anclaje seguro.",
     "includes": [
-      "Armado según plano técnico del fabricante",
-      "Calibración de bisagras y correderas",
-      "Anclaje de seguridad cuando aplica",
-      "Retiro de material de embalaje"
+      "Desempaque e inventario de piezas y herrajes",
+      "Armado y ensamble estructural completo según plano técnico",
+      "Calibración y cuadratura de puertas, bisagras y rieles telescópicos",
+      "Fijación y anclaje de seguridad a muro en muebles altos o clósets",
+      "Retiro y acopio ordenado del material de embalaje"
     ],
+    "notIncludes": [
+      "Mueble o producto en sí (debe estar en el lugar antes de la visita)",
+      "Piezas defectuosas o faltantes de fábrica (se levanta reporte para garantía)",
+      "Modificaciones estructurales, cortes o perforaciones a tableros de melamina",
+      "Anclaje a muros de yeso-cartón sin estructura de refuerzo interior"
+    ],
+    "conditions": "El cliente debe disponer de un espacio despejado y techado de al menos 2x2 metros para trabajar. Pisos nivelados en caso de pérgolas y bodegas exteriores.",
     "iconType": "sofa"
   },
   {
@@ -360,13 +525,22 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "price": 27990,
     "unit": "instalación",
     "badge": "Armado Experto",
-    "description": "Servicio especializado de servicio de armado de pérgola (precio producto hasta $149.990) con estándar técnico profesional y garantía de ejecución.",
+    "description": "Ensamble e instalación experta de mobiliario en caja, clósets, pérgolas, quinchos y casetas exteriores garantizando estabilidad y calce perfecto. Especialidad: Servicio de Armado de Pérgola (precio producto hasta $149.990).",
+    "caracteristicas": "Personal calificado para armado según planos del fabricante. Contempla verificación de piezas, ensamble con herrajes apropiados, escuadrado, calibración y anclaje seguro.",
     "includes": [
-      "Armado según plano técnico del fabricante",
-      "Calibración de bisagras y correderas",
-      "Anclaje de seguridad cuando aplica",
-      "Retiro de material de embalaje"
+      "Desempaque e inventario de piezas y herrajes",
+      "Armado y ensamble estructural completo según plano técnico",
+      "Calibración y cuadratura de puertas, bisagras y rieles telescópicos",
+      "Fijación y anclaje de seguridad a muro en muebles altos o clósets",
+      "Retiro y acopio ordenado del material de embalaje"
     ],
+    "notIncludes": [
+      "Mueble o producto en sí (debe estar en el lugar antes de la visita)",
+      "Piezas defectuosas o faltantes de fábrica (se levanta reporte para garantía)",
+      "Modificaciones estructurales, cortes o perforaciones a tableros de melamina",
+      "Anclaje a muros de yeso-cartón sin estructura de refuerzo interior"
+    ],
+    "conditions": "Requiere superficie firme (radier de concreto o estructura apta para anclaje). Área despejada para trabajo.",
     "iconType": "sofa"
   },
   {
@@ -378,13 +552,22 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "price": 41990,
     "unit": "instalación",
     "badge": "Armado Experto",
-    "description": "Servicio especializado de servicio de armado de pérgola (precio producto entre $150.000 y $199.990) con estándar técnico profesional y garantía de ejecución.",
+    "description": "Ensamble e instalación experta de mobiliario en caja, clósets, pérgolas, quinchos y casetas exteriores garantizando estabilidad y calce perfecto. Especialidad: Servicio de Armado de Pérgola (precio producto entre $150.000 y $199.990).",
+    "caracteristicas": "Personal calificado para armado según planos del fabricante. Contempla verificación de piezas, ensamble con herrajes apropiados, escuadrado, calibración y anclaje seguro.",
     "includes": [
-      "Armado según plano técnico del fabricante",
-      "Calibración de bisagras y correderas",
-      "Anclaje de seguridad cuando aplica",
-      "Retiro de material de embalaje"
+      "Desempaque e inventario de piezas y herrajes",
+      "Armado y ensamble estructural completo según plano técnico",
+      "Calibración y cuadratura de puertas, bisagras y rieles telescópicos",
+      "Fijación y anclaje de seguridad a muro en muebles altos o clósets",
+      "Retiro y acopio ordenado del material de embalaje"
     ],
+    "notIncludes": [
+      "Mueble o producto en sí (debe estar en el lugar antes de la visita)",
+      "Piezas defectuosas o faltantes de fábrica (se levanta reporte para garantía)",
+      "Modificaciones estructurales, cortes o perforaciones a tableros de melamina",
+      "Anclaje a muros de yeso-cartón sin estructura de refuerzo interior"
+    ],
+    "conditions": "Requiere superficie firme (radier de concreto o estructura apta para anclaje). Área despejada para trabajo.",
     "iconType": "sofa"
   },
   {
@@ -396,13 +579,22 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "price": 54990,
     "unit": "instalación",
     "badge": "Armado Experto",
-    "description": "Servicio especializado de servicio de armado de pérgola (precio producto entre $200.000 y $499.990) con estándar técnico profesional y garantía de ejecución.",
+    "description": "Ensamble e instalación experta de mobiliario en caja, clósets, pérgolas, quinchos y casetas exteriores garantizando estabilidad y calce perfecto. Especialidad: Servicio de Armado de Pérgola (precio producto entre $200.000 y $499.990).",
+    "caracteristicas": "Personal calificado para armado según planos del fabricante. Contempla verificación de piezas, ensamble con herrajes apropiados, escuadrado, calibración y anclaje seguro.",
     "includes": [
-      "Armado según plano técnico del fabricante",
-      "Calibración de bisagras y correderas",
-      "Anclaje de seguridad cuando aplica",
-      "Retiro de material de embalaje"
+      "Desempaque e inventario de piezas y herrajes",
+      "Armado y ensamble estructural completo según plano técnico",
+      "Calibración y cuadratura de puertas, bisagras y rieles telescópicos",
+      "Fijación y anclaje de seguridad a muro en muebles altos o clósets",
+      "Retiro y acopio ordenado del material de embalaje"
     ],
+    "notIncludes": [
+      "Mueble o producto en sí (debe estar en el lugar antes de la visita)",
+      "Piezas defectuosas o faltantes de fábrica (se levanta reporte para garantía)",
+      "Modificaciones estructurales, cortes o perforaciones a tableros de melamina",
+      "Anclaje a muros de yeso-cartón sin estructura de refuerzo interior"
+    ],
+    "conditions": "Requiere superficie firme (radier de concreto o estructura apta para anclaje). Área despejada para trabajo.",
     "iconType": "sofa"
   },
   {
@@ -414,13 +606,22 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "price": 29990,
     "unit": "mueble",
     "badge": "Armado Experto",
-    "description": "Servicio especializado de servicio de armado de quitasol con estándar técnico profesional y garantía de ejecución.",
+    "description": "Ensamble e instalación experta de mobiliario en caja, clósets, pérgolas, quinchos y casetas exteriores garantizando estabilidad y calce perfecto. Especialidad: Servicio de Armado de quitasol.",
+    "caracteristicas": "Personal calificado para armado según planos del fabricante. Contempla verificación de piezas, ensamble con herrajes apropiados, escuadrado, calibración y anclaje seguro.",
     "includes": [
-      "Armado según plano técnico del fabricante",
-      "Calibración de bisagras y correderas",
-      "Anclaje de seguridad cuando aplica",
-      "Retiro de material de embalaje"
+      "Desempaque e inventario de piezas y herrajes",
+      "Armado y ensamble estructural completo según plano técnico",
+      "Calibración y cuadratura de puertas, bisagras y rieles telescópicos",
+      "Fijación y anclaje de seguridad a muro en muebles altos o clósets",
+      "Retiro y acopio ordenado del material de embalaje"
     ],
+    "notIncludes": [
+      "Mueble o producto en sí (debe estar en el lugar antes de la visita)",
+      "Piezas defectuosas o faltantes de fábrica (se levanta reporte para garantía)",
+      "Modificaciones estructurales, cortes o perforaciones a tableros de melamina",
+      "Anclaje a muros de yeso-cartón sin estructura de refuerzo interior"
+    ],
+    "conditions": "El cliente debe disponer de un espacio despejado y techado de al menos 2x2 metros para trabajar. Pisos nivelados en caso de pérgolas y bodegas exteriores.",
     "iconType": "sofa"
   },
   {
@@ -432,13 +633,22 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "price": 26990,
     "unit": "mueble",
     "badge": "Armado Experto",
-    "description": "Servicio especializado de servicio de armado de parrilla con estándar técnico profesional y garantía de ejecución.",
+    "description": "Ensamble e instalación experta de mobiliario en caja, clósets, pérgolas, quinchos y casetas exteriores garantizando estabilidad y calce perfecto. Especialidad: Servicio de Armado de parrilla.",
+    "caracteristicas": "Personal calificado para armado según planos del fabricante. Contempla verificación de piezas, ensamble con herrajes apropiados, escuadrado, calibración y anclaje seguro.",
     "includes": [
-      "Armado según plano técnico del fabricante",
-      "Calibración de bisagras y correderas",
-      "Anclaje de seguridad cuando aplica",
-      "Retiro de material de embalaje"
+      "Desempaque e inventario de piezas y herrajes",
+      "Armado y ensamble estructural completo según plano técnico",
+      "Calibración y cuadratura de puertas, bisagras y rieles telescópicos",
+      "Fijación y anclaje de seguridad a muro en muebles altos o clósets",
+      "Retiro y acopio ordenado del material de embalaje"
     ],
+    "notIncludes": [
+      "Mueble o producto en sí (debe estar en el lugar antes de la visita)",
+      "Piezas defectuosas o faltantes de fábrica (se levanta reporte para garantía)",
+      "Modificaciones estructurales, cortes o perforaciones a tableros de melamina",
+      "Anclaje a muros de yeso-cartón sin estructura de refuerzo interior"
+    ],
+    "conditions": "El cliente debe disponer de un espacio despejado y techado de al menos 2x2 metros para trabajar. Pisos nivelados en caso de pérgolas y bodegas exteriores.",
     "iconType": "sofa"
   },
   {
@@ -450,13 +660,22 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "price": 29990,
     "unit": "instalación",
     "badge": "Armado Experto",
-    "description": "Servicio especializado de servicio armado de piscina estructural menor a 3.500 l con estándar técnico profesional y garantía de ejecución.",
+    "description": "Ensamble e instalación experta de mobiliario en caja, clósets, pérgolas, quinchos y casetas exteriores garantizando estabilidad y calce perfecto. Especialidad: Servicio Armado de piscina estructural menor a 3.500 L.",
+    "caracteristicas": "Personal calificado para armado según planos del fabricante. Contempla verificación de piezas, ensamble con herrajes apropiados, escuadrado, calibración y anclaje seguro.",
     "includes": [
-      "Armado según plano técnico del fabricante",
-      "Calibración de bisagras y correderas",
-      "Anclaje de seguridad cuando aplica",
-      "Retiro de material de embalaje"
+      "Desempaque e inventario de piezas y herrajes",
+      "Armado y ensamble estructural completo según plano técnico",
+      "Calibración y cuadratura de puertas, bisagras y rieles telescópicos",
+      "Fijación y anclaje de seguridad a muro en muebles altos o clósets",
+      "Retiro y acopio ordenado del material de embalaje"
     ],
+    "notIncludes": [
+      "Mueble o producto en sí (debe estar en el lugar antes de la visita)",
+      "Piezas defectuosas o faltantes de fábrica (se levanta reporte para garantía)",
+      "Modificaciones estructurales, cortes o perforaciones a tableros de melamina",
+      "Anclaje a muros de yeso-cartón sin estructura de refuerzo interior"
+    ],
+    "conditions": "El cliente debe disponer de un espacio despejado y techado de al menos 2x2 metros para trabajar. Pisos nivelados en caso de pérgolas y bodegas exteriores.",
     "iconType": "sofa"
   },
   {
@@ -468,13 +687,22 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "price": 49990,
     "unit": "instalación",
     "badge": "Armado Experto",
-    "description": "Servicio especializado de servicio armado de piscina estructural entre 3.500 y 15.000 l con estándar técnico profesional y garantía de ejecución.",
+    "description": "Ensamble e instalación experta de mobiliario en caja, clósets, pérgolas, quinchos y casetas exteriores garantizando estabilidad y calce perfecto. Especialidad: Servicio Armado de piscina estructural entre 3.500 y 15.000 L.",
+    "caracteristicas": "Personal calificado para armado según planos del fabricante. Contempla verificación de piezas, ensamble con herrajes apropiados, escuadrado, calibración y anclaje seguro.",
     "includes": [
-      "Armado según plano técnico del fabricante",
-      "Calibración de bisagras y correderas",
-      "Anclaje de seguridad cuando aplica",
-      "Retiro de material de embalaje"
+      "Desempaque e inventario de piezas y herrajes",
+      "Armado y ensamble estructural completo según plano técnico",
+      "Calibración y cuadratura de puertas, bisagras y rieles telescópicos",
+      "Fijación y anclaje de seguridad a muro en muebles altos o clósets",
+      "Retiro y acopio ordenado del material de embalaje"
     ],
+    "notIncludes": [
+      "Mueble o producto en sí (debe estar en el lugar antes de la visita)",
+      "Piezas defectuosas o faltantes de fábrica (se levanta reporte para garantía)",
+      "Modificaciones estructurales, cortes o perforaciones a tableros de melamina",
+      "Anclaje a muros de yeso-cartón sin estructura de refuerzo interior"
+    ],
+    "conditions": "El cliente debe disponer de un espacio despejado y techado de al menos 2x2 metros para trabajar. Pisos nivelados en caso de pérgolas y bodegas exteriores.",
     "iconType": "sofa"
   },
   {
@@ -486,13 +714,22 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "price": 31990,
     "unit": "instalación",
     "badge": "Armado Experto",
-    "description": "Servicio especializado de armado de equipo de fitness con estándar técnico profesional y garantía de ejecución.",
+    "description": "Ensamble e instalación experta de mobiliario en caja, clósets, pérgolas, quinchos y casetas exteriores garantizando estabilidad y calce perfecto. Especialidad: Armado de equipo de fitness.",
+    "caracteristicas": "Personal calificado para armado según planos del fabricante. Contempla verificación de piezas, ensamble con herrajes apropiados, escuadrado, calibración y anclaje seguro.",
     "includes": [
-      "Armado según plano técnico del fabricante",
-      "Calibración de bisagras y correderas",
-      "Anclaje de seguridad cuando aplica",
-      "Retiro de material de embalaje"
+      "Desempaque e inventario de piezas y herrajes",
+      "Armado y ensamble estructural completo según plano técnico",
+      "Calibración y cuadratura de puertas, bisagras y rieles telescópicos",
+      "Fijación y anclaje de seguridad a muro en muebles altos o clósets",
+      "Retiro y acopio ordenado del material de embalaje"
     ],
+    "notIncludes": [
+      "Mueble o producto en sí (debe estar en el lugar antes de la visita)",
+      "Piezas defectuosas o faltantes de fábrica (se levanta reporte para garantía)",
+      "Modificaciones estructurales, cortes o perforaciones a tableros de melamina",
+      "Anclaje a muros de yeso-cartón sin estructura de refuerzo interior"
+    ],
+    "conditions": "El cliente debe disponer de un espacio despejado y techado de al menos 2x2 metros para trabajar. Pisos nivelados en caso de pérgolas y bodegas exteriores.",
     "iconType": "sofa"
   },
   {
@@ -503,14 +740,23 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "categoryLabel": "Línea Blanca & Climatización",
     "price": 149990,
     "unit": "instalación",
-    "badge": "Instalación Técnica",
-    "description": "Servicio especializado de servicio instalación aire acondicionado split con estándar técnico profesional y garantía de ejecución.",
+    "badge": "Técnico Especializado",
+    "description": "Montaje, empotrado y conexión técnica de equipos de climatización, cocinas y electrodomésticos residenciales bajo rigurosos protocolos de seguridad. Especialidad: Servicio Instalación Aire Acondicionado Split.",
+    "caracteristicas": "Ejecución por técnicos calificados. Contempla verificación de puntos de conexión, fijación antivibración, sellados térmicos y pruebas funcionales de operación.",
     "includes": [
-      "Fijación y anclaje seguro",
-      "Conexión a redes correspondientes",
-      "Prueba de funcionamiento y estanqueidad",
-      "Inducción de uso al cliente"
+      "Montaje, calce y fijación nivelada del equipo",
+      "Conexión a redes existentes de electricidad, agua o ductos de ventilación",
+      "En climatización: hasta 3m de cañería aislada, vacío del sistema con bomba y soportes",
+      "Pruebas de estanqueidad, encendido y puesta en marcha",
+      "Inducción básica de uso y recomendaciones operativas al cliente"
     ],
+    "notIncludes": [
+      "Aparato o electrodoméstico (cocina, campana, split, lavavajillas)",
+      "Instalación de circuitos eléctricos nuevos o aumento de capacidad en tablero TDA",
+      "Metros adicionales de tubería o canalización sobre la extensión estándar",
+      "Trabajos en fachadas de altura que demanden cuerdas o andamios certificados"
+    ],
+    "conditions": "Las conexiones eléctricas, de gas y sanitarias deben estar operativas y normalizadas a menos de 1,2 metros de la ubicación final del equipo.",
     "iconType": "wind"
   },
   {
@@ -521,14 +767,23 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "categoryLabel": "Línea Blanca & Climatización",
     "price": 69990,
     "unit": "instalación",
-    "badge": "Instalación Técnica",
-    "description": "Servicio especializado de mantención de aire acondicionado split con estándar técnico profesional y garantía de ejecución.",
+    "badge": "Técnico Especializado",
+    "description": "Montaje, empotrado y conexión técnica de equipos de climatización, cocinas y electrodomésticos residenciales bajo rigurosos protocolos de seguridad. Especialidad: Mantención de Aire Acondicionado Split.",
+    "caracteristicas": "Ejecución por técnicos calificados. Contempla verificación de puntos de conexión, fijación antivibración, sellados térmicos y pruebas funcionales de operación.",
     "includes": [
-      "Fijación y anclaje seguro",
-      "Conexión a redes correspondientes",
-      "Prueba de funcionamiento y estanqueidad",
-      "Inducción de uso al cliente"
+      "Montaje, calce y fijación nivelada del equipo",
+      "Conexión a redes existentes de electricidad, agua o ductos de ventilación",
+      "En climatización: hasta 3m de cañería aislada, vacío del sistema con bomba y soportes",
+      "Pruebas de estanqueidad, encendido y puesta en marcha",
+      "Inducción básica de uso y recomendaciones operativas al cliente"
     ],
+    "notIncludes": [
+      "Aparato o electrodoméstico (cocina, campana, split, lavavajillas)",
+      "Instalación de circuitos eléctricos nuevos o aumento de capacidad en tablero TDA",
+      "Metros adicionales de tubería o canalización sobre la extensión estándar",
+      "Trabajos en fachadas de altura que demanden cuerdas o andamios certificados"
+    ],
+    "conditions": "Las conexiones eléctricas, de gas y sanitarias deben estar operativas y normalizadas a menos de 1,2 metros de la ubicación final del equipo.",
     "iconType": "wind"
   },
   {
@@ -539,14 +794,23 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "categoryLabel": "Línea Blanca & Climatización",
     "price": 38990,
     "unit": "instalación",
-    "badge": "Instalación Técnica",
-    "description": "Servicio especializado de servicio instalación campana convencional con estándar técnico profesional y garantía de ejecución.",
+    "badge": "Técnico Especializado",
+    "description": "Montaje, empotrado y conexión técnica de equipos de climatización, cocinas y electrodomésticos residenciales bajo rigurosos protocolos de seguridad. Especialidad: Servicio Instalación Campana convencional.",
+    "caracteristicas": "Ejecución por técnicos calificados. Contempla verificación de puntos de conexión, fijación antivibración, sellados térmicos y pruebas funcionales de operación.",
     "includes": [
-      "Fijación y anclaje seguro",
-      "Conexión a redes correspondientes",
-      "Prueba de funcionamiento y estanqueidad",
-      "Inducción de uso al cliente"
+      "Montaje, calce y fijación nivelada del equipo",
+      "Conexión a redes existentes de electricidad, agua o ductos de ventilación",
+      "En climatización: hasta 3m de cañería aislada, vacío del sistema con bomba y soportes",
+      "Pruebas de estanqueidad, encendido y puesta en marcha",
+      "Inducción básica de uso y recomendaciones operativas al cliente"
     ],
+    "notIncludes": [
+      "Aparato o electrodoméstico (cocina, campana, split, lavavajillas)",
+      "Instalación de circuitos eléctricos nuevos o aumento de capacidad en tablero TDA",
+      "Metros adicionales de tubería o canalización sobre la extensión estándar",
+      "Trabajos en fachadas de altura que demanden cuerdas o andamios certificados"
+    ],
+    "conditions": "Las conexiones eléctricas, de gas y sanitarias deben estar operativas y normalizadas a menos de 1,2 metros de la ubicación final del equipo.",
     "iconType": "wind"
   },
   {
@@ -557,14 +821,23 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "categoryLabel": "Línea Blanca & Climatización",
     "price": 33990,
     "unit": "instalación",
-    "badge": "Instalación Técnica",
-    "description": "Servicio especializado de servicio instalación de 1 lavadora o secadora con estándar técnico profesional y garantía de ejecución.",
+    "badge": "Técnico Especializado",
+    "description": "Montaje, empotrado y conexión técnica de equipos de climatización, cocinas y electrodomésticos residenciales bajo rigurosos protocolos de seguridad. Especialidad: Servicio Instalación de 1 Lavadora o Secadora.",
+    "caracteristicas": "Ejecución por técnicos calificados. Contempla verificación de puntos de conexión, fijación antivibración, sellados térmicos y pruebas funcionales de operación.",
     "includes": [
-      "Fijación y anclaje seguro",
-      "Conexión a redes correspondientes",
-      "Prueba de funcionamiento y estanqueidad",
-      "Inducción de uso al cliente"
+      "Montaje, calce y fijación nivelada del equipo",
+      "Conexión a redes existentes de electricidad, agua o ductos de ventilación",
+      "En climatización: hasta 3m de cañería aislada, vacío del sistema con bomba y soportes",
+      "Pruebas de estanqueidad, encendido y puesta en marcha",
+      "Inducción básica de uso y recomendaciones operativas al cliente"
     ],
+    "notIncludes": [
+      "Aparato o electrodoméstico (cocina, campana, split, lavavajillas)",
+      "Instalación de circuitos eléctricos nuevos o aumento de capacidad en tablero TDA",
+      "Metros adicionales de tubería o canalización sobre la extensión estándar",
+      "Trabajos en fachadas de altura que demanden cuerdas o andamios certificados"
+    ],
+    "conditions": "Las conexiones eléctricas, de gas y sanitarias deben estar operativas y normalizadas a menos de 1,2 metros de la ubicación final del equipo.",
     "iconType": "wind"
   },
   {
@@ -575,14 +848,23 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "categoryLabel": "Línea Blanca & Climatización",
     "price": 33990,
     "unit": "instalación",
-    "badge": "Instalación Técnica",
-    "description": "Servicio especializado de servicio de instalación de cocina convencional con estándar técnico profesional y garantía de ejecución.",
+    "badge": "Técnico Especializado",
+    "description": "Montaje, empotrado y conexión técnica de equipos de climatización, cocinas y electrodomésticos residenciales bajo rigurosos protocolos de seguridad. Especialidad: Servicio de Instalación de Cocina convencional.",
+    "caracteristicas": "Ejecución por técnicos calificados. Contempla verificación de puntos de conexión, fijación antivibración, sellados térmicos y pruebas funcionales de operación.",
     "includes": [
-      "Fijación y anclaje seguro",
-      "Conexión a redes correspondientes",
-      "Prueba de funcionamiento y estanqueidad",
-      "Inducción de uso al cliente"
+      "Montaje, calce y fijación nivelada del equipo",
+      "Conexión a redes existentes de electricidad, agua o ductos de ventilación",
+      "En climatización: hasta 3m de cañería aislada, vacío del sistema con bomba y soportes",
+      "Pruebas de estanqueidad, encendido y puesta en marcha",
+      "Inducción básica de uso y recomendaciones operativas al cliente"
     ],
+    "notIncludes": [
+      "Aparato o electrodoméstico (cocina, campana, split, lavavajillas)",
+      "Instalación de circuitos eléctricos nuevos o aumento de capacidad en tablero TDA",
+      "Metros adicionales de tubería o canalización sobre la extensión estándar",
+      "Trabajos en fachadas de altura que demanden cuerdas o andamios certificados"
+    ],
+    "conditions": "Las conexiones eléctricas, de gas y sanitarias deben estar operativas y normalizadas a menos de 1,2 metros de la ubicación final del equipo.",
     "iconType": "wind"
   },
   {
@@ -593,14 +875,23 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "categoryLabel": "Línea Blanca & Climatización",
     "price": 38990,
     "unit": "instalación",
-    "badge": "Instalación Técnica",
-    "description": "Servicio especializado de servicio de instalación de cocina encimera con estándar técnico profesional y garantía de ejecución.",
+    "badge": "Técnico Especializado",
+    "description": "Montaje, empotrado y conexión técnica de equipos de climatización, cocinas y electrodomésticos residenciales bajo rigurosos protocolos de seguridad. Especialidad: Servicio de Instalación de cocina encimera.",
+    "caracteristicas": "Ejecución por técnicos calificados. Contempla verificación de puntos de conexión, fijación antivibración, sellados térmicos y pruebas funcionales de operación.",
     "includes": [
-      "Fijación y anclaje seguro",
-      "Conexión a redes correspondientes",
-      "Prueba de funcionamiento y estanqueidad",
-      "Inducción de uso al cliente"
+      "Montaje, calce y fijación nivelada del equipo",
+      "Conexión a redes existentes de electricidad, agua o ductos de ventilación",
+      "En climatización: hasta 3m de cañería aislada, vacío del sistema con bomba y soportes",
+      "Pruebas de estanqueidad, encendido y puesta en marcha",
+      "Inducción básica de uso y recomendaciones operativas al cliente"
     ],
+    "notIncludes": [
+      "Aparato o electrodoméstico (cocina, campana, split, lavavajillas)",
+      "Instalación de circuitos eléctricos nuevos o aumento de capacidad en tablero TDA",
+      "Metros adicionales de tubería o canalización sobre la extensión estándar",
+      "Trabajos en fachadas de altura que demanden cuerdas o andamios certificados"
+    ],
+    "conditions": "Las conexiones eléctricas, de gas y sanitarias deben estar operativas y normalizadas a menos de 1,2 metros de la ubicación final del equipo.",
     "iconType": "wind"
   },
   {
@@ -611,14 +902,23 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "categoryLabel": "Línea Blanca & Climatización",
     "price": 38990,
     "unit": "instalación",
-    "badge": "Instalación Técnica",
-    "description": "Servicio especializado de servicio de instalación de horno / microondas empotrado con estándar técnico profesional y garantía de ejecución.",
+    "badge": "Técnico Especializado",
+    "description": "Montaje, empotrado y conexión técnica de equipos de climatización, cocinas y electrodomésticos residenciales bajo rigurosos protocolos de seguridad. Especialidad: Servicio de Instalación de horno / microondas empotrado.",
+    "caracteristicas": "Ejecución por técnicos calificados. Contempla verificación de puntos de conexión, fijación antivibración, sellados térmicos y pruebas funcionales de operación.",
     "includes": [
-      "Fijación y anclaje seguro",
-      "Conexión a redes correspondientes",
-      "Prueba de funcionamiento y estanqueidad",
-      "Inducción de uso al cliente"
+      "Montaje, calce y fijación nivelada del equipo",
+      "Conexión a redes existentes de electricidad, agua o ductos de ventilación",
+      "En climatización: hasta 3m de cañería aislada, vacío del sistema con bomba y soportes",
+      "Pruebas de estanqueidad, encendido y puesta en marcha",
+      "Inducción básica de uso y recomendaciones operativas al cliente"
     ],
+    "notIncludes": [
+      "Aparato o electrodoméstico (cocina, campana, split, lavavajillas)",
+      "Instalación de circuitos eléctricos nuevos o aumento de capacidad en tablero TDA",
+      "Metros adicionales de tubería o canalización sobre la extensión estándar",
+      "Trabajos en fachadas de altura que demanden cuerdas o andamios certificados"
+    ],
+    "conditions": "Las conexiones eléctricas, de gas y sanitarias deben estar operativas y normalizadas a menos de 1,2 metros de la ubicación final del equipo.",
     "iconType": "wind"
   },
   {
@@ -629,14 +929,23 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "categoryLabel": "Línea Blanca & Climatización",
     "price": 33990,
     "unit": "instalación",
-    "badge": "Instalación Técnica",
-    "description": "Servicio especializado de servicio instalación de lavavajillas con estándar técnico profesional y garantía de ejecución.",
+    "badge": "Técnico Especializado",
+    "description": "Montaje, empotrado y conexión técnica de equipos de climatización, cocinas y electrodomésticos residenciales bajo rigurosos protocolos de seguridad. Especialidad: Servicio Instalación de Lavavajillas.",
+    "caracteristicas": "Ejecución por técnicos calificados. Contempla verificación de puntos de conexión, fijación antivibración, sellados térmicos y pruebas funcionales de operación.",
     "includes": [
-      "Fijación y anclaje seguro",
-      "Conexión a redes correspondientes",
-      "Prueba de funcionamiento y estanqueidad",
-      "Inducción de uso al cliente"
+      "Montaje, calce y fijación nivelada del equipo",
+      "Conexión a redes existentes de electricidad, agua o ductos de ventilación",
+      "En climatización: hasta 3m de cañería aislada, vacío del sistema con bomba y soportes",
+      "Pruebas de estanqueidad, encendido y puesta en marcha",
+      "Inducción básica de uso y recomendaciones operativas al cliente"
     ],
+    "notIncludes": [
+      "Aparato o electrodoméstico (cocina, campana, split, lavavajillas)",
+      "Instalación de circuitos eléctricos nuevos o aumento de capacidad en tablero TDA",
+      "Metros adicionales de tubería o canalización sobre la extensión estándar",
+      "Trabajos en fachadas de altura que demanden cuerdas o andamios certificados"
+    ],
+    "conditions": "Las conexiones eléctricas, de gas y sanitarias deben estar operativas y normalizadas a menos de 1,2 metros de la ubicación final del equipo.",
     "iconType": "wind"
   },
   {
@@ -647,14 +956,23 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "categoryLabel": "Línea Blanca & Climatización",
     "price": 89990,
     "unit": "combo",
-    "badge": "Instalación Técnica",
-    "description": "Servicio especializado de servicio de instalación encimera, campana y horno (combo trío) con estándar técnico profesional y garantía de ejecución.",
+    "badge": "Técnico Especializado",
+    "description": "Montaje, empotrado y conexión técnica de equipos de climatización, cocinas y electrodomésticos residenciales bajo rigurosos protocolos de seguridad. Especialidad: Servicio de Instalación Encimera, Campana y Horno (Combo Trío).",
+    "caracteristicas": "Ejecución por técnicos calificados. Contempla verificación de puntos de conexión, fijación antivibración, sellados térmicos y pruebas funcionales de operación.",
     "includes": [
-      "Fijación y anclaje seguro",
-      "Conexión a redes correspondientes",
-      "Prueba de funcionamiento y estanqueidad",
-      "Inducción de uso al cliente"
+      "Montaje, calce y fijación nivelada del equipo",
+      "Conexión a redes existentes de electricidad, agua o ductos de ventilación",
+      "En climatización: hasta 3m de cañería aislada, vacío del sistema con bomba y soportes",
+      "Pruebas de estanqueidad, encendido y puesta en marcha",
+      "Inducción básica de uso y recomendaciones operativas al cliente"
     ],
+    "notIncludes": [
+      "Aparato o electrodoméstico (cocina, campana, split, lavavajillas)",
+      "Instalación de circuitos eléctricos nuevos o aumento de capacidad en tablero TDA",
+      "Metros adicionales de tubería o canalización sobre la extensión estándar",
+      "Trabajos en fachadas de altura que demanden cuerdas o andamios certificados"
+    ],
+    "conditions": "Las conexiones eléctricas, de gas y sanitarias deben estar operativas y normalizadas a menos de 1,2 metros de la ubicación final del equipo.",
     "iconType": "wind"
   },
   {
@@ -665,14 +983,23 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "categoryLabel": "Línea Blanca & Climatización",
     "price": 49990,
     "unit": "instalación",
-    "badge": "Instalación Técnica",
-    "description": "Servicio especializado de servicio de instalación de ventilador de techo con estándar técnico profesional y garantía de ejecución.",
+    "badge": "Técnico Especializado",
+    "description": "Montaje, empotrado y conexión técnica de equipos de climatización, cocinas y electrodomésticos residenciales bajo rigurosos protocolos de seguridad. Especialidad: Servicio de Instalación de Ventilador de techo.",
+    "caracteristicas": "Ejecución por técnicos calificados. Contempla verificación de puntos de conexión, fijación antivibración, sellados térmicos y pruebas funcionales de operación.",
     "includes": [
-      "Fijación y anclaje seguro",
-      "Conexión a redes correspondientes",
-      "Prueba de funcionamiento y estanqueidad",
-      "Inducción de uso al cliente"
+      "Montaje, calce y fijación nivelada del equipo",
+      "Conexión a redes existentes de electricidad, agua o ductos de ventilación",
+      "En climatización: hasta 3m de cañería aislada, vacío del sistema con bomba y soportes",
+      "Pruebas de estanqueidad, encendido y puesta en marcha",
+      "Inducción básica de uso y recomendaciones operativas al cliente"
     ],
+    "notIncludes": [
+      "Aparato o electrodoméstico (cocina, campana, split, lavavajillas)",
+      "Instalación de circuitos eléctricos nuevos o aumento de capacidad en tablero TDA",
+      "Metros adicionales de tubería o canalización sobre la extensión estándar",
+      "Trabajos en fachadas de altura que demanden cuerdas o andamios certificados"
+    ],
+    "conditions": "Las conexiones eléctricas, de gas y sanitarias deben estar operativas y normalizadas a menos de 1,2 metros de la ubicación final del equipo.",
     "iconType": "wind"
   },
   {
@@ -683,14 +1010,23 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "categoryLabel": "Línea Blanca & Climatización",
     "price": 28990,
     "unit": "instalación",
-    "badge": "Instalación Técnica",
-    "description": "Servicio especializado de servicio instalación de 1 lámpara con estándar técnico profesional y garantía de ejecución.",
+    "badge": "Técnico Especializado",
+    "description": "Montaje, empotrado y conexión técnica de equipos de climatización, cocinas y electrodomésticos residenciales bajo rigurosos protocolos de seguridad. Especialidad: Servicio Instalación de 1 Lámpara.",
+    "caracteristicas": "Ejecución por técnicos calificados. Contempla verificación de puntos de conexión, fijación antivibración, sellados térmicos y pruebas funcionales de operación.",
     "includes": [
-      "Fijación y anclaje seguro",
-      "Conexión a redes correspondientes",
-      "Prueba de funcionamiento y estanqueidad",
-      "Inducción de uso al cliente"
+      "Montaje, calce y fijación nivelada del equipo",
+      "Conexión a redes existentes de electricidad, agua o ductos de ventilación",
+      "En climatización: hasta 3m de cañería aislada, vacío del sistema con bomba y soportes",
+      "Pruebas de estanqueidad, encendido y puesta en marcha",
+      "Inducción básica de uso y recomendaciones operativas al cliente"
     ],
+    "notIncludes": [
+      "Aparato o electrodoméstico (cocina, campana, split, lavavajillas)",
+      "Instalación de circuitos eléctricos nuevos o aumento de capacidad en tablero TDA",
+      "Metros adicionales de tubería o canalización sobre la extensión estándar",
+      "Trabajos en fachadas de altura que demanden cuerdas o andamios certificados"
+    ],
+    "conditions": "Las conexiones eléctricas, de gas y sanitarias deben estar operativas y normalizadas a menos de 1,2 metros de la ubicación final del equipo.",
     "iconType": "wind"
   },
   {
@@ -702,13 +1038,22 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "price": 79990,
     "unit": "instalación",
     "badge": "Norma SEC",
-    "description": "Servicio especializado de servicio de instalación de calefon tiro natural con estándar técnico profesional y garantía de ejecución.",
+    "description": "Instalación y mantención de sistemas de producción de agua caliente y calefacción a leña/pellet cumpliendo estrictamente con la normativa SEC. Especialidad: Servicio de Instalación de Calefon Tiro Natural.",
+    "caracteristicas": "Instaladores certificados SEC. Protocolos rigurosos de estanqueidad de gas, evacuación de gases de combustión mediante ductos concéntricos o cañones aislados.",
     "includes": [
-      "Instalador técnico normado",
-      "Conexión hidráulica y de combustible/energía",
-      "Prueba de tiro y presión",
-      "Certificación de funcionamiento seguro"
+      "Fijación y anclaje reforzado del artefacto a muro estructural",
+      "Conexión a red de gas/eléctrica y agua mediante flexibles normados",
+      "Instalación de ductos de tiro (natural o concéntrico de tiro forzado)",
+      "Pruebas con manómetro de hermeticidad y detección de fugas",
+      "Puesta en marcha, calibración de llama y verificación de seguridades"
     ],
+    "notIncludes": [
+      "Artefacto térmico (calefón, termo, estufa a pellet o leña)",
+      "Modificación o extensión de redes matrices de gas de la vivienda",
+      "Cañones o kits de evacuación adicionales para entrepisos o techos especiales",
+      "Tramitación de sello verde o certificados de regularización general SEC"
+    ],
+    "conditions": "Debe existir red de agua y gas habilitada en la zona de instalación. En estufas de leña/pellet se debe verificar espacio libre de seguridad contra materiales inflamables.",
     "iconType": "flame"
   },
   {
@@ -720,13 +1065,22 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "price": 89990,
     "unit": "instalación",
     "badge": "Norma SEC",
-    "description": "Servicio especializado de servicio de instalación de calefon tiro forzado con estándar técnico profesional y garantía de ejecución.",
+    "description": "Instalación y mantención de sistemas de producción de agua caliente y calefacción a leña/pellet cumpliendo estrictamente con la normativa SEC. Especialidad: Servicio de Instalación de Calefon Tiro Forzado.",
+    "caracteristicas": "Instaladores certificados SEC. Protocolos rigurosos de estanqueidad de gas, evacuación de gases de combustión mediante ductos concéntricos o cañones aislados.",
     "includes": [
-      "Instalador técnico normado",
-      "Conexión hidráulica y de combustible/energía",
-      "Prueba de tiro y presión",
-      "Certificación de funcionamiento seguro"
+      "Fijación y anclaje reforzado del artefacto a muro estructural",
+      "Conexión a red de gas/eléctrica y agua mediante flexibles normados",
+      "Instalación de ductos de tiro (natural o concéntrico de tiro forzado)",
+      "Pruebas con manómetro de hermeticidad y detección de fugas",
+      "Puesta en marcha, calibración de llama y verificación de seguridades"
     ],
+    "notIncludes": [
+      "Artefacto térmico (calefón, termo, estufa a pellet o leña)",
+      "Modificación o extensión de redes matrices de gas de la vivienda",
+      "Cañones o kits de evacuación adicionales para entrepisos o techos especiales",
+      "Tramitación de sello verde o certificados de regularización general SEC"
+    ],
+    "conditions": "Debe existir red de agua y gas habilitada en la zona de instalación. En estufas de leña/pellet se debe verificar espacio libre de seguridad contra materiales inflamables.",
     "iconType": "flame"
   },
   {
@@ -738,13 +1092,22 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "price": 99990,
     "unit": "instalación",
     "badge": "Norma SEC",
-    "description": "Servicio especializado de servicio de instalación de termo eléctrico con estándar técnico profesional y garantía de ejecución.",
+    "description": "Instalación y mantención de sistemas de producción de agua caliente y calefacción a leña/pellet cumpliendo estrictamente con la normativa SEC. Especialidad: Servicio de Instalación de Termo Eléctrico.",
+    "caracteristicas": "Instaladores certificados SEC. Protocolos rigurosos de estanqueidad de gas, evacuación de gases de combustión mediante ductos concéntricos o cañones aislados.",
     "includes": [
-      "Instalador técnico normado",
-      "Conexión hidráulica y de combustible/energía",
-      "Prueba de tiro y presión",
-      "Certificación de funcionamiento seguro"
+      "Fijación y anclaje reforzado del artefacto a muro estructural",
+      "Conexión a red de gas/eléctrica y agua mediante flexibles normados",
+      "Instalación de ductos de tiro (natural o concéntrico de tiro forzado)",
+      "Pruebas con manómetro de hermeticidad y detección de fugas",
+      "Puesta en marcha, calibración de llama y verificación de seguridades"
     ],
+    "notIncludes": [
+      "Artefacto térmico (calefón, termo, estufa a pellet o leña)",
+      "Modificación o extensión de redes matrices de gas de la vivienda",
+      "Cañones o kits de evacuación adicionales para entrepisos o techos especiales",
+      "Tramitación de sello verde o certificados de regularización general SEC"
+    ],
+    "conditions": "Debe existir red de agua y gas habilitada en la zona de instalación. En estufas de leña/pellet se debe verificar espacio libre de seguridad contra materiales inflamables.",
     "iconType": "flame"
   },
   {
@@ -756,13 +1119,22 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "price": 139990,
     "unit": "instalación",
     "badge": "Norma SEC",
-    "description": "Servicio especializado de servicio de instalación de calefactor a pellet amesti en casa 1 piso con estándar técnico profesional y garantía de ejecución.",
+    "description": "Instalación y mantención de sistemas de producción de agua caliente y calefacción a leña/pellet cumpliendo estrictamente con la normativa SEC. Especialidad: Servicio de Instalación de Calefactor a Pellet Amesti en Casa 1 Piso.",
+    "caracteristicas": "Instaladores certificados SEC. Protocolos rigurosos de estanqueidad de gas, evacuación de gases de combustión mediante ductos concéntricos o cañones aislados.",
     "includes": [
-      "Instalador técnico normado",
-      "Conexión hidráulica y de combustible/energía",
-      "Prueba de tiro y presión",
-      "Certificación de funcionamiento seguro"
+      "Fijación y anclaje reforzado del artefacto a muro estructural",
+      "Conexión a red de gas/eléctrica y agua mediante flexibles normados",
+      "Instalación de ductos de tiro (natural o concéntrico de tiro forzado)",
+      "Pruebas con manómetro de hermeticidad y detección de fugas",
+      "Puesta en marcha, calibración de llama y verificación de seguridades"
     ],
+    "notIncludes": [
+      "Artefacto térmico (calefón, termo, estufa a pellet o leña)",
+      "Modificación o extensión de redes matrices de gas de la vivienda",
+      "Cañones o kits de evacuación adicionales para entrepisos o techos especiales",
+      "Tramitación de sello verde o certificados de regularización general SEC"
+    ],
+    "conditions": "Debe existir red de agua y gas habilitada en la zona de instalación. En estufas de leña/pellet se debe verificar espacio libre de seguridad contra materiales inflamables.",
     "iconType": "flame"
   },
   {
@@ -774,13 +1146,22 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "price": 139990,
     "unit": "instalación",
     "badge": "Norma SEC",
-    "description": "Servicio especializado de servicio de instalación de calefactor a pellet bosca en casa 1 piso con estándar técnico profesional y garantía de ejecución.",
+    "description": "Instalación y mantención de sistemas de producción de agua caliente y calefacción a leña/pellet cumpliendo estrictamente con la normativa SEC. Especialidad: Servicio de Instalación de Calefactor a Pellet Bosca en Casa 1 Piso.",
+    "caracteristicas": "Instaladores certificados SEC. Protocolos rigurosos de estanqueidad de gas, evacuación de gases de combustión mediante ductos concéntricos o cañones aislados.",
     "includes": [
-      "Instalador técnico normado",
-      "Conexión hidráulica y de combustible/energía",
-      "Prueba de tiro y presión",
-      "Certificación de funcionamiento seguro"
+      "Fijación y anclaje reforzado del artefacto a muro estructural",
+      "Conexión a red de gas/eléctrica y agua mediante flexibles normados",
+      "Instalación de ductos de tiro (natural o concéntrico de tiro forzado)",
+      "Pruebas con manómetro de hermeticidad y detección de fugas",
+      "Puesta en marcha, calibración de llama y verificación de seguridades"
     ],
+    "notIncludes": [
+      "Artefacto térmico (calefón, termo, estufa a pellet o leña)",
+      "Modificación o extensión de redes matrices de gas de la vivienda",
+      "Cañones o kits de evacuación adicionales para entrepisos o techos especiales",
+      "Tramitación de sello verde o certificados de regularización general SEC"
+    ],
+    "conditions": "Debe existir red de agua y gas habilitada en la zona de instalación. En estufas de leña/pellet se debe verificar espacio libre de seguridad contra materiales inflamables.",
     "iconType": "flame"
   },
   {
@@ -792,13 +1173,22 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "price": 179990,
     "unit": "instalación",
     "badge": "Norma SEC",
-    "description": "Servicio especializado de servicio de instalación de calefactor a pellet bosca en casa 2 pisos con estándar técnico profesional y garantía de ejecución.",
+    "description": "Instalación y mantención de sistemas de producción de agua caliente y calefacción a leña/pellet cumpliendo estrictamente con la normativa SEC. Especialidad: Servicio de Instalación de Calefactor a Pellet Bosca en Casa 2 Pisos.",
+    "caracteristicas": "Instaladores certificados SEC. Protocolos rigurosos de estanqueidad de gas, evacuación de gases de combustión mediante ductos concéntricos o cañones aislados.",
     "includes": [
-      "Instalador técnico normado",
-      "Conexión hidráulica y de combustible/energía",
-      "Prueba de tiro y presión",
-      "Certificación de funcionamiento seguro"
+      "Fijación y anclaje reforzado del artefacto a muro estructural",
+      "Conexión a red de gas/eléctrica y agua mediante flexibles normados",
+      "Instalación de ductos de tiro (natural o concéntrico de tiro forzado)",
+      "Pruebas con manómetro de hermeticidad y detección de fugas",
+      "Puesta en marcha, calibración de llama y verificación de seguridades"
     ],
+    "notIncludes": [
+      "Artefacto térmico (calefón, termo, estufa a pellet o leña)",
+      "Modificación o extensión de redes matrices de gas de la vivienda",
+      "Cañones o kits de evacuación adicionales para entrepisos o techos especiales",
+      "Tramitación de sello verde o certificados de regularización general SEC"
+    ],
+    "conditions": "Debe existir red de agua y gas habilitada en la zona de instalación. En estufas de leña/pellet se debe verificar espacio libre de seguridad contra materiales inflamables.",
     "iconType": "flame"
   },
   {
@@ -810,13 +1200,22 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "price": 117990,
     "unit": "instalación",
     "badge": "Norma SEC",
-    "description": "Servicio especializado de servicio de instalación de calefactor a leña bosca en casa 1 piso con estándar técnico profesional y garantía de ejecución.",
+    "description": "Instalación y mantención de sistemas de producción de agua caliente y calefacción a leña/pellet cumpliendo estrictamente con la normativa SEC. Especialidad: Servicio de Instalación de Calefactor a Leña Bosca en Casa 1 Piso.",
+    "caracteristicas": "Instaladores certificados SEC. Protocolos rigurosos de estanqueidad de gas, evacuación de gases de combustión mediante ductos concéntricos o cañones aislados.",
     "includes": [
-      "Instalador técnico normado",
-      "Conexión hidráulica y de combustible/energía",
-      "Prueba de tiro y presión",
-      "Certificación de funcionamiento seguro"
+      "Fijación y anclaje reforzado del artefacto a muro estructural",
+      "Conexión a red de gas/eléctrica y agua mediante flexibles normados",
+      "Instalación de ductos de tiro (natural o concéntrico de tiro forzado)",
+      "Pruebas con manómetro de hermeticidad y detección de fugas",
+      "Puesta en marcha, calibración de llama y verificación de seguridades"
     ],
+    "notIncludes": [
+      "Artefacto térmico (calefón, termo, estufa a pellet o leña)",
+      "Modificación o extensión de redes matrices de gas de la vivienda",
+      "Cañones o kits de evacuación adicionales para entrepisos o techos especiales",
+      "Tramitación de sello verde o certificados de regularización general SEC"
+    ],
+    "conditions": "Debe existir red de agua y gas habilitada en la zona de instalación. En estufas de leña/pellet se debe verificar espacio libre de seguridad contra materiales inflamables.",
     "iconType": "flame"
   },
   {
@@ -828,13 +1227,22 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "price": 165990,
     "unit": "instalación",
     "badge": "Norma SEC",
-    "description": "Servicio especializado de servicio de instalación de calefactor a leña bosca en casa 2 pisos con estándar técnico profesional y garantía de ejecución.",
+    "description": "Instalación y mantención de sistemas de producción de agua caliente y calefacción a leña/pellet cumpliendo estrictamente con la normativa SEC. Especialidad: Servicio de Instalación de Calefactor a Leña Bosca en Casa 2 Pisos.",
+    "caracteristicas": "Instaladores certificados SEC. Protocolos rigurosos de estanqueidad de gas, evacuación de gases de combustión mediante ductos concéntricos o cañones aislados.",
     "includes": [
-      "Instalador técnico normado",
-      "Conexión hidráulica y de combustible/energía",
-      "Prueba de tiro y presión",
-      "Certificación de funcionamiento seguro"
+      "Fijación y anclaje reforzado del artefacto a muro estructural",
+      "Conexión a red de gas/eléctrica y agua mediante flexibles normados",
+      "Instalación de ductos de tiro (natural o concéntrico de tiro forzado)",
+      "Pruebas con manómetro de hermeticidad y detección de fugas",
+      "Puesta en marcha, calibración de llama y verificación de seguridades"
     ],
+    "notIncludes": [
+      "Artefacto térmico (calefón, termo, estufa a pellet o leña)",
+      "Modificación o extensión de redes matrices de gas de la vivienda",
+      "Cañones o kits de evacuación adicionales para entrepisos o techos especiales",
+      "Tramitación de sello verde o certificados de regularización general SEC"
+    ],
+    "conditions": "Debe existir red de agua y gas habilitada en la zona de instalación. En estufas de leña/pellet se debe verificar espacio libre de seguridad contra materiales inflamables.",
     "iconType": "flame"
   },
   {
@@ -846,13 +1254,22 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "price": 165990,
     "unit": "instalación",
     "badge": "Norma SEC",
-    "description": "Servicio especializado de servicio de instalación de calefactor a leña amesti en casa 2 pisos con estándar técnico profesional y garantía de ejecución.",
+    "description": "Instalación y mantención de sistemas de producción de agua caliente y calefacción a leña/pellet cumpliendo estrictamente con la normativa SEC. Especialidad: Servicio de Instalación de Calefactor a Leña Amesti en Casa 2 Pisos.",
+    "caracteristicas": "Instaladores certificados SEC. Protocolos rigurosos de estanqueidad de gas, evacuación de gases de combustión mediante ductos concéntricos o cañones aislados.",
     "includes": [
-      "Instalador técnico normado",
-      "Conexión hidráulica y de combustible/energía",
-      "Prueba de tiro y presión",
-      "Certificación de funcionamiento seguro"
+      "Fijación y anclaje reforzado del artefacto a muro estructural",
+      "Conexión a red de gas/eléctrica y agua mediante flexibles normados",
+      "Instalación de ductos de tiro (natural o concéntrico de tiro forzado)",
+      "Pruebas con manómetro de hermeticidad y detección de fugas",
+      "Puesta en marcha, calibración de llama y verificación de seguridades"
     ],
+    "notIncludes": [
+      "Artefacto térmico (calefón, termo, estufa a pellet o leña)",
+      "Modificación o extensión de redes matrices de gas de la vivienda",
+      "Cañones o kits de evacuación adicionales para entrepisos o techos especiales",
+      "Tramitación de sello verde o certificados de regularización general SEC"
+    ],
+    "conditions": "Debe existir red de agua y gas habilitada en la zona de instalación. En estufas de leña/pellet se debe verificar espacio libre de seguridad contra materiales inflamables.",
     "iconType": "flame"
   },
   {
@@ -864,13 +1281,22 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "price": 117990,
     "unit": "instalación",
     "badge": "Norma SEC",
-    "description": "Servicio especializado de servicio de instalación de calefactor a leña otras marcas en casa 1 piso con estándar técnico profesional y garantía de ejecución.",
+    "description": "Instalación y mantención de sistemas de producción de agua caliente y calefacción a leña/pellet cumpliendo estrictamente con la normativa SEC. Especialidad: Servicio de Instalación de Calefactor a Leña Otras Marcas en Casa 1 Piso.",
+    "caracteristicas": "Instaladores certificados SEC. Protocolos rigurosos de estanqueidad de gas, evacuación de gases de combustión mediante ductos concéntricos o cañones aislados.",
     "includes": [
-      "Instalador técnico normado",
-      "Conexión hidráulica y de combustible/energía",
-      "Prueba de tiro y presión",
-      "Certificación de funcionamiento seguro"
+      "Fijación y anclaje reforzado del artefacto a muro estructural",
+      "Conexión a red de gas/eléctrica y agua mediante flexibles normados",
+      "Instalación de ductos de tiro (natural o concéntrico de tiro forzado)",
+      "Pruebas con manómetro de hermeticidad y detección de fugas",
+      "Puesta en marcha, calibración de llama y verificación de seguridades"
     ],
+    "notIncludes": [
+      "Artefacto térmico (calefón, termo, estufa a pellet o leña)",
+      "Modificación o extensión de redes matrices de gas de la vivienda",
+      "Cañones o kits de evacuación adicionales para entrepisos o techos especiales",
+      "Tramitación de sello verde o certificados de regularización general SEC"
+    ],
+    "conditions": "Debe existir red de agua y gas habilitada en la zona de instalación. En estufas de leña/pellet se debe verificar espacio libre de seguridad contra materiales inflamables.",
     "iconType": "flame"
   },
   {
@@ -882,13 +1308,22 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "price": 45990,
     "unit": "instalación",
     "badge": "Norma SEC",
-    "description": "Servicio especializado de servicio de mantención de calefactor a leña otras marcas en casa 1 piso con estándar técnico profesional y garantía de ejecución.",
+    "description": "Instalación y mantención de sistemas de producción de agua caliente y calefacción a leña/pellet cumpliendo estrictamente con la normativa SEC. Especialidad: Servicio de Mantención de calefactor a leña OTRAS MARCAS en casa 1 piso.",
+    "caracteristicas": "Instaladores certificados SEC. Protocolos rigurosos de estanqueidad de gas, evacuación de gases de combustión mediante ductos concéntricos o cañones aislados.",
     "includes": [
-      "Instalador técnico normado",
-      "Conexión hidráulica y de combustible/energía",
-      "Prueba de tiro y presión",
-      "Certificación de funcionamiento seguro"
+      "Fijación y anclaje reforzado del artefacto a muro estructural",
+      "Conexión a red de gas/eléctrica y agua mediante flexibles normados",
+      "Instalación de ductos de tiro (natural o concéntrico de tiro forzado)",
+      "Pruebas con manómetro de hermeticidad y detección de fugas",
+      "Puesta en marcha, calibración de llama y verificación de seguridades"
     ],
+    "notIncludes": [
+      "Artefacto térmico (calefón, termo, estufa a pellet o leña)",
+      "Modificación o extensión de redes matrices de gas de la vivienda",
+      "Cañones o kits de evacuación adicionales para entrepisos o techos especiales",
+      "Tramitación de sello verde o certificados de regularización general SEC"
+    ],
+    "conditions": "Debe existir red de agua y gas habilitada en la zona de instalación. En estufas de leña/pellet se debe verificar espacio libre de seguridad contra materiales inflamables.",
     "iconType": "flame"
   },
   {
@@ -900,13 +1335,22 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "price": 79990,
     "unit": "instalación",
     "badge": "Norma SEC",
-    "description": "Servicio especializado de servicio de mantención de calefactor a leña bosca en casa 1 piso con estándar técnico profesional y garantía de ejecución.",
+    "description": "Instalación y mantención de sistemas de producción de agua caliente y calefacción a leña/pellet cumpliendo estrictamente con la normativa SEC. Especialidad: Servicio de Mantención de Calefactor a Leña BOSCA en Casa 1 Piso.",
+    "caracteristicas": "Instaladores certificados SEC. Protocolos rigurosos de estanqueidad de gas, evacuación de gases de combustión mediante ductos concéntricos o cañones aislados.",
     "includes": [
-      "Instalador técnico normado",
-      "Conexión hidráulica y de combustible/energía",
-      "Prueba de tiro y presión",
-      "Certificación de funcionamiento seguro"
+      "Fijación y anclaje reforzado del artefacto a muro estructural",
+      "Conexión a red de gas/eléctrica y agua mediante flexibles normados",
+      "Instalación de ductos de tiro (natural o concéntrico de tiro forzado)",
+      "Pruebas con manómetro de hermeticidad y detección de fugas",
+      "Puesta en marcha, calibración de llama y verificación de seguridades"
     ],
+    "notIncludes": [
+      "Artefacto térmico (calefón, termo, estufa a pellet o leña)",
+      "Modificación o extensión de redes matrices de gas de la vivienda",
+      "Cañones o kits de evacuación adicionales para entrepisos o techos especiales",
+      "Tramitación de sello verde o certificados de regularización general SEC"
+    ],
+    "conditions": "Debe existir red de agua y gas habilitada en la zona de instalación. En estufas de leña/pellet se debe verificar espacio libre de seguridad contra materiales inflamables.",
     "iconType": "flame"
   },
   {
@@ -918,13 +1362,22 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "price": 99990,
     "unit": "instalación",
     "badge": "Norma SEC",
-    "description": "Servicio especializado de servicio de mantención de calefactor a pellet bosca en casa 1 piso con estándar técnico profesional y garantía de ejecución.",
+    "description": "Instalación y mantención de sistemas de producción de agua caliente y calefacción a leña/pellet cumpliendo estrictamente con la normativa SEC. Especialidad: Servicio de Mantención de calefactor a pellet BOSCA en casa 1 piso.",
+    "caracteristicas": "Instaladores certificados SEC. Protocolos rigurosos de estanqueidad de gas, evacuación de gases de combustión mediante ductos concéntricos o cañones aislados.",
     "includes": [
-      "Instalador técnico normado",
-      "Conexión hidráulica y de combustible/energía",
-      "Prueba de tiro y presión",
-      "Certificación de funcionamiento seguro"
+      "Fijación y anclaje reforzado del artefacto a muro estructural",
+      "Conexión a red de gas/eléctrica y agua mediante flexibles normados",
+      "Instalación de ductos de tiro (natural o concéntrico de tiro forzado)",
+      "Pruebas con manómetro de hermeticidad y detección de fugas",
+      "Puesta en marcha, calibración de llama y verificación de seguridades"
     ],
+    "notIncludes": [
+      "Artefacto térmico (calefón, termo, estufa a pellet o leña)",
+      "Modificación o extensión de redes matrices de gas de la vivienda",
+      "Cañones o kits de evacuación adicionales para entrepisos o techos especiales",
+      "Tramitación de sello verde o certificados de regularización general SEC"
+    ],
+    "conditions": "Debe existir red de agua y gas habilitada en la zona de instalación. En estufas de leña/pellet se debe verificar espacio libre de seguridad contra materiales inflamables.",
     "iconType": "flame"
   },
   {
@@ -936,13 +1389,22 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "price": 104990,
     "unit": "instalación",
     "badge": "Norma SEC",
-    "description": "Servicio especializado de servicio de mantención de calefactor a pellet amesti en casa 1 piso con estándar técnico profesional y garantía de ejecución.",
+    "description": "Instalación y mantención de sistemas de producción de agua caliente y calefacción a leña/pellet cumpliendo estrictamente con la normativa SEC. Especialidad: Servicio de Mantención de calefactor a pellet AMESTI en casa 1 piso.",
+    "caracteristicas": "Instaladores certificados SEC. Protocolos rigurosos de estanqueidad de gas, evacuación de gases de combustión mediante ductos concéntricos o cañones aislados.",
     "includes": [
-      "Instalador técnico normado",
-      "Conexión hidráulica y de combustible/energía",
-      "Prueba de tiro y presión",
-      "Certificación de funcionamiento seguro"
+      "Fijación y anclaje reforzado del artefacto a muro estructural",
+      "Conexión a red de gas/eléctrica y agua mediante flexibles normados",
+      "Instalación de ductos de tiro (natural o concéntrico de tiro forzado)",
+      "Pruebas con manómetro de hermeticidad y detección de fugas",
+      "Puesta en marcha, calibración de llama y verificación de seguridades"
     ],
+    "notIncludes": [
+      "Artefacto térmico (calefón, termo, estufa a pellet o leña)",
+      "Modificación o extensión de redes matrices de gas de la vivienda",
+      "Cañones o kits de evacuación adicionales para entrepisos o techos especiales",
+      "Tramitación de sello verde o certificados de regularización general SEC"
+    ],
+    "conditions": "Debe existir red de agua y gas habilitada en la zona de instalación. En estufas de leña/pellet se debe verificar espacio libre de seguridad contra materiales inflamables.",
     "iconType": "flame"
   },
   {
@@ -954,13 +1416,22 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "price": 104990,
     "unit": "instalación",
     "badge": "Norma SEC",
-    "description": "Servicio especializado de mantención calefactor pellet otras marcas casa 1 piso con estándar técnico profesional y garantía de ejecución.",
+    "description": "Instalación y mantención de sistemas de producción de agua caliente y calefacción a leña/pellet cumpliendo estrictamente con la normativa SEC. Especialidad: Mantención Calefactor Pellet Otras Marcas Casa 1 Piso.",
+    "caracteristicas": "Instaladores certificados SEC. Protocolos rigurosos de estanqueidad de gas, evacuación de gases de combustión mediante ductos concéntricos o cañones aislados.",
     "includes": [
-      "Instalador técnico normado",
-      "Conexión hidráulica y de combustible/energía",
-      "Prueba de tiro y presión",
-      "Certificación de funcionamiento seguro"
+      "Fijación y anclaje reforzado del artefacto a muro estructural",
+      "Conexión a red de gas/eléctrica y agua mediante flexibles normados",
+      "Instalación de ductos de tiro (natural o concéntrico de tiro forzado)",
+      "Pruebas con manómetro de hermeticidad y detección de fugas",
+      "Puesta en marcha, calibración de llama y verificación de seguridades"
     ],
+    "notIncludes": [
+      "Artefacto térmico (calefón, termo, estufa a pellet o leña)",
+      "Modificación o extensión de redes matrices de gas de la vivienda",
+      "Cañones o kits de evacuación adicionales para entrepisos o techos especiales",
+      "Tramitación de sello verde o certificados de regularización general SEC"
+    ],
+    "conditions": "Debe existir red de agua y gas habilitada en la zona de instalación. En estufas de leña/pellet se debe verificar espacio libre de seguridad contra materiales inflamables.",
     "iconType": "flame"
   },
   {
@@ -972,13 +1443,22 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "price": 42990,
     "unit": "instalación",
     "badge": "Gasfitería",
-    "description": "Servicio especializado de servicio de instalación de sanitario wc con estándar técnico profesional y garantía de ejecución.",
+    "description": "Renovación y montaje de artefactos de baño, duchas, receptáculos y griferías con garantía de cero filtraciones y acabados herméticos. Especialidad: Servicio de Instalación de Sanitario WC.",
+    "caracteristicas": "Mano de obra en gasfitería especializada. Contempla acople con sellos de compresión, válvulas de corte independientes y sellado perimetral con silicona antihongos.",
     "includes": [
-      "Desmonte de artefacto previo si aplica",
-      "Montaje con sellos y empaquetaduras",
-      "Conexión de flexibles y grifería",
-      "Sellado perimetral antihongos"
+      "Desmonte del artefacto previo si corresponde al mismo punto",
+      "Montaje y fijación mecánica con pernos a piso o fijaciones murales",
+      "Instalación de sello de cera de alta densidad en inodoros",
+      "Conexión de flexibles de acero inoxidable, desagües y sifones",
+      "Sellado perimetral transparente o blanco con silicona de alta resistencia"
     ],
+    "notIncludes": [
+      "Artefactos sanitarios, muebles vanitorios, grifería ni mamparas",
+      "Reparación de cañerías embutidas rotas o destapes de alcantarillado",
+      "Reubicación de desagües o perforaciones en losas estructurales",
+      "Modificaciones de cerámica o albañilería mayor"
+    ],
+    "conditions": "Las llaves de paso generales o del recinto deben cortar el agua de manera efectiva. El piso debe estar afinado y sin desniveles pronunciados.",
     "iconType": "droplet"
   },
   {
@@ -990,13 +1470,22 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "price": 29990,
     "unit": "instalación",
     "badge": "Gasfitería",
-    "description": "Servicio especializado de servicio de instalación y conexión de 1 monomando para lavamano con estándar técnico profesional y garantía de ejecución.",
+    "description": "Renovación y montaje de artefactos de baño, duchas, receptáculos y griferías con garantía de cero filtraciones y acabados herméticos. Especialidad: Servicio de Instalación y Conexión de 1 Monomando para Lavamano.",
+    "caracteristicas": "Mano de obra en gasfitería especializada. Contempla acople con sellos de compresión, válvulas de corte independientes y sellado perimetral con silicona antihongos.",
     "includes": [
-      "Desmonte de artefacto previo si aplica",
-      "Montaje con sellos y empaquetaduras",
-      "Conexión de flexibles y grifería",
-      "Sellado perimetral antihongos"
+      "Desmonte del artefacto previo si corresponde al mismo punto",
+      "Montaje y fijación mecánica con pernos a piso o fijaciones murales",
+      "Instalación de sello de cera de alta densidad en inodoros",
+      "Conexión de flexibles de acero inoxidable, desagües y sifones",
+      "Sellado perimetral transparente o blanco con silicona de alta resistencia"
     ],
+    "notIncludes": [
+      "Artefactos sanitarios, muebles vanitorios, grifería ni mamparas",
+      "Reparación de cañerías embutidas rotas o destapes de alcantarillado",
+      "Reubicación de desagües o perforaciones en losas estructurales",
+      "Modificaciones de cerámica o albañilería mayor"
+    ],
+    "conditions": "Las llaves de paso generales o del recinto deben cortar el agua de manera efectiva. El piso debe estar afinado y sin desniveles pronunciados.",
     "iconType": "droplet"
   },
   {
@@ -1008,13 +1497,22 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "price": 29990,
     "unit": "instalación",
     "badge": "Gasfitería",
-    "description": "Servicio especializado de servicio instalación 1 monomando para lavaplato con estándar técnico profesional y garantía de ejecución.",
+    "description": "Renovación y montaje de artefactos de baño, duchas, receptáculos y griferías con garantía de cero filtraciones y acabados herméticos. Especialidad: Servicio Instalación 1 Monomando para Lavaplato.",
+    "caracteristicas": "Mano de obra en gasfitería especializada. Contempla acople con sellos de compresión, válvulas de corte independientes y sellado perimetral con silicona antihongos.",
     "includes": [
-      "Desmonte de artefacto previo si aplica",
-      "Montaje con sellos y empaquetaduras",
-      "Conexión de flexibles y grifería",
-      "Sellado perimetral antihongos"
+      "Desmonte del artefacto previo si corresponde al mismo punto",
+      "Montaje y fijación mecánica con pernos a piso o fijaciones murales",
+      "Instalación de sello de cera de alta densidad en inodoros",
+      "Conexión de flexibles de acero inoxidable, desagües y sifones",
+      "Sellado perimetral transparente o blanco con silicona de alta resistencia"
     ],
+    "notIncludes": [
+      "Artefactos sanitarios, muebles vanitorios, grifería ni mamparas",
+      "Reparación de cañerías embutidas rotas o destapes de alcantarillado",
+      "Reubicación de desagües o perforaciones en losas estructurales",
+      "Modificaciones de cerámica o albañilería mayor"
+    ],
+    "conditions": "Las llaves de paso generales o del recinto deben cortar el agua de manera efectiva. El piso debe estar afinado y sin desniveles pronunciados.",
     "iconType": "droplet"
   },
   {
@@ -1026,13 +1524,22 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "price": 77990,
     "unit": "instalación",
     "badge": "Gasfitería",
-    "description": "Servicio especializado de servicio instalación lavamano y pedestal + conexión de grifería y sanitario con estándar técnico profesional y garantía de ejecución.",
+    "description": "Renovación y montaje de artefactos de baño, duchas, receptáculos y griferías con garantía de cero filtraciones y acabados herméticos. Especialidad: Servicio Instalación Lavamano y pedestal + Conexión de Grifería y Sanitario.",
+    "caracteristicas": "Mano de obra en gasfitería especializada. Contempla acople con sellos de compresión, válvulas de corte independientes y sellado perimetral con silicona antihongos.",
     "includes": [
-      "Desmonte de artefacto previo si aplica",
-      "Montaje con sellos y empaquetaduras",
-      "Conexión de flexibles y grifería",
-      "Sellado perimetral antihongos"
+      "Desmonte del artefacto previo si corresponde al mismo punto",
+      "Montaje y fijación mecánica con pernos a piso o fijaciones murales",
+      "Instalación de sello de cera de alta densidad en inodoros",
+      "Conexión de flexibles de acero inoxidable, desagües y sifones",
+      "Sellado perimetral transparente o blanco con silicona de alta resistencia"
     ],
+    "notIncludes": [
+      "Artefactos sanitarios, muebles vanitorios, grifería ni mamparas",
+      "Reparación de cañerías embutidas rotas o destapes de alcantarillado",
+      "Reubicación de desagües o perforaciones en losas estructurales",
+      "Modificaciones de cerámica o albañilería mayor"
+    ],
+    "conditions": "Las llaves de paso generales o del recinto deben cortar el agua de manera efectiva. El piso debe estar afinado y sin desniveles pronunciados.",
     "iconType": "droplet"
   },
   {
@@ -1044,13 +1551,22 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "price": 58990,
     "unit": "mueble",
     "badge": "Gasfitería",
-    "description": "Servicio especializado de servicio armado e instalación de mueble vanitorio + conexión de grifería con estándar técnico profesional y garantía de ejecución.",
+    "description": "Renovación y montaje de artefactos de baño, duchas, receptáculos y griferías con garantía de cero filtraciones y acabados herméticos. Especialidad: Servicio Armado e instalación de Mueble Vanitorio + Conexión de grifería.",
+    "caracteristicas": "Mano de obra en gasfitería especializada. Contempla acople con sellos de compresión, válvulas de corte independientes y sellado perimetral con silicona antihongos.",
     "includes": [
-      "Desmonte de artefacto previo si aplica",
-      "Montaje con sellos y empaquetaduras",
-      "Conexión de flexibles y grifería",
-      "Sellado perimetral antihongos"
+      "Desmonte del artefacto previo si corresponde al mismo punto",
+      "Montaje y fijación mecánica con pernos a piso o fijaciones murales",
+      "Instalación de sello de cera de alta densidad en inodoros",
+      "Conexión de flexibles de acero inoxidable, desagües y sifones",
+      "Sellado perimetral transparente o blanco con silicona de alta resistencia"
     ],
+    "notIncludes": [
+      "Artefactos sanitarios, muebles vanitorios, grifería ni mamparas",
+      "Reparación de cañerías embutidas rotas o destapes de alcantarillado",
+      "Reubicación de desagües o perforaciones en losas estructurales",
+      "Modificaciones de cerámica o albañilería mayor"
+    ],
+    "conditions": "Las llaves de paso generales o del recinto deben cortar el agua de manera efectiva. El piso debe estar afinado y sin desniveles pronunciados.",
     "iconType": "droplet"
   },
   {
@@ -1062,13 +1578,22 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "price": 38990,
     "unit": "instalación",
     "badge": "Gasfitería",
-    "description": "Servicio especializado de servicio de instalación de columna de ducha con estándar técnico profesional y garantía de ejecución.",
+    "description": "Renovación y montaje de artefactos de baño, duchas, receptáculos y griferías con garantía de cero filtraciones y acabados herméticos. Especialidad: Servicio de Instalación de Columna de Ducha.",
+    "caracteristicas": "Mano de obra en gasfitería especializada. Contempla acople con sellos de compresión, válvulas de corte independientes y sellado perimetral con silicona antihongos.",
     "includes": [
-      "Desmonte de artefacto previo si aplica",
-      "Montaje con sellos y empaquetaduras",
-      "Conexión de flexibles y grifería",
-      "Sellado perimetral antihongos"
+      "Desmonte del artefacto previo si corresponde al mismo punto",
+      "Montaje y fijación mecánica con pernos a piso o fijaciones murales",
+      "Instalación de sello de cera de alta densidad en inodoros",
+      "Conexión de flexibles de acero inoxidable, desagües y sifones",
+      "Sellado perimetral transparente o blanco con silicona de alta resistencia"
     ],
+    "notIncludes": [
+      "Artefactos sanitarios, muebles vanitorios, grifería ni mamparas",
+      "Reparación de cañerías embutidas rotas o destapes de alcantarillado",
+      "Reubicación de desagües o perforaciones en losas estructurales",
+      "Modificaciones de cerámica o albañilería mayor"
+    ],
+    "conditions": "Las llaves de paso generales o del recinto deben cortar el agua de manera efectiva. El piso debe estar afinado y sin desniveles pronunciados.",
     "iconType": "droplet"
   },
   {
@@ -1080,13 +1605,22 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "price": 59990,
     "unit": "instalación",
     "badge": "Gasfitería",
-    "description": "Servicio especializado de servicio de instalación de mampara de ducha con estándar técnico profesional y garantía de ejecución.",
+    "description": "Renovación y montaje de artefactos de baño, duchas, receptáculos y griferías con garantía de cero filtraciones y acabados herméticos. Especialidad: Servicio de Instalación de Mampara de Ducha.",
+    "caracteristicas": "Mano de obra en gasfitería especializada. Contempla acople con sellos de compresión, válvulas de corte independientes y sellado perimetral con silicona antihongos.",
     "includes": [
-      "Desmonte de artefacto previo si aplica",
-      "Montaje con sellos y empaquetaduras",
-      "Conexión de flexibles y grifería",
-      "Sellado perimetral antihongos"
+      "Desmonte del artefacto previo si corresponde al mismo punto",
+      "Montaje y fijación mecánica con pernos a piso o fijaciones murales",
+      "Instalación de sello de cera de alta densidad en inodoros",
+      "Conexión de flexibles de acero inoxidable, desagües y sifones",
+      "Sellado perimetral transparente o blanco con silicona de alta resistencia"
     ],
+    "notIncludes": [
+      "Artefactos sanitarios, muebles vanitorios, grifería ni mamparas",
+      "Reparación de cañerías embutidas rotas o destapes de alcantarillado",
+      "Reubicación de desagües o perforaciones en losas estructurales",
+      "Modificaciones de cerámica o albañilería mayor"
+    ],
+    "conditions": "Las llaves de paso generales o del recinto deben cortar el agua de manera efectiva. El piso debe estar afinado y sin desniveles pronunciados.",
     "iconType": "droplet"
   },
   {
@@ -1098,13 +1632,22 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "price": 145990,
     "unit": "instalación",
     "badge": "Gasfitería",
-    "description": "Servicio especializado de servicio de armado e instalación de cabina de ducha con estándar técnico profesional y garantía de ejecución.",
+    "description": "Renovación y montaje de artefactos de baño, duchas, receptáculos y griferías con garantía de cero filtraciones y acabados herméticos. Especialidad: Servicio de Armado e Instalación de Cabina de Ducha.",
+    "caracteristicas": "Mano de obra en gasfitería especializada. Contempla acople con sellos de compresión, válvulas de corte independientes y sellado perimetral con silicona antihongos.",
     "includes": [
-      "Desmonte de artefacto previo si aplica",
-      "Montaje con sellos y empaquetaduras",
-      "Conexión de flexibles y grifería",
-      "Sellado perimetral antihongos"
+      "Desmonte del artefacto previo si corresponde al mismo punto",
+      "Montaje y fijación mecánica con pernos a piso o fijaciones murales",
+      "Instalación de sello de cera de alta densidad en inodoros",
+      "Conexión de flexibles de acero inoxidable, desagües y sifones",
+      "Sellado perimetral transparente o blanco con silicona de alta resistencia"
     ],
+    "notIncludes": [
+      "Artefactos sanitarios, muebles vanitorios, grifería ni mamparas",
+      "Reparación de cañerías embutidas rotas o destapes de alcantarillado",
+      "Reubicación de desagües o perforaciones en losas estructurales",
+      "Modificaciones de cerámica o albañilería mayor"
+    ],
+    "conditions": "Las llaves de paso generales o del recinto deben cortar el agua de manera efectiva. El piso debe estar afinado y sin desniveles pronunciados.",
     "iconType": "droplet"
   },
   {
@@ -1116,13 +1659,22 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "price": 319990,
     "unit": "instalación",
     "badge": "Gasfitería",
-    "description": "Servicio especializado de servicio rebaje de tina para fácil acceso (pieza + instalación) con estándar técnico profesional y garantía de ejecución.",
+    "description": "Renovación y montaje de artefactos de baño, duchas, receptáculos y griferías con garantía de cero filtraciones y acabados herméticos. Especialidad: Servicio Rebaje de Tina para Fácil Acceso (Pieza + Instalación).",
+    "caracteristicas": "Mano de obra en gasfitería especializada. Contempla acople con sellos de compresión, válvulas de corte independientes y sellado perimetral con silicona antihongos.",
     "includes": [
-      "Desmonte de artefacto previo si aplica",
-      "Montaje con sellos y empaquetaduras",
-      "Conexión de flexibles y grifería",
-      "Sellado perimetral antihongos"
+      "Desmonte del artefacto previo si corresponde al mismo punto",
+      "Montaje y fijación mecánica con pernos a piso o fijaciones murales",
+      "Instalación de sello de cera de alta densidad en inodoros",
+      "Conexión de flexibles de acero inoxidable, desagües y sifones",
+      "Sellado perimetral transparente o blanco con silicona de alta resistencia"
     ],
+    "notIncludes": [
+      "Artefactos sanitarios, muebles vanitorios, grifería ni mamparas",
+      "Reparación de cañerías embutidas rotas o destapes de alcantarillado",
+      "Reubicación de desagües o perforaciones en losas estructurales",
+      "Modificaciones de cerámica o albañilería mayor"
+    ],
+    "conditions": "Las llaves de paso generales o del recinto deben cortar el agua de manera efectiva. El piso debe estar afinado y sin desniveles pronunciados.",
     "iconType": "droplet"
   },
   {
@@ -1133,14 +1685,23 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "categoryLabel": "Seguridad, Puertas & Cortinaje",
     "price": 8490,
     "unit": "m²",
-    "badge": "Seguridad Hogar",
-    "description": "Servicio especializado de servicio de malla de seguridad 0,8mm con instalación incluida con estándar técnico profesional y garantía de ejecución.",
+    "badge": "Seguridad & Confort",
+    "description": "Soluciones integrales de protección perimetral, control de acceso smart, automatización de portones y acondicionamiento de vanos. Especialidad: Servicio de malla de seguridad 0,8mm con Instalación incluida.",
+    "caracteristicas": "Instalación de alta precisión técnica. Contempla fijación en hormigón/madera/metal, programación electrónica de mandos y tensado de mallas de seguridad.",
     "includes": [
-      "Instalación milimétrica en vano o marco",
-      "Alineación de herrajes y cremalleras",
-      "Configuración de mandos o controles",
-      "Prueba de resistencia y cierre"
+      "Cajeado y calce milimétrico de cerraduras en puertas de acceso",
+      "En motores: fijación sobre base, cremalleras de acero y calibración de fines de carrera",
+      "En mallas: anclajes con pitones zincados cada 5 cm y cuerda perimetral tensada",
+      "En cortinas y soportes: perforación y anclaje con tarugos aptos para cada muro",
+      "Configuración de claves, huellas o sincronización con smartphones"
     ],
+    "notIncludes": [
+      "Dispositivos o accesorios (cerradura smart, motor, cortina, soporte TV, Starlink)",
+      "Canalización eléctrica subterránea de larga distancia para portones",
+      "Reparación de portones oxidados, descuadrados o con rodamientos rotos",
+      "Refuerzo de marcos de puerta carcomidos o vencidos"
+    ],
+    "conditions": "Se aplica en vanos y balcones perimetrales. Resistencia de monofilamento de 140 kg/m².",
     "iconType": "lock"
   },
   {
@@ -1151,14 +1712,23 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "categoryLabel": "Seguridad, Puertas & Cortinaje",
     "price": 9990,
     "unit": "m²",
-    "badge": "Seguridad Hogar",
-    "description": "Servicio especializado de servicio de malla de seguridad 0,9mm con instalación incluida con estándar técnico profesional y garantía de ejecución.",
+    "badge": "Seguridad & Confort",
+    "description": "Soluciones integrales de protección perimetral, control de acceso smart, automatización de portones y acondicionamiento de vanos. Especialidad: Servicio de malla de seguridad 0,9mm con Instalación incluida.",
+    "caracteristicas": "Instalación de alta precisión técnica. Contempla fijación en hormigón/madera/metal, programación electrónica de mandos y tensado de mallas de seguridad.",
     "includes": [
-      "Instalación milimétrica en vano o marco",
-      "Alineación de herrajes y cremalleras",
-      "Configuración de mandos o controles",
-      "Prueba de resistencia y cierre"
+      "Cajeado y calce milimétrico de cerraduras en puertas de acceso",
+      "En motores: fijación sobre base, cremalleras de acero y calibración de fines de carrera",
+      "En mallas: anclajes con pitones zincados cada 5 cm y cuerda perimetral tensada",
+      "En cortinas y soportes: perforación y anclaje con tarugos aptos para cada muro",
+      "Configuración de claves, huellas o sincronización con smartphones"
     ],
+    "notIncludes": [
+      "Dispositivos o accesorios (cerradura smart, motor, cortina, soporte TV, Starlink)",
+      "Canalización eléctrica subterránea de larga distancia para portones",
+      "Reparación de portones oxidados, descuadrados o con rodamientos rotos",
+      "Refuerzo de marcos de puerta carcomidos o vencidos"
+    ],
+    "conditions": "Se aplica en vanos y balcones perimetrales. Resistencia de monofilamento de 140 kg/m².",
     "iconType": "lock"
   },
   {
@@ -1169,14 +1739,23 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "categoryLabel": "Seguridad, Puertas & Cortinaje",
     "price": 66990,
     "unit": "instalación",
-    "badge": "Seguridad Hogar",
-    "description": "Servicio especializado de servicio instalación 1 de cerrojo digital con estándar técnico profesional y garantía de ejecución.",
+    "badge": "Seguridad & Confort",
+    "description": "Soluciones integrales de protección perimetral, control de acceso smart, automatización de portones y acondicionamiento de vanos. Especialidad: Servicio Instalación 1 de Cerrojo Digital.",
+    "caracteristicas": "Instalación de alta precisión técnica. Contempla fijación en hormigón/madera/metal, programación electrónica de mandos y tensado de mallas de seguridad.",
     "includes": [
-      "Instalación milimétrica en vano o marco",
-      "Alineación de herrajes y cremalleras",
-      "Configuración de mandos o controles",
-      "Prueba de resistencia y cierre"
+      "Cajeado y calce milimétrico de cerraduras en puertas de acceso",
+      "En motores: fijación sobre base, cremalleras de acero y calibración de fines de carrera",
+      "En mallas: anclajes con pitones zincados cada 5 cm y cuerda perimetral tensada",
+      "En cortinas y soportes: perforación y anclaje con tarugos aptos para cada muro",
+      "Configuración de claves, huellas o sincronización con smartphones"
     ],
+    "notIncludes": [
+      "Dispositivos o accesorios (cerradura smart, motor, cortina, soporte TV, Starlink)",
+      "Canalización eléctrica subterránea de larga distancia para portones",
+      "Reparación de portones oxidados, descuadrados o con rodamientos rotos",
+      "Refuerzo de marcos de puerta carcomidos o vencidos"
+    ],
+    "conditions": "En automatización de portones, la hoja debe deslizar de forma suave manualmente. En cerraduras digitales, el espesor de la puerta debe ser compatible (35 a 65 mm).",
     "iconType": "lock"
   },
   {
@@ -1187,14 +1766,23 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "categoryLabel": "Seguridad, Puertas & Cortinaje",
     "price": 66990,
     "unit": "instalación",
-    "badge": "Seguridad Hogar",
-    "description": "Servicio especializado de servicio instalación 1 cerradura digital con estándar técnico profesional y garantía de ejecución.",
+    "badge": "Seguridad & Confort",
+    "description": "Soluciones integrales de protección perimetral, control de acceso smart, automatización de portones y acondicionamiento de vanos. Especialidad: Servicio Instalación 1 Cerradura Digital.",
+    "caracteristicas": "Instalación de alta precisión técnica. Contempla fijación en hormigón/madera/metal, programación electrónica de mandos y tensado de mallas de seguridad.",
     "includes": [
-      "Instalación milimétrica en vano o marco",
-      "Alineación de herrajes y cremalleras",
-      "Configuración de mandos o controles",
-      "Prueba de resistencia y cierre"
+      "Cajeado y calce milimétrico de cerraduras en puertas de acceso",
+      "En motores: fijación sobre base, cremalleras de acero y calibración de fines de carrera",
+      "En mallas: anclajes con pitones zincados cada 5 cm y cuerda perimetral tensada",
+      "En cortinas y soportes: perforación y anclaje con tarugos aptos para cada muro",
+      "Configuración de claves, huellas o sincronización con smartphones"
     ],
+    "notIncludes": [
+      "Dispositivos o accesorios (cerradura smart, motor, cortina, soporte TV, Starlink)",
+      "Canalización eléctrica subterránea de larga distancia para portones",
+      "Reparación de portones oxidados, descuadrados o con rodamientos rotos",
+      "Refuerzo de marcos de puerta carcomidos o vencidos"
+    ],
+    "conditions": "En automatización de portones, la hoja debe deslizar de forma suave manualmente. En cerraduras digitales, el espesor de la puerta debe ser compatible (35 a 65 mm).",
     "iconType": "lock"
   },
   {
@@ -1205,14 +1793,23 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "categoryLabel": "Seguridad, Puertas & Cortinaje",
     "price": 46990,
     "unit": "instalación",
-    "badge": "Seguridad Hogar",
-    "description": "Servicio especializado de servicio de instalación 1 cerradura de acceso principal con estándar técnico profesional y garantía de ejecución.",
+    "badge": "Seguridad & Confort",
+    "description": "Soluciones integrales de protección perimetral, control de acceso smart, automatización de portones y acondicionamiento de vanos. Especialidad: Servicio de Instalación 1 Cerradura de Acceso principal.",
+    "caracteristicas": "Instalación de alta precisión técnica. Contempla fijación en hormigón/madera/metal, programación electrónica de mandos y tensado de mallas de seguridad.",
     "includes": [
-      "Instalación milimétrica en vano o marco",
-      "Alineación de herrajes y cremalleras",
-      "Configuración de mandos o controles",
-      "Prueba de resistencia y cierre"
+      "Cajeado y calce milimétrico de cerraduras en puertas de acceso",
+      "En motores: fijación sobre base, cremalleras de acero y calibración de fines de carrera",
+      "En mallas: anclajes con pitones zincados cada 5 cm y cuerda perimetral tensada",
+      "En cortinas y soportes: perforación y anclaje con tarugos aptos para cada muro",
+      "Configuración de claves, huellas o sincronización con smartphones"
     ],
+    "notIncludes": [
+      "Dispositivos o accesorios (cerradura smart, motor, cortina, soporte TV, Starlink)",
+      "Canalización eléctrica subterránea de larga distancia para portones",
+      "Reparación de portones oxidados, descuadrados o con rodamientos rotos",
+      "Refuerzo de marcos de puerta carcomidos o vencidos"
+    ],
+    "conditions": "En automatización de portones, la hoja debe deslizar de forma suave manualmente. En cerraduras digitales, el espesor de la puerta debe ser compatible (35 a 65 mm).",
     "iconType": "lock"
   },
   {
@@ -1223,14 +1820,23 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "categoryLabel": "Seguridad, Puertas & Cortinaje",
     "price": 109990,
     "unit": "instalación",
-    "badge": "Seguridad Hogar",
-    "description": "Servicio especializado de servicio instalación puerta, cerradura y bisagras en marco existente con estándar técnico profesional y garantía de ejecución.",
+    "badge": "Seguridad & Confort",
+    "description": "Soluciones integrales de protección perimetral, control de acceso smart, automatización de portones y acondicionamiento de vanos. Especialidad: Servicio Instalación Puerta, Cerradura y Bisagras en marco existente.",
+    "caracteristicas": "Instalación de alta precisión técnica. Contempla fijación en hormigón/madera/metal, programación electrónica de mandos y tensado de mallas de seguridad.",
     "includes": [
-      "Instalación milimétrica en vano o marco",
-      "Alineación de herrajes y cremalleras",
-      "Configuración de mandos o controles",
-      "Prueba de resistencia y cierre"
+      "Cajeado y calce milimétrico de cerraduras en puertas de acceso",
+      "En motores: fijación sobre base, cremalleras de acero y calibración de fines de carrera",
+      "En mallas: anclajes con pitones zincados cada 5 cm y cuerda perimetral tensada",
+      "En cortinas y soportes: perforación y anclaje con tarugos aptos para cada muro",
+      "Configuración de claves, huellas o sincronización con smartphones"
     ],
+    "notIncludes": [
+      "Dispositivos o accesorios (cerradura smart, motor, cortina, soporte TV, Starlink)",
+      "Canalización eléctrica subterránea de larga distancia para portones",
+      "Reparación de portones oxidados, descuadrados o con rodamientos rotos",
+      "Refuerzo de marcos de puerta carcomidos o vencidos"
+    ],
+    "conditions": "En automatización de portones, la hoja debe deslizar de forma suave manualmente. En cerraduras digitales, el espesor de la puerta debe ser compatible (35 a 65 mm).",
     "iconType": "lock"
   },
   {
@@ -1241,14 +1847,23 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "categoryLabel": "Seguridad, Puertas & Cortinaje",
     "price": 59990,
     "unit": "mueble",
-    "badge": "Seguridad Hogar",
-    "description": "Servicio especializado de servicio de instalación puertas de mueble de cocina con estándar técnico profesional y garantía de ejecución.",
+    "badge": "Seguridad & Confort",
+    "description": "Soluciones integrales de protección perimetral, control de acceso smart, automatización de portones y acondicionamiento de vanos. Especialidad: Servicio de Instalación Puertas de Mueble de Cocina.",
+    "caracteristicas": "Instalación de alta precisión técnica. Contempla fijación en hormigón/madera/metal, programación electrónica de mandos y tensado de mallas de seguridad.",
     "includes": [
-      "Instalación milimétrica en vano o marco",
-      "Alineación de herrajes y cremalleras",
-      "Configuración de mandos o controles",
-      "Prueba de resistencia y cierre"
+      "Cajeado y calce milimétrico de cerraduras en puertas de acceso",
+      "En motores: fijación sobre base, cremalleras de acero y calibración de fines de carrera",
+      "En mallas: anclajes con pitones zincados cada 5 cm y cuerda perimetral tensada",
+      "En cortinas y soportes: perforación y anclaje con tarugos aptos para cada muro",
+      "Configuración de claves, huellas o sincronización con smartphones"
     ],
+    "notIncludes": [
+      "Dispositivos o accesorios (cerradura smart, motor, cortina, soporte TV, Starlink)",
+      "Canalización eléctrica subterránea de larga distancia para portones",
+      "Reparación de portones oxidados, descuadrados o con rodamientos rotos",
+      "Refuerzo de marcos de puerta carcomidos o vencidos"
+    ],
+    "conditions": "En automatización de portones, la hoja debe deslizar de forma suave manualmente. En cerraduras digitales, el espesor de la puerta debe ser compatible (35 a 65 mm).",
     "iconType": "lock"
   },
   {
@@ -1259,14 +1874,23 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "categoryLabel": "Seguridad, Puertas & Cortinaje",
     "price": 29990,
     "unit": "instalación",
-    "badge": "Seguridad Hogar",
-    "description": "Servicio especializado de servicio de instalación de cortinas roller y persianas con estándar técnico profesional y garantía de ejecución.",
+    "badge": "Seguridad & Confort",
+    "description": "Soluciones integrales de protección perimetral, control de acceso smart, automatización de portones y acondicionamiento de vanos. Especialidad: Servicio de Instalación de cortinas roller y persianas.",
+    "caracteristicas": "Instalación de alta precisión técnica. Contempla fijación en hormigón/madera/metal, programación electrónica de mandos y tensado de mallas de seguridad.",
     "includes": [
-      "Instalación milimétrica en vano o marco",
-      "Alineación de herrajes y cremalleras",
-      "Configuración de mandos o controles",
-      "Prueba de resistencia y cierre"
+      "Cajeado y calce milimétrico de cerraduras en puertas de acceso",
+      "En motores: fijación sobre base, cremalleras de acero y calibración de fines de carrera",
+      "En mallas: anclajes con pitones zincados cada 5 cm y cuerda perimetral tensada",
+      "En cortinas y soportes: perforación y anclaje con tarugos aptos para cada muro",
+      "Configuración de claves, huellas o sincronización con smartphones"
     ],
+    "notIncludes": [
+      "Dispositivos o accesorios (cerradura smart, motor, cortina, soporte TV, Starlink)",
+      "Canalización eléctrica subterránea de larga distancia para portones",
+      "Reparación de portones oxidados, descuadrados o con rodamientos rotos",
+      "Refuerzo de marcos de puerta carcomidos o vencidos"
+    ],
+    "conditions": "En automatización de portones, la hoja debe deslizar de forma suave manualmente. En cerraduras digitales, el espesor de la puerta debe ser compatible (35 a 65 mm).",
     "iconType": "lock"
   },
   {
@@ -1277,14 +1901,23 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "categoryLabel": "Seguridad, Puertas & Cortinaje",
     "price": 99990,
     "unit": "instalación",
-    "badge": "Seguridad Hogar",
-    "description": "Servicio especializado de servicio de confección e instalación de cortinas a medida con estándar técnico profesional y garantía de ejecución.",
+    "badge": "Seguridad & Confort",
+    "description": "Soluciones integrales de protección perimetral, control de acceso smart, automatización de portones y acondicionamiento de vanos. Especialidad: Servicio de Confección e Instalación de Cortinas A Medida.",
+    "caracteristicas": "Instalación de alta precisión técnica. Contempla fijación en hormigón/madera/metal, programación electrónica de mandos y tensado de mallas de seguridad.",
     "includes": [
-      "Instalación milimétrica en vano o marco",
-      "Alineación de herrajes y cremalleras",
-      "Configuración de mandos o controles",
-      "Prueba de resistencia y cierre"
+      "Cajeado y calce milimétrico de cerraduras en puertas de acceso",
+      "En motores: fijación sobre base, cremalleras de acero y calibración de fines de carrera",
+      "En mallas: anclajes con pitones zincados cada 5 cm y cuerda perimetral tensada",
+      "En cortinas y soportes: perforación y anclaje con tarugos aptos para cada muro",
+      "Configuración de claves, huellas o sincronización con smartphones"
     ],
+    "notIncludes": [
+      "Dispositivos o accesorios (cerradura smart, motor, cortina, soporte TV, Starlink)",
+      "Canalización eléctrica subterránea de larga distancia para portones",
+      "Reparación de portones oxidados, descuadrados o con rodamientos rotos",
+      "Refuerzo de marcos de puerta carcomidos o vencidos"
+    ],
+    "conditions": "En automatización de portones, la hoja debe deslizar de forma suave manualmente. En cerraduras digitales, el espesor de la puerta debe ser compatible (35 a 65 mm).",
     "iconType": "lock"
   },
   {
@@ -1295,14 +1928,23 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "categoryLabel": "Seguridad, Puertas & Cortinaje",
     "price": 77990,
     "unit": "instalación",
-    "badge": "Seguridad Hogar",
-    "description": "Servicio especializado de servicio instalación de toldos retráctil con estándar técnico profesional y garantía de ejecución.",
+    "badge": "Seguridad & Confort",
+    "description": "Soluciones integrales de protección perimetral, control de acceso smart, automatización de portones y acondicionamiento de vanos. Especialidad: Servicio Instalación de Toldos Retráctil.",
+    "caracteristicas": "Instalación de alta precisión técnica. Contempla fijación en hormigón/madera/metal, programación electrónica de mandos y tensado de mallas de seguridad.",
     "includes": [
-      "Instalación milimétrica en vano o marco",
-      "Alineación de herrajes y cremalleras",
-      "Configuración de mandos o controles",
-      "Prueba de resistencia y cierre"
+      "Cajeado y calce milimétrico de cerraduras en puertas de acceso",
+      "En motores: fijación sobre base, cremalleras de acero y calibración de fines de carrera",
+      "En mallas: anclajes con pitones zincados cada 5 cm y cuerda perimetral tensada",
+      "En cortinas y soportes: perforación y anclaje con tarugos aptos para cada muro",
+      "Configuración de claves, huellas o sincronización con smartphones"
     ],
+    "notIncludes": [
+      "Dispositivos o accesorios (cerradura smart, motor, cortina, soporte TV, Starlink)",
+      "Canalización eléctrica subterránea de larga distancia para portones",
+      "Reparación de portones oxidados, descuadrados o con rodamientos rotos",
+      "Refuerzo de marcos de puerta carcomidos o vencidos"
+    ],
+    "conditions": "En automatización de portones, la hoja debe deslizar de forma suave manualmente. En cerraduras digitales, el espesor de la puerta debe ser compatible (35 a 65 mm).",
     "iconType": "lock"
   },
   {
@@ -1313,14 +1955,23 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "categoryLabel": "Seguridad, Puertas & Cortinaje",
     "price": 89990,
     "unit": "instalación",
-    "badge": "Seguridad Hogar",
-    "description": "Servicio especializado de servicio instalación motor porton automático y cremalleras con estándar técnico profesional y garantía de ejecución.",
+    "badge": "Seguridad & Confort",
+    "description": "Soluciones integrales de protección perimetral, control de acceso smart, automatización de portones y acondicionamiento de vanos. Especialidad: Servicio Instalación Motor Porton Automático y Cremalleras.",
+    "caracteristicas": "Instalación de alta precisión técnica. Contempla fijación en hormigón/madera/metal, programación electrónica de mandos y tensado de mallas de seguridad.",
     "includes": [
-      "Instalación milimétrica en vano o marco",
-      "Alineación de herrajes y cremalleras",
-      "Configuración de mandos o controles",
-      "Prueba de resistencia y cierre"
+      "Cajeado y calce milimétrico de cerraduras en puertas de acceso",
+      "En motores: fijación sobre base, cremalleras de acero y calibración de fines de carrera",
+      "En mallas: anclajes con pitones zincados cada 5 cm y cuerda perimetral tensada",
+      "En cortinas y soportes: perforación y anclaje con tarugos aptos para cada muro",
+      "Configuración de claves, huellas o sincronización con smartphones"
     ],
+    "notIncludes": [
+      "Dispositivos o accesorios (cerradura smart, motor, cortina, soporte TV, Starlink)",
+      "Canalización eléctrica subterránea de larga distancia para portones",
+      "Reparación de portones oxidados, descuadrados o con rodamientos rotos",
+      "Refuerzo de marcos de puerta carcomidos o vencidos"
+    ],
+    "conditions": "En automatización de portones, la hoja debe deslizar de forma suave manualmente. En cerraduras digitales, el espesor de la puerta debe ser compatible (35 a 65 mm).",
     "iconType": "lock"
   },
   {
@@ -1331,14 +1982,23 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "categoryLabel": "Seguridad, Puertas & Cortinaje",
     "price": 104990,
     "unit": "instalación",
-    "badge": "Seguridad Hogar",
-    "description": "Servicio especializado de servicio instalación de citófono o videoportero con estándar técnico profesional y garantía de ejecución.",
+    "badge": "Seguridad & Confort",
+    "description": "Soluciones integrales de protección perimetral, control de acceso smart, automatización de portones y acondicionamiento de vanos. Especialidad: Servicio Instalación de Citófono o Videoportero.",
+    "caracteristicas": "Instalación de alta precisión técnica. Contempla fijación en hormigón/madera/metal, programación electrónica de mandos y tensado de mallas de seguridad.",
     "includes": [
-      "Instalación milimétrica en vano o marco",
-      "Alineación de herrajes y cremalleras",
-      "Configuración de mandos o controles",
-      "Prueba de resistencia y cierre"
+      "Cajeado y calce milimétrico de cerraduras en puertas de acceso",
+      "En motores: fijación sobre base, cremalleras de acero y calibración de fines de carrera",
+      "En mallas: anclajes con pitones zincados cada 5 cm y cuerda perimetral tensada",
+      "En cortinas y soportes: perforación y anclaje con tarugos aptos para cada muro",
+      "Configuración de claves, huellas o sincronización con smartphones"
     ],
+    "notIncludes": [
+      "Dispositivos o accesorios (cerradura smart, motor, cortina, soporte TV, Starlink)",
+      "Canalización eléctrica subterránea de larga distancia para portones",
+      "Reparación de portones oxidados, descuadrados o con rodamientos rotos",
+      "Refuerzo de marcos de puerta carcomidos o vencidos"
+    ],
+    "conditions": "En automatización de portones, la hoja debe deslizar de forma suave manualmente. En cerraduras digitales, el espesor de la puerta debe ser compatible (35 a 65 mm).",
     "iconType": "lock"
   },
   {
@@ -1349,14 +2009,23 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "categoryLabel": "Seguridad, Puertas & Cortinaje",
     "price": 39990,
     "unit": "instalación",
-    "badge": "Seguridad Hogar",
-    "description": "Servicio especializado de servicio de instalación de soporte para tv con estándar técnico profesional y garantía de ejecución.",
+    "badge": "Seguridad & Confort",
+    "description": "Soluciones integrales de protección perimetral, control de acceso smart, automatización de portones y acondicionamiento de vanos. Especialidad: Servicio de Instalación de soporte para TV.",
+    "caracteristicas": "Instalación de alta precisión técnica. Contempla fijación en hormigón/madera/metal, programación electrónica de mandos y tensado de mallas de seguridad.",
     "includes": [
-      "Instalación milimétrica en vano o marco",
-      "Alineación de herrajes y cremalleras",
-      "Configuración de mandos o controles",
-      "Prueba de resistencia y cierre"
+      "Cajeado y calce milimétrico de cerraduras en puertas de acceso",
+      "En motores: fijación sobre base, cremalleras de acero y calibración de fines de carrera",
+      "En mallas: anclajes con pitones zincados cada 5 cm y cuerda perimetral tensada",
+      "En cortinas y soportes: perforación y anclaje con tarugos aptos para cada muro",
+      "Configuración de claves, huellas o sincronización con smartphones"
     ],
+    "notIncludes": [
+      "Dispositivos o accesorios (cerradura smart, motor, cortina, soporte TV, Starlink)",
+      "Canalización eléctrica subterránea de larga distancia para portones",
+      "Reparación de portones oxidados, descuadrados o con rodamientos rotos",
+      "Refuerzo de marcos de puerta carcomidos o vencidos"
+    ],
+    "conditions": "En automatización de portones, la hoja debe deslizar de forma suave manualmente. En cerraduras digitales, el espesor de la puerta debe ser compatible (35 a 65 mm).",
     "iconType": "lock"
   },
   {
@@ -1367,14 +2036,23 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "categoryLabel": "Seguridad, Puertas & Cortinaje",
     "price": 79990,
     "unit": "instalación",
-    "badge": "Seguridad Hogar",
-    "description": "Servicio especializado de servicio instalación antena, router y starlink con estándar técnico profesional y garantía de ejecución.",
+    "badge": "Seguridad & Confort",
+    "description": "Soluciones integrales de protección perimetral, control de acceso smart, automatización de portones y acondicionamiento de vanos. Especialidad: Servicio Instalación antena, router y Starlink.",
+    "caracteristicas": "Instalación de alta precisión técnica. Contempla fijación en hormigón/madera/metal, programación electrónica de mandos y tensado de mallas de seguridad.",
     "includes": [
-      "Instalación milimétrica en vano o marco",
-      "Alineación de herrajes y cremalleras",
-      "Configuración de mandos o controles",
-      "Prueba de resistencia y cierre"
+      "Cajeado y calce milimétrico de cerraduras en puertas de acceso",
+      "En motores: fijación sobre base, cremalleras de acero y calibración de fines de carrera",
+      "En mallas: anclajes con pitones zincados cada 5 cm y cuerda perimetral tensada",
+      "En cortinas y soportes: perforación y anclaje con tarugos aptos para cada muro",
+      "Configuración de claves, huellas o sincronización con smartphones"
     ],
+    "notIncludes": [
+      "Dispositivos o accesorios (cerradura smart, motor, cortina, soporte TV, Starlink)",
+      "Canalización eléctrica subterránea de larga distancia para portones",
+      "Reparación de portones oxidados, descuadrados o con rodamientos rotos",
+      "Refuerzo de marcos de puerta carcomidos o vencidos"
+    ],
+    "conditions": "En automatización de portones, la hoja debe deslizar de forma suave manualmente. En cerraduras digitales, el espesor de la puerta debe ser compatible (35 a 65 mm).",
     "iconType": "lock"
   },
   {
@@ -1385,14 +2063,23 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "categoryLabel": "Seguridad, Puertas & Cortinaje",
     "price": 329990,
     "unit": "instalación",
-    "badge": "Seguridad Hogar",
-    "description": "Servicio especializado de servicio instalación estándar de escalera de entretecho con estándar técnico profesional y garantía de ejecución.",
+    "badge": "Seguridad & Confort",
+    "description": "Soluciones integrales de protección perimetral, control de acceso smart, automatización de portones y acondicionamiento de vanos. Especialidad: Servicio Instalación estándar de escalera de entretecho.",
+    "caracteristicas": "Instalación de alta precisión técnica. Contempla fijación en hormigón/madera/metal, programación electrónica de mandos y tensado de mallas de seguridad.",
     "includes": [
-      "Instalación milimétrica en vano o marco",
-      "Alineación de herrajes y cremalleras",
-      "Configuración de mandos o controles",
-      "Prueba de resistencia y cierre"
+      "Cajeado y calce milimétrico de cerraduras en puertas de acceso",
+      "En motores: fijación sobre base, cremalleras de acero y calibración de fines de carrera",
+      "En mallas: anclajes con pitones zincados cada 5 cm y cuerda perimetral tensada",
+      "En cortinas y soportes: perforación y anclaje con tarugos aptos para cada muro",
+      "Configuración de claves, huellas o sincronización con smartphones"
     ],
+    "notIncludes": [
+      "Dispositivos o accesorios (cerradura smart, motor, cortina, soporte TV, Starlink)",
+      "Canalización eléctrica subterránea de larga distancia para portones",
+      "Reparación de portones oxidados, descuadrados o con rodamientos rotos",
+      "Refuerzo de marcos de puerta carcomidos o vencidos"
+    ],
+    "conditions": "En automatización de portones, la hoja debe deslizar de forma suave manualmente. En cerraduras digitales, el espesor de la puerta debe ser compatible (35 a 65 mm).",
     "iconType": "lock"
   },
   {
@@ -1403,14 +2090,23 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "categoryLabel": "Seguridad, Puertas & Cortinaje",
     "price": 272990,
     "unit": "instalación",
-    "badge": "Seguridad Hogar",
-    "description": "Servicio especializado de servicio instalación estándar de ventana de techo con estándar técnico profesional y garantía de ejecución.",
+    "badge": "Seguridad & Confort",
+    "description": "Soluciones integrales de protección perimetral, control de acceso smart, automatización de portones y acondicionamiento de vanos. Especialidad: Servicio Instalación estándar de ventana de techo.",
+    "caracteristicas": "Instalación de alta precisión técnica. Contempla fijación en hormigón/madera/metal, programación electrónica de mandos y tensado de mallas de seguridad.",
     "includes": [
-      "Instalación milimétrica en vano o marco",
-      "Alineación de herrajes y cremalleras",
-      "Configuración de mandos o controles",
-      "Prueba de resistencia y cierre"
+      "Cajeado y calce milimétrico de cerraduras en puertas de acceso",
+      "En motores: fijación sobre base, cremalleras de acero y calibración de fines de carrera",
+      "En mallas: anclajes con pitones zincados cada 5 cm y cuerda perimetral tensada",
+      "En cortinas y soportes: perforación y anclaje con tarugos aptos para cada muro",
+      "Configuración de claves, huellas o sincronización con smartphones"
     ],
+    "notIncludes": [
+      "Dispositivos o accesorios (cerradura smart, motor, cortina, soporte TV, Starlink)",
+      "Canalización eléctrica subterránea de larga distancia para portones",
+      "Reparación de portones oxidados, descuadrados o con rodamientos rotos",
+      "Refuerzo de marcos de puerta carcomidos o vencidos"
+    ],
+    "conditions": "En automatización de portones, la hoja debe deslizar de forma suave manualmente. En cerraduras digitales, el espesor de la puerta debe ser compatible (35 a 65 mm).",
     "iconType": "lock"
   },
   {
@@ -1421,14 +2117,22 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "categoryLabel": "Remodelaciones & Proyectos",
     "price": 1090990,
     "unit": "m²",
-    "badge": "Proyecto Mayor",
-    "description": "Servicio especializado de servicio de remodelación de baño hasta 3 mt2 con estándar técnico profesional y garantía de ejecución.",
+    "badge": "Proyectos Integrales",
+    "description": "Proyectos mayores y remodelaciones llave en mano de cocinas, baños, energías renovables y módulos habitacionales con estándar de ingeniería civil. Especialidad: Servicio de Remodelación de Baño hasta 3 mt2.",
+    "caracteristicas": "Coordinación y supervisión técnica integral de obra. Planificación de partidas, cubicación, control de mano de obra y garantía de término según cronograma.",
     "includes": [
-      "Planificación y cubicación en obra",
-      "Suministro o mano de obra integral",
-      "Supervisión técnica de avance",
-      "Entrega con garantía formal"
+      "Planificación y replanteo técnico en obra",
+      "Demoliciones y despeje inicial del área según proyecto",
+      "Ejecución coordinada de partidas (gasfitería, electricidad, albañilería, terminaciones)",
+      "Instalación de muebles de cocina y cubiertas de cuarzo/madera",
+      "Supervisión profesional en terreno y entrega formal con protocolo de recepción"
     ],
+    "notIncludes": [
+      "Artefactos de lujo o electrodomésticos especiales no descritos en la ficha base",
+      "Aumentos de empalme eléctrico TE1/SEC ante la empresa distribuidora",
+      "Obras civiles mayores de fundaciones o radieres no presupuestados"
+    ],
+    "conditions": "Sujeto a visita previa de factibilidad técnica y levantamiento de planos. Proyecto sujeto a contrato de ejecución de obra y cronograma valorizado.",
     "iconType": "hammer"
   },
   {
@@ -1439,14 +2143,22 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "categoryLabel": "Remodelaciones & Proyectos",
     "price": 1290990,
     "unit": "m²",
-    "badge": "Proyecto Mayor",
-    "description": "Servicio especializado de servicio de remodelación de baño hasta 5 mt2 con estándar técnico profesional y garantía de ejecución.",
+    "badge": "Proyectos Integrales",
+    "description": "Proyectos mayores y remodelaciones llave en mano de cocinas, baños, energías renovables y módulos habitacionales con estándar de ingeniería civil. Especialidad: Servicio de Remodelación de Baño hasta 5 mt2.",
+    "caracteristicas": "Coordinación y supervisión técnica integral de obra. Planificación de partidas, cubicación, control de mano de obra y garantía de término según cronograma.",
     "includes": [
-      "Planificación y cubicación en obra",
-      "Suministro o mano de obra integral",
-      "Supervisión técnica de avance",
-      "Entrega con garantía formal"
+      "Planificación y replanteo técnico en obra",
+      "Demoliciones y despeje inicial del área según proyecto",
+      "Ejecución coordinada de partidas (gasfitería, electricidad, albañilería, terminaciones)",
+      "Instalación de muebles de cocina y cubiertas de cuarzo/madera",
+      "Supervisión profesional en terreno y entrega formal con protocolo de recepción"
     ],
+    "notIncludes": [
+      "Artefactos de lujo o electrodomésticos especiales no descritos en la ficha base",
+      "Aumentos de empalme eléctrico TE1/SEC ante la empresa distribuidora",
+      "Obras civiles mayores de fundaciones o radieres no presupuestados"
+    ],
+    "conditions": "Sujeto a visita previa de factibilidad técnica y levantamiento de planos. Proyecto sujeto a contrato de ejecución de obra y cronograma valorizado.",
     "iconType": "hammer"
   },
   {
@@ -1457,14 +2169,22 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "categoryLabel": "Remodelaciones & Proyectos",
     "price": 1490990,
     "unit": "m²",
-    "badge": "Proyecto Mayor",
-    "description": "Servicio especializado de servicio de remodelación de baño hasta 8 mt2 con estándar técnico profesional y garantía de ejecución.",
+    "badge": "Proyectos Integrales",
+    "description": "Proyectos mayores y remodelaciones llave en mano de cocinas, baños, energías renovables y módulos habitacionales con estándar de ingeniería civil. Especialidad: Servicio de Remodelación de Baño hasta 8 mt2.",
+    "caracteristicas": "Coordinación y supervisión técnica integral de obra. Planificación de partidas, cubicación, control de mano de obra y garantía de término según cronograma.",
     "includes": [
-      "Planificación y cubicación en obra",
-      "Suministro o mano de obra integral",
-      "Supervisión técnica de avance",
-      "Entrega con garantía formal"
+      "Planificación y replanteo técnico en obra",
+      "Demoliciones y despeje inicial del área según proyecto",
+      "Ejecución coordinada de partidas (gasfitería, electricidad, albañilería, terminaciones)",
+      "Instalación de muebles de cocina y cubiertas de cuarzo/madera",
+      "Supervisión profesional en terreno y entrega formal con protocolo de recepción"
     ],
+    "notIncludes": [
+      "Artefactos de lujo o electrodomésticos especiales no descritos en la ficha base",
+      "Aumentos de empalme eléctrico TE1/SEC ante la empresa distribuidora",
+      "Obras civiles mayores de fundaciones o radieres no presupuestados"
+    ],
+    "conditions": "Sujeto a visita previa de factibilidad técnica y levantamiento de planos. Proyecto sujeto a contrato de ejecución de obra y cronograma valorizado.",
     "iconType": "hammer"
   },
   {
@@ -1475,14 +2195,22 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "categoryLabel": "Remodelaciones & Proyectos",
     "price": 990990,
     "unit": "proyecto",
-    "badge": "Proyecto Mayor",
-    "description": "Servicio especializado de proyecto de cocina 1,6 metros con cubierta de cuarzo + instalación con estándar técnico profesional y garantía de ejecución.",
+    "badge": "Proyectos Integrales",
+    "description": "Proyectos mayores y remodelaciones llave en mano de cocinas, baños, energías renovables y módulos habitacionales con estándar de ingeniería civil. Especialidad: Proyecto de Cocina 1,6 Metros con Cubierta de Cuarzo + Instalación.",
+    "caracteristicas": "Coordinación y supervisión técnica integral de obra. Planificación de partidas, cubicación, control de mano de obra y garantía de término según cronograma.",
     "includes": [
-      "Planificación y cubicación en obra",
-      "Suministro o mano de obra integral",
-      "Supervisión técnica de avance",
-      "Entrega con garantía formal"
+      "Planificación y replanteo técnico en obra",
+      "Demoliciones y despeje inicial del área según proyecto",
+      "Ejecución coordinada de partidas (gasfitería, electricidad, albañilería, terminaciones)",
+      "Instalación de muebles de cocina y cubiertas de cuarzo/madera",
+      "Supervisión profesional en terreno y entrega formal con protocolo de recepción"
     ],
+    "notIncludes": [
+      "Artefactos de lujo o electrodomésticos especiales no descritos en la ficha base",
+      "Aumentos de empalme eléctrico TE1/SEC ante la empresa distribuidora",
+      "Obras civiles mayores de fundaciones o radieres no presupuestados"
+    ],
+    "conditions": "Sujeto a visita previa de factibilidad técnica y levantamiento de planos. Proyecto sujeto a contrato de ejecución de obra y cronograma valorizado.",
     "iconType": "hammer"
   },
   {
@@ -1493,14 +2221,22 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "categoryLabel": "Remodelaciones & Proyectos",
     "price": 1190990,
     "unit": "proyecto",
-    "badge": "Proyecto Mayor",
-    "description": "Servicio especializado de proyecto de cocina 1,9 metros con cubierta de cuarzo + instalación con estándar técnico profesional y garantía de ejecución.",
+    "badge": "Proyectos Integrales",
+    "description": "Proyectos mayores y remodelaciones llave en mano de cocinas, baños, energías renovables y módulos habitacionales con estándar de ingeniería civil. Especialidad: Proyecto de Cocina 1,9 Metros con Cubierta de Cuarzo + Instalación.",
+    "caracteristicas": "Coordinación y supervisión técnica integral de obra. Planificación de partidas, cubicación, control de mano de obra y garantía de término según cronograma.",
     "includes": [
-      "Planificación y cubicación en obra",
-      "Suministro o mano de obra integral",
-      "Supervisión técnica de avance",
-      "Entrega con garantía formal"
+      "Planificación y replanteo técnico en obra",
+      "Demoliciones y despeje inicial del área según proyecto",
+      "Ejecución coordinada de partidas (gasfitería, electricidad, albañilería, terminaciones)",
+      "Instalación de muebles de cocina y cubiertas de cuarzo/madera",
+      "Supervisión profesional en terreno y entrega formal con protocolo de recepción"
     ],
+    "notIncludes": [
+      "Artefactos de lujo o electrodomésticos especiales no descritos en la ficha base",
+      "Aumentos de empalme eléctrico TE1/SEC ante la empresa distribuidora",
+      "Obras civiles mayores de fundaciones o radieres no presupuestados"
+    ],
+    "conditions": "Sujeto a visita previa de factibilidad técnica y levantamiento de planos. Proyecto sujeto a contrato de ejecución de obra y cronograma valorizado.",
     "iconType": "hammer"
   },
   {
@@ -1511,14 +2247,22 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "categoryLabel": "Remodelaciones & Proyectos",
     "price": 2290990,
     "unit": "proyecto",
-    "badge": "Proyecto Mayor",
-    "description": "Servicio especializado de proyecto de cocina 3 metros con cubierta de madera + instalación con estándar técnico profesional y garantía de ejecución.",
+    "badge": "Proyectos Integrales",
+    "description": "Proyectos mayores y remodelaciones llave en mano de cocinas, baños, energías renovables y módulos habitacionales con estándar de ingeniería civil. Especialidad: Proyecto de Cocina 3 Metros con Cubierta de Madera + Instalación.",
+    "caracteristicas": "Coordinación y supervisión técnica integral de obra. Planificación de partidas, cubicación, control de mano de obra y garantía de término según cronograma.",
     "includes": [
-      "Planificación y cubicación en obra",
-      "Suministro o mano de obra integral",
-      "Supervisión técnica de avance",
-      "Entrega con garantía formal"
+      "Planificación y replanteo técnico en obra",
+      "Demoliciones y despeje inicial del área según proyecto",
+      "Ejecución coordinada de partidas (gasfitería, electricidad, albañilería, terminaciones)",
+      "Instalación de muebles de cocina y cubiertas de cuarzo/madera",
+      "Supervisión profesional en terreno y entrega formal con protocolo de recepción"
     ],
+    "notIncludes": [
+      "Artefactos de lujo o electrodomésticos especiales no descritos en la ficha base",
+      "Aumentos de empalme eléctrico TE1/SEC ante la empresa distribuidora",
+      "Obras civiles mayores de fundaciones o radieres no presupuestados"
+    ],
+    "conditions": "Sujeto a visita previa de factibilidad técnica y levantamiento de planos. Proyecto sujeto a contrato de ejecución de obra y cronograma valorizado.",
     "iconType": "hammer"
   },
   {
@@ -1529,14 +2273,22 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "categoryLabel": "Remodelaciones & Proyectos",
     "price": 2490990,
     "unit": "proyecto",
-    "badge": "Proyecto Mayor",
-    "description": "Servicio especializado de proyecto de cocina 3 metros con cubierta de cuarzo blanco + instalación con estándar técnico profesional y garantía de ejecución.",
+    "badge": "Proyectos Integrales",
+    "description": "Proyectos mayores y remodelaciones llave en mano de cocinas, baños, energías renovables y módulos habitacionales con estándar de ingeniería civil. Especialidad: Proyecto de Cocina 3 Metros con Cubierta de Cuarzo Blanco + Instalación.",
+    "caracteristicas": "Coordinación y supervisión técnica integral de obra. Planificación de partidas, cubicación, control de mano de obra y garantía de término según cronograma.",
     "includes": [
-      "Planificación y cubicación en obra",
-      "Suministro o mano de obra integral",
-      "Supervisión técnica de avance",
-      "Entrega con garantía formal"
+      "Planificación y replanteo técnico en obra",
+      "Demoliciones y despeje inicial del área según proyecto",
+      "Ejecución coordinada de partidas (gasfitería, electricidad, albañilería, terminaciones)",
+      "Instalación de muebles de cocina y cubiertas de cuarzo/madera",
+      "Supervisión profesional en terreno y entrega formal con protocolo de recepción"
     ],
+    "notIncludes": [
+      "Artefactos de lujo o electrodomésticos especiales no descritos en la ficha base",
+      "Aumentos de empalme eléctrico TE1/SEC ante la empresa distribuidora",
+      "Obras civiles mayores de fundaciones o radieres no presupuestados"
+    ],
+    "conditions": "Sujeto a visita previa de factibilidad técnica y levantamiento de planos. Proyecto sujeto a contrato de ejecución de obra y cronograma valorizado.",
     "iconType": "hammer"
   },
   {
@@ -1547,14 +2299,22 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "categoryLabel": "Remodelaciones & Proyectos",
     "price": 3899990,
     "unit": "proyecto",
-    "badge": "Proyecto Mayor",
-    "description": "Servicio especializado de proyecto de instalación energía solar on-grid con estándar técnico profesional y garantía de ejecución.",
+    "badge": "Proyectos Integrales",
+    "description": "Proyectos mayores y remodelaciones llave en mano de cocinas, baños, energías renovables y módulos habitacionales con estándar de ingeniería civil. Especialidad: Proyecto de Instalación energía solar On-Grid.",
+    "caracteristicas": "Coordinación y supervisión técnica integral de obra. Planificación de partidas, cubicación, control de mano de obra y garantía de término según cronograma.",
     "includes": [
-      "Planificación y cubicación en obra",
-      "Suministro o mano de obra integral",
-      "Supervisión técnica de avance",
-      "Entrega con garantía formal"
+      "Planificación y replanteo técnico en obra",
+      "Demoliciones y despeje inicial del área según proyecto",
+      "Ejecución coordinada de partidas (gasfitería, electricidad, albañilería, terminaciones)",
+      "Instalación de muebles de cocina y cubiertas de cuarzo/madera",
+      "Supervisión profesional en terreno y entrega formal con protocolo de recepción"
     ],
+    "notIncludes": [
+      "Artefactos de lujo o electrodomésticos especiales no descritos en la ficha base",
+      "Aumentos de empalme eléctrico TE1/SEC ante la empresa distribuidora",
+      "Obras civiles mayores de fundaciones o radieres no presupuestados"
+    ],
+    "conditions": "Sujeto a visita previa de factibilidad técnica y levantamiento de planos. Proyecto sujeto a contrato de ejecución de obra y cronograma valorizado.",
     "iconType": "hammer"
   },
   {
@@ -1565,14 +2325,22 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "categoryLabel": "Remodelaciones & Proyectos",
     "price": 4799990,
     "unit": "proyecto",
-    "badge": "Proyecto Mayor",
-    "description": "Servicio especializado de proyecto de instalación energía solar off-grid con estándar técnico profesional y garantía de ejecución.",
+    "badge": "Proyectos Integrales",
+    "description": "Proyectos mayores y remodelaciones llave en mano de cocinas, baños, energías renovables y módulos habitacionales con estándar de ingeniería civil. Especialidad: Proyecto de Instalación energía solar Off-Grid.",
+    "caracteristicas": "Coordinación y supervisión técnica integral de obra. Planificación de partidas, cubicación, control de mano de obra y garantía de término según cronograma.",
     "includes": [
-      "Planificación y cubicación en obra",
-      "Suministro o mano de obra integral",
-      "Supervisión técnica de avance",
-      "Entrega con garantía formal"
+      "Planificación y replanteo técnico en obra",
+      "Demoliciones y despeje inicial del área según proyecto",
+      "Ejecución coordinada de partidas (gasfitería, electricidad, albañilería, terminaciones)",
+      "Instalación de muebles de cocina y cubiertas de cuarzo/madera",
+      "Supervisión profesional en terreno y entrega formal con protocolo de recepción"
     ],
+    "notIncludes": [
+      "Artefactos de lujo o electrodomésticos especiales no descritos en la ficha base",
+      "Aumentos de empalme eléctrico TE1/SEC ante la empresa distribuidora",
+      "Obras civiles mayores de fundaciones o radieres no presupuestados"
+    ],
+    "conditions": "Sujeto a visita previa de factibilidad técnica y levantamiento de planos. Proyecto sujeto a contrato de ejecución de obra y cronograma valorizado.",
     "iconType": "hammer"
   },
   {
@@ -1583,14 +2351,22 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "categoryLabel": "Remodelaciones & Proyectos",
     "price": 1899990,
     "unit": "instalación",
-    "badge": "Proyecto Mayor",
-    "description": "Servicio especializado de servicio de instalación de cargadores para vehículos eléctricos con estándar técnico profesional y garantía de ejecución.",
+    "badge": "Proyectos Integrales",
+    "description": "Proyectos mayores y remodelaciones llave en mano de cocinas, baños, energías renovables y módulos habitacionales con estándar de ingeniería civil. Especialidad: Servicio de Instalación de Cargadores para Vehículos Eléctricos.",
+    "caracteristicas": "Coordinación y supervisión técnica integral de obra. Planificación de partidas, cubicación, control de mano de obra y garantía de término según cronograma.",
     "includes": [
-      "Planificación y cubicación en obra",
-      "Suministro o mano de obra integral",
-      "Supervisión técnica de avance",
-      "Entrega con garantía formal"
+      "Planificación y replanteo técnico en obra",
+      "Demoliciones y despeje inicial del área según proyecto",
+      "Ejecución coordinada de partidas (gasfitería, electricidad, albañilería, terminaciones)",
+      "Instalación de muebles de cocina y cubiertas de cuarzo/madera",
+      "Supervisión profesional en terreno y entrega formal con protocolo de recepción"
     ],
+    "notIncludes": [
+      "Artefactos de lujo o electrodomésticos especiales no descritos en la ficha base",
+      "Aumentos de empalme eléctrico TE1/SEC ante la empresa distribuidora",
+      "Obras civiles mayores de fundaciones o radieres no presupuestados"
+    ],
+    "conditions": "Sujeto a visita previa de factibilidad técnica y levantamiento de planos. Proyecto sujeto a contrato de ejecución de obra y cronograma valorizado.",
     "iconType": "hammer"
   },
   {
@@ -1601,14 +2377,22 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "categoryLabel": "Remodelaciones & Proyectos",
     "price": 1590000,
     "unit": "instalación",
-    "badge": "Proyecto Mayor",
-    "description": "Servicio especializado de instalación con cobertura nacional (general) con estándar técnico profesional y garantía de ejecución.",
+    "badge": "Proyectos Integrales",
+    "description": "Proyectos mayores y remodelaciones llave en mano de cocinas, baños, energías renovables y módulos habitacionales con estándar de ingeniería civil. Especialidad: Instalación con cobertura Nacional (General).",
+    "caracteristicas": "Coordinación y supervisión técnica integral de obra. Planificación de partidas, cubicación, control de mano de obra y garantía de término según cronograma.",
     "includes": [
-      "Planificación y cubicación en obra",
-      "Suministro o mano de obra integral",
-      "Supervisión técnica de avance",
-      "Entrega con garantía formal"
+      "Planificación y replanteo técnico en obra",
+      "Demoliciones y despeje inicial del área según proyecto",
+      "Ejecución coordinada de partidas (gasfitería, electricidad, albañilería, terminaciones)",
+      "Instalación de muebles de cocina y cubiertas de cuarzo/madera",
+      "Supervisión profesional en terreno y entrega formal con protocolo de recepción"
     ],
+    "notIncludes": [
+      "Artefactos de lujo o electrodomésticos especiales no descritos en la ficha base",
+      "Aumentos de empalme eléctrico TE1/SEC ante la empresa distribuidora",
+      "Obras civiles mayores de fundaciones o radieres no presupuestados"
+    ],
+    "conditions": "Sujeto a visita previa de factibilidad técnica y levantamiento de planos. Proyecto sujeto a contrato de ejecución de obra y cronograma valorizado.",
     "iconType": "hammer"
   },
   {
@@ -1619,14 +2403,22 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "categoryLabel": "Remodelaciones & Proyectos",
     "price": 13990990,
     "unit": "m²",
-    "badge": "Proyecto Mayor",
-    "description": "Servicio especializado de casa modular maiten 27.6 m2 armada e instalada con estándar técnico profesional y garantía de ejecución.",
+    "badge": "Proyectos Integrales",
+    "description": "Proyectos mayores y remodelaciones llave en mano de cocinas, baños, energías renovables y módulos habitacionales con estándar de ingeniería civil. Especialidad: Casa Modular Maiten 27.6 m2 Armada e Instalada.",
+    "caracteristicas": "Coordinación y supervisión técnica integral de obra. Planificación de partidas, cubicación, control de mano de obra y garantía de término según cronograma.",
     "includes": [
-      "Planificación y cubicación en obra",
-      "Suministro o mano de obra integral",
-      "Supervisión técnica de avance",
-      "Entrega con garantía formal"
+      "Planificación y replanteo técnico en obra",
+      "Demoliciones y despeje inicial del área según proyecto",
+      "Ejecución coordinada de partidas (gasfitería, electricidad, albañilería, terminaciones)",
+      "Instalación de muebles de cocina y cubiertas de cuarzo/madera",
+      "Supervisión profesional en terreno y entrega formal con protocolo de recepción"
     ],
+    "notIncludes": [
+      "Artefactos de lujo o electrodomésticos especiales no descritos en la ficha base",
+      "Aumentos de empalme eléctrico TE1/SEC ante la empresa distribuidora",
+      "Obras civiles mayores de fundaciones o radieres no presupuestados"
+    ],
+    "conditions": "Sujeto a visita previa de factibilidad técnica y levantamiento de planos. Proyecto sujeto a contrato de ejecución de obra y cronograma valorizado.",
     "iconType": "hammer"
   },
   {
@@ -1638,13 +2430,20 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "price": 29990,
     "unit": "mueble",
     "badge": "Sello ECO",
-    "description": "Servicio especializado de servicio de retiro y reciclaje de 1 mueble con estándar técnico profesional y garantía de ejecución.",
+    "description": "Gestión ambiental responsable de enseres, colchones, muebles y electrodomésticos en desuso, asegurando su transporte y valorización en plantas de reciclaje. Especialidad: Servicio de Retiro y Reciclaje de 1 mueble.",
+    "caracteristicas": "Retiro coordinado desde el domicilio particular. Traslado seguro a plantas de tratamiento certificadas para evitar el vertimiento en basurales clandestinos.",
     "includes": [
-      "Retiro coordinado desde el domicilio",
-      "Carga y transporte responsable",
-      "Destino a planta de valorización o reciclaje",
-      "Certificado de gestión ambiental"
+      "Retiro programado desde el interior de la vivienda o departamento",
+      "Carga, estiba y transporte seguro en camión habilitado",
+      "Entrega en centro de acopio o planta de valorización de residuos",
+      "Trazabilidad y gestión con sello de sustentabilidad ambiental"
     ],
+    "notIncludes": [
+      "Desinstalación técnica de artefactos empotrados a la red de agua o gas",
+      "Retiro de escombros de demolición masiva o residuos peligrosos/tóxicos",
+      "Bajada por escaleras en edificios sin ascensor sobre pisos muy altos (se evalúa)"
+    ],
+    "conditions": "El producto debe estar completamente desconectado, desocupado, seco y listo para ser retirado en la puerta o recinto de fácil acceso.",
     "iconType": "file"
   },
   {
@@ -1656,13 +2455,20 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "price": 33990,
     "unit": "instalación",
     "badge": "Sello ECO",
-    "description": "Servicio especializado de servicio de retiro y reciclaje de colchón con estándar técnico profesional y garantía de ejecución.",
+    "description": "Gestión ambiental responsable de enseres, colchones, muebles y electrodomésticos en desuso, asegurando su transporte y valorización en plantas de reciclaje. Especialidad: Servicio de Retiro y Reciclaje de Colchón.",
+    "caracteristicas": "Retiro coordinado desde el domicilio particular. Traslado seguro a plantas de tratamiento certificadas para evitar el vertimiento en basurales clandestinos.",
     "includes": [
-      "Retiro coordinado desde el domicilio",
-      "Carga y transporte responsable",
-      "Destino a planta de valorización o reciclaje",
-      "Certificado de gestión ambiental"
+      "Retiro programado desde el interior de la vivienda o departamento",
+      "Carga, estiba y transporte seguro en camión habilitado",
+      "Entrega en centro de acopio o planta de valorización de residuos",
+      "Trazabilidad y gestión con sello de sustentabilidad ambiental"
     ],
+    "notIncludes": [
+      "Desinstalación técnica de artefactos empotrados a la red de agua o gas",
+      "Retiro de escombros de demolición masiva o residuos peligrosos/tóxicos",
+      "Bajada por escaleras en edificios sin ascensor sobre pisos muy altos (se evalúa)"
+    ],
+    "conditions": "El producto debe estar completamente desconectado, desocupado, seco y listo para ser retirado en la puerta o recinto de fácil acceso.",
     "iconType": "file"
   },
   {
@@ -1674,13 +2480,20 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "price": 33990,
     "unit": "instalación",
     "badge": "Sello ECO",
-    "description": "Servicio especializado de servicio de retiro y reciclaje de 1 electrodoméstico con estándar técnico profesional y garantía de ejecución.",
+    "description": "Gestión ambiental responsable de enseres, colchones, muebles y electrodomésticos en desuso, asegurando su transporte y valorización en plantas de reciclaje. Especialidad: Servicio de Retiro y Reciclaje de 1 Electrodoméstico.",
+    "caracteristicas": "Retiro coordinado desde el domicilio particular. Traslado seguro a plantas de tratamiento certificadas para evitar el vertimiento en basurales clandestinos.",
     "includes": [
-      "Retiro coordinado desde el domicilio",
-      "Carga y transporte responsable",
-      "Destino a planta de valorización o reciclaje",
-      "Certificado de gestión ambiental"
+      "Retiro programado desde el interior de la vivienda o departamento",
+      "Carga, estiba y transporte seguro en camión habilitado",
+      "Entrega en centro de acopio o planta de valorización de residuos",
+      "Trazabilidad y gestión con sello de sustentabilidad ambiental"
     ],
+    "notIncludes": [
+      "Desinstalación técnica de artefactos empotrados a la red de agua o gas",
+      "Retiro de escombros de demolición masiva o residuos peligrosos/tóxicos",
+      "Bajada por escaleras en edificios sin ascensor sobre pisos muy altos (se evalúa)"
+    ],
+    "conditions": "El producto debe estar completamente desconectado, desocupado, seco y listo para ser retirado en la puerta o recinto de fácil acceso.",
     "iconType": "file"
   },
   {
@@ -1692,13 +2505,20 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "price": 16990,
     "unit": "instalación",
     "badge": "Sello ECO",
-    "description": "Servicio especializado de servicio de retiro y reciclaje de calefont (sin desinstalación) con estándar técnico profesional y garantía de ejecución.",
+    "description": "Gestión ambiental responsable de enseres, colchones, muebles y electrodomésticos en desuso, asegurando su transporte y valorización en plantas de reciclaje. Especialidad: Servicio de Retiro y Reciclaje de Calefont (sin desinstalación).",
+    "caracteristicas": "Retiro coordinado desde el domicilio particular. Traslado seguro a plantas de tratamiento certificadas para evitar el vertimiento en basurales clandestinos.",
     "includes": [
-      "Retiro coordinado desde el domicilio",
-      "Carga y transporte responsable",
-      "Destino a planta de valorización o reciclaje",
-      "Certificado de gestión ambiental"
+      "Retiro programado desde el interior de la vivienda o departamento",
+      "Carga, estiba y transporte seguro en camión habilitado",
+      "Entrega en centro de acopio o planta de valorización de residuos",
+      "Trazabilidad y gestión con sello de sustentabilidad ambiental"
     ],
+    "notIncludes": [
+      "Desinstalación técnica de artefactos empotrados a la red de agua o gas",
+      "Retiro de escombros de demolición masiva o residuos peligrosos/tóxicos",
+      "Bajada por escaleras en edificios sin ascensor sobre pisos muy altos (se evalúa)"
+    ],
+    "conditions": "El producto debe estar completamente desconectado, desocupado, seco y listo para ser retirado en la puerta o recinto de fácil acceso.",
     "iconType": "file"
   },
   {
@@ -1709,14 +2529,21 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "categoryLabel": "Visitas de Presupuesto & Asesorías",
     "price": 29990,
     "unit": "visita",
-    "badge": "En Terreno",
-    "description": "Servicio especializado de asesoría diseño remodelación de baño cocina con estándar técnico profesional y garantía de ejecución.",
+    "badge": "100% Reembolsable",
+    "description": "Evaluación técnica presencial en tu domicilio para levantar medidas, diagnosticar factibilidades de instalación y entregar un presupuesto detallado sin sorpresas. Especialidad: Asesoría diseño remodelación de Baño Cocina.",
+    "caracteristicas": "Visita realizada por técnicos o profesionales de obra. Se realiza levantamiento métrico con distanciómetro láser, análisis de preexistencias y asesoría técnica directa.",
     "includes": [
-      "Evaluación técnica presencial en terreno",
-      "Levantamiento de medidas y factibilidad",
-      "Presupuesto formal detallado en 24-48h",
-      "Asesoría técnica personalizada"
+      "Visita presencial coordinada en tu domicilio o terreno",
+      "Levantamiento de medidas milimétricas y revisión de factibilidad",
+      "Diagnóstico del estado de pisos, muros o redes existentes",
+      "Envío de cotización y presupuesto formal en 24 a 48 horas",
+      "El valor total pagado por la visita se descuenta íntegro al contratar el servicio"
     ],
+    "notIncludes": [
+      "Ejecución física de trabajos o reparaciones durante la visita técnica",
+      "Elaboración de planos de arquitectura o memorias de cálculo de ingeniería"
+    ],
+    "conditions": "Válido para el radio urbano estándar. En caso de requerir visitas fuera del radio urbano, se coordinará un recargo por traslado.",
     "iconType": "file"
   },
   {
@@ -1727,14 +2554,21 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "categoryLabel": "Visitas de Presupuesto & Asesorías",
     "price": 16990,
     "unit": "visita",
-    "badge": "En Terreno",
-    "description": "Servicio especializado de visita presupuesto instalación de cerámica con estándar técnico profesional y garantía de ejecución.",
+    "badge": "100% Reembolsable",
+    "description": "Evaluación técnica presencial en tu domicilio para levantar medidas, diagnosticar factibilidades de instalación y entregar un presupuesto detallado sin sorpresas. Especialidad: Visita Presupuesto Instalación de Cerámica.",
+    "caracteristicas": "Visita realizada por técnicos o profesionales de obra. Se realiza levantamiento métrico con distanciómetro láser, análisis de preexistencias y asesoría técnica directa.",
     "includes": [
-      "Evaluación técnica presencial en terreno",
-      "Levantamiento de medidas y factibilidad",
-      "Presupuesto formal detallado en 24-48h",
-      "Asesoría técnica personalizada"
+      "Visita presencial coordinada en tu domicilio o terreno",
+      "Levantamiento de medidas milimétricas y revisión de factibilidad",
+      "Diagnóstico del estado de pisos, muros o redes existentes",
+      "Envío de cotización y presupuesto formal en 24 a 48 horas",
+      "El valor total pagado por la visita se descuenta íntegro al contratar el servicio"
     ],
+    "notIncludes": [
+      "Ejecución física de trabajos o reparaciones durante la visita técnica",
+      "Elaboración de planos de arquitectura o memorias de cálculo de ingeniería"
+    ],
+    "conditions": "Contratación mínima de 15 m². Superficie base afinada, limpia y libre de humedad. Sujeto a rectificación técnica.",
     "iconType": "file"
   },
   {
@@ -1745,14 +2579,21 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "categoryLabel": "Visitas de Presupuesto & Asesorías",
     "price": 20000,
     "unit": "visita",
-    "badge": "En Terreno",
-    "description": "Servicio especializado de visita presupuesto instalación de piso vinílico con estándar técnico profesional y garantía de ejecución.",
+    "badge": "100% Reembolsable",
+    "description": "Evaluación técnica presencial en tu domicilio para levantar medidas, diagnosticar factibilidades de instalación y entregar un presupuesto detallado sin sorpresas. Especialidad: Visita Presupuesto Instalación de Piso Vinílico.",
+    "caracteristicas": "Visita realizada por técnicos o profesionales de obra. Se realiza levantamiento métrico con distanciómetro láser, análisis de preexistencias y asesoría técnica directa.",
     "includes": [
-      "Evaluación técnica presencial en terreno",
-      "Levantamiento de medidas y factibilidad",
-      "Presupuesto formal detallado en 24-48h",
-      "Asesoría técnica personalizada"
+      "Visita presencial coordinada en tu domicilio o terreno",
+      "Levantamiento de medidas milimétricas y revisión de factibilidad",
+      "Diagnóstico del estado de pisos, muros o redes existentes",
+      "Envío de cotización y presupuesto formal en 24 a 48 horas",
+      "El valor total pagado por la visita se descuenta íntegro al contratar el servicio"
     ],
+    "notIncludes": [
+      "Ejecución física de trabajos o reparaciones durante la visita técnica",
+      "Elaboración de planos de arquitectura o memorias de cálculo de ingeniería"
+    ],
+    "conditions": "Contratación mínima de 15 m². Superficie base afinada, limpia y libre de humedad. Sujeto a rectificación técnica.",
     "iconType": "file"
   },
   {
@@ -1763,14 +2604,21 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "categoryLabel": "Visitas de Presupuesto & Asesorías",
     "price": 16990,
     "unit": "visita",
-    "badge": "En Terreno",
-    "description": "Servicio especializado de visita presupuesto instalación de porcelanato con estándar técnico profesional y garantía de ejecución.",
+    "badge": "100% Reembolsable",
+    "description": "Evaluación técnica presencial en tu domicilio para levantar medidas, diagnosticar factibilidades de instalación y entregar un presupuesto detallado sin sorpresas. Especialidad: Visita Presupuesto Instalación de Porcelanato.",
+    "caracteristicas": "Visita realizada por técnicos o profesionales de obra. Se realiza levantamiento métrico con distanciómetro láser, análisis de preexistencias y asesoría técnica directa.",
     "includes": [
-      "Evaluación técnica presencial en terreno",
-      "Levantamiento de medidas y factibilidad",
-      "Presupuesto formal detallado en 24-48h",
-      "Asesoría técnica personalizada"
+      "Visita presencial coordinada en tu domicilio o terreno",
+      "Levantamiento de medidas milimétricas y revisión de factibilidad",
+      "Diagnóstico del estado de pisos, muros o redes existentes",
+      "Envío de cotización y presupuesto formal en 24 a 48 horas",
+      "El valor total pagado por la visita se descuenta íntegro al contratar el servicio"
     ],
+    "notIncludes": [
+      "Ejecución física de trabajos o reparaciones durante la visita técnica",
+      "Elaboración de planos de arquitectura o memorias de cálculo de ingeniería"
+    ],
+    "conditions": "Contratación mínima de 15 m². Superficie base afinada, limpia y libre de humedad. Sujeto a rectificación técnica.",
     "iconType": "file"
   },
   {
@@ -1781,14 +2629,21 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "categoryLabel": "Visitas de Presupuesto & Asesorías",
     "price": 20000,
     "unit": "visita",
-    "badge": "En Terreno",
-    "description": "Servicio especializado de visita presupuesto aplicación pintura exterior o interior con estándar técnico profesional y garantía de ejecución.",
+    "badge": "100% Reembolsable",
+    "description": "Evaluación técnica presencial en tu domicilio para levantar medidas, diagnosticar factibilidades de instalación y entregar un presupuesto detallado sin sorpresas. Especialidad: Visita Presupuesto Aplicación Pintura Exterior o Interior.",
+    "caracteristicas": "Visita realizada por técnicos o profesionales de obra. Se realiza levantamiento métrico con distanciómetro láser, análisis de preexistencias y asesoría técnica directa.",
     "includes": [
-      "Evaluación técnica presencial en terreno",
-      "Levantamiento de medidas y factibilidad",
-      "Presupuesto formal detallado en 24-48h",
-      "Asesoría técnica personalizada"
+      "Visita presencial coordinada en tu domicilio o terreno",
+      "Levantamiento de medidas milimétricas y revisión de factibilidad",
+      "Diagnóstico del estado de pisos, muros o redes existentes",
+      "Envío de cotización y presupuesto formal en 24 a 48 horas",
+      "El valor total pagado por la visita se descuenta íntegro al contratar el servicio"
     ],
+    "notIncludes": [
+      "Ejecución física de trabajos o reparaciones durante la visita técnica",
+      "Elaboración de planos de arquitectura o memorias de cálculo de ingeniería"
+    ],
+    "conditions": "Válido para el radio urbano estándar. En caso de requerir visitas fuera del radio urbano, se coordinará un recargo por traslado.",
     "iconType": "file"
   },
   {
@@ -1799,14 +2654,21 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "categoryLabel": "Visitas de Presupuesto & Asesorías",
     "price": 29990,
     "unit": "visita",
-    "badge": "En Terreno",
-    "description": "Servicio especializado de visita presupuesto fabricación e instalación ventanas a medida con estándar técnico profesional y garantía de ejecución.",
+    "badge": "100% Reembolsable",
+    "description": "Evaluación técnica presencial en tu domicilio para levantar medidas, diagnosticar factibilidades de instalación y entregar un presupuesto detallado sin sorpresas. Especialidad: Visita Presupuesto Fabricación e Instalación Ventanas a Medida.",
+    "caracteristicas": "Visita realizada por técnicos o profesionales de obra. Se realiza levantamiento métrico con distanciómetro láser, análisis de preexistencias y asesoría técnica directa.",
     "includes": [
-      "Evaluación técnica presencial en terreno",
-      "Levantamiento de medidas y factibilidad",
-      "Presupuesto formal detallado en 24-48h",
-      "Asesoría técnica personalizada"
+      "Visita presencial coordinada en tu domicilio o terreno",
+      "Levantamiento de medidas milimétricas y revisión de factibilidad",
+      "Diagnóstico del estado de pisos, muros o redes existentes",
+      "Envío de cotización y presupuesto formal en 24 a 48 horas",
+      "El valor total pagado por la visita se descuenta íntegro al contratar el servicio"
     ],
+    "notIncludes": [
+      "Ejecución física de trabajos o reparaciones durante la visita técnica",
+      "Elaboración de planos de arquitectura o memorias de cálculo de ingeniería"
+    ],
+    "conditions": "Válido para el radio urbano estándar. En caso de requerir visitas fuera del radio urbano, se coordinará un recargo por traslado.",
     "iconType": "file"
   },
   {
@@ -1817,14 +2679,21 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "categoryLabel": "Visitas de Presupuesto & Asesorías",
     "price": 29990,
     "unit": "visita",
-    "badge": "En Terreno",
-    "description": "Servicio especializado de visita presupuesto cortinas de cristal plegable terrazas/balcones con estándar técnico profesional y garantía de ejecución.",
+    "badge": "100% Reembolsable",
+    "description": "Evaluación técnica presencial en tu domicilio para levantar medidas, diagnosticar factibilidades de instalación y entregar un presupuesto detallado sin sorpresas. Especialidad: Visita Presupuesto Cortinas de Cristal Plegable Terrazas/Balcones.",
+    "caracteristicas": "Visita realizada por técnicos o profesionales de obra. Se realiza levantamiento métrico con distanciómetro láser, análisis de preexistencias y asesoría técnica directa.",
     "includes": [
-      "Evaluación técnica presencial en terreno",
-      "Levantamiento de medidas y factibilidad",
-      "Presupuesto formal detallado en 24-48h",
-      "Asesoría técnica personalizada"
+      "Visita presencial coordinada en tu domicilio o terreno",
+      "Levantamiento de medidas milimétricas y revisión de factibilidad",
+      "Diagnóstico del estado de pisos, muros o redes existentes",
+      "Envío de cotización y presupuesto formal en 24 a 48 horas",
+      "El valor total pagado por la visita se descuenta íntegro al contratar el servicio"
     ],
+    "notIncludes": [
+      "Ejecución física de trabajos o reparaciones durante la visita técnica",
+      "Elaboración de planos de arquitectura o memorias de cálculo de ingeniería"
+    ],
+    "conditions": "Válido para el radio urbano estándar. En caso de requerir visitas fuera del radio urbano, se coordinará un recargo por traslado.",
     "iconType": "file"
   },
   {
@@ -1835,14 +2704,21 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "categoryLabel": "Visitas de Presupuesto & Asesorías",
     "price": 20000,
     "unit": "visita",
-    "badge": "En Terreno",
-    "description": "Servicio especializado de visita presupuesto instalación cubierta con estándar técnico profesional y garantía de ejecución.",
+    "badge": "100% Reembolsable",
+    "description": "Evaluación técnica presencial en tu domicilio para levantar medidas, diagnosticar factibilidades de instalación y entregar un presupuesto detallado sin sorpresas. Especialidad: Visita Presupuesto Instalación Cubierta.",
+    "caracteristicas": "Visita realizada por técnicos o profesionales de obra. Se realiza levantamiento métrico con distanciómetro láser, análisis de preexistencias y asesoría técnica directa.",
     "includes": [
-      "Evaluación técnica presencial en terreno",
-      "Levantamiento de medidas y factibilidad",
-      "Presupuesto formal detallado en 24-48h",
-      "Asesoría técnica personalizada"
+      "Visita presencial coordinada en tu domicilio o terreno",
+      "Levantamiento de medidas milimétricas y revisión de factibilidad",
+      "Diagnóstico del estado de pisos, muros o redes existentes",
+      "Envío de cotización y presupuesto formal en 24 a 48 horas",
+      "El valor total pagado por la visita se descuenta íntegro al contratar el servicio"
     ],
+    "notIncludes": [
+      "Ejecución física de trabajos o reparaciones durante la visita técnica",
+      "Elaboración de planos de arquitectura o memorias de cálculo de ingeniería"
+    ],
+    "conditions": "Válido para el radio urbano estándar. En caso de requerir visitas fuera del radio urbano, se coordinará un recargo por traslado.",
     "iconType": "file"
   },
   {
@@ -1853,14 +2729,21 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "categoryLabel": "Visitas de Presupuesto & Asesorías",
     "price": 20000,
     "unit": "visita",
-    "badge": "En Terreno",
-    "description": "Servicio especializado de visita para presupuesto instalación de aire acondicionado con estándar técnico profesional y garantía de ejecución.",
+    "badge": "100% Reembolsable",
+    "description": "Evaluación técnica presencial en tu domicilio para levantar medidas, diagnosticar factibilidades de instalación y entregar un presupuesto detallado sin sorpresas. Especialidad: Visita para presupuesto Instalación de Aire Acondicionado.",
+    "caracteristicas": "Visita realizada por técnicos o profesionales de obra. Se realiza levantamiento métrico con distanciómetro láser, análisis de preexistencias y asesoría técnica directa.",
     "includes": [
-      "Evaluación técnica presencial en terreno",
-      "Levantamiento de medidas y factibilidad",
-      "Presupuesto formal detallado en 24-48h",
-      "Asesoría técnica personalizada"
+      "Visita presencial coordinada en tu domicilio o terreno",
+      "Levantamiento de medidas milimétricas y revisión de factibilidad",
+      "Diagnóstico del estado de pisos, muros o redes existentes",
+      "Envío de cotización y presupuesto formal en 24 a 48 horas",
+      "El valor total pagado por la visita se descuenta íntegro al contratar el servicio"
     ],
+    "notIncludes": [
+      "Ejecución física de trabajos o reparaciones durante la visita técnica",
+      "Elaboración de planos de arquitectura o memorias de cálculo de ingeniería"
+    ],
+    "conditions": "Válido para el radio urbano estándar. En caso de requerir visitas fuera del radio urbano, se coordinará un recargo por traslado.",
     "iconType": "file"
   },
   {
@@ -1871,14 +2754,21 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "categoryLabel": "Visitas de Presupuesto & Asesorías",
     "price": 20000,
     "unit": "visita",
-    "badge": "En Terreno",
-    "description": "Servicio especializado de visita presupuesto instalación sistema paneles solares con estándar técnico profesional y garantía de ejecución.",
+    "badge": "100% Reembolsable",
+    "description": "Evaluación técnica presencial en tu domicilio para levantar medidas, diagnosticar factibilidades de instalación y entregar un presupuesto detallado sin sorpresas. Especialidad: Visita Presupuesto Instalación Sistema Paneles Solares.",
+    "caracteristicas": "Visita realizada por técnicos o profesionales de obra. Se realiza levantamiento métrico con distanciómetro láser, análisis de preexistencias y asesoría técnica directa.",
     "includes": [
-      "Evaluación técnica presencial en terreno",
-      "Levantamiento de medidas y factibilidad",
-      "Presupuesto formal detallado en 24-48h",
-      "Asesoría técnica personalizada"
+      "Visita presencial coordinada en tu domicilio o terreno",
+      "Levantamiento de medidas milimétricas y revisión de factibilidad",
+      "Diagnóstico del estado de pisos, muros o redes existentes",
+      "Envío de cotización y presupuesto formal en 24 a 48 horas",
+      "El valor total pagado por la visita se descuenta íntegro al contratar el servicio"
     ],
+    "notIncludes": [
+      "Ejecución física de trabajos o reparaciones durante la visita técnica",
+      "Elaboración de planos de arquitectura o memorias de cálculo de ingeniería"
+    ],
+    "conditions": "Válido para el radio urbano estándar. En caso de requerir visitas fuera del radio urbano, se coordinará un recargo por traslado.",
     "iconType": "file"
   },
   {
@@ -1889,14 +2779,21 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "categoryLabel": "Visitas de Presupuesto & Asesorías",
     "price": 20000,
     "unit": "visita",
-    "badge": "En Terreno",
-    "description": "Servicio especializado de visita para presupuesto instalación portón automático con estándar técnico profesional y garantía de ejecución.",
+    "badge": "100% Reembolsable",
+    "description": "Evaluación técnica presencial en tu domicilio para levantar medidas, diagnosticar factibilidades de instalación y entregar un presupuesto detallado sin sorpresas. Especialidad: Visita para Presupuesto Instalación Portón Automático.",
+    "caracteristicas": "Visita realizada por técnicos o profesionales de obra. Se realiza levantamiento métrico con distanciómetro láser, análisis de preexistencias y asesoría técnica directa.",
     "includes": [
-      "Evaluación técnica presencial en terreno",
-      "Levantamiento de medidas y factibilidad",
-      "Presupuesto formal detallado en 24-48h",
-      "Asesoría técnica personalizada"
+      "Visita presencial coordinada en tu domicilio o terreno",
+      "Levantamiento de medidas milimétricas y revisión de factibilidad",
+      "Diagnóstico del estado de pisos, muros o redes existentes",
+      "Envío de cotización y presupuesto formal en 24 a 48 horas",
+      "El valor total pagado por la visita se descuenta íntegro al contratar el servicio"
     ],
+    "notIncludes": [
+      "Ejecución física de trabajos o reparaciones durante la visita técnica",
+      "Elaboración de planos de arquitectura o memorias de cálculo de ingeniería"
+    ],
+    "conditions": "Válido para el radio urbano estándar. En caso de requerir visitas fuera del radio urbano, se coordinará un recargo por traslado.",
     "iconType": "file"
   },
   {
@@ -1907,14 +2804,21 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "categoryLabel": "Visitas de Presupuesto & Asesorías",
     "price": 20000,
     "unit": "visita",
-    "badge": "En Terreno",
-    "description": "Servicio especializado de visita presupuesto instalación calefactor leña bosca con estándar técnico profesional y garantía de ejecución.",
+    "badge": "100% Reembolsable",
+    "description": "Evaluación técnica presencial en tu domicilio para levantar medidas, diagnosticar factibilidades de instalación y entregar un presupuesto detallado sin sorpresas. Especialidad: Visita Presupuesto Instalación Calefactor Leña BOSCA.",
+    "caracteristicas": "Visita realizada por técnicos o profesionales de obra. Se realiza levantamiento métrico con distanciómetro láser, análisis de preexistencias y asesoría técnica directa.",
     "includes": [
-      "Evaluación técnica presencial en terreno",
-      "Levantamiento de medidas y factibilidad",
-      "Presupuesto formal detallado en 24-48h",
-      "Asesoría técnica personalizada"
+      "Visita presencial coordinada en tu domicilio o terreno",
+      "Levantamiento de medidas milimétricas y revisión de factibilidad",
+      "Diagnóstico del estado de pisos, muros o redes existentes",
+      "Envío de cotización y presupuesto formal en 24 a 48 horas",
+      "El valor total pagado por la visita se descuenta íntegro al contratar el servicio"
     ],
+    "notIncludes": [
+      "Ejecución física de trabajos o reparaciones durante la visita técnica",
+      "Elaboración de planos de arquitectura o memorias de cálculo de ingeniería"
+    ],
+    "conditions": "Válido para el radio urbano estándar. En caso de requerir visitas fuera del radio urbano, se coordinará un recargo por traslado.",
     "iconType": "file"
   },
   {
@@ -1925,14 +2829,21 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "categoryLabel": "Visitas de Presupuesto & Asesorías",
     "price": 20000,
     "unit": "visita",
-    "badge": "En Terreno",
-    "description": "Servicio especializado de visita presupuesto instalación calefactor leña amesti con estándar técnico profesional y garantía de ejecución.",
+    "badge": "100% Reembolsable",
+    "description": "Evaluación técnica presencial en tu domicilio para levantar medidas, diagnosticar factibilidades de instalación y entregar un presupuesto detallado sin sorpresas. Especialidad: Visita Presupuesto Instalación Calefactor Leña AMESTI.",
+    "caracteristicas": "Visita realizada por técnicos o profesionales de obra. Se realiza levantamiento métrico con distanciómetro láser, análisis de preexistencias y asesoría técnica directa.",
     "includes": [
-      "Evaluación técnica presencial en terreno",
-      "Levantamiento de medidas y factibilidad",
-      "Presupuesto formal detallado en 24-48h",
-      "Asesoría técnica personalizada"
+      "Visita presencial coordinada en tu domicilio o terreno",
+      "Levantamiento de medidas milimétricas y revisión de factibilidad",
+      "Diagnóstico del estado de pisos, muros o redes existentes",
+      "Envío de cotización y presupuesto formal en 24 a 48 horas",
+      "El valor total pagado por la visita se descuenta íntegro al contratar el servicio"
     ],
+    "notIncludes": [
+      "Ejecución física de trabajos o reparaciones durante la visita técnica",
+      "Elaboración de planos de arquitectura o memorias de cálculo de ingeniería"
+    ],
+    "conditions": "Válido para el radio urbano estándar. En caso de requerir visitas fuera del radio urbano, se coordinará un recargo por traslado.",
     "iconType": "file"
   },
   {
@@ -1943,14 +2854,21 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "categoryLabel": "Visitas de Presupuesto & Asesorías",
     "price": 20000,
     "unit": "visita",
-    "badge": "En Terreno",
-    "description": "Servicio especializado de visita presupuesto instalación calefactor pellet bosca con estándar técnico profesional y garantía de ejecución.",
+    "badge": "100% Reembolsable",
+    "description": "Evaluación técnica presencial en tu domicilio para levantar medidas, diagnosticar factibilidades de instalación y entregar un presupuesto detallado sin sorpresas. Especialidad: Visita Presupuesto Instalación Calefactor Pellet BOSCA.",
+    "caracteristicas": "Visita realizada por técnicos o profesionales de obra. Se realiza levantamiento métrico con distanciómetro láser, análisis de preexistencias y asesoría técnica directa.",
     "includes": [
-      "Evaluación técnica presencial en terreno",
-      "Levantamiento de medidas y factibilidad",
-      "Presupuesto formal detallado en 24-48h",
-      "Asesoría técnica personalizada"
+      "Visita presencial coordinada en tu domicilio o terreno",
+      "Levantamiento de medidas milimétricas y revisión de factibilidad",
+      "Diagnóstico del estado de pisos, muros o redes existentes",
+      "Envío de cotización y presupuesto formal en 24 a 48 horas",
+      "El valor total pagado por la visita se descuenta íntegro al contratar el servicio"
     ],
+    "notIncludes": [
+      "Ejecución física de trabajos o reparaciones durante la visita técnica",
+      "Elaboración de planos de arquitectura o memorias de cálculo de ingeniería"
+    ],
+    "conditions": "Válido para el radio urbano estándar. En caso de requerir visitas fuera del radio urbano, se coordinará un recargo por traslado.",
     "iconType": "file"
   },
   {
@@ -1961,14 +2879,21 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "categoryLabel": "Visitas de Presupuesto & Asesorías",
     "price": 20000,
     "unit": "visita",
-    "badge": "En Terreno",
-    "description": "Servicio especializado de visita presupuesto instalación calefactor pellet otras marcas con estándar técnico profesional y garantía de ejecución.",
+    "badge": "100% Reembolsable",
+    "description": "Evaluación técnica presencial en tu domicilio para levantar medidas, diagnosticar factibilidades de instalación y entregar un presupuesto detallado sin sorpresas. Especialidad: Visita Presupuesto Instalación Calefactor Pellet Otras Marcas.",
+    "caracteristicas": "Visita realizada por técnicos o profesionales de obra. Se realiza levantamiento métrico con distanciómetro láser, análisis de preexistencias y asesoría técnica directa.",
     "includes": [
-      "Evaluación técnica presencial en terreno",
-      "Levantamiento de medidas y factibilidad",
-      "Presupuesto formal detallado en 24-48h",
-      "Asesoría técnica personalizada"
+      "Visita presencial coordinada en tu domicilio o terreno",
+      "Levantamiento de medidas milimétricas y revisión de factibilidad",
+      "Diagnóstico del estado de pisos, muros o redes existentes",
+      "Envío de cotización y presupuesto formal en 24 a 48 horas",
+      "El valor total pagado por la visita se descuenta íntegro al contratar el servicio"
     ],
+    "notIncludes": [
+      "Ejecución física de trabajos o reparaciones durante la visita técnica",
+      "Elaboración de planos de arquitectura o memorias de cálculo de ingeniería"
+    ],
+    "conditions": "Válido para el radio urbano estándar. En caso de requerir visitas fuera del radio urbano, se coordinará un recargo por traslado.",
     "iconType": "file"
   },
   {
@@ -1979,14 +2904,21 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "categoryLabel": "Visitas de Presupuesto & Asesorías",
     "price": 20000,
     "unit": "visita",
-    "badge": "En Terreno",
-    "description": "Servicio especializado de visita presupuesto instalación de calefón con estándar técnico profesional y garantía de ejecución.",
+    "badge": "100% Reembolsable",
+    "description": "Evaluación técnica presencial en tu domicilio para levantar medidas, diagnosticar factibilidades de instalación y entregar un presupuesto detallado sin sorpresas. Especialidad: Visita Presupuesto Instalación de Calefón.",
+    "caracteristicas": "Visita realizada por técnicos o profesionales de obra. Se realiza levantamiento métrico con distanciómetro láser, análisis de preexistencias y asesoría técnica directa.",
     "includes": [
-      "Evaluación técnica presencial en terreno",
-      "Levantamiento de medidas y factibilidad",
-      "Presupuesto formal detallado en 24-48h",
-      "Asesoría técnica personalizada"
+      "Visita presencial coordinada en tu domicilio o terreno",
+      "Levantamiento de medidas milimétricas y revisión de factibilidad",
+      "Diagnóstico del estado de pisos, muros o redes existentes",
+      "Envío de cotización y presupuesto formal en 24 a 48 horas",
+      "El valor total pagado por la visita se descuenta íntegro al contratar el servicio"
     ],
+    "notIncludes": [
+      "Ejecución física de trabajos o reparaciones durante la visita técnica",
+      "Elaboración de planos de arquitectura o memorias de cálculo de ingeniería"
+    ],
+    "conditions": "Válido para el radio urbano estándar. En caso de requerir visitas fuera del radio urbano, se coordinará un recargo por traslado.",
     "iconType": "file"
   },
   {
@@ -1997,14 +2929,21 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "categoryLabel": "Visitas de Presupuesto & Asesorías",
     "price": 29990,
     "unit": "visita",
-    "badge": "En Terreno",
-    "description": "Servicio especializado de visita presupuesto confección e instalación cortinas roller con estándar técnico profesional y garantía de ejecución.",
+    "badge": "100% Reembolsable",
+    "description": "Evaluación técnica presencial en tu domicilio para levantar medidas, diagnosticar factibilidades de instalación y entregar un presupuesto detallado sin sorpresas. Especialidad: Visita Presupuesto Confección e Instalación Cortinas Roller.",
+    "caracteristicas": "Visita realizada por técnicos o profesionales de obra. Se realiza levantamiento métrico con distanciómetro láser, análisis de preexistencias y asesoría técnica directa.",
     "includes": [
-      "Evaluación técnica presencial en terreno",
-      "Levantamiento de medidas y factibilidad",
-      "Presupuesto formal detallado en 24-48h",
-      "Asesoría técnica personalizada"
+      "Visita presencial coordinada en tu domicilio o terreno",
+      "Levantamiento de medidas milimétricas y revisión de factibilidad",
+      "Diagnóstico del estado de pisos, muros o redes existentes",
+      "Envío de cotización y presupuesto formal en 24 a 48 horas",
+      "El valor total pagado por la visita se descuenta íntegro al contratar el servicio"
     ],
+    "notIncludes": [
+      "Ejecución física de trabajos o reparaciones durante la visita técnica",
+      "Elaboración de planos de arquitectura o memorias de cálculo de ingeniería"
+    ],
+    "conditions": "Válido para el radio urbano estándar. En caso de requerir visitas fuera del radio urbano, se coordinará un recargo por traslado.",
     "iconType": "file"
   },
   {
@@ -2015,14 +2954,21 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "categoryLabel": "Visitas de Presupuesto & Asesorías",
     "price": 20000,
     "unit": "visita",
-    "badge": "En Terreno",
-    "description": "Servicio especializado de visita presupuesto instalación antena starlink con estándar técnico profesional y garantía de ejecución.",
+    "badge": "100% Reembolsable",
+    "description": "Evaluación técnica presencial en tu domicilio para levantar medidas, diagnosticar factibilidades de instalación y entregar un presupuesto detallado sin sorpresas. Especialidad: Visita Presupuesto Instalación Antena Starlink.",
+    "caracteristicas": "Visita realizada por técnicos o profesionales de obra. Se realiza levantamiento métrico con distanciómetro láser, análisis de preexistencias y asesoría técnica directa.",
     "includes": [
-      "Evaluación técnica presencial en terreno",
-      "Levantamiento de medidas y factibilidad",
-      "Presupuesto formal detallado en 24-48h",
-      "Asesoría técnica personalizada"
+      "Visita presencial coordinada en tu domicilio o terreno",
+      "Levantamiento de medidas milimétricas y revisión de factibilidad",
+      "Diagnóstico del estado de pisos, muros o redes existentes",
+      "Envío de cotización y presupuesto formal en 24 a 48 horas",
+      "El valor total pagado por la visita se descuenta íntegro al contratar el servicio"
     ],
+    "notIncludes": [
+      "Ejecución física de trabajos o reparaciones durante la visita técnica",
+      "Elaboración de planos de arquitectura o memorias de cálculo de ingeniería"
+    ],
+    "conditions": "Válido para el radio urbano estándar. En caso de requerir visitas fuera del radio urbano, se coordinará un recargo por traslado.",
     "iconType": "file"
   },
   {
@@ -2033,14 +2979,21 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "categoryLabel": "Visitas de Presupuesto & Asesorías",
     "price": 20000,
     "unit": "visita",
-    "badge": "En Terreno",
-    "description": "Servicio especializado de visita presupuesto instalación toldo para ventana con estándar técnico profesional y garantía de ejecución.",
+    "badge": "100% Reembolsable",
+    "description": "Evaluación técnica presencial en tu domicilio para levantar medidas, diagnosticar factibilidades de instalación y entregar un presupuesto detallado sin sorpresas. Especialidad: Visita Presupuesto Instalación Toldo para Ventana.",
+    "caracteristicas": "Visita realizada por técnicos o profesionales de obra. Se realiza levantamiento métrico con distanciómetro láser, análisis de preexistencias y asesoría técnica directa.",
     "includes": [
-      "Evaluación técnica presencial en terreno",
-      "Levantamiento de medidas y factibilidad",
-      "Presupuesto formal detallado en 24-48h",
-      "Asesoría técnica personalizada"
+      "Visita presencial coordinada en tu domicilio o terreno",
+      "Levantamiento de medidas milimétricas y revisión de factibilidad",
+      "Diagnóstico del estado de pisos, muros o redes existentes",
+      "Envío de cotización y presupuesto formal en 24 a 48 horas",
+      "El valor total pagado por la visita se descuenta íntegro al contratar el servicio"
     ],
+    "notIncludes": [
+      "Ejecución física de trabajos o reparaciones durante la visita técnica",
+      "Elaboración de planos de arquitectura o memorias de cálculo de ingeniería"
+    ],
+    "conditions": "Válido para el radio urbano estándar. En caso de requerir visitas fuera del radio urbano, se coordinará un recargo por traslado.",
     "iconType": "file"
   },
   {
@@ -2051,14 +3004,21 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "categoryLabel": "Visitas de Presupuesto & Asesorías",
     "price": 20000,
     "unit": "visita",
-    "badge": "En Terreno",
-    "description": "Servicio especializado de visita presupuesto citofonía y videoportero con estándar técnico profesional y garantía de ejecución.",
+    "badge": "100% Reembolsable",
+    "description": "Evaluación técnica presencial en tu domicilio para levantar medidas, diagnosticar factibilidades de instalación y entregar un presupuesto detallado sin sorpresas. Especialidad: Visita Presupuesto Citofonía y Videoportero.",
+    "caracteristicas": "Visita realizada por técnicos o profesionales de obra. Se realiza levantamiento métrico con distanciómetro láser, análisis de preexistencias y asesoría técnica directa.",
     "includes": [
-      "Evaluación técnica presencial en terreno",
-      "Levantamiento de medidas y factibilidad",
-      "Presupuesto formal detallado en 24-48h",
-      "Asesoría técnica personalizada"
+      "Visita presencial coordinada en tu domicilio o terreno",
+      "Levantamiento de medidas milimétricas y revisión de factibilidad",
+      "Diagnóstico del estado de pisos, muros o redes existentes",
+      "Envío de cotización y presupuesto formal en 24 a 48 horas",
+      "El valor total pagado por la visita se descuenta íntegro al contratar el servicio"
     ],
+    "notIncludes": [
+      "Ejecución física de trabajos o reparaciones durante la visita técnica",
+      "Elaboración de planos de arquitectura o memorias de cálculo de ingeniería"
+    ],
+    "conditions": "Válido para el radio urbano estándar. En caso de requerir visitas fuera del radio urbano, se coordinará un recargo por traslado.",
     "iconType": "file"
   },
   {
@@ -2069,14 +3029,21 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "categoryLabel": "Visitas de Presupuesto & Asesorías",
     "price": 20000,
     "unit": "visita",
-    "badge": "En Terreno",
-    "description": "Servicio especializado de visita presupuesto instalación video portero con estándar técnico profesional y garantía de ejecución.",
+    "badge": "100% Reembolsable",
+    "description": "Evaluación técnica presencial en tu domicilio para levantar medidas, diagnosticar factibilidades de instalación y entregar un presupuesto detallado sin sorpresas. Especialidad: Visita Presupuesto Instalación Video Portero.",
+    "caracteristicas": "Visita realizada por técnicos o profesionales de obra. Se realiza levantamiento métrico con distanciómetro láser, análisis de preexistencias y asesoría técnica directa.",
     "includes": [
-      "Evaluación técnica presencial en terreno",
-      "Levantamiento de medidas y factibilidad",
-      "Presupuesto formal detallado en 24-48h",
-      "Asesoría técnica personalizada"
+      "Visita presencial coordinada en tu domicilio o terreno",
+      "Levantamiento de medidas milimétricas y revisión de factibilidad",
+      "Diagnóstico del estado de pisos, muros o redes existentes",
+      "Envío de cotización y presupuesto formal en 24 a 48 horas",
+      "El valor total pagado por la visita se descuenta íntegro al contratar el servicio"
     ],
+    "notIncludes": [
+      "Ejecución física de trabajos o reparaciones durante la visita técnica",
+      "Elaboración de planos de arquitectura o memorias de cálculo de ingeniería"
+    ],
+    "conditions": "Válido para el radio urbano estándar. En caso de requerir visitas fuera del radio urbano, se coordinará un recargo por traslado.",
     "iconType": "file"
   },
   {
@@ -2087,14 +3054,21 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "categoryLabel": "Visitas de Presupuesto & Asesorías",
     "price": 20000,
     "unit": "visita",
-    "badge": "En Terreno",
-    "description": "Servicio especializado de visita presupuesto instalación puertas con estándar técnico profesional y garantía de ejecución.",
+    "badge": "100% Reembolsable",
+    "description": "Evaluación técnica presencial en tu domicilio para levantar medidas, diagnosticar factibilidades de instalación y entregar un presupuesto detallado sin sorpresas. Especialidad: Visita Presupuesto Instalación Puertas.",
+    "caracteristicas": "Visita realizada por técnicos o profesionales de obra. Se realiza levantamiento métrico con distanciómetro láser, análisis de preexistencias y asesoría técnica directa.",
     "includes": [
-      "Evaluación técnica presencial en terreno",
-      "Levantamiento de medidas y factibilidad",
-      "Presupuesto formal detallado en 24-48h",
-      "Asesoría técnica personalizada"
+      "Visita presencial coordinada en tu domicilio o terreno",
+      "Levantamiento de medidas milimétricas y revisión de factibilidad",
+      "Diagnóstico del estado de pisos, muros o redes existentes",
+      "Envío de cotización y presupuesto formal en 24 a 48 horas",
+      "El valor total pagado por la visita se descuenta íntegro al contratar el servicio"
     ],
+    "notIncludes": [
+      "Ejecución física de trabajos o reparaciones durante la visita técnica",
+      "Elaboración de planos de arquitectura o memorias de cálculo de ingeniería"
+    ],
+    "conditions": "Válido para el radio urbano estándar. En caso de requerir visitas fuera del radio urbano, se coordinará un recargo por traslado.",
     "iconType": "file"
   },
   {
@@ -2105,14 +3079,21 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "categoryLabel": "Visitas de Presupuesto & Asesorías",
     "price": 20000,
     "unit": "visita",
-    "badge": "En Terreno",
-    "description": "Servicio especializado de visita presupuesto instalación papel mural con estándar técnico profesional y garantía de ejecución.",
+    "badge": "100% Reembolsable",
+    "description": "Evaluación técnica presencial en tu domicilio para levantar medidas, diagnosticar factibilidades de instalación y entregar un presupuesto detallado sin sorpresas. Especialidad: Visita Presupuesto Instalación Papel Mural.",
+    "caracteristicas": "Visita realizada por técnicos o profesionales de obra. Se realiza levantamiento métrico con distanciómetro láser, análisis de preexistencias y asesoría técnica directa.",
     "includes": [
-      "Evaluación técnica presencial en terreno",
-      "Levantamiento de medidas y factibilidad",
-      "Presupuesto formal detallado en 24-48h",
-      "Asesoría técnica personalizada"
+      "Visita presencial coordinada en tu domicilio o terreno",
+      "Levantamiento de medidas milimétricas y revisión de factibilidad",
+      "Diagnóstico del estado de pisos, muros o redes existentes",
+      "Envío de cotización y presupuesto formal en 24 a 48 horas",
+      "El valor total pagado por la visita se descuenta íntegro al contratar el servicio"
     ],
+    "notIncludes": [
+      "Ejecución física de trabajos o reparaciones durante la visita técnica",
+      "Elaboración de planos de arquitectura o memorias de cálculo de ingeniería"
+    ],
+    "conditions": "Válido para el radio urbano estándar. En caso de requerir visitas fuera del radio urbano, se coordinará un recargo por traslado.",
     "iconType": "file"
   },
   {
@@ -2123,14 +3104,21 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "categoryLabel": "Visitas de Presupuesto & Asesorías",
     "price": 20000,
     "unit": "visita",
-    "badge": "En Terreno",
-    "description": "Servicio especializado de visita presupuesto instalación pasto sintético con estándar técnico profesional y garantía de ejecución.",
+    "badge": "100% Reembolsable",
+    "description": "Evaluación técnica presencial en tu domicilio para levantar medidas, diagnosticar factibilidades de instalación y entregar un presupuesto detallado sin sorpresas. Especialidad: Visita Presupuesto Instalación Pasto Sintético.",
+    "caracteristicas": "Visita realizada por técnicos o profesionales de obra. Se realiza levantamiento métrico con distanciómetro láser, análisis de preexistencias y asesoría técnica directa.",
     "includes": [
-      "Evaluación técnica presencial en terreno",
-      "Levantamiento de medidas y factibilidad",
-      "Presupuesto formal detallado en 24-48h",
-      "Asesoría técnica personalizada"
+      "Visita presencial coordinada en tu domicilio o terreno",
+      "Levantamiento de medidas milimétricas y revisión de factibilidad",
+      "Diagnóstico del estado de pisos, muros o redes existentes",
+      "Envío de cotización y presupuesto formal en 24 a 48 horas",
+      "El valor total pagado por la visita se descuenta íntegro al contratar el servicio"
     ],
+    "notIncludes": [
+      "Ejecución física de trabajos o reparaciones durante la visita técnica",
+      "Elaboración de planos de arquitectura o memorias de cálculo de ingeniería"
+    ],
+    "conditions": "Válido para el radio urbano estándar. En caso de requerir visitas fuera del radio urbano, se coordinará un recargo por traslado.",
     "iconType": "file"
   },
   {
@@ -2141,14 +3129,21 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "categoryLabel": "Visitas de Presupuesto & Asesorías",
     "price": 20000,
     "unit": "visita",
-    "badge": "En Terreno",
-    "description": "Servicio especializado de visita para presupuesto instalación mampara o cabina de ducha con estándar técnico profesional y garantía de ejecución.",
+    "badge": "100% Reembolsable",
+    "description": "Evaluación técnica presencial en tu domicilio para levantar medidas, diagnosticar factibilidades de instalación y entregar un presupuesto detallado sin sorpresas. Especialidad: Visita para presupuesto Instalación Mampara o Cabina de ducha.",
+    "caracteristicas": "Visita realizada por técnicos o profesionales de obra. Se realiza levantamiento métrico con distanciómetro láser, análisis de preexistencias y asesoría técnica directa.",
     "includes": [
-      "Evaluación técnica presencial en terreno",
-      "Levantamiento de medidas y factibilidad",
-      "Presupuesto formal detallado en 24-48h",
-      "Asesoría técnica personalizada"
+      "Visita presencial coordinada en tu domicilio o terreno",
+      "Levantamiento de medidas milimétricas y revisión de factibilidad",
+      "Diagnóstico del estado de pisos, muros o redes existentes",
+      "Envío de cotización y presupuesto formal en 24 a 48 horas",
+      "El valor total pagado por la visita se descuenta íntegro al contratar el servicio"
     ],
+    "notIncludes": [
+      "Ejecución física de trabajos o reparaciones durante la visita técnica",
+      "Elaboración de planos de arquitectura o memorias de cálculo de ingeniería"
+    ],
+    "conditions": "Válido para el radio urbano estándar. En caso de requerir visitas fuera del radio urbano, se coordinará un recargo por traslado.",
     "iconType": "file"
   },
   {
@@ -2159,14 +3154,21 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "categoryLabel": "Visitas de Presupuesto & Asesorías",
     "price": 29990,
     "unit": "visita",
-    "badge": "En Terreno",
-    "description": "Servicio especializado de visita presupuesto instalación lámina para renovar puertas muebles con estándar técnico profesional y garantía de ejecución.",
+    "badge": "100% Reembolsable",
+    "description": "Evaluación técnica presencial en tu domicilio para levantar medidas, diagnosticar factibilidades de instalación y entregar un presupuesto detallado sin sorpresas. Especialidad: Visita Presupuesto Instalación Lámina para Renovar Puertas Muebles.",
+    "caracteristicas": "Visita realizada por técnicos o profesionales de obra. Se realiza levantamiento métrico con distanciómetro láser, análisis de preexistencias y asesoría técnica directa.",
     "includes": [
-      "Evaluación técnica presencial en terreno",
-      "Levantamiento de medidas y factibilidad",
-      "Presupuesto formal detallado en 24-48h",
-      "Asesoría técnica personalizada"
+      "Visita presencial coordinada en tu domicilio o terreno",
+      "Levantamiento de medidas milimétricas y revisión de factibilidad",
+      "Diagnóstico del estado de pisos, muros o redes existentes",
+      "Envío de cotización y presupuesto formal en 24 a 48 horas",
+      "El valor total pagado por la visita se descuenta íntegro al contratar el servicio"
     ],
+    "notIncludes": [
+      "Ejecución física de trabajos o reparaciones durante la visita técnica",
+      "Elaboración de planos de arquitectura o memorias de cálculo de ingeniería"
+    ],
+    "conditions": "Válido para el radio urbano estándar. En caso de requerir visitas fuera del radio urbano, se coordinará un recargo por traslado.",
     "iconType": "file"
   },
   {
@@ -2177,14 +3179,21 @@ export const SODIMAC_SERVICES_CATALOG: ServicePriceItem[] = [
     "categoryLabel": "Visitas de Presupuesto & Asesorías",
     "price": 29990,
     "unit": "visita",
-    "badge": "En Terreno",
-    "description": "Servicio especializado de visita de inspiración con estándar técnico profesional y garantía de ejecución.",
+    "badge": "100% Reembolsable",
+    "description": "Evaluación técnica presencial en tu domicilio para levantar medidas, diagnosticar factibilidades de instalación y entregar un presupuesto detallado sin sorpresas. Especialidad: Visita de inspiración.",
+    "caracteristicas": "Visita realizada por técnicos o profesionales de obra. Se realiza levantamiento métrico con distanciómetro láser, análisis de preexistencias y asesoría técnica directa.",
     "includes": [
-      "Evaluación técnica presencial en terreno",
-      "Levantamiento de medidas y factibilidad",
-      "Presupuesto formal detallado en 24-48h",
-      "Asesoría técnica personalizada"
+      "Visita presencial coordinada en tu domicilio o terreno",
+      "Levantamiento de medidas milimétricas y revisión de factibilidad",
+      "Diagnóstico del estado de pisos, muros o redes existentes",
+      "Envío de cotización y presupuesto formal en 24 a 48 horas",
+      "El valor total pagado por la visita se descuenta íntegro al contratar el servicio"
     ],
+    "notIncludes": [
+      "Ejecución física de trabajos o reparaciones durante la visita técnica",
+      "Elaboración de planos de arquitectura o memorias de cálculo de ingeniería"
+    ],
+    "conditions": "Válido para el radio urbano estándar. En caso de requerir visitas fuera del radio urbano, se coordinará un recargo por traslado.",
     "iconType": "file"
   }
 ];
