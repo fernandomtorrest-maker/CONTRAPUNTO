@@ -9,7 +9,6 @@ import {
   Wrench, 
   Sparkles, 
   MessageCircle, 
-  Clock, 
   Award, 
   Hammer, 
   Flame, 
