@@ -133,6 +133,21 @@ export const ServicesSection = () => {
         </svg>
       ),
       href: '/mantenimiento'
+    },
+    {
+      number: '10',
+      title: 'TARIFARIO & INSTALACIONES',
+      description: 'Catálogo de partidas y servicios express con precios transparentes: pisos, pintura, climatización, gasfitería y armado.',
+      iconSvg: (
+        <svg className="w-12 h-12 text-carbon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+          <polyline points="14 2 14 8 20 8" />
+          <line x1="16" y1="13" x2="8" y2="13" />
+          <line x1="16" y1="17" x2="8" y2="17" />
+          <polyline points="10 9 9 9 8 9" />
+        </svg>
+      ),
+      href: '/servicios'
     }
   ];
 
@@ -150,6 +165,16 @@ export const ServicesSection = () => {
             SOLUCIONES CONSTRUIDAS A TU MEDIDA.
           </h2>
           <span className="accent-line !bg-carbon/40 mt-6" />
+
+          <div className="pt-4">
+            <Link
+              href="/servicios"
+              className="inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-carbon hover:text-[#8d775f] transition-colors group"
+            >
+              <span>Ver Tarifario & Partidas</span>
+              <span className="group-hover:translate-x-1 transition-transform">→</span>
+            </Link>
+          </div>
         </div>
 
         {/* GRID DE SERVICIOS */}
