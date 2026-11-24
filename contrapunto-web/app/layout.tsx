@@ -1,22 +1,20 @@
 import type { Metadata } from 'next';
-import { Inter, Barlow_Condensed } from 'next/font/google';
+import localFont from 'next/font/local';
 import './globals.css';
 import { ChatProvider } from '@/components/ChatContext';
 import ChatWidget from '@/components/ChatWidget';
 
-// ─── Fuentes Google Fonts ──────────────────────────────────────────────────────
-const inter = Inter({
-  subsets: ['latin'],
+// ─── Fuentes Locales (Autocontenidas sin dependencia de red externa) ─────────────
+const inter = localFont({
+  src: './fonts/Inter-Variable.woff2',
   variable: '--font-inter',
   display: 'swap',
-  weight: ['400', '500', '600'],
 });
 
-const barlowCondensed = Barlow_Condensed({
-  subsets: ['latin'],
+const barlowCondensed = localFont({
+  src: './fonts/BarlowCondensed-Variable.woff2',
   variable: '--font-barlow',
   display: 'swap',
-  weight: ['700', '800'],
 });
 
 // ─── SEO Metadata ──────────────────────────────────────────────────────────────
